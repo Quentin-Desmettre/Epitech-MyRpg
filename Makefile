@@ -32,8 +32,10 @@ $(NAME):   $(OBJ)
 
 clean:
 	rm -f $(OBJ)
+	make -s -C lib/my clean
 
 fclean:    clean
 	rm -f $(NAME)
+	make -s -C lib/my fclean
 
 re:        fclean all
