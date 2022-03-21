@@ -1,13 +1,13 @@
 # Prerequisites
 *.d
 
-my_world
+myrpg
 
 *.o
 
 .conf
 
-.vscode
+.vscode/
 
 vgcore.*
 
@@ -40,3 +40,4 @@ vgcore.*
 *.exe
 *.out
 *.app
+build

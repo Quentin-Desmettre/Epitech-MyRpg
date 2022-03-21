@@ -1,0 +1,107 @@
+#!/bin/python
+
+##
+## EPITECH PROJECT, 2021
+## test
+## File description:
+## build_makefile.py
+##
+
+import os
+import sys
+
+def write_header(file):
+    file.write(
+"""##
+## EPITECH PROJECT, 2021
+## Makefile
+## File description:
+## Makefile
+##
+
+""")
+
+def sort_by_size(src):
+    src2 = sorted(src, key=len)
+    return src2
+
+def max_len(src):
+    return len(max(src, key=len))
+
+def get_src():
+    os.system("find . -name \"*.c\" > out")
+    f = open("out", "r")
+    return f.readlines()
+
+def write_src(f, src):
+    m = max_len(src)
+    f.write("SRC = \\\n\t")
+    for i in range(len(src)):
+        if src[i][0:5] == "./lib" or src[i][0:7] == "./bonus" or src[i][0:7] == "./tests":
+            continue
+        src[i] = src[i][:-1]
+        src[i] = src[i][2:]
+        f.write(src[i])
+        if i + 1 < len(src):
+            f.write(" " * (m - len(src[i])))
+            f.write(" \\\n\t")
+    f.write("\n\n")
+
+def write_obj(f):
+    f.write("OBJ = $(SRC:.c=.o)\n\n")
+
+def write_name(f, name):
+    f.write("NAME = ")
+    f.write(name)
+    f.write("\n\n")
+
+def write_flags(f):
+    f.write("CFLAGS = -Wall -Wextra -I ./include/")
+    f.write("\n\n")
+
+def write_lib(f):
+    f.write("LDFLAGS += -L lib/my/ -lmy")
+    if (len(sys.argv) >= 3 and sys.argv[2] == "-csfml"):
+        f.write(" -lcsfml-graphics -lcsfml-window \\\n\t-lcsfml-system -lcsfml-audio")
+    f.write("\n\n")
+
+def all(f):
+    f.write("all: $(NAME)\n\n")
+
+def name(f):
+    f.write("$(NAME):   $(OBJ)\n")
+    f.write("\tmake -s -C lib/my/\n")
+    f.write("\tgcc -o $(NAME) $(FLAGS) $(OBJ) $(LDFLAGS)\n\n")
+
+def clean(f):
+    f.write("clean:\n")
+    f.write("\trm -f $(OBJ)\n\n")
+
+def fclean(f):
+    f.write("fclean:    clean\n")
+    f.write("\trm -f $(NAME)\n\n")
+
+def re(f):
+    f.write("re:        fclean all\n")
+
+def main():
+    file = open("Makefile", "w")
+    # header
+    write_header(file)
+    src = (get_src())
+
+    write_src(file, src)
+    write_obj(file)
+    write_name(file, sys.argv[1])
+    write_flags(file)
+    write_lib(file)
+    all(file)
+    name(file)
+    clean(file)
+    fclean(file)
+    re(file)
+    os.system("rm -f out")
+    file.close()
+    pass
+
+main()
