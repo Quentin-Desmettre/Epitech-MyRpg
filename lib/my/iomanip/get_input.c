@@ -1,0 +1,23 @@
+/*
+** EPITECH PROJECT, 2021
+** get_input
+** File description:
+** get input and display a message
+*/
+
+#include "libmy.h"
+
+char *get_input(char const *message)
+{
+    int c;
+    char buf[4096];
+    char *str;
+
+    my_putstr(message);
+    c = read(0, buf, 4096);
+    buf[c - 1] = '\0';
+    str = my_malloc(sizeof(char) * (c));
+    str[0] = '\0';
+    my_strcat(str, buf);
+    return str;
+}
