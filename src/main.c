@@ -5,6 +5,12 @@
 ** main.c
 */
 
+#include "rpg.h"
+
+void rescale_all(window_t *win)
+{
+}
+
 int main(void)
 {
     return 0;

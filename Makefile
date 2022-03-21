@@ -13,16 +13,29 @@ SRC = \
 	src/sprite/sprite_modif.c                                  \
 	src/globals/fonts.c                                        \
 	src/globals/texture.c                                      \
-	src/main.c
+	src/main.c                                                 \
+	src/settings/apply.c                                       \
+	src/settings/checkbox.c                                    \
+	src/settings/destroy.c                                     \
+	src/settings/load.c                                        \
+	src/settings/move_settings.c                               \
+	src/settings/rendering_evt.c                               \
+	src/settings/save.c                                        \
+	src/settings/scale_settings.c                              \
+	src/settings/set_evt.c                                     \
+	src/settings/set_evt_manager.c                             \
+	src/settings/settings.c                                    \
+	src/settings/sound_evt.c                                   \
+	src/settings/visu_updates.c
 
 OBJ = $(SRC:.c=.o)
 
 NAME = myrpg
 
-CFLAGS = -Wall -Wextra -I ./include/
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/
 
 LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window \
-	-lcsfml-system -lcsfml-audio
+	-lcsfml-system -lcsfml-audio -lm
 
 all: $(NAME)
 
