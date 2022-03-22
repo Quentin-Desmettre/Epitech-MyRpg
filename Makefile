@@ -9,6 +9,9 @@ SRC = \
 	src/button/button.c                                        \
 	src/button/change_button.c                                 \
 	src/button/get_button_ev.c                                 \
+	src/button/build_button.c                                  \
+	src/button/setters.c                                       \
+	src/button/setters_next.c                                  \
 	src/sprite/init_sprite.c                                   \
 	src/sprite/sprite_modif.c                                  \
 	src/globals/fonts.c                                        \
