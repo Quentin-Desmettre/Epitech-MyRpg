@@ -29,13 +29,18 @@ SRC = \
 	src/settings/set_evt_manager.c                             \
 	src/settings/settings.c                                    \
 	src/settings/sound_evt.c                                   \
-	src/settings/visu_updates.c
+	src/settings/visu_updates.c                                \
+	src/main_menu/create.c                                     \
+	src/global_win/init_window.c                               \
+	src/global_win/rescale_all.c                               \
+	src/global_win/transition.c                                \
+	
 
 OBJ = $(SRC:.c=.o)
 
 NAME = myrpg
 
-CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g
 
 LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window \
 	-lcsfml-system -lcsfml-audio -lm

@@ -7,6 +7,7 @@
 
 #include "settings.h"
 #include "libmy.h"
+#include "rpg.h"
 
 sfVector2f conv(sfVector2f c, window_t *win)
 {

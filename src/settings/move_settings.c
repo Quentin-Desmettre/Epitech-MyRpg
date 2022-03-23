@@ -6,6 +6,7 @@
 */
 
 #include "settings.h"
+#include "rpg.h"
 
 static void move_buttons_se(settings_t *se, window_t *win)
 {

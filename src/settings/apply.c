@@ -6,40 +6,37 @@
 */
 
 #include <SFML/Graphics.h>
+#include "rpg.h"
 
-// void recreate_render_texture(window_t *win)
-// {
-//     sfRenderTexture_destroy(((main_menu_t *)win->menus[0])->text);
-//     ((main_menu_t *)win->menus[0])->text =
-//     sfRenderTexture_create(win->mode.width, win->mode.height, 0);
+void recreate_render_texture(window_t *win)
+{
+    sfRenderTexture_destroy(((settings_t *)win->menus[SETTINGS])->rtex);
+    ((settings_t *)win->menus[SETTINGS])->rtex =
+    sfRenderTexture_create(win->mode.width, win->mode.height, 0);
+}
 
-//     sfRenderTexture_destroy(((settings_t *)win->menus[2])->rtex);
-//     ((settings_t *)win->menus[2])->rtex =
-//     sfRenderTexture_create(win->mode.width, win->mode.height, 0);
-// }
+void apply_mode(settings_t *se, window_t *win)
+{
+    bool is_fullscreen = se->full_screen->is_checked;
 
-// void apply_mode(settings_t *se, window_t *win)
-// {
-//     bool is_fullscreen = se->full_screen->is_checked;
+    if (is_fullscreen) {
+        sfSprite_setColor(se->res_button->sprite,
+        (sfColor){127, 127, 127, 255});
+        win->mode = sfVideoMode_getDesktopMode();
+    } else
+        win->mode = available_modes[se->resolution];
+    recreate_render_texture(win);
+    sfRenderWindow_destroy(win->win);
+    win->win = sfRenderWindow_create(win->mode, "My world",
+    is_fullscreen ? sfFullscreen : sfClose, NULL);
+    rescale_all(win);
+}
 
-//     if (is_fullscreen) {
-//         sfSprite_setColor(se->res_button->sprite,
-//         (sfColor){127, 127, 127, 255});
-//         win->mode = sfVideoMode_getDesktopMode();
-//     } else
-//         win->mode = available_modes[se->resolution];
-//     recreate_render_texture(win);
-//     sfRenderWindow_destroy(win->win);
-//     win->win = sfRenderWindow_create(win->mode, "My world",
-//     is_fullscreen ? sfFullscreen : sfClose, NULL);
-//     rescale_all(win);
-// }
-
-// void apply_settings(settings_t *se, window_t *win)
-// {
-//     apply_mode(se, win);
-//     sfRenderWindow_setFramerateLimit(win->win,
-//     available_framerates[se->framerate]);
-//     sfRenderWindow_setVerticalSyncEnabled(win->win, se->vsync->is_checked);
-//     update_all_texts(se);
-// }
+void apply_settings(settings_t *se, window_t *win)
+{
+    apply_mode(se, win);
+    sfRenderWindow_setFramerateLimit(win->win,
+    available_framerates[se->framerate]);
+    sfRenderWindow_setVerticalSyncEnabled(win->win, se->vsync->is_checked);
+    update_all_texts(se);
+}

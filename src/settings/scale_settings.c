@@ -7,6 +7,7 @@
 
 #include "settings.h"
 #include <math.h>
+#include "rpg.h"
 
 static void rescale_sounds(settings_t *se, window_t *win)
 {

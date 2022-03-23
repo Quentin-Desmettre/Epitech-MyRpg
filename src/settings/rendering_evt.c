@@ -6,6 +6,7 @@
 */
 
 #include "settings.h"
+#include "rpg.h"
 
 void go_back(settings_t *se, window_t *win)
 {

@@ -6,20 +6,22 @@
 */
 
 #include "settings.h"
+#include "rpg.h"
 
 void check_sound_repeat(window_t *win, sfEvent *ev)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft) && win->state == SETTINGS &&
     sfClock_getElapsedTime(win->lum_clock).microseconds > 1000000 / 25.0 &&
     sfClock_getElapsedTime(
-    ((settings_t *)win->menus[2])->repeat_clock).microseconds > REPEAT_DELAY) {
+    ((settings_t *)win->menus[SETTINGS])->repeat_clock).microseconds
+    > REPEAT_DELAY) {
         ev->mouseButton.x = sfMouse_getPositionRenderWindow(win->win).x;
         ev->mouseButton.y = sfMouse_getPositionRenderWindow(win->win).y;
         ev->type = sfEvtResized;
-        if (get_set_button_at(win->menus[2], ev) <= 4)
+        if (get_set_button_at(win->menus[SETTINGS], ev) <= 4)
             return;
         manage_settings_press(ev, win);
-        update_all_texts(win->menus[2]);
+        update_all_texts(win->menus[SETTINGS]);
         sfClock_restart(win->lum_clock);
     }
 }
@@ -45,7 +47,7 @@ int get_set_button_at(settings_t *se, sfEvent *ev)
 
 void manage_settings_hover(sfEvent *ev, window_t *win)
 {
-    settings_t *se = win->menus[2];
+    settings_t *se = win->menus[SETTINGS];
     button_t *buttons[9] = {se->back, NULL, NULL, se->res_button,
     se->framerate_button, se->sfx_minus, se->sfx_plus,
     se->music_minus, se->music_plus};
@@ -64,7 +66,7 @@ void manage_settings_hover(sfEvent *ev, window_t *win)
 
 void manage_settings_press(sfEvent *ev, window_t *win)
 {
-    settings_t *se = win->menus[2];
+    settings_t *se = win->menus[SETTINGS];
     button_t *buttons[9] = {se->back, NULL, NULL, se->res_button,
     se->framerate_button, se->sfx_minus, se->sfx_plus,
     se->music_minus, se->music_plus};
@@ -88,7 +90,7 @@ void manage_settings_press(sfEvent *ev, window_t *win)
 
 void manage_settings_release(sfEvent *ev, window_t *win)
 {
-    settings_t *se = win->menus[2];
+    settings_t *se = win->menus[SETTINGS];
     int tmp = get_set_button_at(se, ev);
     void (*actions[9])(settings_t *, window_t *) = {
         go_back, update_full_screen, update_vsync,
@@ -103,7 +105,7 @@ void manage_settings_release(sfEvent *ev, window_t *win)
     if (tmp < 0 ||
     (tmp == 3 && se->full_screen->is_checked))
         return;
-    if (actions[tmp] && buttons[tmp] && is_press)
+    if (actions[tmp] && ((buttons[tmp] && is_press) || !buttons[tmp]))
         actions[tmp](se, win);
     update_all_texts(se);
 }

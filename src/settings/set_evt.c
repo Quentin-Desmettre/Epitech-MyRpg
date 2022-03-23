@@ -6,6 +6,7 @@
 */
 
 #include "settings.h"
+#include "rpg.h"
 
 void settings_ev(window_t *win, sfEvent ev)
 {
