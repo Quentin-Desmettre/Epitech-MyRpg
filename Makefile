@@ -33,12 +33,11 @@ SRC = \
 	src/main_menu/create.c                                     \
 	src/global_win/init_window.c                               \
 	src/global_win/rescale_all.c                               \
-	src/global_win/transition.c                                \
-	
+	src/global_win/transition.c
 
 OBJ = $(SRC:.c=.o)
 
-NAME = myrpg
+NAME = my_rpg
 
 CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g
 
@@ -52,11 +51,37 @@ $(NAME):   $(OBJ)
 	gcc -o $(NAME) $(FLAGS) $(OBJ) $(LDFLAGS)
 
 clean:
+	find . -name "*.o" -delete
 	rm -f $(OBJ)
-	make -s -C lib/my clean
 
 fclean:    clean
 	rm -f $(NAME)
-	make -s -C lib/my fclean
+	rm -f *.c~
+	rm -f *.out
+	rm -f vgcore*
+	rm -f *.gcda
+	rm -f *.gcno
+	rm -f unit_tests*
 
 re:        fclean all
+
+run: all
+	./$(NAME)
+
+lib_fclean:
+	cd lib/my/ && make fclean
+
+push_fclean: fclean
+	cd lib/my/ && make fclean
+
+re:	fclean all
+
+valgrind: all
+	valgrind --track-origins=yes --leak-check=full \
+	--show-leak-kinds=definite,indirect ./$(NAME)
+
+tests_run: exec_lib
+	gcc -o unit_tests $(SRC) tests/*.c -Llib/ -lmy --coverage -lcriterion
+	./unit_tests
+	gcovr --exclude tests
+	gcovr -b --exclude tests
