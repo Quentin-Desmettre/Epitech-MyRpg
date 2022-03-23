@@ -33,7 +33,9 @@ SRC = \
 	src/main_menu/create.c                                     \
 	src/global_win/init_window.c                               \
 	src/global_win/rescale_all.c                               \
-	src/global_win/transition.c
+	src/global_win/transition.c                                \
+	src/clock/my_clock.c                                       \
+	src/clock/time.c
 
 OBJ = $(SRC:.c=.o)
 
