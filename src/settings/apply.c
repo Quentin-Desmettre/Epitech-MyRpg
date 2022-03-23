@@ -26,7 +26,6 @@ void apply_mode(settings_t *se, window_t *win)
     } else
         win->mode = available_modes[se->resolution];
     recreate_render_texture(win);
-    sfRenderWindow_destroy(win->win);
     win->win = sfRenderWindow_create(win->mode, "My world",
     is_fullscreen ? sfFullscreen : sfClose, NULL);
     rescale_all(win);
