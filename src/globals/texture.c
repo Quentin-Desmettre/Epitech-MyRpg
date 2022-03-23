@@ -9,7 +9,7 @@
 
 sfTexture *global_texture(void)
 {
-    sfTexture *t = 0;
+    static sfTexture *t = 0;
 
     if (!t)
         t = sfTexture_createFromFile(GLOBAL_TEXTURE, NULL);
