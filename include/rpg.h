@@ -7,10 +7,12 @@
 
 #ifndef RPG_H
     #define RPG_H
+    #include <string.h>
     #include <SFML/Window.h>
     #include <SFML/Graphics.h>
     #include "settings.h"
     #include "sprite.h"
+    #include "npc.h"
 
     #define REPEAT_DELAY 500000
     #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
@@ -39,7 +41,7 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT
+    SETTINGS, HOME, EXIT, GAME
 } state_t;
 
 static const sfIntRect back_rect = {
