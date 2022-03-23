@@ -6,10 +6,11 @@
 */
 
 #include "rpg.h"
+#include "game.h"
 
 static void create_basics(window_t *win)
 {
-    win->state = SETTINGS;
+    win->state = GAME;
     win->next_state = HOME;
     win->is_transition = 0;
     win->mode = (sfVideoMode){800, 600, 32};
@@ -25,10 +26,10 @@ static void create_settings(window_t *win)
 static void create_pointers(window_t *win)
 {
     const sfTexture* (*dr[6])(window_t *) = {
-        draw_settings, NULL, NULL, NULL, NULL, NULL
+        draw_settings, NULL, NULL, draw_game, NULL, NULL
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        settings_ev, NULL, NULL, NULL, NULL, NULL
+        settings_ev, NULL, NULL, game_ev, NULL, NULL
     };
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];
@@ -43,6 +44,7 @@ window_t *window_create(int ac, char **av)
     create_pointers(win);
     create_basics(win);
     create_settings(win);
+    win->menus[GAME] = game_create(win);
     apply_settings(win->menus[SETTINGS], win);
     return win;
 }
