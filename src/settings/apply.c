@@ -8,14 +8,14 @@
 #include <SFML/Graphics.h>
 #include "rpg.h"
 
-void recreate_render_texture(window_t *win)
+static void recreate_render_texture(window_t *win)
 {
     sfRenderTexture_destroy(((settings_t *)win->menus[SETTINGS])->rtex);
     ((settings_t *)win->menus[SETTINGS])->rtex =
     sfRenderTexture_create(win->mode.width, win->mode.height, 0);
 }
 
-void apply_mode(settings_t *se, window_t *win)
+static void apply_mode(settings_t *se, window_t *win)
 {
     bool is_fullscreen = se->full_screen->is_checked;
 

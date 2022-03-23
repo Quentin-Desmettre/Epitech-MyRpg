@@ -13,10 +13,12 @@
     #include "sprite.h"
 
     #define REPEAT_DELAY 500000
+    #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
 
 typedef struct {
     button_t *buttons[5];
     sfSprite *background;
+    sfRenderTexture *rtex;
 } main_menu_t;
 
 typedef struct win {
@@ -66,8 +68,24 @@ sfVector2f conv(sfVector2f c, window_t *win);
 settings_t *init_settings(window_t *win);
 void apply_settings(settings_t *se, window_t *win);
 
-window_t *window_create(int ac, char **av);
+// window
+window_t *window_create(void);
 void rescale_all(window_t *win);
 void update_transition(window_t *win, sfSprite *s);
+void set_next_win_state(window_t *win, int state);
+
+// main menu
+const sfTexture *draw_main_menu(window_t *m);
+main_menu_t *create_main_menu(sfVector2f win_size);
+void rescale_main_menu(main_menu_t *m, sfVector2f win_size);
+void destroy_main_menu(main_menu_t *m);
+void main_menu_ev(window_t *win, sfEvent ev);
+
+// mainmenu events
+void quit_main_menu(void *win);
+void go_to_settings(void *win);
+void go_to_local_save(void *win);
+void go_to_map_editor(void *win);
+void go_to_online_level(void *win);
 
 #endif

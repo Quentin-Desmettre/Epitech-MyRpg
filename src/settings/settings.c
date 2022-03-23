@@ -17,7 +17,7 @@ sfVector2f conv(sfVector2f c, window_t *win)
     return (sfVector2f){nx, ny};
 }
 
-button_t *init_set_button(const sfIntRect rect)
+static button_t *init_set_button(const sfIntRect rect)
 {
     button_t *b = malloc(sizeof(button_t));
 
@@ -29,7 +29,7 @@ button_t *init_set_button(const sfIntRect rect)
     return b;
 }
 
-void init_all_settings_button(settings_t *se)
+static void init_all_settings_button(settings_t *se)
 {
     se->framerate_button = init_set_button(settings_rects[2]);
     se->res_button = init_set_button(settings_rects[7]);

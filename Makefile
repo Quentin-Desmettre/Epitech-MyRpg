@@ -31,6 +31,7 @@ SRC = \
 	src/settings/sound_evt.c                                   \
 	src/settings/visu_updates.c                                \
 	src/main_menu/create.c                                     \
+	src/main_menu/events.c									   \
 	src/global_win/init_window.c                               \
 	src/global_win/rescale_all.c                               \
 	src/global_win/transition.c                                \

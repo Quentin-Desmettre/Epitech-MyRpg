@@ -16,3 +16,10 @@ void set_rect(button_t *b, va_list va)
 {
     sfSprite_setTextureRect(b->sprite, va_arg(va, sfIntRect));
 }
+
+void set_f_size(button_t *b, va_list va)
+{
+    float size = va_arg(va, double);
+
+    b->font_factor = size;
+}

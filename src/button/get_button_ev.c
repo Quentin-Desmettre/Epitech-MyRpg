@@ -33,6 +33,22 @@ void check_button_press(button_t **buttons, int nb_button, float x, float y)
         press_button(buttons[i], is_on_button(pos, buttons[i]));
 }
 
+void check_button_release(button_t **buttons, int nb_button,
+sfVector2f pos, void *win)
+{
+    int button = button_at(buttons, nb_button, pos.x, pos.y);
+    int is_pressed = button >= 0 ? buttons[button]->is_press : 0;
+
+    for (int i = 0; i < nb_button; i++)
+        press_button(buttons[i], 0);
+    if (button < 0)
+        return;
+    if (!is_pressed)
+        return;
+    if (buttons[button]->action)
+        buttons[button]->action(win);
+}
+
 int button_at(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};

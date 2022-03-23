@@ -7,7 +7,7 @@
 
 #include "settings.h"
 
-void destroy_buttons(settings_t *se)
+static void destroy_buttons(settings_t *se)
 {
     destroy_button(se->back);
     destroy_button(se->framerate_button);

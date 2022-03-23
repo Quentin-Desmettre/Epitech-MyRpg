@@ -9,6 +9,6 @@
 
 void rescale_all(window_t *win)
 {
-    sfVector2f size = {win->mode.width, win->mode.height};
     rescale_settings(win->menus[SETTINGS], win);
+    rescale_main_menu(win->menus[HOME], WIN_SIZE(win));
 }

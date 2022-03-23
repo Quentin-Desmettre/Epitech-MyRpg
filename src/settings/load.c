@@ -10,7 +10,7 @@
 #include "settings.h"
 #include <sys/stat.h>
 
-void load_mode(int fd, settings_t *se)
+static void load_mode(int fd, settings_t *se)
 {
     char mode;
 
@@ -22,7 +22,7 @@ void load_mode(int fd, settings_t *se)
         se->resolution = mode;
 }
 
-void load_framerate(int fd, settings_t *se)
+static void load_framerate(int fd, settings_t *se)
 {
     char fram;
 
@@ -32,7 +32,7 @@ void load_framerate(int fd, settings_t *se)
         se->framerate = fram;
 }
 
-void load_vsync(int fd, settings_t *se)
+static void load_vsync(int fd, settings_t *se)
 {
     char vsync;
 
@@ -41,7 +41,7 @@ void load_vsync(int fd, settings_t *se)
     se->vsync->is_checked = vsync;
 }
 
-void load_musics(int fd, settings_t *se)
+static void load_musics(int fd, settings_t *se)
 {
     char data[2];
     int c = read(fd, data, 2);

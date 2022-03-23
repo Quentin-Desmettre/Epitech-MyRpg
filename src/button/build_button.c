@@ -7,7 +7,7 @@
 
 #include "button.h"
 
-void init_default(button_t *b)
+static void init_default(button_t *b)
 {
     b->size_fac = (sfVector2f){1, 1};
     b->pos_fac = (sfVector2f){1, 1};
@@ -15,9 +15,12 @@ void init_default(button_t *b)
     b->action = NULL;
     b->text = init_text("", 0);
     b->sprite = init_sprite_from_texture(global_texture());
+    b->font_factor = 0;
+    b->is_hover = 0;
+    b->is_press = 0;
 }
 
-void button_set_container_size(button_t *b, sfVector2f new_size)
+static void button_set_container_size(button_t *b, sfVector2f new_size)
 {
     b->container_size = new_size;
     update_button(b);
@@ -31,9 +34,14 @@ void update_button(button_t *b)
     b->size = (sfVector2f){sf.x * cs.x, sf.y * cs.y};
     b->pos = (sfVector2f){pf.x * cs.x, pf.y * cs.y};
 
+    if (sf.x == 0.0)
+        b->size.x = b->size.y;
+    if (sf.y == 0.0)
+        b->size.y = b->size.x;
+
     set_sprite_size(b->sprite, b->size);
     sfSprite_setPosition(b->sprite, b->pos);
-    sfText_setCharacterSize(b->text, b->size.y);
+    sfText_setCharacterSize(b->text, b->size.y * b->font_factor);
     sfText_setPosition(b->text, b->pos);
 }
 
@@ -41,16 +49,16 @@ button_t *build_button(char *format, ...)
 {
     button_t *b = malloc(sizeof(button_t));
     char *params[] = {"sf", "pf", "base_size",
-    "release", "text", "texture", "rect", NULL};
+    "release", "text", "texture", "rect", "ff", NULL};
     void (*setters[])(button_t *, va_list) = {set_sf, set_pf,
-    set_base_size, set_release, set_text, set_texture, set_rect};
+    set_base_size, set_release, set_text, set_texture, set_rect, set_f_size};
     char **p = my_str_to_word_array(format, ",");
     va_list va;
     init_default(b);
     va_start(va, format);
     for (int i = 0, index = 0; p[i]; i++) {
         index = index_str_in_array(params, p[i]);
-        if (index >= 0 && index < 7)
+        if (index >= 0 && index < 8)
             setters[index](b, va);
     }
     va_end(va);

@@ -7,16 +7,17 @@
 
 #include "rpg.h"
 
-void win_destroy(window_t *win)
+static void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
     save_settings(win->menus[SETTINGS]);
     destroy_settings(win->menus[SETTINGS]);
+    destroy_main_menu(win->menus[HOME]);
     sfClock_destroy(win->lum_clock);
     free(win);
 }
 
-void draw(window_t *win)
+static void draw(window_t *win)
 {
     const sfTexture* tex = win->draw[win->state] ?
     win->draw[win->state](win) : NULL;
@@ -33,13 +34,13 @@ void draw(window_t *win)
 void set_next_win_state(window_t *win, int next)
 {
     win->next_state = next;
-    win->is_transition = true;
+    win->is_transition = 1;
 }
 
-void poll_events(window_t *win)
+static void poll_events(window_t *win)
 {
     sfEvent ev;
-    sfVector2f win_size = {win->mode.width, win->mode.height};
+
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
         if (ev.type == sfEvtClosed)
             set_next_win_state(win, EXIT);
@@ -50,13 +51,13 @@ void poll_events(window_t *win)
         check_sound_repeat(win, &ev);
 }
 
-int main(int ac, char **av)
+int main(void)
 {
     window_t *win;
 
     if (!global_texture() || !global_font())
         return 84;
-    win = window_create(ac, av);
+    win = window_create();
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
