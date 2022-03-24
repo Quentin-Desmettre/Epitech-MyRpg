@@ -27,12 +27,12 @@ sfSprite *init_sprite_from_texture(sfTexture const *t)
     return s;
 }
 
-sfText *init_text(char const *str, int charSize)
+sfText *init_text(char const *str, int char_size)
 {
     sfText *t = sfText_create();
 
     sfText_setFont(t, global_font());
-    sfText_setCharacterSize(t, charSize);
+    sfText_setCharacterSize(t, char_size);
     sfText_setString(t, str);
     return t;
 }
