@@ -12,19 +12,7 @@ SRC = \
 	./iomanip/my_putchar.c                              \
 	./iomanip/my_putstr.c                               \
 	./iomanip/my_show_word_array.c                      \
-	./linked_list/data_manip/apply_on_nodes.c           \
-	./linked_list/data_manip/rev_list.c                 \
-	./linked_list/data_manip/sort_list.c                \
-	./linked_list/data_manip/apply_on_matching_nodes.c  \
-	./linked_list/get_data/find_node.c                  \
-	./linked_list/get_data/list_size.c                  \
-	./linked_list/size_manip/add_in_sorted_list.c       \
-	./linked_list/size_manip/append_node.c              \
-	./linked_list/size_manip/concat_list.c              \
-	./linked_list/size_manip/delete_nodes.c             \
-	./linked_list/size_manip/delete_single_node.c       \
-	./linked_list/size_manip/insert_in_list.c           \
-	./linked_list/size_manip/merge_lists.c              \
+	./linked_list/append_node.c                         \
 	./my_printf/src/casts/floats.c                      \
 	./my_printf/src/casts/get_raw_str.c                 \
 	./my_printf/src/casts/signed_casts.c                \
