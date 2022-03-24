@@ -6,11 +6,6 @@
 ##
 
 SRC = \
-	src/global_win/init_window.c				\
-	src/global_win/rescale_all.c				\
-	src/global_win/transition.c					\
-	src/clock/my_clock.c						\
-	src/clock/time.c							\
 	src/button/button.c							\
 	src/button/change_button.c					\
 	src/button/get_button_ev.c					\
