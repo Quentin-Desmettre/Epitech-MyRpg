@@ -15,5 +15,9 @@ typedef struct linked_list {
     struct linked_list *prev;
 } list_t;
 
+typedef struct list {
+    void *data;
+    struct list *next;
+} s_list_t;
 
 #endif

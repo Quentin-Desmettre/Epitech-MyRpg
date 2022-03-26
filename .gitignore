@@ -11,6 +11,9 @@ my_rpg
 
 vgcore.*
 
+lib/my/include/my_malloc.h
+lib/my/linked_list/my_malloc.c
+
 # Compiled Object files
 *.slo
 *.lo
