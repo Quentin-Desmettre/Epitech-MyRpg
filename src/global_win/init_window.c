@@ -10,7 +10,7 @@
 
 static void create_basics(window_t *win)
 {
-    win->state = HOME;
+    win->state = GAME;
     win->next_state = HOME;
     win->is_transition = 0;
     win->mode = (sfVideoMode){800, 600, 32};
@@ -26,10 +26,10 @@ static void create_settings(window_t *win)
 static void create_pointers(window_t *win)
 {
     const sfTexture* (*dr[6])(window_t *) = {
-        draw_settings, draw_main_menu, draw_game, NULL, NULL, NULL
+        draw_settings, draw_main_menu, NULL, draw_game, NULL, NULL
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        settings_ev, main_menu_ev, game_ev, NULL, NULL, NULL
+        settings_ev, main_menu_ev, NULL, game_ev, NULL, NULL
     };
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];
