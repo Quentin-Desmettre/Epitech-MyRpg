@@ -9,10 +9,12 @@
     #define GAME_H_
 
     #include "rpg.h"
+    #include "player.h"
     #include "npc.h"
 
 typedef struct game {
     sfRenderTexture *rtex;
+    npc_t *player;
 } game_t;
 
 game_t *game_create(window_t *win);

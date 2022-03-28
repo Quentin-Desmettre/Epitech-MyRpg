@@ -38,7 +38,10 @@ SRC = \
 	src/clock/my_clock.c						\
 	src/clock/time.c							\
 	src/game/init_game.c						\
-	src/builders/npc.c
+	src/builders/npc.c							\
+	src/builders/npc_setters.c					\
+	src/builders/npc_setters2.c					\
+	src/builders/npc_setters3.c					\
 
 OBJ = $(SRC:.c=.o)
 
