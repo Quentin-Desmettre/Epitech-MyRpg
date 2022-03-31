@@ -35,6 +35,25 @@ pile_t *create_pile(maze_t *maze)
     return pile;
 }
 
+void init_room(level_t *level, maze_t *maze)
+{
+    level->room = my_malloc(sizeof(char *) * (maze->nb_line + 3));
+    level->room[0] = my_malloc(sizeof(char) * (maze->nb_col + 3));
+    level->room[maze->nb_line + 1] = my_malloc(sizeof(char) *
+    (maze->nb_col + 3));
+    for (int i = 0; i < maze->nb_col + 2; i++) {
+        level->room[0][i] = 'X';
+        level->room[maze->nb_line + 1][i] = 'X';
+    }
+    level->room[0][maze->nb_col + 2] = 0;
+    level->room[maze->nb_line + 1][maze->nb_col + 2] = 0;
+    level->room[maze->nb_line + 2] = 0;
+    for (unsigned int i = 0; i < maze->index_end; i++) {
+        if (maze->grid[i] == 'X' && !(rand() % COMPLEXITY))
+            maze->grid[i] = '*';
+    }
+}
+
 void create_room(level_t *level)
 {
     maze_t *maze = create_maze(level);
@@ -44,15 +63,21 @@ void create_room(level_t *level)
         if (!for_content(maze, pile, pile->path[pile->count - 1]))
             pop(pile);
     }
-    level->room = my_malloc(sizeof(char *) * (maze->nb_line + 1));
+    init_room(level, maze);
     for (int i = 0; i < maze->nb_line; i++) {
-        level->room[i] =
-        my_strndup(maze->grid + (i * maze->nb_col), maze->nb_col);
+        level->room[i + 1] = my_malloc(sizeof(char) * (maze->nb_col + 3));
+        level->room[i + 1][0] = 'X';
+        my_strncpy(level->room[i + 1] + 1, maze->grid +
+        (i * maze->nb_col), maze->nb_col);
+        level->room[i + 1][maze->nb_col + 1] = 'X';
+        level->room[i + 1][maze->nb_col + 2] = 0;
     }
-    level->room[maze->nb_line] = NULL;
-    free(pile->path);
-    free(maze->grid);
-    free(maze->visited);
-    free(pile);
-    free(maze);
+    my_free("ppppp", pile->path, maze->grid, maze->visited, pile, maze);
+    my_show_word_array(level->room);
+}
+
+void new_room(level_t *level)
+{
+    my_free("P", level->room);
+    create_room(level);
 }

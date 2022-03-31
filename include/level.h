@@ -11,9 +11,12 @@
 /// level default texture
     #define DEFAULT_TEXT "assets/texture.png"
 
+/// level complexity
+    #define COMPLEXITY 3
+
 /// level sizes
-static const sfVector2f BIG = {40, 40};
-static const sfVector2f SMALL = {20, 20};
+static const sfVector2f BIG = {32, 62};
+static const sfVector2f SMALL = {15, 30};
 
 /// level structure
 typedef struct level {
@@ -45,8 +48,9 @@ void set_level_name(level_t *level, va_list va);
 void set_level_txt(level_t *level, va_list va);
 void set_level_size(level_t *level, va_list va);
 
-/// room builder
+/// room builders
 void create_room(level_t *level);
+void new_room(level_t *level);
 
 /// string of all the parameters
     #define LEVEL_PARAMS "dnts"

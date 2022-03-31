@@ -16,7 +16,7 @@ void destroy_game(game_t *game)
     sfTexture_destroy(game->level->texture);
     sfSprite_destroy(game->player->sprite);
     sfTexture_destroy(game->player->texture);
-    for (int i = 0; i <= game->level->size.x; i++)
+    for (int i = 0; i < game->level->size.x + 3; i++)
         free(game->level->room[i]);
     for (int i = 0; i < game->player->nb_rects; i++)
         free(game->player->rects[i]);
@@ -41,6 +41,8 @@ void game_ev(window_t *win, sfEvent ev)
             game->player->dir = DOWN;
         if (ev.key.code == sfKeyD)
             game->player->dir = RIGHT;
+        if (ev.key.code == sfKeyR)
+            new_room(game->level);
     }
 }
 
@@ -78,7 +80,7 @@ game_t *game_create(window_t *win)
     game->rtex = sfRenderTexture_create(win->mode.width, win->mode.height, 0);
     game->player = npc_create("tnihafv", P_TEXT, p_frames, p_rects,
     P_HEALTH, P_ATK, P_DEF, P_SPD);
-    game->level = level_create("dnt", 0, LOBBY_NAME, LOBBY_TEXT);
+    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, SMALL);
     game->clock = sfClock_create();
     return game;
 }
