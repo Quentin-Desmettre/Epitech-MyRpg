@@ -41,5 +41,6 @@ void re_alloc(char **str, char *new, int is_free);
 int index_of(char c, char const *str);
 void free_str_array(char **array, int include_null);
 void my_memset(void *what, int c, int n);
+char *my_strndup(char const *src, int nb);
 
 #endif

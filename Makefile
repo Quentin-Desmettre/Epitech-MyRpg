@@ -42,6 +42,11 @@ SRC = \
 	src/builders/npc_setters.c					\
 	src/builders/npc_setters2.c					\
 	src/builders/npc_setters3.c					\
+	src/builders/level.c						\
+	src/builders/level_setters.c				\
+	src/room/room.c								\
+	src/room/generator.c						\
+	src/room/valid.c							\
 
 OBJ = $(SRC:.c=.o)
 

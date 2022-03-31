@@ -13,6 +13,7 @@ static void win_destroy(window_t *win)
     save_settings(win->menus[SETTINGS]);
     destroy_settings(win->menus[SETTINGS]);
     destroy_main_menu(win->menus[HOME]);
+    destroy_game(win->menus[GAME]);
     sfClock_destroy(win->lum_clock);
     free(win);
 }

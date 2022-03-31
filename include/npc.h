@@ -12,7 +12,7 @@
     #define LEFT 0
     #define UP 1
     #define RIGHT 2
-    #define BOTTOM 3
+    #define DOWN 3
     #define IDLE 4
 
 /// npc structure
@@ -27,6 +27,7 @@ typedef struct npc {
     int health;
     int attack;
     int defense;
+    int nb_rects;
     int speed;
     sfVector2f pos;
     sfVector2f scale;
@@ -73,12 +74,5 @@ void set_npc_scale(npc_t *npc, va_list va);
 
 /// string of all the parameters
     #define NPC_PARAMS "tnidgshafvpc"
-
-/// array of function pointers to npc setters
-static void (*npc_setters[])(npc_t *, va_list) = {
-    set_npc_txt, set_npc_frames, set_npc_rects, set_npc_dir, set_npc_grp,
-    set_npc_initframe, set_npc_health, set_npc_atk, set_npc_def, set_npc_spd,
-    set_npc_pos, set_npc_scale
-};
 
 #endif

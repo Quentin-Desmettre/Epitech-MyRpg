@@ -12,6 +12,9 @@
     #include <SFML/Graphics.h>
     #include "settings.h"
     #include "sprite.h"
+    #include "level.h"
+    #include "room.h"
+    #include "game.h"
     #include "npc.h"
 
     #define REPEAT_DELAY 500000
@@ -89,5 +92,11 @@ void go_to_settings(void *win);
 void go_to_local_save(void *win);
 void go_to_map_editor(void *win);
 void go_to_online_level(void *win);
+
+// game
+game_t *game_create(window_t *win);
+void game_ev(window_t *win, sfEvent ev);
+const sfTexture *draw_game(window_t *win);
+void destroy_game(game_t *game);
 
 #endif

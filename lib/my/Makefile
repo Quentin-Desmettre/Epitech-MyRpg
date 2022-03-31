@@ -48,6 +48,7 @@ SRC = \
 	./strmanip/replace_str.c                            \
 	./strmanip/str_array_contain.c                      \
 	./strmanip/my_malloc.c                              \
+	./strmanip/my_strndup.c                             \
 	./strmanip/strconcat.c
 
 OBJ = $(SRC:.c=.o)

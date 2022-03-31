@@ -45,12 +45,12 @@ static const sfIntRect p_rect_right[5] = {
     {0, 0, 500, 100}
 };
 
-static const sfIntRect p_rect_bottom[5] = {
+static const sfIntRect p_rect_down[5] = {
     {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100}
+    {0, 0, 100, 200},
+    {0, 0, 100, 300},
+    {0, 0, 100, 400},
+    {0, 0, 100, 500}
 };
 
 static const sfIntRect p_rect_idle[5] = {
@@ -61,11 +61,11 @@ static const sfIntRect p_rect_idle[5] = {
     {0, 0, 100, 100}
 };
 
-static const sfIntRect *p_rects[4] = {
+static const sfIntRect *p_rects[5] = {
     p_rect_left,
     p_rect_top,
     p_rect_right,
-    p_rect_bottom,
+    p_rect_down,
     p_rect_idle
 };
 

@@ -22,7 +22,6 @@ void set_npc_frames(npc_t *npc, va_list va)
     npc->nb_frames = malloc(sizeof(int) * (size + 1));
     for (int i = 0; i < size; i++)
         npc->nb_frames[i] = frames[i];
-    printf("%i\n", size);
     npc->nb_frames[size] = 0;
 }
 
@@ -32,7 +31,8 @@ void set_npc_rects(npc_t *npc, va_list va)
     sfIntRect **rects = va_arg(va, sfIntRect **);
 
     for (; npc->nb_frames[size]; size++);
-    npc->rects = malloc(sizeof(sfIntRect *) * (size + 1));
+    npc->nb_rects = size;
+    npc->rects = malloc(sizeof(sfIntRect *) * size);
     for (int i = 0; i < size; i++) {
         npc->rects[i] = malloc(sizeof(sfIntRect) * (npc->nb_frames[i] + 1));
         for (int j = 0; j < npc->nb_frames[i]; j++) {
