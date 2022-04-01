@@ -16,7 +16,7 @@
 
 /// level sizes
 static const sfVector2f BIG = {32, 62};
-static const sfVector2f SMALL = {15, 30};
+static const sfVector2f SMALL = {13, 18};
 
 /// level structure
 typedef struct level {

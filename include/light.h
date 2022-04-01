@@ -32,9 +32,9 @@
     #define _A 255
     #define PI 3.14159265359
     #define _SIZE 60.0
-    #define MAP_S 32
-    #define MAP_W 35
-    #define MAP_H 17
+    #define MAP_S 20
+    #define MAP_W 20
+    #define MAP_H 15
     #define _UNDER(x, max) x >= 0 && x < max
 
 typedef struct back {
