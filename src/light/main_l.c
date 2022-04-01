@@ -100,7 +100,6 @@ void draw_light(all_t *data, game_t *game, sfRenderWindow *win)
     sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
 
     data->cell = sfRenderWindow_getSize(win).y / (game->level->size.x + 2);
-    printf("%f\n", data->cell);
     data->state.texture = sfTexture_createFromImage(data->img_rpg, 0);
     add_light(data, tmp, 6, win);
 }
