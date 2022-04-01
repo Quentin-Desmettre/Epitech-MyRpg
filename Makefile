@@ -47,6 +47,12 @@ SRC = \
 	src/room/room.c								\
 	src/room/generator.c						\
 	src/room/valid.c							\
+	src/light/set.c								\
+	src/light/main_l.c							\
+	src/light/utils.c							\
+	src/light/utils_light.c						\
+	src/light/my_memset.c						\
+
 
 OBJ = $(SRC:.c=.o)
 

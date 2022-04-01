@@ -15,6 +15,7 @@
     #include "level.h"
     #include "room.h"
     #include "game.h"
+    #include "light.h"
     #include "npc.h"
 
     #define REPEAT_DELAY 500000
@@ -44,7 +45,7 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME
+    SETTINGS, HOME, EXIT, GAME, LIGHT
 } state_t;
 
 static const sfIntRect back_rect = {

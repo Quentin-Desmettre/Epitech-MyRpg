@@ -7,6 +7,7 @@
 
 #include "rpg.h"
 #include "game.h"
+#include "light.h"
 
 static void create_basics(window_t *win)
 {
@@ -46,6 +47,8 @@ window_t *window_create(void)
     create_settings(win);
     win->menus[HOME] = create_main_menu(WIN_SIZE(win));
     win->menus[GAME] = game_create(win);
+    win->menus[LIGHT] = malloc(sizeof(all_t));
+    set_game_light(win->menus[LIGHT], win->menus[GAME]);
     apply_settings(win->menus[SETTINGS], win);
     return win;
 }

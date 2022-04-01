@@ -28,7 +28,9 @@ static void draw(window_t *win)
         update_transition(win, s);
     sfRenderWindow_clear(win->win, sfBlack);
     sfRenderWindow_drawSprite(win->win, s, NULL);
+    draw_light(win->menus[LIGHT], win->menus[GAME], win->win);
     sfRenderWindow_display(win->win);
+    sfTexture_destroy((sfTexture *)(((all_t *)(win->menus[LIGHT]))->state.texture));
     sfSprite_destroy(s);
 }
 

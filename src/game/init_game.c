@@ -67,7 +67,7 @@ const sfTexture *draw_game(window_t *win)
 
     anim_game(game);
     sfRenderTexture_clear(game->rtex, sfBlack);
-    sfRenderTexture_drawSprite(game->rtex, game->player->sprite, NULL);
+    // sfRenderTexture_drawSprite(game->rtex, game->player->sprite, NULL);
     sfRenderTexture_display(game->rtex);
     return sfRenderTexture_getTexture(game->rtex);
 }
