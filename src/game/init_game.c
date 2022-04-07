@@ -42,7 +42,7 @@ void game_ev(window_t *win, sfEvent ev)
         if (ev.key.code == sfKeyD)
             game->player->dir = RIGHT;
         if (ev.key.code == sfKeyR)
-            new_room(game->level);
+            new_room(game->level, win->menus[LIGHT]);
     }
 }
 

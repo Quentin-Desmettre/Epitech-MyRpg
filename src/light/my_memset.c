@@ -5,7 +5,7 @@
 ** my_memset.c
 */
 
-#include "light.h"
+#include "rpg.h"
 
 void my_memcpy(void *dest, const void *src, size_t n)
 {

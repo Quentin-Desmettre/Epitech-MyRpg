@@ -57,5 +57,4 @@ unsigned char valid(maze_t *maze, unsigned short line,
 unsigned short col, unsigned char dir);
 void pop(pile_t *pile);
 unsigned char for_content(maze_t *maze, pile_t *pile, unsigned int index);
-
 #endif

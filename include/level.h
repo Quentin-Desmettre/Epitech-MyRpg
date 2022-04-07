@@ -15,7 +15,7 @@
     #define COMPLEXITY 3
 
 /// level sizes
-static const sfVector2f BIG = {32, 62};
+static const sfVector2f BIG = {28, 38};
 static const sfVector2f SMALL = {13, 18};
 
 /// level structure
@@ -50,7 +50,6 @@ void set_level_size(level_t *level, va_list va);
 
 /// room builders
 void create_room(level_t *level);
-void new_room(level_t *level);
 
 /// string of all the parameters
     #define LEVEL_PARAMS "dnts"

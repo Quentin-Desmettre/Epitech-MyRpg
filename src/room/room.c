@@ -76,8 +76,12 @@ void create_room(level_t *level)
     my_show_word_array(level->room);
 }
 
-void new_room(level_t *level)
+void new_room(level_t *level, all_t *light)
 {
     my_free("P", level->room);
     create_room(level);
+    for (int i = 0; i < level->size.y + 2; i++) {
+        for (int j = 0; j < level->size.x + 2; j++)
+            light->map[i][j] = (level->room[j][i] == 'X') ? '1' : '0';
+    }
 }

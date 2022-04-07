@@ -52,6 +52,7 @@ SRC = \
 	src/light/utils.c							\
 	src/light/utils_light.c						\
 	src/light/my_memset.c						\
+	src/light/draw_room.c
 
 
 OBJ = $(SRC:.c=.o)

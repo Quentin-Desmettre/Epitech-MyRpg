@@ -32,9 +32,9 @@
     #define _A 255
     #define PI 3.14159265359
     #define _SIZE 60.0
-    #define MAP_S 20
-    #define MAP_W 20
-    #define MAP_H 15
+    #define MAP_S 40
+    #define MAP_W 40
+    #define MAP_H 30
     #define _UNDER(x, max) x >= 0 && x < max
 
 typedef struct back {
@@ -63,14 +63,15 @@ typedef struct all_t {
     sfRenderWindow *win;
     sfRenderTexture *tex_light;
     sfImage *img_rpg;
-    sfTexture *texture_rpg;
-    sfSprite *sprt_rpg;
+    sfTexture *wall_tex;
+    sfTexture *noise;
+    sfTexture *floor_tex;
+    sfSprite *noise_sp;
+    sfSprite *wall;
+    sfSprite *floor;
     char **map;
     sfRenderStates state;
 } all_t;
-
-
-void set_light(all_t *data);
 
 int set_game_light(all_t *new, game_t *map);
 
@@ -85,7 +86,7 @@ int my_memcmp(void *aa, void *bb, size_t size);
 
 coo_t rotate(coo_t center, coo_t rt, float angle);
 
-void draw_light(all_t *data, game_t *game, sfRenderWindow *win);
+void draw_map(all_t *data, game_t *game, sfRenderWindow *win);
 
 coo_t norm(coo_t vector);
 coo_t rotate(coo_t center, coo_t rt, float angle);

@@ -5,7 +5,6 @@
 ** my_printf.c
 */
 #include <stdio.h>
-#include "light.h"
 #include "rpg.h"
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -78,7 +77,6 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
-    sfCircleShape_setFillColor(data->light->circle, sfGreen);
     for (int j = 0; j < 6; j++) {
         data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
         data->cell};
@@ -95,11 +93,16 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
     }
 }
 
-void draw_light(all_t *data, game_t *game, sfRenderWindow *win)
+void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
 {
     sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
 
-    data->cell = sfRenderWindow_getSize(win).y / (game->level->size.x + 2);
-    data->state.texture = sfTexture_createFromImage(data->img_rpg, 0);
+    data->cell = sfRenderWindow_getSize(win).y / (15);
+    sfSprite_setScale(data->floor, (sfVector2f){data->cell / 64, data->cell
+    / 64});
+    sfSprite_setScale(data->wall, (sfVector2f){data->cell / 64, data->cell
+    / 128});
+    draw_room(data, game);
+    data->state.texture = sfRenderTexture_getTexture(data->tex_light);//sfTexture_createFromImage(data->img_rpg, 0);
     add_light(data, tmp, 6, win);
 }

@@ -5,7 +5,6 @@
 ** my_printf.c
 */
 #include <stdio.h>
-#include "light.h"
 #include "rpg.h"
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 

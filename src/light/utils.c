@@ -5,8 +5,7 @@
 ** utils
 */
 
-#include "light.h"
-
+#include "rpg.h"
 
 void get_elems_2(va_list *list, int *i, int *bufsize)
 {
