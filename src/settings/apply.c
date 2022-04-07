@@ -26,7 +26,7 @@ static void apply_mode(settings_t *se, window_t *win)
     } else
         win->mode = available_modes[se->resolution];
     recreate_render_texture(win);
-    win->win = sfRenderWindow_create(win->mode, "My world",
+    win->win = sfRenderWindow_create(win->mode, "My RPG",
     is_fullscreen ? sfFullscreen : sfClose, NULL);
     rescale_all(win);
 }
