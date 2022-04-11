@@ -31,4 +31,3 @@ void set_npc_spd(npc_t *npc, va_list va)
 {
     npc->speed = va_arg(va, int);
 }
-

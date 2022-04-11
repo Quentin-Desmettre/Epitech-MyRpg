@@ -64,8 +64,10 @@ void set_light(all_t *data)
 void set_room_map(all_t *data)
 {
     data->tex_light = sfRenderTexture_create(1920, 1080, 0);
-    data->wall_tex =  sfTexture_createFromFile("./assets/floor_wall/wall_lvl.png", 0);
-    data->floor_tex = sfTexture_createFromFile("./assets/floor_wall/floor_lvl1.png", 0);
+    data->wall_tex =  sfTexture_createFromFile(
+    "./assets/floor_wall/wall_lvl.png", 0);
+    data->floor_tex = sfTexture_createFromFile(
+    "./assets/floor_wall/floor_lvl1.png", 0);
     data->floor = sfSprite_create();
     data->wall = sfSprite_create();
     sfSprite_setScale(data->wall, (sfVector2f){1, 0.5});

@@ -70,4 +70,3 @@ static const sfIntRect *p_rects[5] = {
 };
 
 #endif
-

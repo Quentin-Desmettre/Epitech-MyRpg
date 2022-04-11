@@ -31,7 +31,7 @@ unsigned char get_dir(maze_t *maze, unsigned short col, unsigned short line)
             return rand() % 2 ? DOWN_R : RIGHT_R;
         return col == maze->nb_col - 1 ? DOWN_R : RIGHT_R;
     }
-     return rand() % 4;
+    return rand() % 4;
 }
 
 unsigned char for_content(maze_t *maze, pile_t *pile, unsigned int index)

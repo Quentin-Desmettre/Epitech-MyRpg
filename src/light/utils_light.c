@@ -8,7 +8,6 @@
 #include "rpg.h"
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
-
 coo_t norm(coo_t vector)
 {
     float w = sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -33,7 +32,6 @@ coo_t rotate(coo_t center, coo_t rt, float angle)
     rt.y = ynew + center.y;
     return rt;
 }
-
 
 void lunch_lines(all_t *data, coo_t p_pos, float intens)
 {

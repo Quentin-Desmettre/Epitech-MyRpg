@@ -72,16 +72,18 @@ void find_wall(all_t *data, coo_t p_pos, coo_t p_dir, float intens)
 
 void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 {
-    coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->cell};
-    coo_t p_pos = {(float)(pos.x) / data->cell + 0.05, (float)(pos.y) / data->cell};
+    coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
+    cell};
+    coo_t p_pos = {(float)(pos.x) / data->cell + 0.05, (float)(pos.y) / data->
+    cell};
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
     for (int j = 0; j < 6; j++) {
-        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
-        data->cell};
-        data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
-        data->cell};
+        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell,
+        (p_pos.y) * data->cell};
+        data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
+        (p_pos.y) * data->cell};
         data->light->vertex.color = sfColor_fromRGBA(255, 255, 255, 255 /
         (15 - intens));
         sfVertexArray_append(data->light->array, data->light->vertex);
@@ -103,6 +105,6 @@ void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
     sfSprite_setScale(data->wall, (sfVector2f){data->cell / 64, data->cell
     / 128});
     draw_room(data, game);
-    data->state.texture = sfRenderTexture_getTexture(data->tex_light);//sfTexture_createFromImage(data->img_rpg, 0);
+    data->state.texture = sfRenderTexture_getTexture(data->tex_light);
     add_light(data, tmp, 6, win);
 }
