@@ -93,4 +93,6 @@ coo_t rotate(coo_t center, coo_t rt, float angle);
 void lunch_lines(all_t *data, coo_t p_pos, float intens);
 void sort_angle(all_t *data, coo_t p_pos);
 void find_wall(all_t *data, coo_t p_pos, coo_t p_dir, float intens);
+void dest_light(all_t *data);
+
 #endif

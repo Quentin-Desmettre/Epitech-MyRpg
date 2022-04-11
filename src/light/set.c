@@ -104,3 +104,22 @@ int set_game_light(all_t *new, game_t *map)
     set_room_map(new);
     return 1;
 }
+
+void dest_light(all_t *data)
+{
+    sfVertexArray_destroy(data->light->array);
+    sfCircleShape_destroy(data->light->circle);
+    sfSprite_destroy(data->floor);
+    sfSprite_destroy(data->wall);
+    sfTexture_destroy(data->floor_tex);
+    sfTexture_destroy(data->noise);
+    sfSprite_destroy(data->noise_sp);
+    sfTexture_destroy(data->wall_tex);
+    for (int i = 0; data->map[i] != 0; i++)
+        free(data->map[i]);
+    free(data->map);
+    free(data->angles);
+    free(data->buffer);
+    free(data->light);
+    free(data);
+}

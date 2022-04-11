@@ -13,6 +13,7 @@ static void win_destroy(window_t *win)
     save_settings(win->menus[SETTINGS]);
     destroy_settings(win->menus[SETTINGS]);
     destroy_main_menu(win->menus[HOME]);
+    dest_light(win->menus[LIGHT]);
     destroy_game(win->menus[GAME]);
     sfClock_destroy(win->lum_clock);
     free(win);
@@ -45,7 +46,7 @@ static void poll_events(window_t *win)
     sfEvent ev;
 
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
-        if (ev.type == sfEvtClosed)
+        if (ev.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
             set_next_win_state(win, EXIT);
         if (win->event[win->state])
             win->event[win->state](win, ev);

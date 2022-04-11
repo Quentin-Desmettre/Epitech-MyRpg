@@ -80,7 +80,7 @@ game_t *game_create(window_t *win)
     game->rtex = sfRenderTexture_create(win->mode.width, win->mode.height, 0);
     game->player = npc_create("tnihafv", P_TEXT, p_frames, p_rects,
     P_HEALTH, P_ATK, P_DEF, P_SPD);
-    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, SMALL);
+    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
     game->clock = sfClock_create();
     return game;
 }
