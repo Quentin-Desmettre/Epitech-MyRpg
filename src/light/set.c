@@ -7,39 +7,6 @@
 #include <stdio.h>
 #include "rpg.h"
 
-void find_angle_n(int i, int j, int l, all_t *data)
-{
-    for (int k = -1; k != 3; k += 2) {
-        if (i + l < MAP_S && i + l >= 0 && j + k < MAP_H && j + k >= 0 &&
-        data->map[i + l][j] == data->map[i][j + k]) {
-            data->angles[data->light->index].coo = (sfVector2f)
-            {(i + (l == 1)), (j + (k == 1))};
-            data->angles[data->light->index].is_triple = 1;
-            data->light->index++;
-        }
-    }
-}
-
-void find_angles(int i, int j, all_t *data)
-{
-    if (data->map[i][j] != '1')
-        return;
-    for (int l = -1; l != 3; l += 2)
-        find_angle_n(i, j, l, data);
-}
-
-void wall_light(all_t *data)
-{
-    sfVector2f first = {18, 1000};
-    sfVector2f center = {18, 9};
-
-    for (float i = 0; i < 360; i += 2) {
-        data->angles[data->light->index].coo = rotate(center, first, i);
-        data->angles[data->light->index].is_triple = 0;
-        data->light->index++;
-    }
-}
-
 void set_light(all_t *data)
 {
     data->state.shader = 0;

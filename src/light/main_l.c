@@ -74,7 +74,7 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 {
     coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
     cell};
-    coo_t p_pos = {(float)(pos.x) / data->cell + 0.05, (float)(pos.y) / data->
+    coo_t p_pos = {(float)(pos.x) / data->cell + 0.1, (float)(pos.y) / data->
     cell};
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
@@ -97,14 +97,15 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 
 void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
 {
-    sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
+    // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
+    sfVector2f pos = sfSprite_getPosition(game->player->sprite);
+    sfVector2i tmp = (sfVector2i){pos.x, pos.y};
 
     data->cell = sfRenderWindow_getSize(win).y / (15);
     sfSprite_setScale(data->floor, (sfVector2f){data->cell / 64, data->cell
     / 64});
     sfSprite_setScale(data->wall, (sfVector2f){data->cell / 64, data->cell
     / 128});
-    draw_room(data, game);
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
-    add_light(data, tmp, 6, win);
+    add_light(data, tmp, 7, win);
 }

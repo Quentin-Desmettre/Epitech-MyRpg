@@ -44,5 +44,6 @@ void draw_room(all_t *data, game_t *game)
         }
     }
     sfRenderTexture_drawSprite(data->tex_light, data->noise_sp, 0);
+    sfRenderTexture_drawSprite(data->tex_light, game->player->sprite, NULL);
     sfRenderTexture_display(data->tex_light);
 }

@@ -16,5 +16,5 @@ void set_npc_pos(npc_t *npc, va_list va)
 void set_npc_scale(npc_t *npc, va_list va)
 {
     npc->scale = va_arg(va, sfVector2f);
-    sfSprite_setScale(npc->sprite, npc->pos);
+    sfSprite_setScale(npc->sprite, npc->scale);
 }

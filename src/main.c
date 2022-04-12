@@ -6,7 +6,7 @@
 */
 
 #include "rpg.h"
-
+#include "player.h"
 static void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
@@ -27,12 +27,13 @@ static void draw(window_t *win)
 
     if (win->is_transition)
         update_transition(win, s);
-    sfRenderWindow_clear(win->win, sfBlack);
     sfRenderWindow_drawSprite(win->win, s, NULL);
+    draw_room(win->menus[LIGHT], win->menus[GAME]);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     sfRenderWindow_display(win->win);
     // sfTexture_destroy((sfTexture *)(((all_t *)(win->menus[LIGHT]))->state.texture));
     sfSprite_destroy(s);
+    sfRenderWindow_clear(win->win, sfBlack);
 }
 
 void set_next_win_state(window_t *win, int next)
@@ -53,6 +54,39 @@ static void poll_events(window_t *win)
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
+    if (win->state == GAME)
+        game_ev(win, ev);
+}
+
+void move_pl(window_t *win)
+{
+    game_t *game = win->menus[GAME];
+    int tmp = 0;
+
+    if (sfKeyboard_isKeyPressed(sfKeyZ)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){0, -1});
+        game->player->dir = UP;
+        tmp = 1;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyS)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){0, 1});
+        game->player->dir = DOWN;
+        tmp = 1;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyQ)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){-1, 0});
+        game->player->dir = LEFT;
+        tmp = 1;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyD)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){1, 0});
+        game->player->dir = RIGHT;
+        tmp = 1;
+    }
+    if (tmp == 0)
+        game->player->dir = 4;
+    if (sfKeyboard_isKeyPressed(sfKeyR))
+        new_room(game->level, win->menus[LIGHT]);
 }
 
 int main(void)
@@ -62,8 +96,10 @@ int main(void)
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();
+
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
+        move_pl(win);
         draw(win);
     }
     win_destroy(win);
