@@ -31,7 +31,6 @@ static void draw(window_t *win)
     draw_room(win->menus[LIGHT], win->menus[GAME]);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     sfRenderWindow_display(win->win);
-    // sfTexture_destroy((sfTexture *)(((all_t *)(win->menus[LIGHT]))->state.texture));
     sfSprite_destroy(s);
     sfRenderWindow_clear(win->win, sfBlack);
 }
@@ -96,7 +95,6 @@ int main(void)
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();
-
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         move_pl(win);
