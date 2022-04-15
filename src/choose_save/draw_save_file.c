@@ -34,7 +34,7 @@ static void draw_stats_icons(sfRenderTexture *rtex, sfSprite *stats_img)
     sfVector2u size = sfRenderTexture_getSize(rtex);
 
     sfSprite_setPosition(stats_img,
-    (sfVector2f){size.x * 0.1, size.y * 0.68});
+    (sfVector2f){size.x * 0.1, size.y * 0.67});
     for (int i = 0; i < 4; i++) {
         sfSprite_setTextureRect(stats_img, stats_rects[i]);
         set_sprite_size(stats_img,
@@ -52,14 +52,15 @@ static sfSprite *get_gui_sprite(gui_player_t *p)
     sfRenderTexture_drawRectangleShape(p->rtex, p->border, NULL);
     if (my_strcmp(sfText_getString(p->stats), "Empty file")) {
         sfRenderTexture_drawSprite(p->rtex, p->skin, NULL);
+        sfRenderTexture_drawText(p->rtex, p->name, NULL);
         draw_pbar(p->rtex, p->infos.health_percent / 100.0,
         (sfColor){172, 4, 4, 255},
         (sfVector2f [2]){(sfVector2f){rtex_size.x * 0.8, rtex_size.y * 0.05},
-        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.55}});
+        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.52}});
         draw_pbar(p->rtex, p->infos.m_health_percent / 100.0,
         (sfColor){30, 80, 175, 255},
         (sfVector2f [2]){(sfVector2f){rtex_size.x * 0.8, rtex_size.y * 0.05},
-        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.62}});
+        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.59}});
         draw_stats_icons(p->rtex, p->stats_img);
     }
     sfRenderTexture_drawText(p->rtex, p->stats, NULL);

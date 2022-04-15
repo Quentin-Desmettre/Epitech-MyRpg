@@ -94,6 +94,17 @@ int main(void)
 {
     window_t *win;
 
+    // player_info_t t;
+
+    // t.health_percent = 35;
+    // t.m_health_percent = 78;
+    // t.mental_stability = 13;
+    // t.speed = 2;
+    // t.stamina = 10;make
+    // t.strength = 90;
+    // strcpy(t.player_name, "yolooooooooo");
+    // write(open("./saves/save2", O_WRONLY | O_CREAT | O_TRUNC, 0644), &t, sizeof(player_info_t));
+    // return 0;
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();

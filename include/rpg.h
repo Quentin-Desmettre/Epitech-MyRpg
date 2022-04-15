@@ -69,6 +69,7 @@ static const sfIntRect icon_rect = {
 };
 
 typedef struct {
+    char player_name[13];
     float health_percent;
     float m_health_percent;
     unsigned strength;
@@ -93,6 +94,7 @@ typedef struct {
     sfSprite *stats_img;
 
     sfText *stats;
+    sfText *name;
 } gui_player_t;
 
 typedef struct {
@@ -115,6 +117,7 @@ sfSprite *get_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
 void rescale_choose_save(choose_save_t *c, sfVector2f size);
 const sfTexture *draw_choose_save(window_t *win);
 void update_buttons_colors(choose_save_t *c);
+void rescale_gui_player(gui_player_t *g, sfVector2f win_size);
 
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol);
