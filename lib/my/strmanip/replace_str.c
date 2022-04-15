@@ -19,7 +19,7 @@ void re_alloc(char **str, char *new, int is_free)
 char *replace(char const *str, int from, int nb, char *new)
 {
     int len = my_strlen(str) - nb + my_strlen(new);
-    char *new_string = my_malloc(sizeof(char) * (len + 1));
+    char *new_string = malloc(sizeof(char) * (len + 1));
     int len_new = my_strlen(new);
 
     if (from < 0)

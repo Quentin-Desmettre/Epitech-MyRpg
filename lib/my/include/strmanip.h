@@ -11,7 +11,6 @@
 int str_is_alphanum(char const *str);
 char *str_concat(int nb_str, ...);
 void append_str_array(char ***array, char *val);
-void *my_malloc(unsigned long long size);
 int my_str_array_len(char **array);
 int index_str_in_array(char **array, char *str);
 int str_array_contain(char **array, char *str);

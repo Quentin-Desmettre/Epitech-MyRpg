@@ -15,7 +15,7 @@ char *nbr_to_str(unsigned nb)
 
     for (; cp; size++)
         cp /= 10;
-    str = my_malloc(sizeof(char) * size);
+    str = malloc(sizeof(char) * size);
     str[size - 1] = 0;
     if (!nb) {
         str[0] = '0';

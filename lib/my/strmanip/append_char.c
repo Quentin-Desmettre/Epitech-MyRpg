@@ -9,7 +9,7 @@
 
 char *char_to_str(char c)
 {
-    char *result = my_malloc(2);
+    char *result = malloc(2);
 
     result[0] = c;
     result[1] = '\0';
@@ -20,7 +20,7 @@ void append_char(char **str, char c, int is_free)
 {
     char *tmp = *str;
     int len = my_strlen(tmp) + 1;
-    char *new = my_malloc(sizeof(char) * (len + 1));
+    char *new = malloc(sizeof(char) * (len + 1));
 
     my_strcpy(new, tmp);
     new[len - 1] = c;
@@ -34,7 +34,7 @@ void append(char **str, char const *buf, int is_free)
 {
     char *tmp = *str;
     int len = my_strlen(tmp) + my_strlen(buf);
-    char *new = my_malloc(sizeof(char) * (len + 1));
+    char *new = malloc(sizeof(char) * (len + 1));
 
     my_strcpy(new, tmp);
     my_strcat(new, buf);

@@ -9,7 +9,7 @@
 
 static char **init_array(int *lens, int *len, int nb_str, va_list *list)
 {
-    char **array = my_malloc(sizeof(char *) * nb_str);
+    char **array = malloc(sizeof(char *) * nb_str);
 
     for (int i = 0; i < nb_str; i++) {
         array[i] = (char *)(va_arg(*list, unsigned long));
@@ -21,7 +21,7 @@ static char **init_array(int *lens, int *len, int nb_str, va_list *list)
 
 static char *concat_array(char **array, int *lens, int nb_str, int len)
 {
-    char *fin = my_malloc(sizeof(char) * (len + 1));
+    char *fin = malloc(sizeof(char) * (len + 1));
     int cur_i = 0;
 
     for (int i = 0; i < nb_str; i++) {
@@ -37,7 +37,7 @@ char *str_concat(int nb_str, ...)
     int len = 0;
     char *fin = NULL;
     char **array;
-    int *lens = my_malloc(sizeof(int) * nb_str);
+    int *lens = malloc(sizeof(int) * nb_str);
 
     va_start(list, nb_str);
     array = init_array(lens, &len, nb_str, &list);

@@ -16,7 +16,7 @@ char *get_input(char const *message)
     my_putstr(message);
     c = read(0, buf, 4096);
     buf[c - 1] = '\0';
-    str = my_malloc(sizeof(char) * (c));
+    str = malloc(sizeof(char) * (c));
     str[0] = '\0';
     my_strcat(str, buf);
     return str;

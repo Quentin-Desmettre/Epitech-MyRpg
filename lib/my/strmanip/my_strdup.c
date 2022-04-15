@@ -9,7 +9,7 @@
 
 char *my_strdup(char const *src)
 {
-    char *new_string = my_malloc(my_strlen(src) + 1);
+    char *new_string = malloc(my_strlen(src) + 1);
     int index = 0;
 
     for (index = 0; index < my_strlen(src); ++index) {

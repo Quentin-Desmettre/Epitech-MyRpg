@@ -34,7 +34,7 @@ int my_str_array_len(char **array)
 void append_str_array(char ***array, char *val)
 {
     int i;
-    char **new = my_malloc(sizeof(char *) * (my_str_array_len(*array) + 2));
+    char **new = malloc(sizeof(char *) * (my_str_array_len(*array) + 2));
 
     for (i = 0; (*array)[i]; i++)
         new[i] = (*array)[i];

@@ -10,7 +10,7 @@
 char *my_strndup(char const *src, int nb)
 {
     int i = 0;
-    char *dest = my_malloc(sizeof(char) * (nb + 1));
+    char *dest = malloc(sizeof(char) * (nb + 1));
 
     while (i < nb) {
         dest[i] = src[i];

@@ -9,15 +9,15 @@
 
 maze_t *create_maze(level_t *level)
 {
-    maze_t *maze = my_malloc(sizeof(maze_t));
+    maze_t *maze = malloc(sizeof(maze_t));
 
     memset(maze, 0, sizeof(maze_t));
     maze->perfect = 1;
     maze->nb_line = level->size.x;
     maze->nb_col = level->size.y;
     maze->index_end = maze->nb_line * maze->nb_col - 1;
-    maze->grid = my_malloc(sizeof(char) * (maze->index_end + 1));
-    maze->visited = my_malloc(sizeof(unsigned char) * (maze->index_end + 1));
+    maze->grid = malloc(sizeof(char) * (maze->index_end + 1));
+    maze->visited = malloc(sizeof(unsigned char) * (maze->index_end + 1));
     memset(maze->grid, 'X', sizeof(char) * (maze->index_end + 1));
     memset(maze->visited, 0, sizeof(unsigned char) * (maze->index_end + 1));
     maze->grid[0] = '*';
@@ -27,19 +27,19 @@ maze_t *create_maze(level_t *level)
 
 pile_t *create_pile(maze_t *maze)
 {
-    pile_t *pile = my_malloc(sizeof(pile_t));
+    pile_t *pile = malloc(sizeof(pile_t));
 
     pile->count = 0;
-    pile->path = my_malloc(sizeof(unsigned int) * (maze->index_end));
+    pile->path = malloc(sizeof(unsigned int) * (maze->index_end));
     push(maze, pile, 0);
     return pile;
 }
 
 void init_room(level_t *level, maze_t *maze)
 {
-    level->room = my_malloc(sizeof(char *) * (maze->nb_line + 3));
-    level->room[0] = my_malloc(sizeof(char) * (maze->nb_col + 3));
-    level->room[maze->nb_line + 1] = my_malloc(sizeof(char) *
+    level->room = malloc(sizeof(char *) * (maze->nb_line + 3));
+    level->room[0] = malloc(sizeof(char) * (maze->nb_col + 3));
+    level->room[maze->nb_line + 1] = malloc(sizeof(char) *
     (maze->nb_col + 3));
     for (int i = 0; i < maze->nb_col + 2; i++) {
         level->room[0][i] = 'X';
@@ -65,7 +65,7 @@ void create_room(level_t *level)
     }
     init_room(level, maze);
     for (int i = 0; i < maze->nb_line; i++) {
-        level->room[i + 1] = my_malloc(sizeof(char) * (maze->nb_col + 3));
+        level->room[i + 1] = malloc(sizeof(char) * (maze->nb_col + 3));
         level->room[i + 1][0] = 'X';
         my_strncpy(level->room[i + 1] + 1, maze->grid +
         (i * maze->nb_col), maze->nb_col);

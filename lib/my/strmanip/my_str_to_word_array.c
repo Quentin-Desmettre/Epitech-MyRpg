@@ -42,7 +42,7 @@ static int get_word_length(char const *str, char const *delimiters)
 static char *get_word(char const *str, char const *delimiters)
 {
     int length = get_word_length(str, delimiters);
-    char *word = my_malloc(sizeof(char) * (length + 1));
+    char *word = malloc(sizeof(char) * (length + 1));
 
     my_strncpy(word, str, length);
     word[length] = '\0';
@@ -53,7 +53,7 @@ static char *get_word(char const *str, char const *delimiters)
 char **my_str_to_word_array(char const *str, char const *delimiters)
 {
     int word_count = count_words(str, delimiters);
-    char **array = my_malloc(sizeof(char *) * (word_count + 1));
+    char **array = malloc(sizeof(char *) * (word_count + 1));
 
     while (*str && contain(delimiters, *str))
         str++;
