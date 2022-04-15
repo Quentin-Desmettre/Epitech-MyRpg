@@ -28,10 +28,11 @@ static void draw(window_t *win)
     if (win->is_transition)
         update_transition(win, s);
     sfRenderWindow_drawSprite(win->win, s, NULL);
-    draw_room(win->menus[LIGHT], win->menus[GAME]);
-    draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
+    if (win->state == GAME) {
+        draw_room(win->menus[LIGHT], win->menus[GAME]);
+        draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
+    }
     sfRenderWindow_display(win->win);
-    // sfTexture_destroy((sfTexture *)(((all_t *)(win->menus[LIGHT]))->state.texture));
     sfSprite_destroy(s);
     sfRenderWindow_clear(win->win, sfBlack);
 }
@@ -64,22 +65,22 @@ void move_pl(window_t *win)
     int tmp = 0;
 
     if (sfKeyboard_isKeyPressed(sfKeyZ)) {
-        sfSprite_move(game->player->sprite, (sfVector2f){0, -1});
+        sfSprite_move(game->player->sprite, (sfVector2f){0, -3});
         game->player->dir = UP;
         tmp = 1;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyS)) {
-        sfSprite_move(game->player->sprite, (sfVector2f){0, 1});
+    if (sfKeyboard_isKeyPressed(sfKeyS) && !sfKeyboard_isKeyPressed(sfKeyZ)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){0, 3});
         game->player->dir = DOWN;
         tmp = 1;
     }
     if (sfKeyboard_isKeyPressed(sfKeyQ)) {
-        sfSprite_move(game->player->sprite, (sfVector2f){-1, 0});
+        sfSprite_move(game->player->sprite, (sfVector2f){-3, 0});
         game->player->dir = LEFT;
         tmp = 1;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyD)) {
-        sfSprite_move(game->player->sprite, (sfVector2f){1, 0});
+    if (sfKeyboard_isKeyPressed(sfKeyD) && !sfKeyboard_isKeyPressed(sfKeyQ)) {
+        sfSprite_move(game->player->sprite, (sfVector2f){3, 0});
         game->player->dir = RIGHT;
         tmp = 1;
     }
@@ -93,6 +94,16 @@ int main(void)
 {
     window_t *win;
 
+    // player_info_t t;
+
+    // t.health_percent = 35;
+    // t.m_health_percent = 78;
+    // t.mental_stability = 13;
+    // t.speed = 2;
+    // t.stamina = 10;
+    // t.strength = 90;
+    // write(open("./saves/save2", O_WRONLY | O_CREAT | O_TRUNC, 0644), &t, sizeof(player_info_t));
+    // return 0;
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();

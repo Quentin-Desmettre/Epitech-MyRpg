@@ -61,4 +61,7 @@ sfVector2f get_sprite_size(sfSprite *s);
 ///////////////////////////////////////////////////////////////////////////////
 void center_sprite(sfSprite *s);
 
+sfRectangleShape *create_rectangle(sfVector2f size,
+sfColor fcol, float thick, sfColor ocol);
+
 #endif

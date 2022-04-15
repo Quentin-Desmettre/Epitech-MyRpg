@@ -43,6 +43,7 @@ sfVector2f pos, ...) __attribute__((deprecated("Use build_button instead")));
 /// \param format The format string. each parameter must be separated by 1 ,
 /// \param sf sfVector2f, size factors (relative to container_size)
 /// \param pf sfVector2f, pos factors (relative to container_size)
+/// \param ff float, font size (text height = container_size.y * font_factor)
 /// \param base_size sfVector2f, container size
 /// \param release void (*)(void *), action to be executed on release
 /// \param text char *, text to be display

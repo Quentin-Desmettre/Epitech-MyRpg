@@ -20,6 +20,7 @@
 
     #define REPEAT_DELAY 500000
     #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
+    #define SPACING 0.06
 
 typedef struct {
     button_t *buttons[5];
@@ -45,12 +46,81 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME, LIGHT
+    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE
 } state_t;
 
 static const sfIntRect back_rect = {
     0, 0, 1, 1
 };
+
+static const sfColor grey = {
+    128, 128, 128, 255
+};
+
+static const sfIntRect stats_rects[] = {
+    {648, 671, 125, 124}, // strength
+    {775, 671, 128, 117}, // speed
+    {648, 799, 128, 128}, // stamina
+    {776, 799, 128, 128} // mental health
+};
+
+static const sfIntRect icon_rect = {
+    0, 671, 648, 648
+};
+
+typedef struct {
+    float health_percent;
+    float m_health_percent;
+    unsigned strength;
+    unsigned stamina;
+    unsigned speed;
+    unsigned mental_stability;
+    int skin_comb;
+} player_info_t;
+
+static const sfIntRect hider_rect = {
+    82, 241, 128, 128
+};
+
+typedef struct {
+    player_info_t infos;
+
+    sfSprite *skin;
+
+    sfRectangleShape *border;
+    sfRenderTexture *rtex;
+
+    sfSprite *stats_img;
+
+    sfText *stats;
+} gui_player_t;
+
+typedef struct {
+    gui_player_t *saves[3];
+    button_t *buttons[4]; // exit - delete - create - launch
+    sfSprite *hider;
+    sfRenderTexture *rtex;
+} choose_save_t;
+
+
+gui_player_t *create_gui_player(char const *file, sfVector2f win_size);
+void go_back_to_main(void *win);
+void delete_selected(void *win);
+void launch_create_file(void *win);
+void launch_file(void *win);
+choose_save_t *create_choose_save(sfVector2f win_size);
+void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
+void rescale_choose_save(choose_save_t *c, sfVector2f size);
+const sfTexture *draw_choose_save(window_t *win);
+
+
+sfRectangleShape *create_rectangle(sfVector2f size,
+sfColor fcol, float thick, sfColor ocol);
+void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
+
+const sfTexture *draw_choose_save(window_t *win);
+choose_save_t *create_choose_save(sfVector2f win_size);
+void rescale_choose_save(choose_save_t *c, sfVector2f size);
 
 // settings
 void rescale_all(window_t *win);

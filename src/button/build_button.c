@@ -20,12 +20,6 @@ static void init_default(button_t *b)
     b->is_press = 0;
 }
 
-static void button_set_container_size(button_t *b, sfVector2f new_size)
-{
-    b->container_size = new_size;
-    update_button(b);
-}
-
 void update_button(button_t *b)
 {
     sfVector2f sf = b->size_fac;

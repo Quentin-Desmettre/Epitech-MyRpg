@@ -9,6 +9,18 @@
 #include "sprite.h"
 #include "globals.h"
 
+sfRectangleShape *create_rectangle(sfVector2f size,
+sfColor fcol, float thick, sfColor ocol)
+{
+    sfRectangleShape *r = sfRectangleShape_create();
+
+    sfRectangleShape_setSize(r, size);
+    sfRectangleShape_setFillColor(r, fcol);
+    sfRectangleShape_setOutlineThickness(r, thick);
+    sfRectangleShape_setOutlineColor(r, ocol);
+    return r;
+}
+
 sfSprite *init_sprite(sfTexture *t, sfIntRect rect, sfVector2f size)
 {
     sfSprite *s = sfSprite_create();
