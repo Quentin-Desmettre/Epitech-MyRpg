@@ -108,7 +108,6 @@ int main(void)
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();
-
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         move_pl(win);

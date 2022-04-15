@@ -35,7 +35,7 @@ void draw_line(all_t *data, coo_t p_pos, coo_t vraydir, float dis)
     coo_t vinter = {p_pos.x + vraydir.x * dis, p_pos.y + vraydir.y *
     dis};
 
-    data->light->vertex.position = (coo_t){vinter.x * data->cell, vinter.y *
+    data->light->vertex.position = (coo_t){vinter.x * data->cell + data->offset, vinter.y *
     data->cell};
     data->light->vertex.texCoords = (coo_t){vinter.x * data->cell, vinter.y *
     data->cell};
@@ -80,7 +80,7 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
     for (int j = 0; j < 6; j++) {
-        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell,
+        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell + data->offset,
         (p_pos.y) * data->cell};
         data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
         (p_pos.y) * data->cell};
@@ -100,6 +100,9 @@ void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
     // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     sfVector2i tmp = (sfVector2i){pos.x, pos.y};
+    sfVector2u size_win = sfRenderWindow_getSize(win);
+
+    data->offset = (size_win.x - ((size_win.y) / 600.0 * 800.0)) / 2.0;
 
     data->cell = sfRenderWindow_getSize(win).y / (15);
     sfSprite_setScale(data->floor, (sfVector2f){data->cell / 64, data->cell
@@ -107,5 +110,5 @@ void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
     sfSprite_setScale(data->wall, (sfVector2f){data->cell / 64, data->cell
     / 128});
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
-    add_light(data, tmp, 7, win);
+    add_light(data, tmp, 5, win);
 }

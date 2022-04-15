@@ -36,7 +36,6 @@ void draw_wall(all_t *data, int i, int j, game_t *game)
 void draw_room(all_t *data, game_t *game)
 {
     coo_t size = game->level->size;
-
     sfRenderTexture_clear(data->tex_light, sfBlack);
     for (int i = 0; i < size.y + 2; i++) {
         for (int j = 0; j < size.x + 2; j++) {
