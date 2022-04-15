@@ -18,6 +18,7 @@ static void init_default(button_t *b)
     b->font_factor = 0;
     b->is_hover = 0;
     b->is_press = 0;
+    b->can_trigger = 1;
 }
 
 void update_button(button_t *b)

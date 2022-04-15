@@ -23,17 +23,19 @@ void check_button_move(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};
     for (int i = 0; i < nb_button; i++)
-        hover_button(buttons[i], is_on_button(pos, buttons[i]));
+        hover_button(buttons[i],
+        buttons[i]->can_trigger ? is_on_button(pos, buttons[i]) : 0);
 }
 
 void check_button_press(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};
     for (int i = 0; i < nb_button; i++)
-        press_button(buttons[i], is_on_button(pos, buttons[i]));
+        press_button(buttons[i],
+        buttons[i]->can_trigger ? is_on_button(pos, buttons[i]) : 0);
 }
 
-void check_button_release(button_t **buttons, int nb_button,
+int check_button_release(button_t **buttons, int nb_button,
 sfVector2f pos, void *win)
 {
     int button = button_at(buttons, nb_button, pos.x, pos.y);
@@ -42,11 +44,12 @@ sfVector2f pos, void *win)
     for (int i = 0; i < nb_button; i++)
         press_button(buttons[i], 0);
     if (button < 0)
-        return;
-    if (!is_pressed)
-        return;
+        return 0;
+    if (!is_pressed || !buttons[button]->can_trigger)
+        return 0;
     if (buttons[button]->action)
         buttons[button]->action(win);
+    return 1;
 }
 
 int button_at(button_t **buttons, int nb_button, float x, float y)

@@ -47,6 +47,7 @@ SRC = \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \
 	src/choose_save/draw_select.c                      \
+	src/choose_save/events.c                           \
 	src/light/my_memset.c                              \
 	src/light/utils.c                                  \
 	src/light/angles.c                                 \
@@ -88,6 +89,9 @@ fclean:    clean
 	rm -f unit_tests*
 
 re:        fclean all
+
+debug: CFLAGS += -g
+debug: all
 
 run: all
 	./$(NAME)

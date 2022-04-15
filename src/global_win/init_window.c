@@ -30,7 +30,7 @@ static void create_pointers(window_t *win)
         draw_settings, draw_main_menu, NULL, draw_game, NULL, draw_choose_save
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        settings_ev, main_menu_ev, NULL, game_ev, NULL, NULL
+        settings_ev, main_menu_ev, NULL, game_ev, NULL, file_select_events
     };
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];

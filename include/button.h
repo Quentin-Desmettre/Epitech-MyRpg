@@ -27,6 +27,7 @@ typedef struct {
     sfVector2f pos_fac;
     sfVector2f container_size;
     float font_factor;
+    int can_trigger;
 } button_t;
 
 void destroy_button(button_t *b);
@@ -103,8 +104,9 @@ void check_button_press(button_t **buttons, int nb_button, float x, float y);
 /// \param nb_button The size of the array
 /// \param pos The x & y coordinates to check
 /// \param win The main window, to call the function pointer
+/// \return 0 if no functions were called, else 1
 ///////////////////////////////////////////////////////////////////////////////
-void check_button_release(button_t **buttons, int nb_button,
+int check_button_release(button_t **buttons, int nb_button,
 sfVector2f pos, void *win);
 
 ///////////////////////////////////////////////////////////////////////////////

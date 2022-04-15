@@ -51,12 +51,33 @@ void rescale_choose_save(choose_save_t *c, sfVector2f size)
     }
 }
 
+void draw_rect_around(sfSprite *around, sfColor c,
+sfRenderTexture *rtex)
+{
+    sfVector2f rect_size = get_sprite_size(around);
+    sfRectangleShape *s = create_rectangle(rect_size,
+    sfTransparent, rect_size.x * 0.02, c);
+
+    sfRectangleShape_setPosition(s, sfSprite_getPosition(around));
+    sfRenderTexture_drawRectangleShape(rtex, s, NULL);
+    sfRectangleShape_destroy(s);
+}
+
 const sfTexture *draw_choose_save(window_t *win)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
+    sfSprite *tmp;
+
     sfRenderTexture_clear(c->rtex, sfBlack);
-    for (int i = 0; i < 3; i++)
-        draw_gui_player(c->saves[i], c->rtex, i);
+    for (int i = 0; i < 3; i++) {
+        tmp = get_gui_player(c->saves[i], c->rtex, i);
+        sfRenderTexture_drawSprite(c->rtex, tmp, NULL);
+        if (c->secondary == i)
+            draw_rect_around(tmp, (sfColor){75, 75, 75, 255}, c->rtex);
+        if (c->primary == i)
+            draw_rect_around(tmp, sfWhite, c->rtex);
+        sfSprite_destroy(tmp);
+    }
     draw_hider(c->rtex, c->hider);
     for (int i = 0; i < 4; i++)
         draw_button_to_rtex(c->buttons[i], c->rtex);

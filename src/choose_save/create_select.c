@@ -10,7 +10,7 @@
 
 void go_back_to_main(void *win)
 {
-    (void)win;
+    set_next_win_state(win, HOME);
 }
 
 void delete_selected(void *win)
@@ -49,5 +49,8 @@ choose_save_t *create_choose_save(sfVector2f win_size)
     sfTexture_setRepeated((sfTexture *)sfSprite_getTexture(c->hider), 1);
     for (int i = 0; i < 3; i++)
         c->saves[i] = create_gui_player(files[i], win_size);
+    c->primary = -1;
+    c->secondary = -1;
+    update_buttons_colors(c);
     return c;
 }

@@ -67,7 +67,7 @@ static sfSprite *get_gui_sprite(gui_player_t *p)
     return init_sprite_from_texture(sfRenderTexture_getTexture(p->rtex));
 }
 
-void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index)
+sfSprite *get_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index)
 {
     sfSprite *s = get_gui_sprite(p);
     sfVector2u size = sfRenderTexture_getSize(rtex);
@@ -75,6 +75,5 @@ void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index)
     index * (size.x * ((1 - SPACING * 4) / 3 + SPACING)), size.y * 0.07};
 
     sfSprite_setPosition(s, pos);
-    sfRenderTexture_drawSprite(rtex, s, NULL);
-    sfSprite_destroy(s);
+    return s;
 }

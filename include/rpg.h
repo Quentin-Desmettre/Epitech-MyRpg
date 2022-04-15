@@ -100,23 +100,24 @@ typedef struct {
     button_t *buttons[4]; // exit - delete - create - launch
     sfSprite *hider;
     sfRenderTexture *rtex;
+    int primary;
+    int secondary;
 } choose_save_t;
 
-
+void file_select_events(window_t *win, sfEvent ev);
 gui_player_t *create_gui_player(char const *file, sfVector2f win_size);
 void go_back_to_main(void *win);
 void delete_selected(void *win);
 void launch_create_file(void *win);
 void launch_file(void *win);
 choose_save_t *create_choose_save(sfVector2f win_size);
-void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
+sfSprite *get_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
 void rescale_choose_save(choose_save_t *c, sfVector2f size);
 const sfTexture *draw_choose_save(window_t *win);
-
+void update_buttons_colors(choose_save_t *c);
 
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol);
-void draw_gui_player(gui_player_t *p, sfRenderTexture *rtex, int index);
 
 const sfTexture *draw_choose_save(window_t *win);
 choose_save_t *create_choose_save(sfVector2f win_size);
