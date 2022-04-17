@@ -48,3 +48,11 @@ sfText *init_text(char const *str, int char_size)
     sfText_setString(t, str);
     return t;
 }
+
+int getnbr_sftext(sfText *t)
+{
+    char const *str = sfText_getString(t);
+    int error;
+
+    return my_getnbr(str, &error);
+}

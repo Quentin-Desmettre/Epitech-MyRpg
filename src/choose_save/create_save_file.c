@@ -55,12 +55,11 @@ static char *tooltip_str(player_info_t *infos)
     return final;
 }
 
-static void init_from_file(gui_player_t *g,
+void init_from_file(gui_player_t *g,
 char const *file, sfVector2f size)
 {
     int fd = file ? open(file, O_RDONLY) : -1;
     char *str;
-
     if (fd < 0 ||
     read(fd, &g->infos, sizeof(player_info_t)) != sizeof(player_info_t)) {
         sfText_setString(g->stats, "Empty file");
@@ -70,7 +69,8 @@ char const *file, sfVector2f size)
         return;
     }
     str = tooltip_str(&g->infos);
-    sfText_setString(g->stats, str), free(str);
+    sfText_setString(g->stats, str);
+    free(str);
     sfText_setPosition(g->stats,
     (sfVector2f){size.x * 0.6, size.y * 0.5});
     sfText_setCharacterSize(g->stats, size.y * 0.1);

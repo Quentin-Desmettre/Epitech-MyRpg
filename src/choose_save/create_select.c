@@ -20,7 +20,11 @@ void delete_selected(void *win)
 
 void launch_create_file(void *win)
 {
-    (void)win;
+    window_t *w = win;
+    choose_save_t *c = w->menus[SELECT_SAVE];
+
+    set_next_win_state(win, CREATE_SAVE);
+    w->menus[CREATE_SAVE] = create_create_save(WIN_SIZE(w), c->primary);
 }
 
 void launch_file(void *win)
@@ -41,8 +45,7 @@ choose_save_t *create_choose_save(sfVector2f win_size)
         c->buttons[i] = build_button("sf,pf,base_size,"
         "text,texture,rect,release,ff", (sfVector2f){0.2, 0.1},
         (sfVector2f){0.14 + 0.24 * i, 0.9},
-        win_size, texts[i], global_texture(), (sfIntRect){0, 81, 315, 80},
-        functions[i], 0.65);
+        win_size, texts[i], global_texture(), button_rect, functions[i], 0.65);
     c->hider = sfSprite_create();
     sfSprite_setTexture(c->hider,
     sfTexture_createFromFile(GLOBAL_TEXTURE, &hider_rect), 0);
@@ -52,5 +55,6 @@ choose_save_t *create_choose_save(sfVector2f win_size)
     c->primary = -1;
     c->secondary = -1;
     update_buttons_colors(c);
+    c->create_save = NULL;
     return c;
 }

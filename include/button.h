@@ -128,5 +128,6 @@ void set_text(button_t *b, va_list va);
 void set_texture(button_t *b, va_list va);
 void set_rect(button_t *b, va_list va);
 void set_f_size(button_t *b, va_list va);
+void set_button_enabled(button_t *b, int enabled);
 
 #endif

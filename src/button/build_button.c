@@ -7,6 +7,18 @@
 
 #include "button.h"
 
+void set_button_enabled(button_t *b, int enabled)
+{
+    sfColor new_col = enabled ? sfSprite_getColor(b->sprite) :
+    (sfColor){127, 127, 127, 255};
+
+    if (!b->can_trigger && enabled)
+        new_col = sfWhite;
+    sfSprite_setColor(b->sprite, new_col);
+    sfText_setColor(b->text, new_col);
+    b->can_trigger = enabled;
+}
+
 static void init_default(button_t *b)
 {
     b->size_fac = (sfVector2f){1, 1};

@@ -48,6 +48,9 @@ SRC = \
 	src/choose_save/create_select.c                    \
 	src/choose_save/draw_select.c                      \
 	src/choose_save/events.c                           \
+	src/choose_save/create_save/create.c               \
+	src/choose_save/create_save/events.c               \
+	src/choose_save/create_save/oth_events.c           \
 	src/light/my_memset.c                              \
 	src/light/utils.c                                  \
 	src/light/angles.c                                 \
@@ -58,16 +61,17 @@ SRC = \
 	src/room/room.c                                    \
 	src/room/generator.c                               \
 	src/room/valid.c                                   \
-	src/main.c
+	src/main.c                                         \
+	src/line_edit/create.c                             \
+	src/line_edit/events.c
 
 OBJ = $(SRC:.c=.o)
 
 NAME = my_rpg
 
-CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g
 
-LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window \
-	-lcsfml-system -lm -lcsfml-audio
+LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system -lm
 
 all: $(NAME)
 

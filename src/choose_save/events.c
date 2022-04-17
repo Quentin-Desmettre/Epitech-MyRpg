@@ -53,7 +53,6 @@ void update_buttons_colors(choose_save_t *c)
 void check_release(choose_save_t *c, sfEvent ev, window_t *win)
 {
     sfVector2f pos = {ev.mouseButton.x, ev.mouseButton.y};
-    int bu = button_at(c->buttons, 4, pos.x, pos.y);
     sfFloatRect rect;
     sfSprite *tmp;
 

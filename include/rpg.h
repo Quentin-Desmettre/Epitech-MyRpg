@@ -32,21 +32,21 @@ typedef struct win {
     sfVideoMode mode;
     sfRenderWindow *win;
     int state;
-    void *menus[7];
+    void *menus[12];
     sfClock *lum_clock;
 
     int is_transition;
     int next_state;
     int framerate;
 
-    const sfTexture* (*draw[6])(struct win *);
-    void (*event[6])(struct win *, sfEvent ev);
-    void (*update[6])(void *);
+    const sfTexture* (*draw[12])(struct win *);
+    void (*event[12])(struct win *, sfEvent ev);
+    void (*update[12])(void *);
 
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE
+    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE
 } state_t;
 
 static const sfIntRect back_rect = {
@@ -76,12 +76,13 @@ typedef struct {
     unsigned stamina;
     unsigned speed;
     unsigned mental_stability;
-    int skin_comb;
+    sfColor skin_comb;
 } player_info_t;
 
 static const sfIntRect hider_rect = {
     82, 241, 128, 128
 };
+static const sfIntRect button_rect = {0, 81, 315, 80};
 
 typedef struct {
     player_info_t infos;
@@ -97,15 +98,56 @@ typedef struct {
     sfText *name;
 } gui_player_t;
 
+
+typedef struct {
+    sfRenderTexture *rtex;
+    sfRectangleShape *background;
+    sfClock *underscore;
+    sfText *text;
+    int has_underscore;
+    int max_char;
+} line_edit_t;
+
+
+typedef struct {
+    button_t *color_buttons[6];
+    sfText *col_vals[3];
+
+    button_t *stats_buttons[8];
+    sfText *stats_val[4];
+    sfSprite *stats;
+    sfText *stats_prompt;
+    sfText *pts_left;
+
+    sfSprite *skin;
+    sfRectangleShape *skin_back;
+
+    button_t *actions[2];
+
+    line_edit_t *name;
+    sfRenderTexture *rtex;
+    sfSprite *background;
+    sfText *prompt;
+
+    sfClock *repeat;
+    int f_no;
+} create_save_t;
+
 typedef struct {
     gui_player_t *saves[3];
     button_t *buttons[4]; // exit - delete - create - launch
     sfSprite *hider;
     sfRenderTexture *rtex;
+    create_save_t *create_save;
     int primary;
     int secondary;
 } choose_save_t;
 
+void init_from_file(gui_player_t *g,
+char const *file, sfVector2f size);
+void change_color(create_save_t *c, int button);
+const sfTexture *draw_create_save(window_t *c);
+create_save_t *create_create_save(sfVector2f size, int f_no);
 void file_select_events(window_t *win, sfEvent ev);
 gui_player_t *create_gui_player(char const *file, sfVector2f win_size);
 void go_back_to_main(void *win);
@@ -118,6 +160,27 @@ void rescale_choose_save(choose_save_t *c, sfVector2f size);
 const sfTexture *draw_choose_save(window_t *win);
 void update_buttons_colors(choose_save_t *c);
 void rescale_gui_player(gui_player_t *g, sfVector2f win_size);
+
+void load_saves(choose_save_t *c);
+void create_file(create_save_t *c, window_t *win);
+void update_player_color(create_save_t *c);
+void change_color(create_save_t *c, int button);
+
+void create_save_events(window_t *win, sfEvent ev);
+
+sfTexture *player_texture(void);
+float size_of_char(char what, sfFont *font);
+
+void destroy_line_edit(line_edit_t *le);
+void update_underscore(line_edit_t *le);
+sfSprite *draw_line_edit(line_edit_t *le, sfVector2f pos);
+void scale_line_edit(line_edit_t *le, sfVector2f size);
+line_edit_t *create_line_edit(sfVector2f size, char const *def, int max_char);
+const char *get_text(line_edit_t *le);
+void append_to_text(sfText *t, char c);
+void remove_last_text(sfText *t);
+void append_ev(sfEvent ev, sfText *base);
+void line_edit_event(line_edit_t *le, sfEvent ev);
 
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol);

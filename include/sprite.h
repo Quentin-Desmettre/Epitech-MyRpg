@@ -63,5 +63,6 @@ void center_sprite(sfSprite *s);
 
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol);
+int getnbr_sftext(sfText *t);
 
 #endif

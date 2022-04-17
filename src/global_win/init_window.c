@@ -26,13 +26,15 @@ static void create_settings(window_t *win)
 
 static void create_pointers(window_t *win)
 {
-    const sfTexture* (*dr[6])(window_t *) = {
-        draw_settings, draw_main_menu, NULL, draw_game, NULL, draw_choose_save
+    const sfTexture* (*dr[])(window_t *) = {
+        draw_settings, draw_main_menu, NULL, draw_game, NULL, draw_choose_save,
+        draw_create_save
     };
-    void (*ev[6])(window_t *, sfEvent) = {
-        settings_ev, main_menu_ev, NULL, game_ev, NULL, file_select_events
+    void (*ev[])(window_t *, sfEvent) = {
+        settings_ev, main_menu_ev, NULL, game_ev, NULL, file_select_events,
+        create_save_events
     };
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         win->draw[i] = dr[i];
         win->event[i] = ev[i];
     }
