@@ -143,6 +143,9 @@ typedef struct {
     int secondary;
 } choose_save_t;
 
+void free_save(gui_player_t *g);
+void destroy_create_save(void **cr);
+void free_choose_save(choose_save_t *c);
 void init_from_file(gui_player_t *g,
 char const *file, sfVector2f size);
 void change_color(create_save_t *c, int button);

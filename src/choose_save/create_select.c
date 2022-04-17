@@ -24,6 +24,8 @@ void launch_create_file(void *win)
     choose_save_t *c = w->menus[SELECT_SAVE];
 
     set_next_win_state(win, CREATE_SAVE);
+    if (w->menus[CREATE_SAVE])
+        destroy_create_save(&w->menus[CREATE_SAVE]);
     w->menus[CREATE_SAVE] = create_create_save(WIN_SIZE(w), c->primary);
 }
 

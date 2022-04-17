@@ -9,6 +9,8 @@
 
 static void switch_color_dir(window_t *win, int *dir)
 {
+    if (win->next_state == SELECT_SAVE && win->state == CREATE_SAVE)
+        destroy_create_save(&win->menus[CREATE_SAVE]);
     win->state = win->next_state;
     *dir = -1;
     if (win->state == EXIT)

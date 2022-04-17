@@ -44,6 +44,7 @@ window_t *window_create(void)
 {
     window_t *win = malloc(sizeof(window_t));
 
+    memset(win->menus, 0, sizeof(void *) * 12);
     create_pointers(win);
     create_basics(win);
     create_settings(win);

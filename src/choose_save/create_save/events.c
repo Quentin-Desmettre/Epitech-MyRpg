@@ -78,7 +78,7 @@ void create_save_events(window_t *win, sfEvent ev)
 {
     create_save_t *c = win->menus[CREATE_SAVE];
     int error = 0;
-    int pts_left = my_getnbr(sfText_getString(c->pts_left) + 13, &error);
+    int pts_left;
 
     line_edit_event(c->name, ev);
     if (ev.type == sfEvtMouseMoved)
@@ -87,6 +87,7 @@ void create_save_events(window_t *win, sfEvent ev)
         check_press(c, ev.mouseButton.x, ev.mouseButton.y);
     if (ev.type == sfEvtMouseButtonReleased)
         check_release(c, ev.mouseButton.x, ev.mouseButton.y, win);
+    pts_left = my_getnbr(sfText_getString(c->pts_left) + 13, &error);
     if (my_strlen(get_text(c->name)) && !error && !pts_left)
         set_button_enabled(c->actions[1], 1);
     else

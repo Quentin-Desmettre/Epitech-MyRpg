@@ -51,6 +51,8 @@ SRC = \
 	src/choose_save/create_save/create.c               \
 	src/choose_save/create_save/events.c               \
 	src/choose_save/create_save/oth_events.c           \
+	src/choose_save/create_save/destroy.c              \
+	src/choose_save/destroy.c                          \
 	src/light/my_memset.c                              \
 	src/light/utils.c                                  \
 	src/light/angles.c                                 \

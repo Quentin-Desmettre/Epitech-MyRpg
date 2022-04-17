@@ -7,6 +7,7 @@
 
 #include "rpg.h"
 #include "player.h"
+
 static void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
@@ -16,6 +17,7 @@ static void win_destroy(window_t *win)
     dest_light(win->menus[LIGHT]);
     destroy_game(win->menus[GAME]);
     sfClock_destroy(win->lum_clock);
+    free_choose_save(win->menus[SELECT_SAVE]);
     free(win);
 }
 
@@ -23,7 +25,8 @@ static void draw(window_t *win)
 {
     const sfTexture* tex = win->draw[win->state] ?
     win->draw[win->state](win) : NULL;
-    sfSprite *s = init_sprite_from_texture(tex);
+    sfTexture *cpy = tex ? sfTexture_copy(tex) : NULL;
+    sfSprite *s = init_sprite_from_texture(cpy);
 
     if (win->is_transition)
         update_transition(win, s);
@@ -33,6 +36,7 @@ static void draw(window_t *win)
         draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     }
     sfRenderWindow_display(win->win);
+    sfTexture_destroy(cpy);
     sfSprite_destroy(s);
     sfRenderWindow_clear(win->win, sfBlack);
 }
@@ -94,17 +98,6 @@ int main(void)
 {
     window_t *win;
 
-    // player_info_t t;
-
-    // t.health_percent = 35;
-    // t.m_health_percent = 78;
-    // t.mental_stability = 13;
-    // t.speed = 2;
-    // t.stamina = 10;make
-    // t.strength = 90;
-    // strcpy(t.player_name, "yolooooooooo");
-    // write(open("./saves/save2", O_WRONLY | O_CREAT | O_TRUNC, 0644), &t, sizeof(player_info_t));
-    // return 0;
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();
@@ -116,5 +109,6 @@ int main(void)
     win_destroy(win);
     sfFont_destroy(global_font());
     sfTexture_destroy(global_texture());
+    sfTexture_destroy(player_texture());
     return 0;
 }

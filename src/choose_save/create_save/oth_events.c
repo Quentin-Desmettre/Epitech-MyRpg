@@ -14,10 +14,24 @@ void load_saves(choose_save_t *c)
     char const *files[3] = {"./saves/save1", "./saves/save2", "./saves/save3"};
 
     for (int i = 0; i < 3; i++) {
+        free_save(c->saves[i]);
         c->saves[i] = create_gui_player(files[i], win_size);
         rescale_gui_player(c->saves[i], win_size);
     }
     update_buttons_colors(c);
+}
+
+void copy_data(player_info_t *infos, create_save_t *c)
+{
+    memset(infos, 0, sizeof(player_info_t));
+    infos->health_percent = 100;
+    infos->m_health_percent = 100;
+    my_strcpy(infos->player_name, get_text(c->name));
+    infos->mental_stability = getnbr_sftext(c->stats_val[3]);
+    infos->speed = getnbr_sftext(c->stats_val[1]);
+    infos->strength = getnbr_sftext(c->stats_val[0]);
+    infos->stamina = getnbr_sftext(c->stats_val[2]);
+    infos->skin_comb = sfSprite_getColor(c->skin);
 }
 
 void create_file(create_save_t *c, window_t *win)
@@ -33,14 +47,7 @@ void create_file(create_save_t *c, window_t *win)
         printf("error: %s\n", strerror(errno));
         return;
     }
-    infos.health_percent = 100;
-    infos.m_health_percent = 100;
-    my_strcpy(infos.player_name, get_text(c->name));
-    infos.mental_stability = getnbr_sftext(c->stats_val[3]);
-    infos.speed = getnbr_sftext(c->stats_val[1]);
-    infos.strength = getnbr_sftext(c->stats_val[0]);
-    infos.stamina = getnbr_sftext(c->stats_val[2]);
-    infos.skin_comb = sfSprite_getColor(c->skin);
+    copy_data(&infos, c);
     write(fd, &infos, sizeof(player_info_t));
     set_next_win_state(win, SELECT_SAVE);
     load_saves(win->menus[SELECT_SAVE]);
