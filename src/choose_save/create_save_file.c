@@ -32,7 +32,7 @@ void rescale_gui_player(gui_player_t *g, sfVector2f win_size)
     sfRectangleShape_setSize(g->border, size);
     set_sprite_size(g->skin, sk_size);
     center_sprite(g->skin);
-    sfSprite_setPosition(g->skin, (sfVector2f){size.x * 0.5, size.y * 0.27});
+    sfSprite_setPosition(g->skin, (sfVector2f){size.x * 0.5, size.y * 0.24});
     set_sprite_size(g->stats_img, (sfVector2f){size.y * 0.066, size.y * 0.066});
     sfText_setCharacterSize(g->name, size.x * 0.13);
     center_text(g->name);

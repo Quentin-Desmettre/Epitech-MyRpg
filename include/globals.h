@@ -13,5 +13,6 @@
 
 sfTexture *global_texture(void);
 sfFont *global_font(void);
+sfTexture *bars_texture(void);
 
 #endif

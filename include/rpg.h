@@ -64,6 +64,14 @@ static const sfIntRect stats_rects[] = {
     {776, 799, 128, 128} // mental health
 };
 
+static const sfIntRect bars_frames[] = {
+    {131, 0, 380, 100},
+    {131, 101, 380, 100},
+    {131, 202, 380, 100},
+    {0, 0, 130, 120},
+    {0, 142, 126, 120}
+};
+
 static const sfIntRect icon_rect = {
     0, 671, 648, 648
 };

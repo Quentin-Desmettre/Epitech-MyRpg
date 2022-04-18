@@ -44,6 +44,31 @@ static void draw_stats_icons(sfRenderTexture *rtex, sfSprite *stats_img)
     }
 }
 
+void draw_bar(sfRenderTexture *rtex, sfVector2f pos,
+sfVector2f size, sfVector2f types)
+{
+    int type = types.y;
+    float percent = types.x / 100.0;
+    sfIntRect const f_rect = bars_frames[1 + type];
+    sfIntRect filled_rect = {f_rect.left, f_rect.top,
+    f_rect.width * percent, f_rect.height};
+    sfSprite *frame = init_sprite(bars_texture(), bars_frames[0], size);
+    sfSprite *filled = init_sprite(bars_texture(), filled_rect,
+    (sfVector2f){size.x * percent, size.y});
+    sfSprite *logo = init_sprite(bars_texture(), bars_frames[3 + type],
+    (sfVector2f){size.y, size.y});
+
+    sfSprite_setPosition(frame, pos);
+    sfSprite_setPosition(filled, pos);
+    sfSprite_setPosition(logo, (sfVector2f){pos.x - size.y * 0.5, pos.y});
+    sfRenderTexture_drawSprite(rtex, filled, NULL);
+    sfRenderTexture_drawSprite(rtex, frame, NULL);
+    sfRenderTexture_drawSprite(rtex, logo, NULL);
+    sfSprite_destroy(filled);
+    sfSprite_destroy(frame);
+    sfSprite_destroy(logo);
+}
+
 static sfSprite *get_gui_sprite(gui_player_t *p)
 {
     sfVector2u rtex_size = sfRenderTexture_getSize(p->rtex);
@@ -53,14 +78,12 @@ static sfSprite *get_gui_sprite(gui_player_t *p)
     if (my_strcmp(sfText_getString(p->stats), "Empty file")) {
         sfRenderTexture_drawSprite(p->rtex, p->skin, NULL);
         sfRenderTexture_drawText(p->rtex, p->name, NULL);
-        draw_pbar(p->rtex, p->infos.health_percent / 100.0,
-        (sfColor){172, 4, 4, 255},
-        (sfVector2f [2]){(sfVector2f){rtex_size.x * 0.8, rtex_size.y * 0.05},
-        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.52}});
-        draw_pbar(p->rtex, p->infos.m_health_percent / 100.0,
-        (sfColor){30, 80, 175, 255},
-        (sfVector2f [2]){(sfVector2f){rtex_size.x * 0.8, rtex_size.y * 0.05},
-        (sfVector2f){rtex_size.x * 0.1, rtex_size.y * 0.59}});
+        draw_bar(p->rtex, (sfVector2f){rtex_size.x * 0.2, rtex_size.y * 0.48},
+        (sfVector2f){rtex_size.x * 0.7, rtex_size.y * 0.08},
+        (sfVector2f){p->infos.health_percent, 0});
+        draw_bar(p->rtex, (sfVector2f){rtex_size.x * 0.2, rtex_size.y * 0.57},
+        (sfVector2f){rtex_size.x * 0.7, rtex_size.y * 0.08},
+        (sfVector2f){p->infos.m_health_percent, 1});
         draw_stats_icons(p->rtex, p->stats_img);
     }
     sfRenderTexture_drawText(p->rtex, p->stats, NULL);
