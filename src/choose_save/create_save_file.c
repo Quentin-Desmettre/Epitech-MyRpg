@@ -29,7 +29,8 @@ void rescale_gui_player(gui_player_t *g, sfVector2f win_size)
 
     sfRenderTexture_destroy(g->rtex);
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
-    sfRectangleShape_setSize(g->border, size);
+    sfSprite_setTextureRect(g->border,
+    (sfIntRect){0, 0, size.x, size.y});
     set_sprite_size(g->skin, sk_size);
     center_sprite(g->skin);
     sfSprite_setPosition(g->skin, (sfVector2f){size.x * 0.5, size.y * 0.24});
@@ -84,9 +85,13 @@ gui_player_t *create_gui_player(char const *file, sfVector2f win_size)
 {
     gui_player_t *g = malloc(sizeof(gui_player_t));
     sfVector2f size = {win_size.x * ((1 - SPACING * 4) / 3), win_size.y * 0.65};
+    sfTexture *tex = sfTexture_createFromFile("assets/floor_wall/floor_office.png", NULL);
 
-    g->border = create_rectangle((sfVector2f){size.x * 0.8, size.y * 0.8},
-    grey, size.x * 0.1, sfWhite);
+    sfTexture_setRepeated(tex, 1);
+    g->border = sfSprite_create();
+    sfSprite_setTexture(g->border, tex, 0);
+    sfSprite_setTextureRect(g->border,
+    (sfIntRect){0, 0, size.x, size.y});
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
     g->skin = sfSprite_create();
     sfSprite_setTexture(g->skin, player_texture(), 0);

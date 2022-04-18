@@ -15,7 +15,13 @@ void go_back_to_main(void *win)
 
 void delete_selected(void *win)
 {
-    (void)win;
+    window_t *w = win;
+    choose_save_t *s = w->menus[SELECT_SAVE];
+    char const *files[3] = {"./saves/save1", "./saves/save2", "./saves/save3"};
+    int fd = open(files[s->primary], O_WRONLY | O_TRUNC);
+
+    close(fd);
+    load_saves(s);
 }
 
 void launch_create_file(void *win)
@@ -31,7 +37,12 @@ void launch_create_file(void *win)
 
 void launch_file(void *win)
 {
-    (void)win;
+    window_t *w = win;
+    choose_save_t *c = w->menus[SELECT_SAVE];
+    game_t *g = w->menus[GAME];
+
+    sfSprite_setColor(g->player->sprite, c->saves[c->primary]->infos.skin_comb);
+    set_next_win_state(win, GAME);
 }
 
 choose_save_t *create_choose_save(sfVector2f win_size)

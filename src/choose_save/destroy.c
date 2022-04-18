@@ -9,7 +9,8 @@
 
 void free_save(gui_player_t *g)
 {
-    sfRectangleShape_destroy(g->border);
+    sfTexture_destroy((sfTexture *)sfSprite_getTexture(g->border));
+    sfSprite_destroy(g->border);
     sfText_destroy(g->name);
     sfRenderTexture_destroy(g->rtex);
     sfSprite_destroy(g->skin);

@@ -97,7 +97,7 @@ typedef struct {
 
     sfSprite *skin;
 
-    sfRectangleShape *border;
+    sfSprite *border;
     sfRenderTexture *rtex;
 
     sfSprite *stats_img;

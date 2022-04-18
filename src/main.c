@@ -96,20 +96,6 @@ void move_pl(window_t *win)
 
 int main(void)
 {
-    // player_info_t infos;
-
-    // memset(&infos, 0, sizeof(player_info_t));
-    // infos.health_percent = 35;
-    // infos.m_health_percent = 76;
-    // infos.mental_stability = 13;
-    // my_strcpy(infos.player_name, "wesh_wesh");
-    // infos.skin_comb = sfWhite;
-    // infos.speed = 69;
-    // infos.stamina = 42;
-    // infos.strength = 3;
-
-    // int fd = open("./saves/save1", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    // return write(fd, &infos, sizeof(player_info_t));
     window_t *win;
 
     if (!global_texture() || !global_font())
@@ -124,5 +110,6 @@ int main(void)
     sfFont_destroy(global_font());
     sfTexture_destroy(global_texture());
     sfTexture_destroy(player_texture());
+    sfTexture_destroy(bars_texture());
     return 0;
 }

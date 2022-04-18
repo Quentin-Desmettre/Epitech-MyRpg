@@ -50,7 +50,7 @@ const sfTexture *draw_choose_save(window_t *win)
         tmp = get_gui_player(c->saves[i], c->rtex, i);
         sfRenderTexture_drawSprite(c->rtex, tmp, NULL);
         if (c->secondary == i)
-            draw_rect_around(tmp, (sfColor){75, 75, 75, 255}, c->rtex);
+            draw_rect_around(tmp, (sfColor){64, 64, 64, 255}, c->rtex);
         if (c->primary == i)
             draw_rect_around(tmp, sfWhite, c->rtex);
         sfSprite_destroy(tmp);
