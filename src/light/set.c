@@ -30,7 +30,7 @@ void set_light(all_t *data)
 
 void set_room_map(all_t *data)
 {
-    data->tex_light = sfRenderTexture_create(1920, 1080, 0);
+    data->tex_light = sfRenderTexture_create(1920 * 2, 1080 * 2, 0);
     data->wall_tex =  sfTexture_createFromFile(
     "./assets/floor_wall/wall_lvl.png", 0);
     data->floor_tex = sfTexture_createFromFile(
@@ -45,6 +45,7 @@ void set_room_map(all_t *data)
     sfSprite_setColor(data->noise_sp, (sfColor){255, 255, 255, 20});
     sfSprite_setTexture(data->floor, data->floor_tex, 0);
     sfSprite_setTexture(data->wall, data->wall_tex, 0);
+    data->off_view = (coo_t){0, 0};
 }
 
 int set_game_light(all_t *new, game_t *map)

@@ -40,9 +40,9 @@ void lunch_lines(all_t *data, coo_t p_pos, float intens)
     for (int i = 0; i < data->light->index; i++) {
         if (data->angles[i].is_triple == 1) {
             dir = data->angles[i].coo;
-            find_wall(data, p_pos, rotate(p_pos, dir, -0.00001), intens);
+            find_wall(data, p_pos, rotate(p_pos, dir, -0.0000001), intens);
             find_wall(data, p_pos, dir, intens);
-            find_wall(data, p_pos, rotate(p_pos, dir, 0.00001), intens);
+            find_wall(data, p_pos, rotate(p_pos, dir, 0.0000001), intens);
         } else
             find_wall(data, p_pos, data->angles[i].coo, intens);
     }

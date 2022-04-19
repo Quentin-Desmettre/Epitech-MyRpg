@@ -57,6 +57,7 @@ typedef sfVector2f coo_t;
 
 typedef struct all_t {
     int offset;
+    coo_t off_view;
     dir_t *angles;
     dir_t *buffer;
     float cell;
