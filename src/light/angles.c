@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "rpg.h"
 
-void find_angle_n(int i, int j, int l, all_t *data)
+void find_angle_n(int i, int j, int l, ray_c *data)
 {
     for (int k = -1; k != 3; k += 2) {
         if (i + l < MAP_S && i + l >= 0 && j + k < MAP_H && j + k >= 0 &&
@@ -21,7 +21,7 @@ void find_angle_n(int i, int j, int l, all_t *data)
     }
 }
 
-void find_angles(int i, int j, all_t *data)
+void find_angles(int i, int j, ray_c *data)
 {
     if (data->map[i][j] != '1')
         return;
@@ -29,7 +29,7 @@ void find_angles(int i, int j, all_t *data)
         find_angle_n(i, j, l, data);
 }
 
-void wall_light(all_t *data)
+void wall_light(ray_c *data)
 {
     sfVector2f first = {18, 1000};
     sfVector2f center = {18, 9};

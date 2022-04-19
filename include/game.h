@@ -13,7 +13,13 @@
     #include "lobby.h"
     #include "inventory.h"
 
+typedef struct item {
+    int type;
+    sfVector2f pos;
+} item_t;
+
 typedef struct game {
+    list_t *items;
     sfRenderTexture *rtex;
     inventory_t *inventory;
     level_t *level;

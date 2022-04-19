@@ -33,7 +33,7 @@ coo_t rotate(coo_t center, coo_t rt, float angle)
     return rt;
 }
 
-void lunch_lines(all_t *data, coo_t p_pos, float intens)
+void lunch_lines(ray_c *data, coo_t p_pos, float intens)
 {
     coo_t dir;
 
@@ -52,7 +52,7 @@ void lunch_lines(all_t *data, coo_t p_pos, float intens)
     find_wall(data, p_pos, rotate(p_pos, data->angles->coo, -0.00001), intens);
 }
 
-void sort_angle(all_t *data, coo_t p_pos)
+void sort_angle(ray_c *data, coo_t p_pos)
 {
     coo_t tmp;
     float o;

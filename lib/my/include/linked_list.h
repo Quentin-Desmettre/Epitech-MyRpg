@@ -20,4 +20,7 @@ typedef struct list {
     struct list *next;
 } s_list_t;
 
+void append_node(list_t **begin, void *data);
+void remove_node(list_t **begin, unsigned offset, void (*freer)(void *));
+
 #endif

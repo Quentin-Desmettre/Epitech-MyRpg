@@ -55,7 +55,7 @@ typedef struct dir_t {
 
 typedef sfVector2f coo_t;
 
-typedef struct all_t {
+typedef struct ray_c {
     int offset;
     coo_t off_view;
     dir_t *angles;
@@ -73,14 +73,14 @@ typedef struct all_t {
     sfSprite *floor;
     char **map;
     sfRenderStates state;
-} all_t;
+} ray_c;
 
-int set_game_light(all_t *new, game_t *map);
+int set_game_light(ray_c *new, game_t *map);
 
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
 
-void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win);
+void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderWindow *win);
 
 void my_memcpy(void *dest, const void *src, size_t n);
 
@@ -88,16 +88,16 @@ int my_memcmp(void *aa, void *bb, size_t size);
 
 coo_t rotate(coo_t center, coo_t rt, float angle);
 
-void draw_map(all_t *data, game_t *game, sfRenderWindow *win);
+void draw_map(ray_c *data, game_t *game, sfRenderWindow *win);
 
 coo_t norm(coo_t vector);
 coo_t rotate(coo_t center, coo_t rt, float angle);
-void lunch_lines(all_t *data, coo_t p_pos, float intens);
-void sort_angle(all_t *data, coo_t p_pos);
-void find_wall(all_t *data, coo_t p_pos, coo_t p_dir, float intens);
-void dest_light(all_t *data);
-void find_angle_n(int i, int j, int l, all_t *data);
-void find_angles(int i, int j, all_t *data);
-void wall_light(all_t *data);
+void lunch_lines(ray_c *data, coo_t p_pos, float intens);
+void sort_angle(ray_c *data, coo_t p_pos);
+void find_wall(ray_c *data, coo_t p_pos, coo_t p_dir, float intens);
+void dest_light(ray_c *data);
+void find_angle_n(int i, int j, int l, ray_c *data);
+void find_angles(int i, int j, ray_c *data);
+void wall_light(ray_c *data);
 
 #endif

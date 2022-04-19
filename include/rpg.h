@@ -248,8 +248,8 @@ void game_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_game(window_t *win);
 void destroy_game(game_t *game);
 
-void new_room(level_t *level, all_t *light);
-void draw_room(all_t *data, game_t *game);
+void new_room(level_t *level, ray_c *light);
+void draw_room(ray_c *data, game_t *game, sfRenderWindow *win);
 
 void draw_inventory(game_t *game, sfRenderWindow *win);
 

@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include "rpg.h"
 
-void set_light(all_t *data)
+void set_light(ray_c *data)
 {
     data->state.shader = 0;
     data->state.blendMode = sfBlendAlpha;
@@ -28,7 +28,7 @@ void set_light(all_t *data)
     wall_light(data);
 }
 
-void set_room_map(all_t *data)
+void set_room_map(ray_c *data)
 {
     data->tex_light = sfRenderTexture_create(1920 * 2, 1080 * 2, 0);
     data->wall_tex =  sfTexture_createFromFile(
@@ -48,7 +48,29 @@ void set_room_map(all_t *data)
     data->off_view = (coo_t){0, 0};
 }
 
-int set_game_light(all_t *new, game_t *map)
+char choose_item(int i, int j, char c, game_t *game)
+{
+    int random = rand() % 100;
+    item_t *tmp = 0;
+
+    if (c == 'X')
+        return '1';
+    if (random < 1) {
+        tmp = malloc(sizeof(item_t));
+        tmp->type = 0;
+        tmp->pos = (coo_t){i, j};
+        append_node(&game->items, tmp);
+    }
+    if (random < 2 && random > 0) {
+        tmp = malloc(sizeof(item_t));
+        tmp->type = 1;
+        tmp->pos = (coo_t){i, j};
+        append_node(&game->items, tmp);
+    }
+    return '0';
+}
+
+int set_game_light(ray_c *new, game_t *map)
 {
     if (new == 0)
         return 0;
@@ -66,14 +88,14 @@ int set_game_light(all_t *new, game_t *map)
     }
     for (int i = 0; i < map->level->size.y + 2; i++)
         for (int j = 0; j < map->level->size.x + 2; j++)
-            new->map[i][j] = (map->level->room[j][i] == 'X') ? '1' : '0';
+            new->map[i][j] = choose_item(i, j, map->level->room[j][i], map);
     new->map[MAP_S] = 0;
     set_light(new);
     set_room_map(new);
     return 1;
 }
 
-void dest_light(all_t *data)
+void dest_light(ray_c *data)
 {
     sfVertexArray_destroy(data->light->array);
     sfCircleShape_destroy(data->light->circle);

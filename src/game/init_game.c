@@ -98,6 +98,7 @@ game_t *game_create(window_t *win)
         pl_rect_idle
     };
 
+    game->items = 0;
     memset(game, 0, sizeof(game_t));
     int test[6] = {9, 9, 9, 9, 2, 0};
     game->rtex = sfRenderTexture_create(win->mode.width, win->mode.height, 0);

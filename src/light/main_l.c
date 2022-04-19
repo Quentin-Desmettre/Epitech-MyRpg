@@ -30,7 +30,7 @@ coo_t step(coo_t *vstep, coo_t vraydir
     return v_raylen;
 }
 
-void draw_line(all_t *data, coo_t p_pos, coo_t vraydir, float dis)
+void draw_line(ray_c *data, coo_t p_pos, coo_t vraydir, float dis)
 {
     coo_t vinter = {p_pos.x + vraydir.x * dis, p_pos.y + vraydir.y *
     dis};
@@ -42,7 +42,7 @@ void draw_line(all_t *data, coo_t p_pos, coo_t vraydir, float dis)
     sfVertexArray_append(data->light->array, data->light->vertex);
 }
 
-void find_wall(all_t *data, coo_t p_pos, coo_t p_dir, float intens)
+void find_wall(ray_c *data, coo_t p_pos, coo_t p_dir, float intens)
 {
     coo_t r_dir = norm((coo_t){p_dir.x - p_pos.x, p_dir.y - p_pos.y});
     coo_t v_ray_step = {sqrt(1 + (r_dir.y / r_dir.x) * (r_dir.y /
@@ -66,11 +66,11 @@ void find_wall(all_t *data, coo_t p_pos, coo_t p_dir, float intens)
             break;
     }
     dis = (dis > intens) ? intens : dis;
-    data->light->vertex.color.a = (255 - dis / intens * 255) / (15 - intens);
+    data->light->vertex.color.a = (255 - dis / intens * 255) / (12 - intens);
     draw_line(data, p_pos, r_dir, dis);
 }
 
-void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
+void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderWindow *win)
 {
     coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
     cell};
@@ -79,23 +79,23 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
-    for (int j = 0; j < 6; j++) {
+    for (int j = 0; j < 5; j++) {
         data->light->vertex.position = (coo_t){(p_pos.x) * data->cell +
         data->offset + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
         data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
         (p_pos.y) * data->cell};
         data->light->vertex.color = sfColor_fromRGBA(255, 255, 255, 255 /
-        (15 - intens));
+        (12 - intens));
         sfVertexArray_append(data->light->array, data->light->vertex);
         sort_angle(data, p_pos);
         lunch_lines(data, p_pos, intens);
-        p_pos = rotate(v_mouse_cell, p_pos, 60);
+        p_pos = rotate(v_mouse_cell, p_pos, 72);
         sfRenderWindow_drawVertexArray(win, data->light->array, &data->state);
         sfVertexArray_clear(data->light->array);
     }
 }
 
-void draw_map(all_t *data, game_t *game, sfRenderWindow *win)
+void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
 {
     // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);

@@ -76,7 +76,7 @@ void create_room(level_t *level)
     my_show_word_array(level->room);
 }
 
-void new_room(level_t *level, all_t *light)
+void new_room(level_t *level, ray_c *light)
 {
     my_free("P", level->room);
     create_room(level);

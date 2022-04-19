@@ -8,7 +8,7 @@
 #include "rpg.h"
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
-void draw_wall(all_t *data, int i, int j, game_t *game)
+void draw_wall(ray_c *data, int i, int j, game_t *game)
 {
     coo_t size = game->level->size;
 
@@ -33,9 +33,30 @@ void draw_wall(all_t *data, int i, int j, game_t *game)
     }
 }
 
-void draw_room(all_t *data, game_t *game)
+void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
 {
+    list_t *tmp = game->items;
+
+    sfSprite_setScale(game->inventory->items_sprite[0]
+    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    sfSprite_setScale(game->inventory->items_sprite[1]
+    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    do {
+        sfSprite_setPosition(game->inventory->
+        items_sprite[((item_t *)(tmp->data))->type], (coo_t){((item_t *)
+        (tmp->data))->pos.x * data->cell + data->cell / 7.0,
+        ((item_t *)(tmp->data))->pos.y * data->cell});
+        sfRenderTexture_drawSprite(data->tex_light, game->inventory->
+        items_sprite[((item_t *)(tmp->data))->type], 0);
+        tmp = tmp->next;
+    } while (tmp != 0 && tmp != game->items);
+}
+
+void draw_room(ray_c *data, game_t *game, sfRenderWindow *win)
+{
+    sfVector2u size_win = sfRenderWindow_getSize(win);
     coo_t size = game->level->size;
+
     sfRenderTexture_clear(data->tex_light, sfBlack);
     for (int i = 0; i < size.y + 2; i++) {
         for (int j = 0; j < size.x + 2; j++) {
@@ -43,6 +64,8 @@ void draw_room(all_t *data, game_t *game)
         }
     }
     sfRenderTexture_drawSprite(data->tex_light, data->noise_sp, 0);
+    draw_items(game, data, size_win);
     sfRenderTexture_drawSprite(data->tex_light, game->player->sprite, NULL);
+    game->inventory->items_sprite[0];
     sfRenderTexture_display(data->tex_light);
 }

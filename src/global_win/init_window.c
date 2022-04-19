@@ -64,7 +64,7 @@ window_t *window_create(void)
     create_settings(win);
     win->menus[HOME] = create_main_menu(WIN_SIZE(win));
     win->menus[GAME] = game_create(win);
-    win->menus[LIGHT] = malloc(sizeof(all_t));
+    win->menus[LIGHT] = malloc(sizeof(ray_c));
     win->menus[SELECT_SAVE] = create_choose_save(WIN_SIZE(win));
     set_game_light(win->menus[LIGHT], win->menus[GAME]);
     apply_settings(win->menus[SETTINGS], win);
