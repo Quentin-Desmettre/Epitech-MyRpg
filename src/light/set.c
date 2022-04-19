@@ -41,7 +41,7 @@ void set_room_map(all_t *data)
     data->noise_sp = sfSprite_create();
     data->noise = sfTexture_createFromFile("./assets/noise.png", 0);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);
-    sfSprite_setScale(data->noise_sp, (sfVector2f){1.875, 1.875});
+    sfSprite_setScale(data->noise_sp, (sfVector2f){2.75, 2.75});
     sfSprite_setColor(data->noise_sp, (sfColor){255, 255, 255, 20});
     sfSprite_setTexture(data->floor, data->floor_tex, 0);
     sfSprite_setTexture(data->wall, data->wall_tex, 0);

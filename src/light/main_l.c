@@ -74,7 +74,7 @@ void add_light(all_t *data, sfVector2i pos, float intens, sfRenderWindow *win)
 {
     coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
     cell};
-    coo_t p_pos = {(float)(pos.x) / data->cell + 0.1, (float)(pos.y) / data->
+    coo_t p_pos = {(float)(pos.x) / data->cell + 0.05, (float)(pos.y) / data->
     cell};
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
