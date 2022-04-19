@@ -250,4 +250,7 @@ void destroy_game(game_t *game);
 
 void new_room(level_t *level, all_t *light);
 void draw_room(all_t *data, game_t *game);
+
+void draw_inventory(game_t *game, sfRenderWindow *win);
+
 #endif

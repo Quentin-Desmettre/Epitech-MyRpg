@@ -21,54 +21,6 @@ static const int p_frames[5] = {
     5, 5, 5, 5, 5
 };
 
-static const sfIntRect p_rect_left[5] = {
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100}
-};
-
-static const sfIntRect p_rect_top[5] = {
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100}
-};
-
-static const sfIntRect p_rect_right[5] = {
-    {0, 0, 100, 100},
-    {0, 0, 200, 100},
-    {0, 0, 300, 100},
-    {0, 0, 400, 100},
-    {0, 0, 500, 100}
-};
-
-static const sfIntRect p_rect_down[5] = {
-    {0, 0, 100, 100},
-    {0, 0, 100, 200},
-    {0, 0, 100, 300},
-    {0, 0, 100, 400},
-    {0, 0, 100, 500}
-};
-
-static const sfIntRect p_rect_idle[5] = {
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100},
-    {0, 0, 100, 100}
-};
-
-static const sfIntRect *p_rects[5] = {
-    p_rect_left,
-    p_rect_top,
-    p_rect_right,
-    p_rect_down,
-    p_rect_idle
-};
-
 static const sfIntRect pl_rect_left[9] = {
     {0, 704, 64, 64},
     {64, 704, 64, 64},
@@ -122,11 +74,4 @@ static const sfIntRect pl_rect_idle[5] = {
     {64, 640, 64, 64}
 };
 
-static const sfIntRect *pl_rects[5] = {
-    pl_rect_top,
-    pl_rect_down,
-    pl_rect_left,
-    pl_rect_right,
-    pl_rect_idle
-};
 #endif

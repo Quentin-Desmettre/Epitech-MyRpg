@@ -34,6 +34,7 @@ static void draw(window_t *win)
     if (win->state == GAME) {
         draw_room(win->menus[LIGHT], win->menus[GAME]);
         draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
+        draw_inventory(win->menus[GAME], win->win);
     }
     sfRenderWindow_display(win->win);
     sfTexture_destroy(cpy);
@@ -59,8 +60,6 @@ static void poll_events(window_t *win)
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
-    if (win->state == GAME)
-        game_ev(win, ev);
 }
 
 void move_pl(window_t *win)

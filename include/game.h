@@ -11,9 +11,11 @@
     #include "rpg.h"
     #include "npc.h"
     #include "lobby.h"
+    #include "inventory.h"
 
 typedef struct game {
     sfRenderTexture *rtex;
+    inventory_t *inventory;
     level_t *level;
     npc_t *player;
     sfClock *clock;

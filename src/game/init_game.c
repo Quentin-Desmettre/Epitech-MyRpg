@@ -25,6 +25,10 @@ void destroy_game(game_t *game)
     free(game->level->room);
     free(game->player);
     free(game->level);
+    sfSprite_destroy(game->inventory->sprite);
+    sfTexture_destroy(game->inventory->texture);
+    free(game->inventory->data);
+    free(game->inventory);
     free(game);
 }
 
@@ -41,6 +45,16 @@ void game_ev(window_t *win, sfEvent ev)
         //     game->player->dir = DOWN;
         // if (ev.key.code == sfKeyD)
         //     game->player->dir = RIGHT;
+        if (ev.key.code == sfKeyG)
+            remove_item(game->inventory, PILLS, 1);
+        if (ev.key.code == sfKeyH)
+            add_item(game->inventory, PILLS, 1);
+        if (ev.key.code == sfKeyT)
+            remove_item(game->inventory, WATER, 1);
+        if (ev.key.code == sfKeyY)
+            add_item(game->inventory, WATER, 1);
+        if (ev.key.code == sfKeyI)
+            game->inventory->draw = !game->inventory->draw;
         if (ev.key.code == sfKeyR)
             new_room(game->level, win->menus[LIGHT]);
     }
@@ -76,6 +90,13 @@ const sfTexture *draw_game(window_t *win)
 game_t *game_create(window_t *win)
 {
     game_t *game = malloc(sizeof(game_t));
+    static const sfIntRect *pl_rects[5] = {
+        pl_rect_top,
+        pl_rect_down,
+        pl_rect_left,
+        pl_rect_right,
+        pl_rect_idle
+    };
 
     memset(game, 0, sizeof(game_t));
     int test[6] = {9, 9, 9, 9, 2, 0};
@@ -84,6 +105,7 @@ game_t *game_create(window_t *win)
     , (sfVector2f){1.2, 1.2});
     sfSprite_setOrigin(game->player->sprite, (sfVector2f){32, 32});
     game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
+    game->inventory = inventory_create();
     game->clock = sfClock_create();
     return game;
 }

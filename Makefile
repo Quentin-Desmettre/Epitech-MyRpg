@@ -65,7 +65,9 @@ SRC = \
 	src/room/valid.c                                   \
 	src/main.c                                         \
 	src/line_edit/create.c                             \
-	src/line_edit/events.c
+	src/line_edit/events.c                             \
+	src/inventory/inventory.c                          \
+	src/inventory/draw.c                               \
 
 OBJ = $(SRC:.c=.o)
 

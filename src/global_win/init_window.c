@@ -40,6 +40,20 @@ static void create_pointers(window_t *win)
     }
 }
 
+void center_inventory(game_t *game, window_t *win)
+{
+    sfVector2f size = WIN_SIZE(win);
+    sfVector2u center = sfTexture_getSize(game->inventory->texture);
+
+    sfSprite_setScale(game->inventory->sprite,
+    (sfVector2f){size.y / 1080, size.y / 1080});
+    game->inventory->pos.x = size.x / 2;
+    game->inventory->pos.y = size.y / 2;
+    sfSprite_setOrigin(game->inventory->sprite,
+    (sfVector2f){center.x / 2, center.y / 2});
+    sfSprite_setPosition(game->inventory->sprite, game->inventory->pos);
+}
+
 window_t *window_create(void)
 {
     window_t *win = malloc(sizeof(window_t));
@@ -54,5 +68,6 @@ window_t *window_create(void)
     win->menus[SELECT_SAVE] = create_choose_save(WIN_SIZE(win));
     set_game_light(win->menus[LIGHT], win->menus[GAME]);
     apply_settings(win->menus[SETTINGS], win);
+    center_inventory(win->menus[GAME], win);
     return win;
 }
