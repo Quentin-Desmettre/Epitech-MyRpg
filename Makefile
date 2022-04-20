@@ -16,6 +16,7 @@ SRC = \
 	src/sprite/sprite_modif.c                          \
 	src/globals/fonts.c                                \
 	src/globals/texture.c                              \
+	src/globals/sounds.c                               \
 	src/settings/apply.c                               \
 	src/settings/checkbox.c                            \
 	src/settings/destroy.c                             \
@@ -42,8 +43,9 @@ SRC = \
 	src/builders/level_setters.c                       \
 	src/builders/npc_setters2.c                        \
 	src/builders/npc_setters3.c                        \
-	src/game/init_game.c                               \
 	src/game/move_player.c                             \
+	src/game/init_game.c                               \
+	src/game/take_item.c                               \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \
@@ -59,26 +61,29 @@ SRC = \
 	src/light/angles.c                                 \
 	src/light/draw_room.c                              \
 	src/light/main_l.c                                 \
+	src/light/offset_light.c                           \
 	src/light/set.c                                    \
 	src/light/utils_light.c                            \
-	src/light/offset_light.c						   \
-	src/room/room.c                                    \
 	src/room/generator.c                               \
 	src/room/valid.c                                   \
-	src/main.c                                         \
+	src/room/room.c                                    \
 	src/line_edit/create.c                             \
 	src/line_edit/events.c                             \
 	src/inventory/inventory.c                          \
 	src/inventory/draw.c                               \
-	src/game/take_item.c                               \
+	src/main.c                                         \
+	src/sound_builder/build_sfx.c                      \
+	src/sound_builder/build_music.c                    \
+	src/sound_builder/safe.c
 
 OBJ = $(SRC:.c=.o)
 
 NAME = my_rpg
 
-CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g -DDEBUG
 
-LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system -lm
+LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window -lcsfml-audio \
+			-lcsfml-system -lm
 
 all: $(NAME)
 

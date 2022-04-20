@@ -16,6 +16,12 @@ static void create_basics(window_t *win)
     win->is_transition = 0;
     win->mode = (sfVideoMode){800, 600, 32};
     win->lum_clock = sfClock_create();
+    win->music = create_music(LOBBY_MUSIC);
+    if (win->music) {
+        sfMusic_play(win->music);
+        sfMusic_setVolume(win->music, 30);
+        sfMusic_setLoop(win->music, 1);
+    }
 }
 
 static void create_settings(window_t *win)

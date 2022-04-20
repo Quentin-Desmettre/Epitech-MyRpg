@@ -8,6 +8,7 @@
 #ifndef BUTTON_H
     #define BUTTON_H
     #include <SFML/Graphics.h>
+    #include <SFML/Audio.h>
     #include <stdbool.h>
     #include <stdio.h>
     #include <stdlib.h>
@@ -28,12 +29,15 @@ typedef struct {
     sfVector2f container_size;
     float font_factor;
     int can_trigger;
+    sfSound *press;
+    sfSound *release;
 } button_t;
 
 void destroy_button(button_t *b);
 void hover_button(button_t *b, int is_on);
 void press_button(button_t *b, int is_press);
 void button_set_pos(button_t *b, sfVector2f pos);
+void init_default(button_t *b);
 
 // additional params: size, string, action
 button_t *init_button(sfTexture *t, sfIntRect rect,
@@ -50,6 +54,8 @@ sfVector2f pos, ...) __attribute__((deprecated("Use build_button instead")));
 /// \param text char *, text to be display
 /// \param texture sfTexture *, the texture to be used
 /// \param rect sfIntRect, the texture rect
+/// \param p_sf char *, Name of the audio file you want to be played on press
+/// \param r_sf char *, Name of the audio file you want to be played on release
 /// \return The built button
 ///////////////////////////////////////////////////////////////////////////////
 button_t *build_button(char *format, ...);
@@ -129,5 +135,7 @@ void set_texture(button_t *b, va_list va);
 void set_rect(button_t *b, va_list va);
 void set_f_size(button_t *b, va_list va);
 void set_button_enabled(button_t *b, int enabled);
+void set_pfx(button_t *b, va_list va);
+void set_rfx(button_t *b, va_list va);
 
 #endif

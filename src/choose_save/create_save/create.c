@@ -90,9 +90,9 @@ create_save_t *create_create_save(sfVector2f size, int f_no)
     c->name = create_line_edit(le_size, "", 12);
     for (int i = 0; i < 2; i++)
         c->actions[i] = build_button("sf,pf,ff,base_size,release,text,texture,"
-        "rect", (sfVector2f){0.2, 0.1}, (sfVector2f){0.65 + 0.22 * i, 0.9},
-        0.65, size, NULL, i ? "Create" : "Cancel",
-        global_texture(), button_rect);
+        "rect,p_sf,r_sf", (sfVector2f){0.2, 0.1}, (sfVector2f){0.65 + 0.22 * i, 0.9},
+        0.65, size, NULL, i ? "Create" : "Cancel", global_texture(),
+        button_rect, BUTTON_PRESS, BUTTON_RELEASE);
     scale_line_edit(c->name, le_size);
     c->prompt = init_text("Name your character.", size.y * 0.07);
     sfText_setPosition(c->prompt, (sfVector2f){le_pos.x, size.y * 0.06});

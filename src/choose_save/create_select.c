@@ -43,6 +43,7 @@ void launch_file(void *win)
     player_info_t infos = c->saves[c->primary]->infos;
 
     sfSprite_setColor(g->player->sprite, infos.skin_comb);
+    sfMusic_stop(w->music);
     g->player->speed = infos.speed;
     g->player->attack = infos.strength;
     g->player->defense = infos.stamina;
@@ -61,9 +62,9 @@ choose_save_t *create_choose_save(sfVector2f win_size)
     c->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     for (int i = 0; i < 4; i++)
         c->buttons[i] = build_button("sf,pf,base_size,"
-        "text,texture,rect,release,ff", (sfVector2f){0.2, 0.1},
-        (sfVector2f){0.14 + 0.24 * i, 0.9},
-        win_size, texts[i], global_texture(), button_rect, functions[i], 0.65);
+        "text,texture,rect,release,ff,p_sf,r_sf", (sfVector2f){0.2, 0.1},
+        (sfVector2f){0.14 + 0.24 * i, 0.9}, win_size, texts[i], global_texture()
+        , button_rect, functions[i], 0.65, BUTTON_PRESS, BUTTON_RELEASE);
     c->hider = sfSprite_create();
     sfSprite_setTexture(c->hider,
     sfTexture_createFromFile(GLOBAL_TEXTURE, &hider_rect), 0);

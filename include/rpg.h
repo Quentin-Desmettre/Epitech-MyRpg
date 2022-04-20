@@ -18,6 +18,27 @@
     #include "light.h"
     #include "npc.h"
 
+    #ifdef DEBUG
+
+        #define sfMusic_createFromFile music_func
+        #define sfSound_create sound_func
+
+    sfSound *sound_func(void);
+    sfMusic *music_func(char *s);
+
+    #endif
+    #define get_music_vol() music_vol(0, 0)
+    #define set_music_vol(x) music_vol(1, x)
+    #define get_sound_vol() sound_vol(0, 0)
+    #define set_sound_vol(x) sound_vol(1, x)
+
+list_t **sound_list(void);
+list_t **music_list(void);
+float music_vol(int change, float new);
+float sound_vol(int change, float new);
+
+    #include "audio_builder.h"
+
     #define ABS(x) ((x) < 0 ? -(x) : (x))
     #define REPEAT_DELAY 500000
     #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})

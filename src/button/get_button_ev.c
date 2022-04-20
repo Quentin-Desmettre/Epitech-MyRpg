@@ -47,6 +47,8 @@ sfVector2f pos, void *win)
         return 0;
     if (!is_pressed || !buttons[button]->can_trigger)
         return 0;
+    if (buttons[button]->release)
+        sfSound_play(buttons[button]->release);
     if (buttons[button]->action)
         buttons[button]->action(win);
     return 1;

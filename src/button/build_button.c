@@ -19,7 +19,7 @@ void set_button_enabled(button_t *b, int enabled)
     b->can_trigger = enabled;
 }
 
-static void init_default(button_t *b)
+void init_default(button_t *b)
 {
     b->size_fac = (sfVector2f){1, 1};
     b->pos_fac = (sfVector2f){1, 1};
@@ -31,6 +31,8 @@ static void init_default(button_t *b)
     b->is_hover = 0;
     b->is_press = 0;
     b->can_trigger = 1;
+    b->press = NULL;
+    b->release = NULL;
 }
 
 void update_button(button_t *b)
@@ -56,16 +58,16 @@ button_t *build_button(char *format, ...)
 {
     button_t *b = malloc(sizeof(button_t));
     char *params[] = {"sf", "pf", "base_size",
-    "release", "text", "texture", "rect", "ff", NULL};
-    void (*setters[])(button_t *, va_list) = {set_sf, set_pf,
-    set_base_size, set_release, set_text, set_texture, set_rect, set_f_size};
+    "release", "text", "texture", "rect", "ff", "p_sf", "r_sf", NULL};
+    void (*setters[])(button_t *, va_list) = {set_sf, set_pf, set_base_size,
+    set_release, set_text, set_texture, set_rect, set_f_size, set_pfx, set_rfx};
     char **p = my_str_to_word_array(format, ",");
     va_list va;
     init_default(b);
     va_start(va, format);
     for (int i = 0, index = 0; p[i]; i++) {
         index = index_str_in_array(params, p[i]);
-        if (index >= 0 && index < 8)
+        if (index >= 0 && index < 11)
             setters[index](b, va);
     }
     va_end(va);

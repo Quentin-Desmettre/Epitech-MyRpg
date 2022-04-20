@@ -20,6 +20,8 @@ static void win_destroy(window_t *win)
     destroy_game(win->menus[GAME]);
     sfClock_destroy(win->lum_clock);
     free_choose_save(win->menus[SELECT_SAVE]);
+    if (win->music)
+        destroy_music(win->music);
     free(win);
 }
 

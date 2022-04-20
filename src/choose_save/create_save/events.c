@@ -68,6 +68,8 @@ static void check_release(create_save_t *c, float x, float y, window_t *win)
         check_button_press(to_check[i], sizes[i], -100, -100);
     if (!is_pressed || !to_check[type][button]->can_trigger)
         return;
+    if (to_check[type][button]->release)
+        sfSound_play(to_check[type][button]->release);
     if (type == 0)
         return button == 0 ?
         set_next_win_state(win, SELECT_SAVE) : create_file(c, win);

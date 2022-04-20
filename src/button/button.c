@@ -9,11 +9,16 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "sprite.h"
+#include "audio_builder.h"
 
 void destroy_button(button_t *b)
 {
     sfSprite_destroy(b->sprite);
     sfText_destroy(b->text);
+    if (b->press)
+        destroy_sound(b->press);
+    if (b->release)
+        destroy_sound(b->release);
     free(b);
 }
 
@@ -50,6 +55,8 @@ void press_button(button_t *b, int is_press)
     if (is_press == b->is_press)
         return;
     if (is_press) {
+        if (b->press)
+            sfSound_play(b->press);
         hover_button(b, 0);
         factor_color(b->sprite, 0.5, b->text);
     } else {
@@ -67,7 +74,7 @@ sfVector2f pos, ...)
     sfVector2f size;
     char *str;
     void (*action)(void *);
-
+    init_default(n);
     va_start(va, pos);
     size = va_arg(va, sfVector2f);
     str = va_arg(va, char *);

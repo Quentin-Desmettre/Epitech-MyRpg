@@ -56,9 +56,9 @@ main_menu_t *create_main_menu(sfVector2f win_size)
     m->background = init_sprite(global_texture(), back_rect, win_size);
     for (int i = 0; i < 5; i++)
         m->buttons[i] = build_button("pf,sf,rect,"
-        "text,texture,base_size,ff,release",
-        mm_pf[i], mm_sf[i], mm_rects[i], mm_texts[i],
-        global_texture(), win_size, mm_ff_factors[i], actions[i]);
+        "text,texture,base_size,ff,release,p_sf,r_sf",
+        mm_pf[i], mm_sf[i], mm_rects[i], mm_texts[i], global_texture(),
+        win_size, mm_ff_factors[i], actions[i], BUTTON_PRESS, BUTTON_RELEASE);
     m->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     return m;
 }
