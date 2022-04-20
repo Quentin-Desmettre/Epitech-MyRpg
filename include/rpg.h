@@ -43,6 +43,10 @@ float sound_vol(int change, float new);
     #define REPEAT_DELAY 500000
     #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
     #define SPACING 0.06
+    #define BUTTON_PRESS "./assets/audio/button_press.ogg"
+    #define BUTTON_RELEASE "./assets/audio/button_release.ogg"
+    #define LOBBY_MUSIC "./assets/audio/lobby.ogg"
+    #define WIN_CLOSE "./assets/audio/win_close.ogg"
 
 typedef struct {
     button_t *buttons[5];
@@ -65,6 +69,8 @@ typedef struct win {
     void (*event[12])(struct win *, sfEvent ev);
     void (*update[12])(void *);
 
+    sfMusic *music;
+    sfSound *close_sfx;
 } window_t;
 
 typedef enum {

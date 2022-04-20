@@ -38,4 +38,8 @@ void apply_settings(settings_t *se, window_t *win)
     available_framerates[se->framerate]);
     sfRenderWindow_setVerticalSyncEnabled(win->win, se->vsync->is_checked);
     update_all_texts(se);
+    set_music_vol(se->music_vol);
+    set_sound_vol(se->sfx_vol);
+    set_musics_volume(get_music_vol());
+    set_sounds_volume(get_sound_vol());
 }

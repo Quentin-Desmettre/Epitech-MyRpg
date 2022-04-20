@@ -13,8 +13,11 @@ static void switch_color_dir(window_t *win, int *dir)
         destroy_create_save(&win->menus[CREATE_SAVE]);
     win->state = win->next_state;
     *dir = -1;
-    if (win->state == EXIT)
+    if (win->state == EXIT) {
+        while (win->close_sfx &&
+        sfSound_getStatus(win->close_sfx) != sfStopped);
         sfRenderWindow_close(win->win);
+    }
 }
 
 static void reset_lum(window_t *win, int *dir, sfColor *lum)

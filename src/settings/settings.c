@@ -25,6 +25,8 @@ static button_t *init_set_button(const sfIntRect rect)
     b->is_press = 0;
     b->text = init_text("", 0);
     b->sprite = init_sprite(global_texture(), rect, (sfVector2f){1, 1});
+    b->press = 0;
+    b->release = 0;
     center_sprite(b->sprite);
     return b;
 }

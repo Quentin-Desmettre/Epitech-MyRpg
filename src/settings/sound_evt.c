@@ -7,6 +7,7 @@
 
 #include "settings.h"
 #include <stdarg.h>
+#include "rpg.h"
 
 void update_vol(float m_vol, float s_vol, char const *format, ...)
 {
@@ -31,6 +32,8 @@ void sfx_minus(settings_t *se)
     if (se->sfx_vol == 0)
         return;
     se->sfx_vol--;
+    set_sound_vol(se->sfx_vol);
+    set_sounds_volume(se->sfx_vol);
 }
 
 void sfx_plus(settings_t *se)
@@ -38,6 +41,8 @@ void sfx_plus(settings_t *se)
     if (se->sfx_vol == 100)
         return;
     se->sfx_vol++;
+    set_sound_vol(se->sfx_vol);
+    set_sounds_volume(se->sfx_vol);
 }
 
 void music_minus(settings_t *se)
@@ -45,6 +50,8 @@ void music_minus(settings_t *se)
     if (se->music_vol == 0)
         return;
     se->music_vol--;
+    set_music_vol(se->music_vol);
+    set_musics_volume(se->music_vol);
 }
 
 void music_plus(settings_t *se)
@@ -52,4 +59,6 @@ void music_plus(settings_t *se)
     if (se->music_vol == 100)
         return;
     se->music_vol++;
+    set_music_vol(se->music_vol);
+    set_musics_volume(se->music_vol);
 }

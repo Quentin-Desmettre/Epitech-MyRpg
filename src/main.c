@@ -22,6 +22,8 @@ static void win_destroy(window_t *win)
     free_choose_save(win->menus[SELECT_SAVE]);
     if (win->music)
         destroy_music(win->music);
+    if (win->close_sfx)
+        destroy_sound(win->close_sfx);
     free(win);
 }
 
@@ -51,6 +53,8 @@ void set_next_win_state(window_t *win, int next)
 {
     win->next_state = next;
     win->is_transition = 1;
+    if (next == EXIT && win->close_sfx)
+        sfSound_play(win->close_sfx);
 }
 
 static void poll_events(window_t *win)

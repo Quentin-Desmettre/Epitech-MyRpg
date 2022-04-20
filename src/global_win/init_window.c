@@ -17,6 +17,7 @@ static void create_basics(window_t *win)
     win->mode = (sfVideoMode){800, 600, 32};
     win->lum_clock = sfClock_create();
     win->music = create_music(LOBBY_MUSIC);
+    win->close_sfx = create_sound(WIN_CLOSE);
     if (win->music) {
         sfMusic_play(win->music);
         sfMusic_setVolume(win->music, 30);
