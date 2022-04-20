@@ -75,12 +75,14 @@ void create_room(level_t *level)
     my_free("ppppp", pile->path, maze->grid, maze->visited, pile, maze);
 }
 
-void new_room(level_t *level, ray_c *light)
+void new_room(game_t *game, ray_c *light)
 {
-    my_free("P", level->room);
-    create_room(level);
-    for (int i = 0; i < level->size.y + 2; i++) {
-        for (int j = 0; j < level->size.x + 2; j++)
-            light->map[i][j] = (level->room[j][i] == 'X') ? '1' : '0';
-    }
+    my_free("P", game->level->room);
+    create_room(game->level);
+    while (game->items != NULL)
+        remove_node(&(game->items), 0, free);
+    for (int i = 0; i < game->level->size.y + 2; i++)
+        for (int j = 0; j < game->level->size.x + 2; j++)
+            light->map[i][j] = choose_item(i, j, game->level->room[j][i], game);
+    light->map[MAP_S] = 0;
 }

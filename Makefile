@@ -61,6 +61,7 @@ SRC = \
 	src/light/main_l.c                                 \
 	src/light/set.c                                    \
 	src/light/utils_light.c                            \
+	src/light/offset_light.c						   \
 	src/room/room.c                                    \
 	src/room/generator.c                               \
 	src/room/valid.c                                   \
@@ -69,6 +70,7 @@ SRC = \
 	src/line_edit/events.c                             \
 	src/inventory/inventory.c                          \
 	src/inventory/draw.c                               \
+	src/game/take_item.c                               \
 
 OBJ = $(SRC:.c=.o)
 

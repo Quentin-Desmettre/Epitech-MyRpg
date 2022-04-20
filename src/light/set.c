@@ -4,6 +4,7 @@
 ** File description:
 ** my_printf.c
 */
+
 #include <stdio.h>
 #include "rpg.h"
 
@@ -50,18 +51,18 @@ void set_room_map(ray_c *data)
 
 char choose_item(int i, int j, char c, game_t *game)
 {
-    int random = rand() % 100;
+    int random = rand() % 200;
     item_t *tmp = 0;
 
     if (c == 'X')
         return '1';
-    if (random < 1) {
+    if (random == 0) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 0;
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
     }
-    if (random < 2 && random > 0) {
+    if (random == 1) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 1;
         tmp->pos = (coo_t){i, j};

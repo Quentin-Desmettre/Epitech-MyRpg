@@ -38,7 +38,7 @@ void lunch_lines(ray_c *data, coo_t p_pos, float intens)
     coo_t dir;
 
     for (int i = 0; i < data->light->index; i++) {
-        if (i > 0 && i < data->light->index && ABS(data->angles[i].angle -
+        if (i > 0 && i + 1 < data->light->index && ABS(data->angles[i].angle -
         data->angles[i + 1].angle) < 0.0001)
             continue;
         if (data->angles[i].is_triple == 1) {
