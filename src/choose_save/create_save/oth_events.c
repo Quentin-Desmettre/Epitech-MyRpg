@@ -43,10 +43,8 @@ void create_file(create_save_t *c, window_t *win)
 
     free(f_no);
     free(file_name);
-    if (fd < 0) {
-        printf("error: %s\n", strerror(errno));
+    if (fd < 0)
         return;
-    }
     copy_data(&infos, c);
     write(fd, &infos, sizeof(player_info_t));
     set_next_win_state(win, SELECT_SAVE);

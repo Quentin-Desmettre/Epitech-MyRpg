@@ -61,9 +61,10 @@ void init_from_file(gui_player_t *g,
 char const *file, sfVector2f size)
 {
     int fd = file ? open(file, O_RDONLY) : -1;
+    char tmp;
     char *str;
-    if (fd < 0 ||
-    read(fd, &g->infos, sizeof(player_info_t)) != sizeof(player_info_t)) {
+    if (fd < 0 || read(fd, &g->infos, sizeof(player_info_t)) !=
+    sizeof(player_info_t) || read(fd, &tmp, 1) > 0) {
         sfText_setString(g->stats, "Empty file");
         sfText_setCharacterSize(g->stats, size.x * 0.13);
         center_text(g->stats);
@@ -85,7 +86,8 @@ gui_player_t *create_gui_player(char const *file, sfVector2f win_size)
 {
     gui_player_t *g = malloc(sizeof(gui_player_t));
     sfVector2f size = {win_size.x * ((1 - SPACING * 4) / 3), win_size.y * 0.65};
-    sfTexture *tex = sfTexture_createFromFile("assets/floor_wall/floor_office.png", NULL);
+    sfTexture *tex = sfTexture_createFromFile("assets/floor_wall/"
+    "floor_office.png", NULL);
 
     sfTexture_setRepeated(tex, 1);
     g->border = sfSprite_create();

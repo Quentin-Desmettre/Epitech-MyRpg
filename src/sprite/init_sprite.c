@@ -8,6 +8,7 @@
 #include <SFML/Graphics.h>
 #include "sprite.h"
 #include "globals.h"
+#include "libmy.h"
 
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol)

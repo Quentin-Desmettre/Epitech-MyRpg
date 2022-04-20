@@ -100,7 +100,8 @@ void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
     // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     sfVector2i tmp = (sfVector2i){pos.x, pos.y};
-    sfVector2u size_win = sfRenderWindow_getSize(win);
+    sfVector2i size_win =
+    {sfRenderWindow_getSize(win).x, sfRenderWindow_getSize(win).y};
 
     sfSprite_setScale(game->player->sprite, (sfVector2f){1.2 / 1080 * size_win.y,  1.2 / 1080 * size_win.y});
     data->offset = (size_win.x - ((size_win.y) / 600.0 * 800.0)) / 2.0;
@@ -108,12 +109,11 @@ void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
         data->off_view.y -= 5;
     else if (tmp.y < size_win.y && -data->off_view.y > 0)
         data->off_view.y += 5;
-    if (tmp.x > (int)(size_win.x) - data->offset * 2 && -data->off_view.x
-    < (int)(size_win.x) - data->offset * 2)
+    if (tmp.x > (size_win.x) - data->offset * 2 && -data->off_view.x
+    < (size_win.x) - data->offset * 2)
         data->off_view.x -= 5;
-    else if (tmp.x < (int)(size_win.x) - data->offset * 2 && -data->off_view.x > 0)
+    else if (tmp.x < (size_win.x) - data->offset * 2 && -data->off_view.x > 0)
         data->off_view.x += 5;
-    data->off_view.y;
     data->cell = sfRenderWindow_getSize(win).y / (15);
     sfSprite_setScale(data->floor, (sfVector2f){data->cell / 64, data->cell
     / 64});

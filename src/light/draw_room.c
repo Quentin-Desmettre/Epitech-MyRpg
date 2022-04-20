@@ -66,6 +66,5 @@ void draw_room(ray_c *data, game_t *game, sfRenderWindow *win)
     sfRenderTexture_drawSprite(data->tex_light, data->noise_sp, 0);
     draw_items(game, data, size_win);
     sfRenderTexture_drawSprite(data->tex_light, game->player->sprite, NULL);
-    game->inventory->items_sprite[0];
     sfRenderTexture_display(data->tex_light);
 }

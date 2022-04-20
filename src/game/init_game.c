@@ -37,14 +37,6 @@ void game_ev(window_t *win, sfEvent ev)
     game_t *game = win->menus[GAME];
 
     if (ev.type == sfEvtKeyReleased) {
-        // if (ev.key.code == sfKeyZ)
-        //     game->player->dir = UP;
-        // if (ev.key.code == sfKeyQ)
-        //     game->player->dir = LEFT;
-        // if (ev.key.code == sfKeyS)
-        //     game->player->dir = DOWN;
-        // if (ev.key.code == sfKeyD)
-        //     game->player->dir = RIGHT;
         if (ev.key.code == sfKeyG)
             remove_item(game->inventory, PILLS, 1);
         if (ev.key.code == sfKeyH)
@@ -81,11 +73,9 @@ const sfTexture *draw_game(window_t *win)
 
     anim_game(game);
     sfRenderTexture_clear(game->rtex, sfBlack);
-    // sfRenderTexture_drawSprite(game->rtex, game->player->sprite, NULL);
     sfRenderTexture_display(game->rtex);
     return sfRenderTexture_getTexture(game->rtex);
 }
-    // npc_create("tnihafv", P_TEXT, p_frames, p_rects,P_HEALTH, P_ATK, P_DEF, P_SPD);
 
 game_t *game_create(window_t *win)
 {
@@ -102,10 +92,10 @@ game_t *game_create(window_t *win)
     memset(game, 0, sizeof(game_t));
     int test[6] = {9, 9, 9, 9, 2, 0};
     game->rtex = sfRenderTexture_create(win->mode.width, win->mode.height, 0);
-    game->player = npc_create("tnic", "./assets/player.png", test, pl_rects
-    , (sfVector2f){1.2, 1.2});
+    game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
+    , (sfVector2f){1.2, 1.2}, (sfVector2f){128, 128});
     sfSprite_setOrigin(game->player->sprite, (sfVector2f){32, 32});
-    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
+    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, SMALL);
     game->inventory = inventory_create();
     game->clock = sfClock_create();
     return game;

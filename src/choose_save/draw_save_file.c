@@ -6,29 +6,6 @@
 */
 
 #include "rpg.h"
-
-static void draw_pbar(sfRenderTexture *rtex, float percent, sfColor color,
-sfVector2f sizes[2])
-{
-    sfVector2f size = sizes[0];
-    sfVector2f pos = sizes[1];
-    sfRectangleShape *filled = sfRectangleShape_create();
-    sfRectangleShape *empty = sfRectangleShape_create();
-
-    sfRectangleShape_setSize(filled, (sfVector2f){size.x * percent, size.y});
-    sfRectangleShape_setSize(empty,
-    (sfVector2f){size.x * (1 - percent), size.y});
-    sfRectangleShape_setPosition(filled, pos);
-    sfRectangleShape_setPosition(empty,
-    (sfVector2f){pos.x + size.x * percent, pos.y});
-    sfRectangleShape_setFillColor(filled, color);
-    sfRectangleShape_setFillColor(empty, (sfColor){64, 64, 64, 255});
-    sfRenderTexture_drawRectangleShape(rtex, filled, NULL);
-    sfRenderTexture_drawRectangleShape(rtex, empty, NULL);
-    sfRectangleShape_destroy(filled);
-    sfRectangleShape_destroy(empty);
-}
-
 static void draw_stats_icons(sfRenderTexture *rtex, sfSprite *stats_img)
 {
     sfVector2u size = sfRenderTexture_getSize(rtex);
@@ -74,7 +51,7 @@ static sfSprite *get_gui_sprite(gui_player_t *p)
     sfVector2u rtex_size = sfRenderTexture_getSize(p->rtex);
 
     sfRenderTexture_clear(p->rtex, sfBlack);
-    sfRenderTexture_drawRectangleShape(p->rtex, p->border, NULL);
+    sfRenderTexture_drawSprite(p->rtex, p->border, NULL);
     if (my_strcmp(sfText_getString(p->stats), "Empty file")) {
         sfRenderTexture_drawSprite(p->rtex, p->skin, NULL);
         sfRenderTexture_drawText(p->rtex, p->name, NULL);

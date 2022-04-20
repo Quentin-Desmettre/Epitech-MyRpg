@@ -73,7 +73,6 @@ void create_room(level_t *level)
         level->room[i + 1][maze->nb_col + 2] = 0;
     }
     my_free("ppppp", pile->path, maze->grid, maze->visited, pile, maze);
-    my_show_word_array(level->room);
 }
 
 void new_room(level_t *level, ray_c *light)
