@@ -11,7 +11,8 @@
 void draw_item(game_t *game, int item, int box)
 {
     sfVector2u size = sfRenderTexture_getSize(game->rtex);
-    sfText *text = init_text(nbr_to_str(game->inventory->data->nb_items[box]), size.y / 40);
+    sfText *text = init_text(nbr_to_str(game->inventory->data->nb_items[box])
+    , size.y / 40);
     sfSprite *sprite = game->inventory->items_sprite[item];
     int line = box / 3;
     int col = box % 3;
@@ -27,13 +28,19 @@ void draw_item(game_t *game, int item, int box)
 
 void draw_inventory(game_t *game, window_t *win)
 {
+    sfRectangleShape *rect = sfRectangleShape_create();
+
+    sfRectangleShape_setFillColor(rect, (sfColor){50, 50, 50, 128});
+    sfRectangleShape_setSize(rect, (sfVector2f){1920, 1080});
     if (!game->inventory->draw)
-        return;
+        return sfRectangleShape_destroy(rect);
     center_inventory(game, win);
+    sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     for (int i = 0; i < 12; i++) {
         if (game->inventory->data->nb_items[i] > 0 &&
         game->inventory->data->items[i] != -1)
             draw_item(game, game->inventory->data->items[i], i);
     }
+    sfRectangleShape_destroy(rect);
 }
