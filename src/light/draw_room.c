@@ -41,6 +41,8 @@ void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
     , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
     sfSprite_setScale(game->inventory->items_sprite[1]
     , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    if (tmp == NULL)
+        return;
     do {
         sfSprite_setPosition(game->inventory->
         items_sprite[((item_t *)(tmp->data))->type], (coo_t){((item_t *)
@@ -49,7 +51,7 @@ void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
         sfRenderTexture_drawSprite(data->tex_light, game->inventory->
         items_sprite[((item_t *)(tmp->data))->type], 0);
         tmp = tmp->next;
-    } while (tmp != 0 && tmp != game->items);
+    } while (tmp != game->items);
 }
 
 void draw_room(ray_c *data, game_t *game, sfRenderWindow *win)

@@ -16,14 +16,14 @@ void draw_item(game_t *game, int item, int box, sfRenderWindow *win)
 
     sfSprite_setPosition(sprite, (sfVector2f)
     {797 + 114 * col, 293 + 114 * line});
-    sfRenderWindow_drawSprite(win, sprite, NULL);
+    sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
 }
 
 void draw_inventory(game_t *game, sfRenderWindow *win)
 {
     if (!game->inventory->draw)
         return;
-    sfRenderWindow_drawSprite(win, game->inventory->sprite, NULL);
+    sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     for (int i = 0; i < game->inventory->data->size; i++) {
         if (game->inventory->data->nb_items[i] > 0 &&
         game->inventory->data->items[i] != -1)

@@ -174,7 +174,6 @@ int main(void)
     win = window_create();
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
-        move_pl(win);
         draw(win);
     }
     win_destroy(win);

@@ -80,7 +80,7 @@ int set_game_light(ray_c *new, game_t *map);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
 
-void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderWindow *win);
+void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win);
 
 void my_memcpy(void *dest, const void *src, size_t n);
 

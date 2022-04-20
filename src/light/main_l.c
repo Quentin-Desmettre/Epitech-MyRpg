@@ -6,7 +6,6 @@
 */
 #include <stdio.h>
 #include "rpg.h"
-#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 coo_t step(coo_t *vstep, coo_t vraydir
 , coo_t p_pos, coo_t v_ray_step)
@@ -70,7 +69,7 @@ void find_wall(ray_c *data, coo_t p_pos, coo_t p_dir, float intens)
     draw_line(data, p_pos, r_dir, dis);
 }
 
-void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderWindow *win)
+void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
 {
     coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
     cell};
@@ -90,7 +89,7 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderWindow *win)
         sort_angle(data, p_pos);
         lunch_lines(data, p_pos, intens);
         p_pos = rotate(v_mouse_cell, p_pos, 72);
-        sfRenderWindow_drawVertexArray(win, data->light->array, &data->state);
+        sfRenderTexture_drawVertexArray(win, data->light->array, &data->state);
         sfVertexArray_clear(data->light->array);
     }
 }
@@ -100,25 +99,9 @@ void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
     // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     sfVector2i tmp = (sfVector2i){pos.x, pos.y};
-    sfVector2i size_win =
-    {sfRenderWindow_getSize(win).x, sfRenderWindow_getSize(win).y};
+    sfVector2u size_win = sfRenderWindow_getSize(win);
 
-    sfSprite_setScale(game->player->sprite, (sfVector2f){1.2 / 1080 * size_win.y,  1.2 / 1080 * size_win.y});
-    data->offset = (size_win.x - ((size_win.y) / 600.0 * 800.0)) / 2.0;
-    if (tmp.y > size_win.y && -data->off_view.y < size_win.y)
-        data->off_view.y -= 5;
-    else if (tmp.y < size_win.y && -data->off_view.y > 0)
-        data->off_view.y += 5;
-    if (tmp.x > (size_win.x) - data->offset * 2 && -data->off_view.x
-    < (size_win.x) - data->offset * 2)
-        data->off_view.x -= 5;
-    else if (tmp.x < (size_win.x) - data->offset * 2 && -data->off_view.x > 0)
-        data->off_view.x += 5;
-    data->cell = sfRenderWindow_getSize(win).y / (15);
-    sfSprite_setScale(data->floor, (sfVector2f){data->cell / 64, data->cell
-    / 64});
-    sfSprite_setScale(data->wall, (sfVector2f){data->cell / 64, data->cell
-    / 128});
+    change_form(game, size_win, tmp, data);
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
-    add_light(data, tmp, 5, win);
+    add_light(data, tmp, 5, game->rtex);
 }

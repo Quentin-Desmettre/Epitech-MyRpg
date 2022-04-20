@@ -18,6 +18,7 @@
     #include "light.h"
     #include "npc.h"
 
+    #define ABS(x) ((x) < 0 ? -(x) : (x))
     #define REPEAT_DELAY 500000
     #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
     #define SPACING 0.06
@@ -247,10 +248,10 @@ game_t *game_create(window_t *win);
 void game_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_game(window_t *win);
 void destroy_game(game_t *game);
-
-void new_room(level_t *level, ray_c *light);
+void new_room(game_t *game, ray_c *light);
 void draw_room(ray_c *data, game_t *game, sfRenderWindow *win);
-
+void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
+, ray_c *data);
 void draw_inventory(game_t *game, sfRenderWindow *win);
-
+void take_item(window_t *win);
 #endif

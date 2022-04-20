@@ -27,4 +27,7 @@ typedef struct game {
     sfClock *clock;
 } game_t;
 
+// item room
+char choose_item(int i, int j, char c, game_t *game);
+
 #endif
