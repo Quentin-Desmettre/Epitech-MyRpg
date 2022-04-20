@@ -24,7 +24,7 @@ void draw_inventory(game_t *game, sfRenderWindow *win)
     if (!game->inventory->draw)
         return;
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
-    for (int i = 0; i < game->inventory->data->size; i++) {
+    for (int i = 0; i < 12; i++) {
         if (game->inventory->data->nb_items[i] > 0 &&
         game->inventory->data->items[i] != -1)
             draw_item(game, game->inventory->data->items[i], i, win);

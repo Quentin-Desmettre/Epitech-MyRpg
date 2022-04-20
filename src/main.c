@@ -36,7 +36,7 @@ static void draw(window_t *win)
     if (win->state == GAME) {
         draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
         draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
-        //draw_inventory(win->menus[GAME], win->win);
+        draw_inventory(win->menus[GAME], win->win);
         move_pl(win);
     }
     sfRenderWindow_display(win->win);

@@ -31,6 +31,7 @@ void take_item(window_t *win)
         rect2 = sfSprite_getGlobalBounds(game->inventory->items_sprite
         [ITM_TYPE(tmp)]);
         if (sfFloatRect_intersects(&rect, &rect2, 0)) {
+            add_item(game->inventory, ITM_TYPE(tmp), 1);
             tmp = tmp->next;
             remove_node(&(game->items), i, free);
             continue;

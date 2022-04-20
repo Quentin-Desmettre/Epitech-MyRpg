@@ -11,12 +11,12 @@
 
 void remove_item(inventory_t *inventory, int item, int nb)
 {
-    for (int i = inventory->data->size; i >= 0; i--) {
+    for (int i = 11; i >= 0; i--) {
         if (inventory->data->items[i] == item) {
             inventory->data->nb_items[i] -= nb;
             inventory->data->nb_items[i] < 0 ?
             inventory->data->nb_items[i] = 0 : 0;
-            inventory->data->size -= !inventory->data->nb_items[i];
+            !inventory->data->nb_items[i] ? inventory->data->items[i] = -1 : 0;
             return;
         }
     }
@@ -24,17 +24,19 @@ void remove_item(inventory_t *inventory, int item, int nb)
 
 void add_item(inventory_t *inventory, int item, int nb)
 {
-    for (int i = 0; i < inventory->data->size; i++) {
+    for (int i = 0; i < 12; i++) {
         if (inventory->data->items[i] == item &&
         inventory->data->nb_items[i] < STACK_SIZE) {
             inventory->data->nb_items[i] += nb;
             return;
         }
     }
-    if (inventory->data->size < INVENTORY_SIZE) {
-        inventory->data->items[inventory->data->size] = item;
-        inventory->data->nb_items[inventory->data->size] = nb;
-        inventory->data->size++;
+    for (int i = 0; i < 12; i++) {
+        if (inventory->data->items[i] == -1) {
+            inventory->data->items[i] = item;
+            inventory->data->nb_items[i] = nb;
+            return;
+        }
     }
 }
 
