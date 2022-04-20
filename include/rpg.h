@@ -244,7 +244,7 @@ void go_to_map_editor(void *win);
 void go_to_online_level(void *win);
 
 // game
-game_t *game_create(window_t *win);
+game_t *game_create(void);
 void game_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_game(window_t *win);
 void destroy_game(game_t *game);
@@ -252,6 +252,7 @@ void new_room(game_t *game, ray_c *light);
 void draw_room(ray_c *data, game_t *game, sfRenderWindow *win);
 void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
-void draw_inventory(game_t *game, sfRenderWindow *win);
+void draw_inventory(game_t *game, window_t *win);
+void center_inventory(game_t *game, window_t *win);
 void take_item(window_t *win);
 #endif

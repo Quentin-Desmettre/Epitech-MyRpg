@@ -77,14 +77,15 @@ const sfTexture *draw_game(window_t *win)
     sfRenderTexture_clear(game->rtex, sfBlack);
     draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
-    draw_inventory(win->menus[GAME], win->win);
+    draw_inventory(win->menus[GAME], win);
     sfRenderTexture_display(game->rtex);
     return sfRenderTexture_getTexture(game->rtex);
 }
 
-game_t *game_create(window_t *win)
+game_t *game_create(void)
 {
     game_t *game = malloc(sizeof(game_t));
+    int test[6] = {9, 9, 9, 9, 2, 0};
     static const sfIntRect *pl_rects[5] = {
         pl_rect_top,
         pl_rect_down,
@@ -95,7 +96,6 @@ game_t *game_create(window_t *win)
 
     game->items = 0;
     memset(game, 0, sizeof(game_t));
-    int test[6] = {9, 9, 9, 9, 2, 0};
     game->rtex = sfRenderTexture_create(1920, 1080, 0);
     game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, (sfVector2f){128, 128});
