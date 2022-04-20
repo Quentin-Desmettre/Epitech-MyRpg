@@ -95,7 +95,7 @@ game_t *game_create(window_t *win)
     game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, (sfVector2f){128, 128});
     sfSprite_setOrigin(game->player->sprite, (sfVector2f){32, 32});
-    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, SMALL);
+    game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
     game->inventory = inventory_create();
     game->clock = sfClock_create();
     return game;

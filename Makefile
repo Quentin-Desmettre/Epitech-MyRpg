@@ -43,6 +43,7 @@ SRC = \
 	src/builders/npc_setters2.c                        \
 	src/builders/npc_setters3.c                        \
 	src/game/init_game.c                               \
+	src/game/move_player.c                             \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \

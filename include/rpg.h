@@ -150,7 +150,7 @@ typedef struct {
     int primary;
     int secondary;
 } choose_save_t;
-
+void move_pl(window_t *win);
 void free_save(gui_player_t *g);
 void destroy_create_save(void **cr);
 void free_choose_save(choose_save_t *c);

@@ -40,8 +40,13 @@ void launch_file(void *win)
     window_t *w = win;
     choose_save_t *c = w->menus[SELECT_SAVE];
     game_t *g = w->menus[GAME];
+    player_info_t infos = c->saves[c->primary]->infos;
 
-    sfSprite_setColor(g->player->sprite, c->saves[c->primary]->infos.skin_comb);
+    sfSprite_setColor(g->player->sprite, infos.skin_comb);
+    g->player->speed = infos.speed;
+    g->player->attack = infos.strength;
+    g->player->defense = infos.stamina;
+    g->player->health = infos.health_percent;
     set_next_win_state(win, GAME);
 }
 
