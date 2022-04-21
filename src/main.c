@@ -75,6 +75,7 @@ int main(void)
 {
     window_t *win;
 
+    my_srand();
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();

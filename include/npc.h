@@ -31,6 +31,8 @@ typedef struct npc {
     int speed;
     sfVector2f pos;
     sfVector2f scale;
+    sfClock *move_clock;
+    sfClock *anim_clock;
 } npc_t;
 
 ////////////////////////////////////////////////////////////

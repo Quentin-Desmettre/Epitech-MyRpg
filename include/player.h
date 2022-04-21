@@ -17,6 +17,10 @@
     #define P_DEF 15
     #define P_SPD 15
 
+    #define PLAYER_GRP 0
+    #define ENEMY_GRP 1
+    #define ENEMY_LOADING_GRP 2
+
 static const int p_frames[5] = {
     5, 5, 5, 5, 5
 };

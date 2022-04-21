@@ -25,6 +25,7 @@ typedef struct game {
     level_t *level;
     npc_t *player;
     sfClock *clock;
+    list_t *enemies;
 } game_t;
 
 // item room

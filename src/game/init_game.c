@@ -56,17 +56,7 @@ void game_ev(window_t *win, sfEvent ev)
 
 void anim_game(game_t *game)
 {
-    sfTime time = sfClock_getElapsedTime(game->clock);
-    float seconds = time.microseconds / 1000000.0;
-
-    if (seconds > 0.1) {
-        game->player->frame++;
-        if (game->player->frame >= game->player->nb_frames[game->player->dir])
-            game->player->frame = 0;
-        sfSprite_setTextureRect(game->player->sprite,
-        game->player->rects[game->player->dir][game->player->frame]);
-        sfClock_restart(game->clock);
-    }
+    anim_npc(game->player);
 }
 
 const sfTexture *draw_game(window_t *win)
@@ -76,6 +66,7 @@ const sfTexture *draw_game(window_t *win)
     anim_game(game);
     sfRenderTexture_clear(game->rtex, sfBlack);
     draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
+    draw_enemies(game, win->menus[LIGHT]);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_inventory(win->menus[GAME], win);
     sfRenderTexture_display(game->rtex);
@@ -93,7 +84,6 @@ game_t *game_create(void)
         pl_rect_right,
         pl_rect_idle
     };
-
     game->items = 0;
     memset(game, 0, sizeof(game_t));
     game->rtex = sfRenderTexture_create(1920, 1080, 0);
@@ -103,5 +93,6 @@ game_t *game_create(void)
     game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
     game->inventory = inventory_create();
     game->clock = sfClock_create();
+    game->enemies = NULL;
     return game;
 }

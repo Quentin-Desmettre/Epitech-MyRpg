@@ -46,6 +46,7 @@ SRC = \
 	src/game/move_player.c                             \
 	src/game/init_game.c                               \
 	src/game/take_item.c                               \
+	src/game/enemy.c                                   \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \
@@ -69,12 +70,13 @@ SRC = \
 	src/room/room.c                                    \
 	src/line_edit/create.c                             \
 	src/line_edit/events.c                             \
-	src/inventory/inventory.c                          \
 	src/inventory/draw.c                               \
-	src/main.c                                         \
+	src/inventory/inventory.c                          \
 	src/sound_builder/build_sfx.c                      \
 	src/sound_builder/build_music.c                    \
-	src/sound_builder/safe.c
+	src/sound_builder/safe.c                           \
+	src/main.c                                         \
+	src/srand.c
 
 OBJ = $(SRC:.c=.o)
 

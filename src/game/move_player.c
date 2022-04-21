@@ -6,11 +6,15 @@
 */
 
 #include "rpg.h"
+#include "player.h"
 
 sfFloatRect get_npc_hitbox(npc_t *player)
 {
     sfFloatRect whole = sfSprite_getGlobalBounds(player->sprite);
     float width_fac = 0.45;
+
+    if (player->group == ENEMY_LOADING_GRP)
+        return whole;
 
     whole.left += whole.width * ((1 - width_fac) / 2.0);
     whole.width *= width_fac;
@@ -76,8 +80,8 @@ sfVector2f get_vector(void)
 
 void move_along_vector(game_t *game, sfVector2f movement, window_t *win)
 {
-    float x_step = movement.x / 50.0;
-    float y_step = movement.y / 50.0;
+    float x_step = movement.x / 10.0;
+    float y_step = movement.y / 10.0;
 
     for (float x = 0, max = fabs(movement.x); fabs(x) < max; x += x_step) {
         sfSprite_move(game->player->sprite, (sfVector2f){x_step, 0});
@@ -95,9 +99,10 @@ void move_along_vector(game_t *game, sfVector2f movement, window_t *win)
     }
 }
 
-sfClock *update_vector(sfVector2f *vector, float pl_speed, sfVector2f win_size)
+sfClock *update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size)
 {
-    static sfClock *last_time = NULL;
+    sfClock *last_time = npc->move_clock;
+    float pl_speed = npc->speed;
     float factor = 1;
 
     if (!last_time)
@@ -116,7 +121,7 @@ void move_pl(window_t *win)
     game_t *game = win->menus[GAME];
     sfVector2f movement = get_vector();
 
-    update_vector(&movement, game->player->speed, WIN_SIZE(win));
+    update_vector(&movement, game->player, WIN_SIZE(win));
 
     move_along_vector(game, movement, win);
 

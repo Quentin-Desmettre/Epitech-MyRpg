@@ -178,6 +178,17 @@ typedef struct {
     int primary;
     int secondary;
 } choose_save_t;
+
+typedef struct {
+    npc_t *enemy;
+    sfVector2f goal_pos;
+} enemy_t;
+
+void draw_enemies(game_t *game, ray_c *data);
+void create_enemy(game_t *game, ray_c *data);
+void anim_npc(npc_t *npc);
+int is_pnj_colliding(ray_c *data, npc_t *player, level_t *level);
+
 void move_pl(window_t *win);
 void free_save(gui_player_t *g);
 void destroy_create_save(void **cr);
@@ -282,4 +293,6 @@ void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 void draw_inventory(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
 void take_item(window_t *win);
+void my_srand(void);
+
 #endif
