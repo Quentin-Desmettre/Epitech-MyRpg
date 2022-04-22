@@ -6,9 +6,7 @@
 */
 
 #include "rpg.h"
-#ifdef sfMusic_createFromFile
-    #undef sfMusic_createFromFile
-#endif
+#include "audio_undef.h"
 
 void set_musics_volume(float volume)
 {
