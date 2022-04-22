@@ -47,6 +47,7 @@ float sound_vol(int change, float new);
     #define BUTTON_RELEASE "./assets/audio/button_release.ogg"
     #define LOBBY_MUSIC "./assets/audio/lobby.ogg"
     #define WIN_CLOSE "./assets/audio/win_close.ogg"
+    #define ITM_TYPE(x) ((item_t *)((x)->data))->type
 
 typedef struct {
     button_t *buttons[5];
@@ -292,7 +293,7 @@ void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
 void draw_inventory(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
-void take_item(window_t *win);
+void take_item(window_t *win, game_t *game, ray_c *data);
 void my_srand(void);
 
 #endif
