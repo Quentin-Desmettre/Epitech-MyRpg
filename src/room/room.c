@@ -85,4 +85,8 @@ void new_room(game_t *game, ray_c *light)
         for (int j = 0; j < game->level->size.x + 2; j++)
             light->map[i][j] = choose_item(i, j, game->level->room[j][i], game);
     light->map[MAP_S] = 0;
+    light->map[rand() % (int)(game->level->size.y + 1)]
+    [(int)(rand() % 2 * (game->level->size.x + 1))] = '0';
+    light->map[(int)(rand() % 2 * (game->level->size.y + 1))]
+    [rand() % (int)(game->level->size.x + 1)] = '0';
 }

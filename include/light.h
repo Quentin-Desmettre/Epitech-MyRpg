@@ -56,7 +56,6 @@ typedef struct dir_t {
 typedef sfVector2f coo_t;
 
 typedef struct ray_c {
-    int offset;
     coo_t off_view;
     dir_t *angles;
     dir_t *buffer;

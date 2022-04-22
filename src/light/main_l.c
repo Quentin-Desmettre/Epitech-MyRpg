@@ -34,7 +34,7 @@ void draw_line(ray_c *data, coo_t p_pos, coo_t vraydir, float dis)
     coo_t vinter = {p_pos.x + vraydir.x * dis, p_pos.y + vraydir.y *
     dis};
 
-    data->light->vertex.position = (coo_t){vinter.x * data->cell + data->offset + data->off_view.x, vinter.y *
+    data->light->vertex.position = (coo_t){vinter.x * data->cell + data->off_view.x, vinter.y *
     data->cell + data->off_view.y};
     data->light->vertex.texCoords = (coo_t){vinter.x * data->cell, vinter.y *
     data->cell};
@@ -66,8 +66,8 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
     for (int j = 0; j < 5; j++) {
-        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell + data->
-        offset + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
+        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell
+         + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
         data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
         (p_pos.y) * data->cell};
         data->light->vertex.color = sfColor_fromRGBA(255, 255, 255, 255 /
@@ -81,6 +81,31 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
     }
 }
 
+void change_room(game_t *game, ray_c *data, sfVector2f pos)
+{
+    if (pos.x < 0) {
+        new_room(game, data);
+        pos.x = (game->level->size.y + 1) * data->cell - data->cell / 2;
+        data->off_view.x = -pos.x;
+    }
+    if (pos.y < 0) {
+        new_room(game, data);
+        pos.y = (game->level->size.x + 1) * data->cell - data->cell / 2;
+        data->off_view.y = -pos.y;
+    }
+    if ((game->level->size.y + 2) * data->cell < pos.x) {
+        new_room(game, data);
+        pos.x = data->cell * 1.5;
+        data->off_view.x = -pos.x;
+    }
+    if ((game->level->size.x + 2) * data->cell < pos.y) {
+        new_room(game, data);
+        pos.y = data->cell * 1.5;
+        data->off_view.y = -pos.y;
+    }
+    sfSprite_setPosition(game->player->sprite, pos);
+}
+
 void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
 {
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
@@ -90,4 +115,5 @@ void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
     change_form(game, size_win, tmp, data);
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
     add_light(data, tmp, 5, game->rtex);
+    change_room(game, data, pos);
 }
