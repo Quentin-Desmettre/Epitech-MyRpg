@@ -69,6 +69,7 @@ inventory_t *inventory_create(void)
     inventory->rect.top = inventory->pos.y;
     inventory->rect.width = size.x;
     inventory->rect.height = size.y;
+    inventory->item_selected = -1;
     items_create(inventory);
     return inventory;
 }

@@ -43,6 +43,7 @@ SRC = \
 	src/builders/level_setters.c                       \
 	src/builders/npc_setters2.c                        \
 	src/builders/npc_setters3.c                        \
+	src/game/npc_collisions.c                          \
 	src/game/move_player.c                             \
 	src/game/init_game.c                               \
 	src/game/take_item.c                               \
