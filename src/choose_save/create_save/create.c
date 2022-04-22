@@ -8,14 +8,6 @@
 #include "rpg.h"
 #include "player.h"
 
-void center_rectangle(sfRectangleShape *rect)
-{
-    sfVector2f size = sfRectangleShape_getSize(rect);
-
-    sfRectangleShape_setOrigin(rect,
-    (sfVector2f){size.x * 0.5, size.y * 0.5});
-}
-
 void create_colors_buttons(create_save_t *c, sfVector2f size,
 sfVector2f p_pos, sfVector2f p_size)
 {
@@ -39,6 +31,17 @@ sfVector2f p_pos, sfVector2f p_size)
     }
 }
 
+void create_stats_txt(create_save_t *c, sfVector2f size)
+{
+    c->pts_left = init_text("Points left: 4", size.x * 0.03);
+    center_text(c->pts_left);
+    sfText_setPosition(c->pts_left, (sfVector2f){size.x * 0.42, size.y * 0.9});
+    c->stats_prompt =
+    init_text("Choose your base stats wisely.", size.x * 0.04);
+    sfText_setPosition(c->stats_prompt,
+    (sfVector2f){size.x * 0.35, size.y * 0.43});
+}
+
 void create_stats_buttons(create_save_t *c, sfVector2f size)
 {
     sfVector2f but_size = (sfVector2f){size.y * 0.1, size.y * 0.1};
@@ -60,23 +63,18 @@ void create_stats_buttons(create_save_t *c, sfVector2f size)
             but_pos.y});
         }
     }
-    c->pts_left = init_text("Points left: 4", size.x * 0.03);
-    center_text(c->pts_left);
-    sfText_setPosition(c->pts_left, (sfVector2f){size.x * 0.42, size.y * 0.9});
-    c->stats_prompt =
-    init_text("Choose your base stats wisely.", size.x * 0.04);
-    sfText_setPosition(c->stats_prompt,
-    (sfVector2f){size.x * 0.35, size.y * 0.43});
+    create_stats_txt(c, size);
 }
 
-create_save_t *create_create_save(sfVector2f size, int f_no)
+void create_player(create_save_t *c, sfVector2f p_pos,
+sfVector2f p_size, sfVector2f size)
 {
-    create_save_t *c = malloc(sizeof(create_save_t));
     sfVector2f le_size = {size.x * 0.6, size.y * 0.2};
     sfVector2f le_pos = {size.x * 0.3, size.x * 0.12};
-    sfVector2f p_pos = {size.x * 0.15, le_pos.y + le_size.y * 0.5};
-    sfVector2f p_size = {size.x * 0.2, size.x * 0.2};
 
+    c->name = create_line_edit(le_size, "", 12);
+    scale_line_edit(c->name, le_size);
+    sfText_setPosition(c->prompt, (sfVector2f){le_pos.x, size.y * 0.06});
     c->rtex = sfRenderTexture_create(size.x, size.y, 0);
     c->stats = init_sprite_from_texture(global_texture());
     c->background = init_sprite_from_texture(global_texture());
@@ -87,77 +85,26 @@ create_save_t *create_create_save(sfVector2f size, int f_no)
     size.x * 0.2 * 0.02, sfWhite);
     center_rectangle(c->skin_back);
     sfRectangleShape_setPosition(c->skin_back, p_pos);
-    c->name = create_line_edit(le_size, "", 12);
+}
+
+create_save_t *create_create_save(sfVector2f size, int f_no)
+{
+    create_save_t *c = malloc(sizeof(create_save_t));
+    sfVector2f p_pos = {size.x * 0.15, size.x * 0.12 + size.y * 0.1};
+    sfVector2f p_size = {size.x * 0.2, size.x * 0.2};
+
+    c->prompt = init_text("Name your character.", size.y * 0.07);
+    create_player(c, p_pos, p_size, size);
     for (int i = 0; i < 2; i++)
         c->actions[i] = build_button("sf,pf,ff,base_size,release,text,texture,"
-        "rect,p_sf,r_sf", (sfVector2f){0.2, 0.1}, (sfVector2f){0.65 + 0.22 * i, 0.9},
+        "rect,p_sf,r_sf", (sfVector2f){0.2, 0.1},
+        (sfVector2f){0.65 + 0.22 * i, 0.9},
         0.65, size, NULL, i ? "Create" : "Cancel", global_texture(),
         button_rect, BUTTON_PRESS, BUTTON_RELEASE);
-    scale_line_edit(c->name, le_size);
-    c->prompt = init_text("Name your character.", size.y * 0.07);
-    sfText_setPosition(c->prompt, (sfVector2f){le_pos.x, size.y * 0.06});
     create_colors_buttons(c, size, p_pos, p_size);
     create_stats_buttons(c, size);
     c->repeat = sfClock_create();
     set_button_enabled(c->actions[1], 0);
     c->f_no = f_no;
     return c;
-}
-
-void check_button_repeat(create_save_t *c, window_t *win)
-{
-    int button;
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(win->win);
-
-    if (!sfMouse_isButtonPressed(sfMouseLeft))
-        return;
-    button = button_at(c->color_buttons, 6, mouse_pos.x, mouse_pos.y);
-    if (button < 0 || !c->color_buttons[button]->is_press)
-        return;
-    if (sfClock_getElapsedTime(c->repeat).microseconds > REPEAT_DELAY)
-        change_color(c, button);
-}
-
-const sfTexture *draw_create_save(window_t *win)
-{
-    create_save_t *c = win->menus[CREATE_SAVE];
-    sfVector2f size = WIN_SIZE(win);
-    sfSprite *le = draw_line_edit(c->name,
-    (sfVector2f){size.x * 0.3, size.x * 0.12});
-    sfVector2f tmp_pos;
-    sfVector2f tmp_size;
-
-    check_button_repeat(c, win);
-    sfRenderTexture_clear(c->rtex, sfBlack);
-    //sfRenderTexture_drawSprite(c->rtex, c->background, NULL);
-    draw_button_to_rtex(c->actions[0], c->rtex);
-    draw_button_to_rtex(c->actions[1], c->rtex);
-    sfRenderTexture_drawSprite(c->rtex, le, NULL);
-    sfRenderTexture_drawRectangleShape(c->rtex, c->skin_back, NULL);
-    sfRenderTexture_drawText(c->rtex, c->prompt, NULL);
-    sfRenderTexture_drawSprite(c->rtex, c->skin, NULL);
-    for (int i = 0; i < 6; i++) {
-        if (!(i % 2))
-            sfRenderTexture_drawText(c->rtex, c->col_vals[i / 2], NULL);
-        draw_button_to_rtex(c->color_buttons[i], c->rtex);
-    }
-    sfRenderTexture_drawText(c->rtex, c->stats_prompt, NULL);
-    sfRenderTexture_drawText(c->rtex, c->pts_left, NULL);
-    for (int i = 0; i < 8; i++) {
-        if (!(i % 2)) {
-            tmp_pos = c->stats_buttons[i]->pos;
-            tmp_size = c->stats_buttons[i]->size;
-            sfSprite_setTextureRect(c->stats, stats_rects[i / 2]);
-            center_sprite(c->stats);
-            set_sprite_size(c->stats, (sfVector2f){size.y * 0.1, size.y * 0.1});
-            sfSprite_setPosition(c->stats,
-            (sfVector2f){tmp_pos.x - tmp_size.y * 1.12, tmp_pos.y});
-            sfRenderTexture_drawSprite(c->rtex, c->stats, NULL);
-            sfRenderTexture_drawText(c->rtex, c->stats_val[i / 2], NULL);
-        }
-        draw_button_to_rtex(c->stats_buttons[i], c->rtex);
-    }
-    sfRenderTexture_display(c->rtex);
-    sfSprite_destroy(le);
-    return sfRenderTexture_getTexture(c->rtex);
 }

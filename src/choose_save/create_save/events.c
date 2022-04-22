@@ -37,7 +37,6 @@ static void change_stats(create_save_t *c, int button)
     &error) - offset;
     char *tmp;
     char *tmp2;
-
     if (pts_left < 0 || new_val < 0)
         return;
     tmp = nbr_to_str(pts_left);
@@ -58,7 +57,6 @@ static void check_release(create_save_t *c, float x, float y, window_t *win)
     int button = -1;
     int type;
     int is_pressed;
-
     for (type = 0; type < 3 && button < 0; type++)
         button = button_at(to_check[type], sizes[type], x, y);
     type--;

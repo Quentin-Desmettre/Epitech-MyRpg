@@ -7,6 +7,14 @@
 
 #include "button.h"
 
+void center_rectangle(sfRectangleShape *rect)
+{
+    sfVector2f size = sfRectangleShape_getSize(rect);
+
+    sfRectangleShape_setOrigin(rect,
+    (sfVector2f){size.x * 0.5, size.y * 0.5});
+}
+
 void set_sprite_size(sfSprite *s, sfVector2f size)
 {
     sfIntRect tex_size = s ? sfSprite_getTextureRect(s) :

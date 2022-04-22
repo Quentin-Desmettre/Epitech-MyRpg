@@ -90,14 +90,10 @@ gui_player_t *create_gui_player(char const *file, sfVector2f win_size)
     "floor_office.png", NULL);
 
     sfTexture_setRepeated(tex, 1);
-    g->border = sfSprite_create();
-    sfSprite_setTexture(g->border, tex, 0);
-    sfSprite_setTextureRect(g->border,
-    (sfIntRect){0, 0, size.x, size.y});
+    g->border = init_sprite(tex, (sfIntRect){0, 0, size.x, size.y}, size);
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
-    g->skin = sfSprite_create();
-    sfSprite_setTexture(g->skin, player_texture(), 0);
-    sfSprite_setTextureRect(g->skin, pl_rect_idle[0]);
+    g->skin = init_sprite(player_texture(),
+    pl_rect_idle[0], (sfVector2f){1, 1});
     g->stats_img = sfSprite_create();
     sfSprite_setTexture(g->stats_img, global_texture(), 0);
     g->name = sfText_create();

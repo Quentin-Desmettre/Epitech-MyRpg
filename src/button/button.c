@@ -73,12 +73,11 @@ sfVector2f pos, ...)
     va_list va;
     sfVector2f size;
     char *str;
-    void (*action)(void *);
+
     init_default(n);
     va_start(va, pos);
     size = va_arg(va, sfVector2f);
     str = va_arg(va, char *);
-    action = va_arg(va, void (*)(void *));
     n->is_hover = 0;
     n->is_press = 0;
     n->pos = pos;
@@ -87,6 +86,7 @@ sfVector2f pos, ...)
     n->sprite = init_sprite(t, rect, size);
     sfSprite_setPosition(n->sprite, pos);
     center_text(n->text);
-    n->action = action;
+    n->action = va_arg(va, void (*)(void *));;
+    va_end(va);
     return n;
 }

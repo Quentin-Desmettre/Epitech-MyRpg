@@ -6,6 +6,7 @@
 */
 
 #include "rpg.h"
+
 static void draw_stats_icons(sfRenderTexture *rtex, sfSprite *stats_img)
 {
     sfVector2u size = sfRenderTexture_getSize(rtex);

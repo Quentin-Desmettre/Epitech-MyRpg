@@ -20,6 +20,7 @@
     #define PLAYER_GRP 0
     #define ENEMY_GRP 1
     #define ENEMY_LOADING_GRP 2
+    #define V2F_EQ(a, b) ((a).x == (b).x && (a).y == (b).y)
 
 static const int p_frames[5] = {
     5, 5, 5, 5, 5

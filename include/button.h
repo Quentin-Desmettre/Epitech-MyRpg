@@ -137,5 +137,6 @@ void set_f_size(button_t *b, va_list va);
 void set_button_enabled(button_t *b, int enabled);
 void set_pfx(button_t *b, va_list va);
 void set_rfx(button_t *b, va_list va);
+void center_rectangle(sfRectangleShape *rect);
 
 #endif

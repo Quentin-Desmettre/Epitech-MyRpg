@@ -7,6 +7,7 @@
 
 #include "rpg.h"
 #include <fcntl.h>
+#include "file_select.h"
 
 void go_back_to_main(void *win)
 {
@@ -54,10 +55,6 @@ void launch_file(void *win)
 choose_save_t *create_choose_save(sfVector2f win_size)
 {
     choose_save_t *c = malloc(sizeof(choose_save_t));
-    char const *texts[] = {"Cancel", "Delete", "Create", "Launch"};
-    void (*functions[4])(void *) = {go_back_to_main,
-    delete_selected, launch_create_file, launch_file};
-    char *files[3] = {"./saves/save1", "./saves/save2", "./saves/save3"};
 
     c->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     for (int i = 0; i < 4; i++)

@@ -8,15 +8,10 @@
 #include "rpg.h"
 #include "player.h"
 
-sfBool v2f_eq(sfVector2f a, sfVector2f b)
-{
-    return (a.x == b.x && a.y == b.y);
-}
-
 void update_enemy(enemy_t *en, sfVector2f pl_size)
 {
     anim_npc(en->enemy);
-    if (!v2f_eq(get_sprite_size(en->enemy->sprite), pl_size))
+    if (!V2F_EQ(get_sprite_size(en->enemy->sprite), pl_size))
         set_sprite_size(en->enemy->sprite, pl_size);
 }
 

@@ -39,37 +39,16 @@ void game_ev(window_t *win, sfEvent ev)
     if (ev.type == sfEvtKeyReleased) {
         if (ev.key.code == sfKeyE)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
-        if (ev.key.code == sfKeyG)
-            remove_item(game->inventory, PILLS, 1);
-        if (ev.key.code == sfKeyH)
-            add_item(game->inventory, PILLS, 1);
-        if (ev.key.code == sfKeyU)
-            game->inventory->item_selected = WATER;
-        if (ev.key.code == sfKeyJ)
-            game->inventory->item_selected = PILLS;
-        if (ev.key.code == sfKeyN)
-            game->inventory->item_selected = -1;
-        if (ev.key.code == sfKeyT)
-            remove_item(game->inventory, WATER, 1);
-        if (ev.key.code == sfKeyY)
-            add_item(game->inventory, WATER, 1);
         if (ev.key.code == sfKeyI)
             game->inventory->draw = !game->inventory->draw;
-        if (ev.key.code == sfKeyR)
-            new_room(game, win->menus[LIGHT]);
     }
-}
-
-void anim_game(game_t *game)
-{
-    anim_npc(game->player);
 }
 
 const sfTexture *draw_game(window_t *win)
 {
     game_t *game = win->menus[GAME];
 
-    anim_game(game);
+    anim_npc(game->player);
     sfRenderTexture_clear(game->rtex, sfBlack);
     draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_enemies(game, win->menus[LIGHT]);
