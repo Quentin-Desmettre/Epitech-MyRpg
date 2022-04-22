@@ -38,9 +38,9 @@ void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
     list_t *tmp = game->items;
 
     sfSprite_setScale(game->inventory->items_sprite[0]
-    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
     sfSprite_setScale(game->inventory->items_sprite[1]
-    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
     if (tmp == NULL)
         return;
     do {

@@ -10,6 +10,7 @@
 
 void set_light(ray_c *data)
 {
+    data->map[MAP_S] = 0;
     data->state.shader = 0;
     data->state.blendMode = sfBlendAlpha;
     data->state.transform = sfTransform_Identity;
@@ -90,7 +91,6 @@ int set_game_light(ray_c *new, game_t *map)
     for (int i = 0; i < map->level->size.y + 2; i++)
         for (int j = 0; j < map->level->size.x + 2; j++)
             new->map[i][j] = choose_item(i, j, map->level->room[j][i], map);
-    new->map[MAP_S] = 0;
     set_light(new);
     set_room_map(new);
     return 1;

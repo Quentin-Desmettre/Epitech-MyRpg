@@ -75,3 +75,27 @@ void sort_angle(ray_c *data, coo_t p_pos)
     radix_sort(data->angles, (size_t [2]){sizeof(dir_t)
     , (data->light->index)}, (size_t)&((dir_t *)0)->angle, data->buffer);
 }
+
+float loop_find_wall(ray_c *data, float intens, coo_t steps[3], coo_t mapcheck)
+{
+    float dis = 0.0;
+    coo_t vstep = steps[0];
+    coo_t v_ray_step = steps[1];
+    coo_t v_raylen = steps[2];
+
+    while (dis <= intens) {
+        if (v_raylen.x < v_raylen.y) {
+            mapcheck.x += vstep.x;
+            dis = v_raylen.x;
+            v_raylen.x += v_ray_step.x;
+        } else {
+            mapcheck.y += vstep.y;
+            dis = v_raylen.y;
+            v_raylen.y += v_ray_step.y;
+        }
+        if (_UNDER(mapcheck.x, MAP_S) && _UNDER(mapcheck.y, MAP_H) && data->map
+        [(int)mapcheck.x][(int)mapcheck.y] == '1')
+            break;
+    }
+    return dis;
+}

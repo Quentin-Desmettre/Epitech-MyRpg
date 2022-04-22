@@ -19,7 +19,8 @@ void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
     if (tmp.x > (int)(size_win.x) - data->offset * 2 && -data->off_view.x
     < (int)(size_win.x) - data->offset * 2)
         data->off_view.x -= 5;
-    else if (tmp.x < (int)(size_win.x) - data->offset * 2 && -data->off_view.x > 0)
+    else if (tmp.x < (int)(size_win.x) - data->offset * 2 && -data->off_view.x >
+    0)
         data->off_view.x += 5;
     data->off_view.y;
     data->cell = size_win.y / (15);

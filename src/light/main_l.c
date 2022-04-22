@@ -46,24 +46,12 @@ void find_wall(ray_c *data, coo_t p_pos, coo_t p_dir, float intens)
     coo_t r_dir = norm((coo_t){p_dir.x - p_pos.x, p_dir.y - p_pos.y});
     coo_t v_ray_step = {sqrt(1 + (r_dir.y / r_dir.x) * (r_dir.y /
     r_dir.x)), sqrt(1 + (r_dir.x / r_dir.y) * (r_dir.x / r_dir.y))};
-    coo_t v_mapcheck = p_pos;
+    coo_t mapcheck = p_pos;
     coo_t vstep;
     coo_t v_raylen = step(&vstep, r_dir, p_pos, v_ray_step);
-    float dis = 0.0;
-    while (dis <= intens) {
-        if (v_raylen.x < v_raylen.y) {
-            v_mapcheck.x += vstep.x;
-            dis = v_raylen.x;
-            v_raylen.x += v_ray_step.x;
-        } else {
-            v_mapcheck.y += vstep.y;
-            dis = v_raylen.y;
-            v_raylen.y += v_ray_step.y;
-        }
-        if (_UNDER(v_mapcheck.x, MAP_S) && _UNDER(v_mapcheck.y, MAP_H)
-        && data->map[(int)v_mapcheck.x][(int)v_mapcheck.y] == '1')
-            break;
-    }
+    float dis = loop_find_wall(data, intens, (coo_t [3]){vstep, v_ray_step,
+    v_raylen}, mapcheck);
+
     dis = (dis > intens) ? intens : dis;
     data->light->vertex.color.a = (255 - dis / intens * 255) / (12 - intens);
     draw_line(data, p_pos, r_dir, dis);
@@ -71,16 +59,15 @@ void find_wall(ray_c *data, coo_t p_pos, coo_t p_dir, float intens)
 
 void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
 {
-    coo_t v_mouse_cell = {(float)(pos.x) / data->cell, (float)(pos.y) / data->
-    cell};
+    coo_t v_mouse_cell = {(pos.x) / data->cell, (pos.y) / data->cell};
     coo_t p_pos = {(float)(pos.x) / data->cell + 0.05, (float)(pos.y) / data->
     cell};
 
     data->light->vertex.position = (coo_t){(p_pos.x) * data->cell, (p_pos.y) *
     data->cell};
     for (int j = 0; j < 5; j++) {
-        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell +
-        data->offset + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
+        data->light->vertex.position = (coo_t){(p_pos.x) * data->cell + data->
+        offset + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
         data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
         (p_pos.y) * data->cell};
         data->light->vertex.color = sfColor_fromRGBA(255, 255, 255, 255 /
@@ -96,7 +83,6 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
 
 void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
 {
-    // sfVector2i tmp = sfMouse_getPositionRenderWindow(win);
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     sfVector2i tmp = (sfVector2i){pos.x, pos.y};
     sfVector2u size_win = sfRenderWindow_getSize(win);

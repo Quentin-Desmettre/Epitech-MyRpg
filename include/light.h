@@ -99,5 +99,6 @@ void dest_light(ray_c *data);
 void find_angle_n(int i, int j, int l, ray_c *data);
 void find_angles(int i, int j, ray_c *data);
 void wall_light(ray_c *data);
+float loop_find_wall(ray_c *data, float intens, coo_t steps[3], coo_t mapcheck);
 
 #endif
