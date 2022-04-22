@@ -41,6 +41,8 @@ void game_ev(window_t *win, sfEvent ev)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
         if (ev.key.code == sfKeyI)
             game->inventory->draw = !game->inventory->draw;
+        if (ev.key.code == sfKeyR)
+            new_room(win->menus[GAME], win->menus[LIGHT]);
     }
 }
 

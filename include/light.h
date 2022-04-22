@@ -73,6 +73,7 @@ typedef struct ray_c {
     sfSprite *floor;
     char **map;
     sfRenderStates state;
+    sfClock *time;
 } ray_c;
 
 int set_game_light(ray_c *new, game_t *map);
