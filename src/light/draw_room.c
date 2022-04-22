@@ -15,8 +15,7 @@ void draw_wall(ray_c *data, int i, int j, game_t *game)
     if (data->map[i][j] != '1') {
         sfSprite_setPosition(data->floor, (coo_t){i * data->cell, j * data->
         cell + data->cell / 2});
-        sfRenderTexture_drawSprite(data->tex_light, data->floor, 0);
-        return;
+        return sfRenderTexture_drawSprite(data->tex_light, data->floor, 0);
     }
     if (size.x + 2 > j + 1 && data->map[i][j + 1] != '1') {
         sfSprite_setTextureRect(data->wall, (sfIntRect){64, 0, 64, 64});
