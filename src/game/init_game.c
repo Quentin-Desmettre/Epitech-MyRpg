@@ -39,6 +39,12 @@ void game_ev(window_t *win, sfEvent ev)
     if (ev.type == sfEvtKeyReleased) {
         if (ev.key.code == sfKeyE)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
+        if (ev.key.code == sfKeyU)
+            game->inventory->item_selected = WATER;
+        if (ev.key.code == sfKeyJ)
+            game->inventory->item_selected = PILLS;
+        if (ev.key.code == sfKeyN)
+            game->inventory->item_selected = -1;
         if (ev.key.code == sfKeyI)
             game->inventory->draw = !game->inventory->draw;
         if (ev.key.code == sfKeyR)

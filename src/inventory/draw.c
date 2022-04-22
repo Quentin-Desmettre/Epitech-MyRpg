@@ -30,18 +30,24 @@ void create_desc(sfText *text, int item)
 {
     char **words = my_str_to_word_array(ITEM_TXT(item), " ");
     sfFloatRect pos = sfText_getGlobalBounds(text);
+    char *str;
     const char *tmp;
 
     sfText_setString(text, "");
     for (int i = 0; words[i]; i++) {
         tmp = sfText_getString(text);
-        sfText_setString(text, str_concat(3, tmp, words[i], " "));
+        str = str_concat(3, tmp, words[i], " ");
+        sfText_setString(text, str);
+        free(str);
         pos = sfText_getGlobalBounds(text);
         if (pos.left + pos.width > 1715) {
-            sfText_setString(text, str_concat(2, tmp, "\n"));
+            str = str_concat(2, tmp, "\n");
+            sfText_setString(text, str);
+            free(str);
             i--;
         }
     }
+    my_free("P", words);
 }
 
 void draw_item_info(game_t *game, int item, sfVector2u size)
