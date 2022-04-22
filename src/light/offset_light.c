@@ -10,7 +10,7 @@
 void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
 {
     sfSprite_setScale(game->player->sprite, (sfVector2f){1.2 / 1080 * size_win.y
-    ,  1.2 / 1080 * size_win.y});
+    , 1.2 / 1080 * size_win.y});
     data->offset = (size_win.x - ((size_win.y) / 600.0 * 800.0)) / 2.0;
     if (tmp.y > size_win.y && -data->off_view.y < size_win.y)
         data->off_view.y -= 5;

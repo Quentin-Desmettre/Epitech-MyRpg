@@ -6,6 +6,7 @@
 */
 
 #ifndef AUDIO_BUILDER_H
+    #define AUDIO_BUILDER_H
     #include "libmy.h"
     #include <SFML/Audio.h>
 

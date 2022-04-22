@@ -56,7 +56,7 @@ static void draw_colors(create_save_t *c)
 const sfTexture *draw_create_save(window_t *win)
 {
     create_save_t *c = win->menus[CREATE_SAVE];
-    sfVector2f size = WIN_SIZE(win);
+    sfVector2f size = win_size(win);
     sfSprite *le = draw_line_edit(c->name,
     (sfVector2f){size.x * 0.3, size.x * 0.12});
 

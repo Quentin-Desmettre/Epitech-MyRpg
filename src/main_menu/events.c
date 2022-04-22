@@ -24,10 +24,10 @@ void go_to_local_save(void *win)
 
 void go_to_map_editor(void *win)
 {
-    // set_next_win_state(win, MAP_EDITOR);
+    (void)win;
 }
 
 void go_to_online_level(void *win)
 {
-    // set_next_win_state(win, ONLINE_SELECT);
+    (void)win;
 }

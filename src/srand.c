@@ -8,6 +8,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "rpg.h"
+
+sfVector2f win_size(window_t *win)
+{
+    return (sfVector2f){win->mode.width, win->mode.height};
+}
 
 void my_srand(void)
 {

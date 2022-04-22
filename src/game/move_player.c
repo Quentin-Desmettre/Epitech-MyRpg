@@ -81,7 +81,7 @@ void move_pl(window_t *win)
     game_t *game = win->menus[GAME];
     sfVector2f movement = get_vector();
 
-    update_vector(&movement, game->player, WIN_SIZE(win));
+    update_vector(&movement, game->player, win_size(win));
     move_along_vector(game, movement, win);
     game->player->dir = dir_from_v2f(movement);
 }

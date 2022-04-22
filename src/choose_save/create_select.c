@@ -33,7 +33,7 @@ void launch_create_file(void *win)
     set_next_win_state(win, CREATE_SAVE);
     if (w->menus[CREATE_SAVE])
         destroy_create_save(&w->menus[CREATE_SAVE]);
-    w->menus[CREATE_SAVE] = create_create_save(WIN_SIZE(w), c->primary);
+    w->menus[CREATE_SAVE] = create_create_save(win_size(w), c->primary);
 }
 
 void launch_file(void *win)

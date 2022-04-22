@@ -41,7 +41,6 @@ float sound_vol(int change, float new);
 
     #define ABS(x) ((x) < 0 ? -(x) : (x))
     #define REPEAT_DELAY 500000
-    #define WIN_SIZE(win) ((sfVector2f){(win)->mode.width, (win)->mode.height})
     #define SPACING 0.06
     #define BUTTON_PRESS "./assets/audio/button_press.ogg"
     #define BUTTON_RELEASE "./assets/audio/button_release.ogg"
@@ -295,5 +294,7 @@ void draw_inventory(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
 void take_item(window_t *win, game_t *game, ray_c *data);
 void my_srand(void);
+
+sfVector2f win_size(window_t *win);
 
 #endif
