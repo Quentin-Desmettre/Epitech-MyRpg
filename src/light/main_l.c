@@ -81,31 +81,6 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
     }
 }
 
-void change_room(game_t *game, ray_c *data, sfVector2f pos)
-{
-    if (pos.x < 0) {
-        new_room(game, data);
-        pos.x = (game->level->size.y + 1) * data->cell - data->cell / 2;
-        data->off_view.x = -pos.x;
-    }
-    if (pos.y < 0) {
-        new_room(game, data);
-        pos.y = (game->level->size.x + 1) * data->cell - data->cell / 2;
-        data->off_view.y = -pos.y;
-    }
-    if ((game->level->size.y + 2) * data->cell < pos.x) {
-        new_room(game, data);
-        pos.x = data->cell * 1.5;
-        data->off_view.x = -pos.x;
-    }
-    if ((game->level->size.x + 2) * data->cell < pos.y) {
-        new_room(game, data);
-        pos.y = data->cell * 1.5;
-        data->off_view.y = -pos.y;
-    }
-    sfSprite_setPosition(game->player->sprite, pos);
-}
-
 void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
 {
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
