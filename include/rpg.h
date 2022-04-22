@@ -181,7 +181,11 @@ typedef struct {
 
 typedef struct {
     npc_t *enemy;
-    sfVector2f goal_pos;
+    sfClock *decide_clock;
+    sfInt64 rnd_mve;
+    sfInt64 rnd_wait;
+    sfVector2f mov_vector;
+    int is_in_rush;
 } enemy_t;
 
 void draw_enemies(game_t *game, ray_c *data);
@@ -290,12 +294,15 @@ void new_room(game_t *game, ray_c *light);
 void draw_room(ray_c *data, game_t *game, sfRenderWindow *win);
 void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
-void change_room(game_t *game, ray_c *data, sfVector2f pos);
 void draw_inventory(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
 void take_item(window_t *win, game_t *game, ray_c *data);
 void my_srand(void);
 
 sfVector2f win_size(window_t *win);
+int dir_from_v2f(sfVector2f vf);
+sfVector2f rand_dir(void);
+sfInt32 my_rand(sfInt32 min, sfInt32 max);
+void rush_to_player(void);
 
 #endif

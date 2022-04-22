@@ -8,8 +8,6 @@
 #include "rpg.h"
 #include "player.h"
 
-void move_pl(window_t *win);
-
 static void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
@@ -37,12 +35,8 @@ static void draw(window_t *win)
     if (win->is_transition)
         update_transition(win, s);
     sfRenderWindow_drawSprite(win->win, s, NULL);
-    if (win->state == GAME) {
-        draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
-        draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
-        draw_inventory(win->menus[GAME], win);
+    if (win->state == GAME)
         move_pl(win);
-    }
     sfRenderWindow_display(win->win);
     sfTexture_destroy(cpy);
     sfSprite_destroy(s);

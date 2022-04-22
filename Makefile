@@ -47,7 +47,9 @@ SRC = \
 	src/game/move_player.c                             \
 	src/game/init_game.c                               \
 	src/game/take_item.c                               \
-	src/game/enemy.c                                   \
+	src/game/enemies/create.c                          \
+	src/game/enemies/draw.c                            \
+	src/game/enemies/rush_to_player.c                  \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \
@@ -77,8 +79,8 @@ SRC = \
 	src/sound_builder/build_sfx.c                      \
 	src/sound_builder/build_music.c                    \
 	src/sound_builder/safe.c                           \
-	src/main.c                                         \
-	src/srand.c
+	src/rand/srand.c                                   \
+	src/main.c
 
 OBJ = $(SRC:.c=.o)
 

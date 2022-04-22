@@ -13,8 +13,6 @@ sfFloatRect get_npc_hitbox(npc_t *player)
     sfFloatRect whole = sfSprite_getGlobalBounds(player->sprite);
     float width_fac = 0.45;
 
-    if (player->group == ENEMY_LOADING_GRP)
-        return whole;
     whole.left += whole.width * ((1 - width_fac) / 2.0);
     whole.width *= width_fac;
     whole.top += whole.height * 0.37;
@@ -26,19 +24,14 @@ int pnj_colliding2(npc_t *player, int i, int j, ray_c *data)
 {
     sfFloatRect wall_hitbox;
     sfFloatRect hitbox = get_npc_hitbox(player);
-    sfSprite *wall = init_sprite(data->wall_tex,
-    (sfIntRect){64, 0, 64, 64}, get_sprite_size(data->wall));
 
     if (data->map[i][j] == '1') {
-        sfSprite_setPosition(wall,
+        sfSprite_setPosition(data->wall,
         (sfVector2f){i * data->cell, j * data->cell + data->cell / 2});
-        wall_hitbox = sfSprite_getGlobalBounds(wall);
-        if (sfFloatRect_intersects(&hitbox, &wall_hitbox, NULL)) {
-            sfSprite_destroy(wall);
+        wall_hitbox = sfSprite_getGlobalBounds(data->wall);
+        if (sfFloatRect_intersects(&hitbox, &wall_hitbox, NULL))
             return 1;
-        }
     }
-    sfSprite_destroy(wall);
     return 0;
 }
 
