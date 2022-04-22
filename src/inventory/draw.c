@@ -26,6 +26,24 @@ void draw_item(game_t *game, int item, int box)
     sfText_destroy(text);
 }
 
+void create_desc(sfText *text, int item)
+{
+    char **words = my_str_to_word_array(ITEM_TXT(item), " ");
+    sfFloatRect pos = sfText_getGlobalBounds(text);
+    const char *tmp;
+
+    sfText_setString(text, "");
+    for (int i = 0; words[i]; i++) {
+        tmp = sfText_getString(text);
+        sfText_setString(text, str_concat(3, tmp, words[i], " "));
+        pos = sfText_getGlobalBounds(text);
+        if (pos.left + pos.width > 1715) {
+            sfText_setString(text, str_concat(2, tmp, "\n"));
+            i--;
+        }
+    }
+}
+
 void draw_item_info(game_t *game, int item, sfVector2u size)
 {
     sfText *text = init_text(ITEM_TITLE(item), size.y / 40);
@@ -35,7 +53,7 @@ void draw_item_info(game_t *game, int item, sfVector2u size)
     sfSprite_setPosition(sprite, (sfVector2f){1242, 233});
     sfText_setPosition(text, (sfVector2f){1330, 450});
     sfRenderTexture_drawText(game->rtex, text, NULL);
-    sfText_setString(text, ITEM_TXT(item));
+    create_desc(text, item);
     sfText_setCharacterSize(text, size.y / 45);
     sfText_setPosition(text, (sfVector2f){1200, 500});
     sfRenderTexture_drawText(game->rtex, text, NULL);

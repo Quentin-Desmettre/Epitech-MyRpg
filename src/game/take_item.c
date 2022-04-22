@@ -19,6 +19,13 @@ int scale_inventory(game_t *game, ray_c *data, window_t *win)
     return 0;
 }
 
+void set_sprite_pos(game_t *game, list_t *tmp, ray_c *data)
+{
+    sfSprite_setPosition(game->inventory->items_sprite[ITM_TYPE(tmp)],
+    (coo_t){((item_t *)(tmp->data))->pos.x * data->cell + data->cell / 7.0,
+    ((item_t *)(tmp->data))->pos.y * data->cell});
+}
+
 void take_item(window_t *win, game_t *game, ray_c *data)
 {
     sfFloatRect rect = sfSprite_getGlobalBounds(game->player->sprite);
@@ -29,16 +36,16 @@ void take_item(window_t *win, game_t *game, ray_c *data)
     if (tmp == NULL)
         return;
     do {
-        sfSprite_setPosition(game->inventory->items_sprite[ITM_TYPE(tmp)],
-        (coo_t){((item_t *)(tmp->data))->pos.x * data->cell + data->cell / 7.0,
-        ((item_t *)(tmp->data))->pos.y * data->cell});
+        set_sprite_pos(game, tmp, data);
         rect2 = sfSprite_getGlobalBounds(game->inventory->items_sprite
         [ITM_TYPE(tmp)]);
         if (sfFloatRect_intersects(&rect, &rect2, 0)) {
             add_item(game->inventory, ITM_TYPE(tmp), 1);
+            tmp = tmp->next;
             remove_node(&(game->items), i, free);
-        } else
-            i++;
+            continue;
+        }
+        i++;
         tmp = tmp->next;
     } while (tmp != game->items && tmp != 0);
 }
