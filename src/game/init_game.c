@@ -38,11 +38,17 @@ void game_ev(window_t *win, sfEvent ev)
 
     if (ev.type == sfEvtKeyReleased) {
         if (ev.key.code == sfKeyE)
-            take_item(win);
+            take_item(win, win->menus[GAME], win->menus[LIGHT]);
         if (ev.key.code == sfKeyG)
             remove_item(game->inventory, PILLS, 1);
         if (ev.key.code == sfKeyH)
             add_item(game->inventory, PILLS, 1);
+        if (ev.key.code == sfKeyU)
+            game->inventory->item_selected = WATER;
+        if (ev.key.code == sfKeyJ)
+            game->inventory->item_selected = PILLS;
+        if (ev.key.code == sfKeyN)
+            game->inventory->item_selected = -1;
         if (ev.key.code == sfKeyT)
             remove_item(game->inventory, WATER, 1);
         if (ev.key.code == sfKeyY)
@@ -84,7 +90,7 @@ game_t *game_create(void)
         pl_rect_right,
         pl_rect_idle
     };
-    game->items = 0;
+
     memset(game, 0, sizeof(game_t));
     game->rtex = sfRenderTexture_create(1920, 1080, 0);
     game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
