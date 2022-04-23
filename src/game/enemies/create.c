@@ -17,8 +17,8 @@ sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
     sfVector2f base_pos = sfSprite_getPosition(npc->sprite);
 
     do {
-        map_pos.x = rand() % (max.x);
-        map_pos.y = rand() % (max.y);
+        map_pos.x = my_rand(data->cell, max.x);
+        map_pos.y = my_rand(data->cell, max.y);
         sfSprite_setPosition(npc->sprite, map_pos);
     } while (is_pnj_colliding(data, npc, g->level));
     sfSprite_setPosition(npc->sprite, base_pos);

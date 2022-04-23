@@ -192,6 +192,7 @@ void draw_enemies(game_t *game, ray_c *data);
 void create_enemy(game_t *game, ray_c *data);
 void anim_npc(npc_t *npc);
 int is_pnj_colliding(ray_c *data, npc_t *player, level_t *level);
+void change_room(game_t *game, ray_c *data, sfVector2f pos);
 
 void move_pl(window_t *win);
 void free_save(gui_player_t *g);

@@ -28,7 +28,7 @@ ray_c *data, sfVector2u size_win)
 
 void move_cam(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
 {
-    int factor = sfClock_getElapsedTime(data->time).microseconds / 10000.0;
+    float factor = sfClock_getElapsedTime(data->time).microseconds / 10000.0;
     sfSprite_setScale(game->player->sprite, (sfVector2f){1.2 / 1080 * size_win.y
     , 1.2 / 1080 * size_win.y});
     float speed = factor * (game->player->speed * 0.2 + 1);

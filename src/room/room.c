@@ -89,4 +89,8 @@ void new_room(game_t *game, ray_c *light)
     [(int)(rand() % 2 * (game->level->size.x + 1))] = '0';
     light->map[(int)(rand() % 2 * (game->level->size.y + 1))]
     [rand() % (int)(game->level->size.x + 1)] = '0';
+    while (game->enemies)
+        remove_node(&game->enemies, 0, NULL);
+    for (int i = 0; i < 10; i++)
+        create_enemy(game, light);
 }

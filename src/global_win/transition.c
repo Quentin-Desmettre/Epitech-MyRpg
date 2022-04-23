@@ -25,9 +25,6 @@ static void reset_lum(window_t *win, int *dir, sfColor *lum)
     *dir = 1;
     win->is_transition = false;
     *lum = (sfColor){255, 255, 255, 255};
-    if (win->state == GAME)
-        for (int i = 0; i < 10; i++)
-            create_enemy(win->menus[GAME], win->menus[LIGHT]);
 }
 
 static void update_lum(sfColor *lum, int *fac)
