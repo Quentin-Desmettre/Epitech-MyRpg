@@ -32,6 +32,44 @@ void destroy_game(game_t *game)
     free(game);
 }
 
+void launch_rush(sfEvent ev, window_t *win, game_t *g)
+{
+    list_t *tmp_l;
+    sfVector2f pos;
+    enemy_t *tmp;
+
+    if (ev.key.code == sfKeyA) {
+        tmp_l = g->enemies;
+        pos = sfSprite_getPosition(g->player->sprite);
+        for (int i = 0; tmp_l && i < 10; i++) {
+            tmp = tmp_l->data;
+            tmp->goal = pos;
+            update_path(tmp, g->level, win->menus[LIGHT]);
+            tmp->is_in_rush = 1;
+            tmp_l = tmp_l->next;
+        }
+    }
+}
+
+void cancel_rush(sfEvent ev, game_t *g)
+{
+    list_t *tmp_l;
+    enemy_t *tmp;
+
+    if (ev.key.code == sfKeyN) {
+        tmp_l = g->enemies;
+        for (int i = 0; tmp_l && i < 10; i++) {
+            tmp = tmp_l->data;
+            tmp->is_in_rush = 0;
+            tmp_l = tmp_l->next;
+        }
+    }
+    if (ev.key.code == sfKeyP) {
+        sfSleep((sfTime){1000000});
+        while (!sfKeyboard_isKeyPressed(sfKeyO));
+    }
+}
+
 void game_ev(window_t *win, sfEvent ev)
 {
     game_t *game = win->menus[GAME];
@@ -49,6 +87,8 @@ void game_ev(window_t *win, sfEvent ev)
             game->inventory->draw = !game->inventory->draw;
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
+        launch_rush(ev, win, game);
+        cancel_rush(ev, game);
     }
 }
 

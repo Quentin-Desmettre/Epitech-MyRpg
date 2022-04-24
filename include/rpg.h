@@ -186,8 +186,12 @@ typedef struct {
     sfInt64 rnd_wait;
     sfVector2f mov_vector;
     int is_in_rush;
+    int **map;
+    sfVector2u size;
+    sfVector2f goal;
 } enemy_t;
 
+sfFloatRect get_npc_hitbox(npc_t *player);
 void draw_enemies(game_t *game, ray_c *data);
 void create_enemy(game_t *game, ray_c *data);
 void anim_npc(npc_t *npc);
@@ -304,6 +308,12 @@ sfVector2f win_size(window_t *win);
 int dir_from_v2f(sfVector2f vf);
 sfVector2f rand_dir(void);
 sfInt32 my_rand(sfInt32 min, sfInt32 max);
-void rush_to_player(void);
+void rush_to_player(enemy_t *e, level_t *l, ray_c *data, sfSprite *);
+
+sfVector2u get_graphic_size(level_t *l, ray_c *data);
+sfVector2u get_logic_pos(enemy_t *e, sfVector2u graph_max, float cell);
+sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data);
+void update_path(enemy_t *e, level_t *l, ray_c *data);
+void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
 
 #endif

@@ -41,7 +41,7 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g)
     level_t *l = g->level;
 
     if (en->is_in_rush)
-        return rush_to_player();
+        return rush_to_player(en, g->level, data, g->player->sprite);
     check_vector_change(en);
     if (sfClock_getElapsedTime(en->enemy->move_clock).microseconds > 33333 &&
     (en->mov_vector.x || en->mov_vector.y)) {
@@ -81,6 +81,8 @@ void draw_enemies(game_t *game, ray_c *data)
         update_enemy(list->data, pl_size, data, game);
         sfRenderTexture_drawSprite(data->tex_light,
         ((enemy_t *)(list->data))->enemy->sprite, NULL);
+        // sfVector2f pos = sfSprite_getPosition(((enemy_t *)(list->data))->enemy->sprite);
+        // add_light(data, (sfVector2i){pos.x, pos.y}, 5, game->rtex);
         list = list->next;
     } while (list != begin);
 }
