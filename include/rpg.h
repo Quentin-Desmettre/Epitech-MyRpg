@@ -48,6 +48,10 @@ float sound_vol(int change, float new);
     #define WIN_CLOSE "./assets/audio/win_close.ogg"
     #define ITM_TYPE(x) ((item_t *)((x)->data))->type
 
+    #define VISION_ANGLE 90.0
+    #define NB_RAY 90
+    #define SPEED_ACC 7
+
 typedef struct {
     button_t *buttons[5];
     sfSprite *background;
@@ -189,10 +193,11 @@ typedef struct {
     int **map;
     sfVector2u size;
     sfVector2f goal;
+    sfClock *move_clock;
 } enemy_t;
 
 sfFloatRect get_npc_hitbox(npc_t *player);
-void draw_enemies(game_t *game, ray_c *data);
+void draw_enemies(game_t *game, ray_c *data, window_t *win);
 void create_enemy(game_t *game, ray_c *data);
 void anim_npc(npc_t *npc);
 int is_pnj_colliding(ray_c *data, npc_t *player, level_t *level);
@@ -308,12 +313,39 @@ sfVector2f win_size(window_t *win);
 int dir_from_v2f(sfVector2f vf);
 sfVector2f rand_dir(void);
 sfInt32 my_rand(sfInt32 min, sfInt32 max);
-void rush_to_player(enemy_t *e, level_t *l, ray_c *data, sfSprite *);
+void rush_to_player(enemy_t *e, level_t *l, window_t *win, sfSprite *);
 
-sfVector2u get_graphic_size(level_t *l, ray_c *data);
-sfVector2u get_logic_pos(enemy_t *e, sfVector2u graph_max, float cell);
-sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data);
+void update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size);
+
+static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
+{
+    return (sfVector2u){(l->size.y + 1) * data->cell,
+    (l->size.x + 1) * data->cell + data->cell / 2};
+}
+static inline sfVector2u graphic_pos_to_map(sfVector2f graphic_pos,
+sfVector2u graphic_size, sfVector2u logic_size, float cell)
+{
+    return (sfVector2u){
+        graphic_pos.y * logic_size.y / graphic_size.y,
+        (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x
+    };
+}
+static inline sfVector2u get_logic_pos(enemy_t *e,
+sfVector2u graph_max, float cell)
+{
+    return graphic_pos_to_map(sfSprite_getPosition(e->enemy->sprite),
+    graph_max, e->size, cell);
+}
+static inline float deg_to_rad(float degree)
+{
+    return degree * PI / 180.0;
+}
+
+sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data, sfVector2f win_s);
 void update_path(enemy_t *e, level_t *l, ray_c *data);
 void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
+int can_rush(enemy_t *e, ray_c *data, npc_t *player);
+float dist_between(sfSprite *a, sfSprite *b);
+void launch_combat(void);
 
 #endif

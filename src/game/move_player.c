@@ -59,21 +59,14 @@ void move_along_vector(game_t *game, sfVector2f movement, window_t *win)
     }
 }
 
-sfClock *update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size)
+void update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size)
 {
-    sfClock *last_time = npc->move_clock;
     float pl_speed = npc->speed;
-    float factor = 1;
 
-    if (!last_time)
-        last_time = sfClock_create();
-    factor = sfClock_getElapsedTime(last_time).microseconds / 10000.0;
-    vector->x *= factor * (pl_speed * 0.1 + 1);
-    vector->y *= factor * (pl_speed * 0.1 + 1);
+    vector->x *= (pl_speed * 0.4 + 4);
+    vector->y *= (pl_speed * 0.4 + 4);
     vector->x = vector->x / 1920.0 * win_size.x;
     vector->y = vector->y / 1080.0 * win_size.y;
-    sfClock_restart(last_time);
-    return last_time;
 }
 
 void move_pl(window_t *win)
@@ -81,7 +74,10 @@ void move_pl(window_t *win)
     game_t *game = win->menus[GAME];
     sfVector2f movement = get_vector();
 
-    update_vector(&movement, game->player, win_size(win));
-    move_along_vector(game, movement, win);
-    game->player->dir = dir_from_v2f(movement);
+    if (sfClock_getElapsedTime(game->player->move_clock).microseconds > 33333) {
+        sfClock_restart(game->player->move_clock);
+        update_vector(&movement, game->player, win_size(win));
+        move_along_vector(game, movement, win);
+        game->player->dir = dir_from_v2f(movement);
+    }
 }

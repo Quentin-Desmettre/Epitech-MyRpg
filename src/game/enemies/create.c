@@ -7,40 +7,6 @@
 
 #include "rpg.h"
 #include "player.h"
-#define MAX_DISTANCE 15
-
-void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data)
-{
-    sfVector2u size = sfRenderWindow_getSize(win);
-    sfRectangleShape *r = create_rectangle((sfVector2f){size.y / 30.0, size.y /
-    30.0}, (sfColor){0, 0, 255, 64}, 0, sfWhite);
-    sfColor red = {255, 0, 0, 64};
-    sfColor blue = {0, 0, 255, 64};
-
-    for (unsigned line = 0; line < e->size.y; line++) {
-        for (unsigned column = 0; column < e->size.x; column++) {
-            sfRectangleShape_setPosition(r, (sfVector2f){
-                column *size.y / 30.0 + data->off_view.x,
-                line * size.y / 30.0 + data->off_view.y
-            });
-            sfRectangleShape_setFillColor(r,
-            (e->map[line][column] == -1) ? red : blue);
-            sfRenderWindow_drawRectangleShape(win, r, NULL);
-        }
-    }
-    sfRectangleShape_destroy(r);
-}
-
-void print_map(int **map, sfVector2u size)
-{
-    for (unsigned line = 0; line < size.y; line++) {
-        for (unsigned column = 0; column < size.x; column++) {
-            print("%s%4d", ((map[line][column] == 1 || map[line][column] == -2)
-            ? "\033[0;31m" : "\033[0;37m"), map[line][column]);
-        }
-        print("\n");
-    }
-}
 
 int **wa_to_ia(game_t *game, sfVector2u rs)
 {
@@ -92,16 +58,6 @@ void update_path_pos(int **map, sfVector2u pos, sfVector2u max, sfVector2u goal)
             update_path_pos(map, positions[i], max, goal);
 }
 
-sfVector2u graphic_pos_to_map(sfVector2f graphic_pos,
-sfVector2u graphic_size, sfVector2u logic_size, float cell)
-{
-    sfVector2u logic_pos = {
-    (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x,
-    (graphic_pos.y) * logic_size.y / graphic_size.y};
-
-    return (sfVector2u){logic_pos.y, logic_pos.x};
-}
-
 sfVector2u lower_around(int **map, sfVector2u pos, sfVector2u max)
 {
     sfVector2u positions[4] = {
@@ -142,18 +98,6 @@ void extract_path(int **map, sfVector2u start, sfVector2u goal, sfVector2u max)
             map[line][column] = (map[line][column] > 0) ? 0 : map[line][column];
 }
 
-sfVector2u get_graphic_size(level_t *l, ray_c *data)
-{
-    return (sfVector2u){(l->size.y + 1) * data->cell,
-    (l->size.x + 1) * data->cell + data->cell / 2};
-}
-
-sfVector2u get_logic_pos(enemy_t *e, sfVector2u graph_max, float cell)
-{
-    return graphic_pos_to_map(sfSprite_getPosition(e->enemy->sprite),
-    graph_max, e->size, cell);
-}
-
 void clean_maze(int **map, sfVector2u size)
 {
     for (unsigned line = 0; line < size.y; line++)
@@ -165,7 +109,8 @@ void update_path(enemy_t *e, level_t *l, ray_c *data)
 {
     sfVector2u graph_max = get_graphic_size(l, data);
     sfVector2u logic_pos = get_logic_pos(e, graph_max, data->cell);
-    sfVector2u goal = graphic_pos_to_map(e->goal, graph_max, e->size, data->cell);
+    sfVector2u goal = graphic_pos_to_map(e->goal,
+    graph_max, e->size, data->cell);
 
     clean_maze(e->map, e->size);
     e->map[logic_pos.x][logic_pos.y] = 1;
@@ -173,7 +118,19 @@ void update_path(enemy_t *e, level_t *l, ray_c *data)
     extract_path(e->map, logic_pos, goal, e->size);
 }
 
-sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data)
+sfVector2f obj_to_v2f(int dir)
+{
+    sfVector2f dirs[4] = {
+        {0, -1}, {0, 1},
+        {-1, 0}, {1, 0}
+    };
+    if (dir < 0 || dir > 3)
+        return (sfVector2f){0, 0};
+    return dirs[dir];
+}
+
+sfVector2f vector_to_objective(enemy_t *e, level_t *l,
+ray_c *data, sfVector2f win_s)
 {
     sfVector2u graph_max = get_graphic_size(l, data);
     sfVector2u pos = get_logic_pos(e, graph_max, data->cell);
@@ -182,6 +139,7 @@ sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data)
         {pos.x, pos.y - 1}, {pos.x, pos.y + 1}
     };
     int dir = -1;
+    sfVector2f tmp;
 
     for (int i = 0; i < 4; i++) {
         if (positions[i].x < graph_max.y && positions[i].y < graph_max.x &&
@@ -189,11 +147,9 @@ sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data)
             dir = i;
         }
     }
-    if (dir < 0)
-        return (sfVector2f){0, 0};
-    if (dir < 2)
-        return (sfVector2f){0, (dir == 0) ? -5 : 5};
-    return (sfVector2f){(dir == 2) ? -5 : 5, 0};
+    tmp = obj_to_v2f(dir);
+    update_vector(&tmp, e->enemy, win_s);
+    return tmp;
 }
 
 sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
@@ -221,8 +177,8 @@ void create_enemy(game_t *game, ray_c *data)
         pl_rect_top, pl_rect_down, pl_rect_left, pl_rect_right, pl_rect_idle
     };
 
-    en->enemy = npc_create("tnicg", "./assets/party.png", test, pl_rects
-    , (sfVector2f){1.2, 1.2}, ENEMY_GRP);
+    en->enemy = npc_create("tnicgv", "./assets/party.png", test, pl_rects
+    , (sfVector2f){1.2, 1.2}, ENEMY_GRP, 2);
     sfSprite_setOrigin(en->enemy->sprite, (sfVector2f){32, 32});
     sfSprite_setPosition(en->enemy->sprite, rnd_point(game, data, en->enemy));
     en->enemy->dir = IDLE;

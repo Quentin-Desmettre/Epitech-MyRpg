@@ -74,7 +74,7 @@ void game_ev(window_t *win, sfEvent ev)
 {
     game_t *game = win->menus[GAME];
 
-    if (ev.type == sfEvtKeyReleased) {
+    if (ev.type == sfEvtKeyReleased && !game->is_flashing) {
         if (ev.key.code == sfKeyE)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
         if (ev.key.code == sfKeyU)
@@ -92,17 +92,40 @@ void game_ev(window_t *win, sfEvent ev)
     }
 }
 
+void check_flash(game_t *game, sfRectangleShape *rect)
+{
+    if (sfClock_getElapsedTime(game->flash_clock).microseconds > 100000) {
+        sfRectangleShape_setFillColor(rect, (sfColor){255, 0, 0, 64});
+        sfRectangleShape_setSize(rect,
+        (sfVector2f){sfRenderTexture_getSize(game->rtex).x,
+        sfRenderTexture_getSize(game->rtex).y});
+    }
+    if (game->is_flashing &&
+    sfClock_getElapsedTime(game->flash_clock).microseconds > 200000) {
+        game->nb_flash--;
+        sfClock_restart(game->flash_clock);
+    }
+}
+
 const sfTexture *draw_game(window_t *win)
 {
     game_t *game = win->menus[GAME];
+    sfRectangleShape *rect = sfRectangleShape_create();
 
-    anim_npc(game->player);
+    if (!game->is_flashing)
+        anim_npc(game->player);
+    else
+        check_flash(game, rect);
     sfRenderTexture_clear(game->rtex, sfBlack);
     draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
-    draw_enemies(game, win->menus[LIGHT]);
+    draw_enemies(game, win->menus[LIGHT], win);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_inventory(win->menus[GAME], win);
+    sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
+    sfRectangleShape_destroy(rect);
     sfRenderTexture_display(game->rtex);
+    if (game->nb_flash == 0 && game->is_flashing)
+        game->is_flashing = 0;
     return sfRenderTexture_getTexture(game->rtex);
 }
 
@@ -127,5 +150,8 @@ game_t *game_create(void)
     game->inventory = inventory_create();
     game->clock = sfClock_create();
     game->enemies = NULL;
+    game->is_flashing = 0;
+    game->flash_clock = sfClock_create();
+    game->nb_flash = 0;
     return game;
 }

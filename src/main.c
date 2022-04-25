@@ -35,7 +35,7 @@ static void draw(window_t *win)
     if (win->is_transition)
         update_transition(win, s);
     sfRenderWindow_drawSprite(win->win, s, NULL);
-    if (win->state == GAME)
+    if (win->state == GAME && !((game_t *)win->menus[GAME])->is_flashing)
         move_pl(win);
     sfRenderWindow_display(win->win);
     sfTexture_destroy(cpy);

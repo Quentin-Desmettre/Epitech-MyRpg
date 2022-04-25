@@ -26,6 +26,9 @@ typedef struct game {
     npc_t *player;
     sfClock *clock;
     list_t *enemies;
+    int is_flashing;
+    int nb_flash;
+    sfClock *flash_clock;
 } game_t;
 
 // item room

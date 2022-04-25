@@ -21,13 +21,13 @@ void update_full_screen(settings_t *se, window_t *win)
     if (se->full_screen->is_checked) {
         win->mode = sfVideoMode_getDesktopMode();
         win->win = sfRenderWindow_create(win->mode,
-        "My world", sfFullscreen, NULL);
+        "Backrooms", sfFullscreen, NULL);
         sfSprite_setColor(se->res_button->sprite,
         (sfColor){127, 127, 127, 255});
     } else {
         win->mode = available_modes[se->resolution];
         win->win = sfRenderWindow_create(win->mode,
-        "My runner", sfClose, NULL);
+        "Backrooms", sfClose, NULL);
         sfSprite_setColor(se->res_button->sprite,
         (sfColor){255, 255, 255, 255});
     }
