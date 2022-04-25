@@ -6,7 +6,6 @@
 */
 #include <stdio.h>
 #include "rpg.h"
-#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 coo_t norm(coo_t vector)
 {

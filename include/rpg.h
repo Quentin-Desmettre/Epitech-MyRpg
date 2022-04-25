@@ -51,6 +51,9 @@ float sound_vol(int change, float new);
     #define VISION_ANGLE 90.0
     #define NB_RAY 90
     #define SPEED_ACC 7
+    #define ABS(x) ((x) < 0 ? -(x) : (x))
+
+    #define MAX_DISTANCE 15
 
 typedef struct {
     button_t *buttons[5];
@@ -340,6 +343,14 @@ static inline float deg_to_rad(float degree)
 {
     return degree * PI / 180.0;
 }
+static inline sfVector2f *alloc_v2f(float x, float y)
+{
+    sfVector2f *v = malloc(sizeof(sfVector2f));
+
+    v->x = x;
+    v->y = y;
+    return v;
+}
 
 sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data, sfVector2f win_s);
 void update_path(enemy_t *e, level_t *l, ray_c *data);
@@ -347,5 +358,7 @@ void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
 int can_rush(enemy_t *e, ray_c *data, npc_t *player);
 float dist_between(sfSprite *a, sfSprite *b);
 void launch_combat(void);
+int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
+int can_rush(enemy_t *e, ray_c *data, npc_t *player);
 
 #endif

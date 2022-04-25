@@ -6,7 +6,6 @@
 */
 #include <stdio.h>
 #include "rpg.h"
-#define ABS(x) ((x) < 0 ? -(x) : (x))
 
 void draw_wall(ray_c *data, int i, int j, game_t *game)
 {

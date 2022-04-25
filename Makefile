@@ -33,8 +33,8 @@ SRC = \
 	src/main_menu/create.c                             \
 	src/main_menu/events.c                             \
 	src/global_win/rescale_all.c                       \
-	src/global_win/transition.c                        \
 	src/global_win/init_window.c                       \
+	src/global_win/transition.c                        \
 	src/clock/time.c                                   \
 	src/clock/my_clock.c                               \
 	src/builders/level.c                               \
@@ -43,13 +43,16 @@ SRC = \
 	src/builders/level_setters.c                       \
 	src/builders/npc_setters2.c                        \
 	src/builders/npc_setters3.c                        \
-	src/game/npc_collisions.c                          \
 	src/game/move_player.c                             \
-	src/game/init_game.c                               \
 	src/game/take_item.c                               \
 	src/game/enemies/create.c                          \
 	src/game/enemies/draw.c                            \
 	src/game/enemies/rush_to_player.c                  \
+	src/game/enemies/pathfinding.c                     \
+	src/game/enemies/check_rush.c                      \
+	src/game/enemies/can_rush.c                        \
+	src/game/init_game.c                               \
+	src/game/npc_collisions.c                          \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \
@@ -64,18 +67,18 @@ SRC = \
 	src/light/my_memset.c                              \
 	src/light/utils.c                                  \
 	src/light/angles.c                                 \
+	src/light/utils_light.c                            \
 	src/light/draw_room.c                              \
+	src/light/set.c                                    \
 	src/light/main_l.c                                 \
 	src/light/offset_light.c                           \
-	src/light/set.c                                    \
-	src/light/utils_light.c                            \
 	src/room/generator.c                               \
 	src/room/valid.c                                   \
 	src/room/room.c                                    \
 	src/line_edit/create.c                             \
 	src/line_edit/events.c                             \
-	src/inventory/draw.c                               \
 	src/inventory/inventory.c                          \
+	src/inventory/draw.c                               \
 	src/sound_builder/build_sfx.c                      \
 	src/sound_builder/build_music.c                    \
 	src/sound_builder/safe.c                           \
