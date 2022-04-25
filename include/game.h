@@ -9,6 +9,7 @@
     #define GAME_H_
 
     #include "rpg.h"
+    #include "quest.h"
     #include "npc.h"
     #include "lobby.h"
     #include "inventory.h"
@@ -28,6 +29,7 @@ typedef struct game {
     list_t *enemies;
     int is_flashing;
     int nb_flash;
+    quest_data_t *quest;
     sfClock *flash_clock;
 } game_t;
 

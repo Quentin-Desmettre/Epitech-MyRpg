@@ -45,11 +45,14 @@ void game_ev(window_t *win, sfEvent ev)
             game->inventory->item_selected = PILLS;
         if (ev.key.code == sfKeyN)
             game->inventory->item_selected = -1;
-        if (ev.key.code == sfKeyI)
-            game->inventory->draw = !game->inventory->draw;
+        (ev.key.code == sfKeyI) ? (game->quest->draw = 0),
+        (game->inventory->draw = !game->inventory->draw) : 0;
+        (ev.key.code == sfKeyTab) ? (game->inventory->draw = 0),
+        (game->quest->draw = !game->quest->draw) : 0;
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
     }
+    ev_quest(game, ev, win->win);
 }
 
 void check_flash(game_t *game, sfRectangleShape *rect)
@@ -81,6 +84,7 @@ const sfTexture *draw_game(window_t *win)
     draw_enemies(game, win->menus[LIGHT], win);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_inventory(win->menus[GAME], win);
+    draw_quest(win->menus[GAME], win->win);
     sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
     sfRectangleShape_destroy(rect);
     sfRenderTexture_display(game->rtex);
@@ -102,6 +106,7 @@ game_t *game_create(void)
     };
 
     memset(game, 0, sizeof(game_t));
+    quest_init(game);
     game->rtex = sfRenderTexture_create(1920, 1080, 0);
     game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, (sfVector2f){128, 128});
@@ -109,9 +114,6 @@ game_t *game_create(void)
     game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
     game->inventory = inventory_create();
     game->clock = sfClock_create();
-    game->enemies = NULL;
-    game->is_flashing = 0;
     game->flash_clock = sfClock_create();
-    game->nb_flash = 0;
     return game;
 }

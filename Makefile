@@ -83,6 +83,7 @@ SRC = \
 	src/sound_builder/build_music.c                    \
 	src/sound_builder/safe.c                           \
 	src/rand/srand.c                                   \
+	src/game/quest.c								   \
 	src/main.c
 
 OBJ = $(SRC:.c=.o)

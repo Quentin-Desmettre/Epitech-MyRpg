@@ -17,6 +17,7 @@
     #include "game.h"
     #include "light.h"
     #include "npc.h"
+    #include "quest.h"
 
     #ifdef DEBUG
 
@@ -361,4 +362,7 @@ void launch_combat(void);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
 int can_rush(enemy_t *e, ray_c *data, npc_t *player);
 
+void draw_quest(game_t *game, sfRenderWindow *win);
+void quest_init(game_t *game);
+void ev_quest(game_t *game, sfEvent ev, sfRenderWindow *win);
 #endif
