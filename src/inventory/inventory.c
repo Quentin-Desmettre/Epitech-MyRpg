@@ -9,6 +9,20 @@
 #include "inventory.h"
 #include "inventory_static.h"
 
+void sort_inventory(inventory_t *inventory)
+{
+    for (int i = 1; i < 12; i++) {
+        if (inventory->data->items[i] > -1 &&
+        inventory->data->items[i - 1] < 0) {
+            inventory->data->items[i - 1] = inventory->data->items[i];
+            inventory->data->nb_items[i - 1] = inventory->data->nb_items[i];
+            inventory->data->items[i] = -1;
+            inventory->data->nb_items[i] = 0;
+            i = 0;
+        }
+    }
+}
+
 void remove_item(inventory_t *inventory, int item, int nb)
 {
     for (int i = 11; i >= 0; i--) {
@@ -17,6 +31,10 @@ void remove_item(inventory_t *inventory, int item, int nb)
             inventory->data->nb_items[i] < 0 ?
             inventory->data->nb_items[i] = 0 : 0;
             !inventory->data->nb_items[i] ? inventory->data->items[i] = -1 : 0;
+            if (!inventory->data->nb_items[i]) {
+                sort_inventory(inventory);
+                inventory->item_selected = -1;
+            }
             return;
         }
     }
@@ -49,6 +67,12 @@ void items_create(inventory_t *inventory)
         texture = sfTexture_createFromFile(items_paths[i], NULL);
         sfSprite_setTexture(inventory->items_sprite[i], texture, sfTrue);
     }
+    inventory->rtex = sfRenderTexture_create(1920, 1080, 0);
+    texture = sfTexture_createFromFile(I_BUTTON_PATH, NULL);
+    inventory->buttons[0] = sfSprite_create();
+    inventory->buttons[1] = sfSprite_create();
+    sfSprite_setTexture(inventory->buttons[0], texture, sfTrue);
+    sfSprite_setTexture(inventory->buttons[1], texture, sfTrue);
 }
 
 inventory_t *inventory_create(void)

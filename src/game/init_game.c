@@ -52,6 +52,9 @@ void game_ev(window_t *win, sfEvent ev)
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
     }
+    if (ev.type == sfEvtMouseButtonReleased &&
+    ev.mouseButton.button == sfMouseLeft)
+        inventory_events(game, ev, win);
     ev_quest(game, ev, win->win);
 }
 

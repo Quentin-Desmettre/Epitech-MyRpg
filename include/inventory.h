@@ -14,6 +14,7 @@
     #define INVENTORY_SIZE 12
     #define STACK_SIZE 5
     #define INVENTORY_PATH "assets/inventory/inventory.png"
+    #define I_BUTTON_PATH "assets/inventory/button.png"
 
 // number of items
     #define NB_ITEMS 2
@@ -28,22 +29,28 @@ Each use will restore 20% of your mental health."
 // getters of the items descriptions
     #define ITEM_TITLE(item) (item) ? "Pills" : "Water"
     #define ITEM_TXT(item) (item) ? PILLS_DESC : WATER_DESC
+    #define SCALE(size) (size).y / 1080
+    #define POS_X(size, i, nb) ((size).x / 2 - (162 / 1080.0 * (size).y)) + i * (nb)
+    #define POS_Y(size, i, nb) ((size).y / 2 - (246 / 1080.0 * (size).y)) + i * (nb)
 
-// invetory_data structure
+// inventory_data structure
 typedef struct inventory_data {
     int items[INVENTORY_SIZE];
     int nb_items[INVENTORY_SIZE];
     int size;
 } inventory_data_t;
 
-// invetory structure
+// inventory structure
 typedef struct inventory {
     inventory_data_t *data;
+    sfRenderTexture *rtex;
     sfTexture *texture;
     sfSprite *items_sprite[NB_ITEMS];
+    sfSprite *buttons[2];
     sfSprite *sprite;
     sfVector2f pos;
     sfIntRect rect;
+    sfFloatRect items_pos[INVENTORY_SIZE];
     int item_selected;
     int draw;
 } inventory_t;

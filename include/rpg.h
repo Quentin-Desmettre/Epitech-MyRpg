@@ -310,6 +310,9 @@ void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
 void draw_inventory(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
+void inventory_events(game_t *game, sfEvent ev, window_t *win);
+void draw_item(game_t *game, int item, int box, sfVector2f size);
+void draw_item_info(game_t *game, int item, sfVector2u size);
 void take_item(window_t *win, game_t *game, ray_c *data);
 void my_srand(void);
 
