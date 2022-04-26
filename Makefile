@@ -85,6 +85,8 @@ SRC = \
 	src/sound_builder/build_music.c                    \
 	src/sound_builder/safe.c                           \
 	src/rand/srand.c                                   \
+	src/game/change_xp.c                               \
+	src/game/draw_xp.c                                 \
 	src/game/quest.c                                   \
 	src/main.c
 

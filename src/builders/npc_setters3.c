@@ -18,3 +18,13 @@ void set_npc_scale(npc_t *npc, va_list va)
     npc->scale = va_arg(va, sfVector2f);
     sfSprite_setScale(npc->sprite, npc->scale);
 }
+
+void set_npc_level(npc_t *npc, va_list va)
+{
+    npc->level = va_arg(va, int);
+}
+
+void set_npc_xp(npc_t *npc, va_list va)
+{
+    npc->xp = va_arg(va, int);
+}

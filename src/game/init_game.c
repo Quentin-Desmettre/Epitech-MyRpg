@@ -39,18 +39,20 @@ void game_ev(window_t *win, sfEvent ev)
     if (ev.type == sfEvtKeyReleased && !game->is_flashing) {
         if (ev.key.code == sfKeyE)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
-        if (ev.key.code == sfKeyU)
-            game->inventory->item_selected = WATER;
-        if (ev.key.code == sfKeyJ)
-            game->inventory->item_selected = PILLS;
-        if (ev.key.code == sfKeyN)
-            game->inventory->item_selected = -1;
         (ev.key.code == sfKeyI) ? (game->quest->draw = 0),
         (game->inventory->draw = !game->inventory->draw) : 0;
         (ev.key.code == sfKeyTab) ? (game->inventory->draw = 0),
         (game->quest->draw = !game->quest->draw) : 0;
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
+        if (ev.key.code == sfKeyB) {
+            remove_xp(game, 1);
+            printf("level %i, %i sur %i\n", game->player->level, game->player->xp, game->player->xp_limit);
+        }
+        if (ev.key.code == sfKeyN) {
+            add_xp(game, 1);
+            printf("level %i, %i sur %i\n", game->player->level, game->player->xp, game->player->xp_limit);
+        }
     }
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft)
@@ -86,6 +88,7 @@ const sfTexture *draw_game(window_t *win)
     draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
     draw_enemies(game, win->menus[LIGHT], win);
     draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
+    draw_xp(win->menus[GAME], win);
     draw_inventory(win->menus[GAME], win);
     draw_quest(win->menus[GAME], win->win);
     sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);

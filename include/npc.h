@@ -29,6 +29,9 @@ typedef struct npc {
     int defense;
     int nb_rects;
     int speed;
+    int level;
+    int xp;
+    int xp_limit;
     sfVector2f pos;
     sfVector2f scale;
     sfClock *move_clock;
@@ -54,6 +57,8 @@ typedef struct npc {
 /// \param v      speed of the npc (optional, 10 by default)
 /// \param p      position of the npc (optional, {0, 0} by default)
 /// \param c      scale of the npc (optional, {1, 1} by default)
+/// \param l      level of the npc (optional, 1 by default)
+/// \param x      xp of the npc (optional, 0 by default)
 ///
 /// \return A new npc_t object, or NULL if it failed.
 ///
@@ -73,6 +78,8 @@ void set_npc_spd(npc_t *npc, va_list va);
 void set_npc_health(npc_t *npc, va_list va);
 void set_npc_pos(npc_t *npc, va_list va);
 void set_npc_scale(npc_t *npc, va_list va);
+void set_npc_level(npc_t *npc, va_list va);
+void set_npc_xp(npc_t *npc, va_list va);
 
 /// string of all the parameters
     #define NPC_PARAMS "tnidgshafvpc"

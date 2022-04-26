@@ -105,7 +105,8 @@ static const sfIntRect bars_frames[] = {
     {131, 101, 380, 100},
     {131, 202, 380, 100},
     {0, 0, 130, 120},
-    {0, 142, 126, 120}
+    {0, 142, 126, 120},
+    {131, 303, 380, 100}
 };
 
 static const sfIntRect icon_rect = {
@@ -315,6 +316,12 @@ void draw_item(game_t *game, int item, int box, sfVector2f size);
 void draw_item_info(game_t *game, int item, sfVector2u size);
 void take_item(window_t *win, game_t *game, ray_c *data);
 void my_srand(void);
+void draw_bar(sfRenderTexture *rtex, sfVector2f pos,
+sfVector2f size, sfVector2f types);
+void draw_xp(game_t *game, window_t *win);
+float get_xp_percent(npc_t *player);
+void remove_xp(game_t *game, int xp);
+void add_xp(game_t *game, int xp);
 
 sfVector2f win_size(window_t *win);
 int dir_from_v2f(sfVector2f vf);

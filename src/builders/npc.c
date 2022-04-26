@@ -19,6 +19,8 @@ static npc_t *init_npc(void)
     npc->attack = 10;
     npc->defense = 10;
     npc->speed = 10;
+    npc->level = 1;
+    npc->xp_limit = 5;
     npc->pos = (sfVector2f){0, 0};
     npc->move_clock = sfClock_create();
     npc->anim_clock = sfClock_create();
@@ -47,7 +49,7 @@ npc_t *npc_create(char *params, ...)
     static void (*npc_setters[])(npc_t *, va_list) = {
         set_npc_txt, set_npc_frames, set_npc_rects, set_npc_dir, set_npc_grp,
         set_npc_initframe, set_npc_health, set_npc_atk, set_npc_def,
-        set_npc_spd, set_npc_pos, set_npc_scale
+        set_npc_spd, set_npc_pos, set_npc_scale, set_npc_level, set_npc_xp
     };
 
     va_start(va, params);
