@@ -66,11 +66,23 @@ main_menu_t *create_main_menu(sfVector2f win_size)
 const sfTexture *draw_main_menu(window_t *w)
 {
     main_menu_t *m = w->menus[HOME];
+    game_t *game = w->menus[GAME];
+    sfSprite *s;
 
+    anim_npc(game->player);
     sfRenderTexture_clear(m->rtex, sfBlack);
+    sfRenderTexture_clear(game->rtex, sfBlack);
     sfRenderTexture_drawSprite(m->rtex, m->background, NULL);
+    draw_room(w->menus[LIGHT], w->menus[GAME], w->win);
+    draw_enemies(game, w->menus[LIGHT], w);
+    draw_map(w->menus[LIGHT], w->menus[GAME], w->win);
+    s = init_sprite_from_texture(sfRenderTexture_getTexture(game->rtex));
+    sfSprite_move(s, (sfVector2f){0, sfSprite_getGlobalBounds(s).height});
+    sfSprite_setScale(s, (sfVector2f){1, -1});
+    sfRenderTexture_drawSprite(m->rtex, s, NULL);
     for (int i = 0; i < 5; i++)
         draw_button_to_rtex(m->buttons[i], m->rtex);
     sfRenderTexture_display(m->rtex);
+    sfSprite_destroy(s);
     return sfRenderTexture_getTexture(m->rtex);
 }
