@@ -13,6 +13,7 @@ p_clock_t *p_clock_create(void)
     p_clock_t *p = malloc(sizeof(p_clock_t));
 
     p->clock = sfClock_create();
+    p->is_paused = 0;
     p->elapsed = 0;
     return p;
 }

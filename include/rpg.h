@@ -299,6 +299,7 @@ void go_to_settings(void *win);
 void go_to_local_save(void *win);
 void go_to_map_editor(void *win);
 void go_to_online_level(void *win);
+void lazy_room(window_t *win);
 
 // game
 game_t *game_create(void);
@@ -306,7 +307,7 @@ void game_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_game(window_t *win);
 void destroy_game(game_t *game);
 void new_room(game_t *game, ray_c *light);
-void draw_room(ray_c *data, game_t *game, sfRenderWindow *win);
+void draw_room(ray_c *data, game_t *game, window_t *win);
 void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
 void draw_inventory(game_t *game, window_t *win);
@@ -366,11 +367,10 @@ static inline sfVector2f *alloc_v2f(float x, float y)
 sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data, sfVector2f win_s);
 void update_path(enemy_t *e, level_t *l, ray_c *data);
 void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
-int can_rush(enemy_t *e, ray_c *data, npc_t *player);
+int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
 void launch_combat(void);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
-int can_rush(enemy_t *e, ray_c *data, npc_t *player);
 
 void draw_quest(game_t *game, sfRenderWindow *win);
 void quest_init(game_t *game);

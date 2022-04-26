@@ -33,13 +33,13 @@ void launch_combat(void)
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win)
 {
     if (!en->is_in_rush) {
-        en->is_in_rush = can_rush(en, data, g->player);
+        en->is_in_rush = can_rush(en, data, g->player, win);
         en->enemy->speed *= en->is_in_rush ? SPEED_ACC : 1;
         if (en->is_in_rush && !other_are_rushing(g->enemies, en)) {
             g->is_flashing = 1;
             sfClock_restart(g->flash_clock);
             g->inventory->draw = 0;
-            g->nb_flash = 5;
+            g->nb_flash = 3;
         }
     }
     if (en->is_in_rush) {

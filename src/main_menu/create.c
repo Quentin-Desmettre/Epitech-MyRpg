@@ -73,9 +73,9 @@ const sfTexture *draw_main_menu(window_t *w)
     sfRenderTexture_clear(m->rtex, sfBlack);
     sfRenderTexture_clear(game->rtex, sfBlack);
     sfRenderTexture_drawSprite(m->rtex, m->background, NULL);
-    draw_room(w->menus[LIGHT], w->menus[GAME], w->win);
+    draw_room(w->menus[LIGHT], w->menus[GAME], w);
     draw_enemies(game, w->menus[LIGHT], w);
-    draw_map(w->menus[LIGHT], w->menus[GAME], w->win);
+    draw_map(w->menus[LIGHT], w->menus[GAME], w);
     s = init_sprite_from_texture(sfRenderTexture_getTexture(game->rtex));
     sfSprite_move(s, (sfVector2f){0, sfSprite_getGlobalBounds(s).height});
     sfSprite_setScale(s, (sfVector2f){1, -1});

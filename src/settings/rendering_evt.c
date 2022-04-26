@@ -34,6 +34,7 @@ void update_full_screen(settings_t *se, window_t *win)
     sfRenderWindow_setFramerateLimit(win->win,
     available_framerates[se->framerate]);
     rescale_all(win);
+    lazy_room(win);
 }
 
 void update_vsync(settings_t *se, window_t *win)
@@ -54,6 +55,7 @@ void update_res(settings_t *se, window_t *win)
     sfRenderWindow_setFramerateLimit(win->win,
     available_framerates[se->framerate]);
     rescale_all(win);
+    lazy_room(win);
 }
 
 void update_framerate(settings_t *se, window_t *win)

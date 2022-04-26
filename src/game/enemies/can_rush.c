@@ -52,7 +52,7 @@ sfVector2f vector, npc_t *player)
     return NULL;
 }
 
-static void rotate_vector(sfVector2f *vec, float degree)
+void rotate_vector(sfVector2f *vec, float degree)
 {
     sfVector2f new;
 
@@ -79,9 +79,9 @@ static sfVector2f get_vision_vector(float const vis_dist, int const dir)
     return vision;
 }
 
-int can_rush(enemy_t *e, ray_c *data, npc_t *player)
+int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win)
 {
-    float const vision_distance = data->cell * 4;
+    float const vision_distance = data->cell * 2.5;
     float const increment = VISION_ANGLE / NB_RAY;
     sfVector2f e_pos = sfSprite_getPosition(e->enemy->sprite);
     sfVector2f vector = get_vision_vector(vision_distance, e->enemy->dir);
@@ -90,7 +90,7 @@ int can_rush(enemy_t *e, ray_c *data, npc_t *player)
     for (int i = 0; i < NB_RAY; i++) {
         if ((inter = can_reach_player(e_pos, vector, player))) {
             free(inter);
-            return 1;
+            return win->state == GAME;
         }
         rotate_vector(&vector, increment);
     }

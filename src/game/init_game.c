@@ -45,14 +45,10 @@ void game_ev(window_t *win, sfEvent ev)
         (game->quest->draw = !game->quest->draw) : 0;
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
-        if (ev.key.code == sfKeyB) {
+        if (ev.key.code == sfKeyB)
             remove_xp(game, 1);
-            printf("level %i, %i sur %i\n", game->player->level, game->player->xp, game->player->xp_limit);
-        }
-        if (ev.key.code == sfKeyN) {
+        if (ev.key.code == sfKeyN)
             add_xp(game, 1);
-            printf("level %i, %i sur %i\n", game->player->level, game->player->xp, game->player->xp_limit);
-        }
     }
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft)
@@ -85,9 +81,9 @@ const sfTexture *draw_game(window_t *win)
     else
         check_flash(game, rect);
     sfRenderTexture_clear(game->rtex, sfBlack);
-    draw_room(win->menus[LIGHT], win->menus[GAME], win->win);
+    draw_room(win->menus[LIGHT], win->menus[GAME], win);
     draw_enemies(game, win->menus[LIGHT], win);
-    draw_map(win->menus[LIGHT], win->menus[GAME], win->win);
+    draw_map(win->menus[LIGHT], win->menus[GAME], win);
     draw_xp(win->menus[GAME], win);
     draw_inventory(win->menus[GAME], win);
     draw_quest(win->menus[GAME], win->win);

@@ -41,7 +41,8 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g, window_t *win)
 {
     level_t *l = g->level;
 
-    if (dist_between(en->enemy->sprite, g->player->sprite) < data->cell / 2.0)
+    if (dist_between(en->enemy->sprite, g->player->sprite) < data->cell / 2.0 &&
+    win->state == GAME)
         launch_combat();
     if (check_rush(en, data, g, win))
         return;
@@ -78,14 +79,21 @@ void draw_enemies(game_t *game, ray_c *data, window_t *win)
     list_t *list = game->enemies;
     list_t const * const begin = game->enemies;
     sfVector2f pl_size = get_sprite_size(game->player->sprite);
+    enemy_t *e;
+    sfVector2f pos;
 
     if (!list)
         return;
     do {
+        e = list->data;
         if (!game->is_flashing)
-            update_enemy(list->data, pl_size, data, win);
+            update_enemy(e, pl_size, data, win);
         sfRenderTexture_drawSprite(data->tex_light,
-        ((enemy_t *)(list->data))->enemy->sprite, NULL);
+        e->enemy->sprite, NULL);
+        if (win->state == HOME) {
+            pos = sfSprite_getPosition(e->enemy->sprite);
+            add_light(data, (sfVector2i){pos.x, pos.y}, 1.5, game->rtex);
+        }
         list = list->next;
     } while (list != begin);
 }

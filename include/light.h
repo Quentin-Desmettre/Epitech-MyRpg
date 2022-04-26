@@ -88,7 +88,9 @@ int my_memcmp(void *aa, void *bb, size_t size);
 
 coo_t rotate(coo_t center, coo_t rt, float angle);
 
-void draw_map(ray_c *data, game_t *game, sfRenderWindow *win);
+typedef struct win window_t;
+
+void draw_map(ray_c *data, game_t *game, window_t *win);
 
 coo_t norm(coo_t vector);
 coo_t rotate(coo_t center, coo_t rt, float angle);

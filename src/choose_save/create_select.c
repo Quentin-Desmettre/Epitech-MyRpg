@@ -50,6 +50,7 @@ void launch_file(void *win)
     g->player->defense = infos.stamina;
     g->player->health = infos.health_percent;
     set_next_win_state(win, GAME);
+    lazy_room(win);
 }
 
 choose_save_t *create_choose_save(sfVector2f win_size)

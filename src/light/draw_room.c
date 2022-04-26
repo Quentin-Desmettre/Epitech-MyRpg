@@ -52,9 +52,9 @@ void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
     } while (tmp != game->items);
 }
 
-void draw_room(ray_c *data, game_t *game, sfRenderWindow *win)
+void draw_room(ray_c *data, game_t *game, window_t *win)
 {
-    sfVector2u size_win = sfRenderWindow_getSize(win);
+    sfVector2u size_win = sfRenderWindow_getSize(win->win);
     coo_t size = game->level->size;
 
     sfRenderTexture_clear(data->tex_light, sfBlack);
@@ -65,6 +65,7 @@ void draw_room(ray_c *data, game_t *game, sfRenderWindow *win)
     }
     sfRenderTexture_drawSprite(data->tex_light, data->noise_sp, 0);
     draw_items(game, data, size_win);
-    sfRenderTexture_drawSprite(data->tex_light, game->player->sprite, NULL);
+    if (win->state == GAME)
+        sfRenderTexture_drawSprite(data->tex_light, game->player->sprite, NULL);
     sfRenderTexture_display(data->tex_light);
 }

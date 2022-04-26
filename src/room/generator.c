@@ -7,6 +7,12 @@
 
 #include "rpg.h"
 
+void lazy_room(window_t *win)
+{
+    draw_map(win->menus[LIGHT], win->menus[GAME], win);
+    new_room(win->menus[GAME], win->menus[LIGHT]);
+}
+
 void pop(pile_t *pile)
 {
     if (pile->count == 0)

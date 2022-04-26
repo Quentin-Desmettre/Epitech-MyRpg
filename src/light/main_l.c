@@ -34,7 +34,8 @@ void draw_line(ray_c *data, coo_t p_pos, coo_t vraydir, float dis)
     coo_t vinter = {p_pos.x + vraydir.x * dis, p_pos.y + vraydir.y *
     dis};
 
-    data->light->vertex.position = (coo_t){vinter.x * data->cell + data->off_view.x, vinter.y *
+    data->light->vertex.position = (coo_t){vinter.x *
+    data->cell + data->off_view.x, vinter.y *
     data->cell + data->off_view.y};
     data->light->vertex.texCoords = (coo_t){vinter.x * data->cell, vinter.y *
     data->cell};
@@ -81,14 +82,15 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
     }
 }
 
-void draw_map(ray_c *data, game_t *game, sfRenderWindow *win)
+void draw_map(ray_c *data, game_t *game, window_t *win)
 {
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     sfVector2i tmp = (sfVector2i){pos.x, pos.y};
-    sfVector2u size_win = sfRenderWindow_getSize(win);
+    sfVector2u size_win = sfRenderWindow_getSize(win->win);
 
     change_form(game, size_win, tmp, data);
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
-    add_light(data, tmp, 5, game->rtex);
+    if (win->state == GAME)
+        add_light(data, tmp, 5, game->rtex);
     change_room(game, data, pos);
 }
