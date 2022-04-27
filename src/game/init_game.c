@@ -43,6 +43,8 @@ void game_ev(window_t *win, sfEvent ev)
         (game->inventory->draw = !game->inventory->draw) : 0;
         (ev.key.code == sfKeyTab) ? (game->inventory->draw = 0),
         (game->quest->draw = !game->quest->draw) : 0;
+        if (ev.key.code == sfKeyJ)
+            game->skills->draw = !game->skills->draw;
         if (ev.key.code == sfKeyR)
             new_room(win->menus[GAME], win->menus[LIGHT]);
         if (ev.key.code == sfKeyB)
@@ -51,8 +53,10 @@ void game_ev(window_t *win, sfEvent ev)
             add_xp(game, 1);
     }
     if (ev.type == sfEvtMouseButtonReleased &&
-    ev.mouseButton.button == sfMouseLeft)
-        inventory_events(game, ev, win);
+    ev.mouseButton.button == sfMouseLeft) {
+        game->inventory->draw ? inventory_events(game, ev, win) : 0;
+        game->skills->draw ? skills_events(game, ev, win) : 0;
+    }
     ev_quest(game, ev, win->win);
 }
 
@@ -87,6 +91,7 @@ const sfTexture *draw_game(window_t *win)
     draw_xp(win->menus[GAME], win);
     draw_inventory(win->menus[GAME], win);
     draw_quest(win->menus[GAME], win->win);
+    draw_skills(win->menus[GAME], win);
     sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
     sfRectangleShape_destroy(rect);
     sfRenderTexture_display(game->rtex);
@@ -100,11 +105,7 @@ game_t *game_create(void)
     game_t *game = malloc(sizeof(game_t));
     int test[6] = {9, 9, 9, 9, 2, 0};
     static const sfIntRect *pl_rects[5] = {
-        pl_rect_top,
-        pl_rect_down,
-        pl_rect_left,
-        pl_rect_right,
-        pl_rect_idle
+        pl_rect_top, pl_rect_down, pl_rect_left, pl_rect_right, pl_rect_idle
     };
 
     memset(game, 0, sizeof(game_t));
@@ -115,6 +116,7 @@ game_t *game_create(void)
     sfSprite_setOrigin(game->player->sprite, (sfVector2f){32, 32});
     game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
     game->inventory = inventory_create();
+    game->skills = skills_create();
     game->clock = sfClock_create();
     game->flash_clock = sfClock_create();
     return game;

@@ -427,4 +427,7 @@ void free_particle(void *p);
 circular_splash_t *create_circular_splash(sfVector2f pos, sfVector2f max_size);
 int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win);
 
+void draw_skills(game_t *game, window_t *win);
+void skills_events(game_t *game, sfEvent ev, window_t *win);
+
 #endif

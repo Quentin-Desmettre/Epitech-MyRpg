@@ -1,0 +1,66 @@
+/*
+** EPITECH PROJECT, 2022
+** B-MUL-200-LIL-2-1-myrpg-quentin.desmettre
+** File description:
+** skills
+*/
+
+#ifndef SKILLS_H_
+    #define SKILLS_H_
+
+    #include "rpg.h"
+
+// list of differents skills paths
+    #define SKILLS_PATH "assets/skills/skills.png"
+    #define S_BUTTON_PATH "assets/skills/skills_button.png"
+
+// skills infos
+    #define NB_SKILLS 3
+    #define LOCKED 0
+    #define LEVEL_1 1
+    #define LEVEL_2 2
+
+// list of differents skills
+    #define SPRINT 0
+    #define CRY 1
+    #define FIND_EXIT 2
+
+// macro to set the skill x position
+    #define S_POS_X(size, i) ((size).x / 2 - (452 / 1080.0 * (size).y)) + (i)
+
+// descriptions of the diffetents skills
+    #define SKILLS_DESC "You are able to sprint for 5 seconds.\n\
+Use this skill with the shift key."
+    #define CRY_DESC "You can create a puddle by crying to afraid monsters.\n\
+Be carefull you lose hydratation while crying. Use with the C key"
+    #define FIND_EXIT_DESC "You can know if the exit is in this room\n\
+Use this skill with the F key"
+
+// getters of the skills descriptions
+    #define SKILLS_TITLE(skills) (skills) == SPRINT ? "Sprint" : \
+    (skills) == CRY ? "Cry" : "Find Exit"
+    #define SKILLS_TXT(skills) (skills) == SPRINT ? SKILLS_DESC : \
+    (skills) == CRY ? CRY_DESC : FIND_EXIT_DESC
+
+// skills_data structure
+typedef struct skills_data {
+    int tab[NB_SKILLS];
+    int pc;
+} skills_data_t;
+
+// skills structure
+typedef struct skills {
+    skills_data_t *data;
+    sfSprite *sk_sprites[NB_SKILLS];
+    sfTexture *texture;
+    sfSprite *sprite;
+    sfSprite *button;
+    sfVector2f pos;
+    int skill_selected;
+    int draw;
+} skills_t;
+
+// skills prototypes
+skills_t *skills_create(void);
+
+#endif

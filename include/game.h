@@ -12,6 +12,7 @@
     #include "quest.h"
     #include "npc.h"
     #include "lobby.h"
+    #include "skills.h"
     #include "inventory.h"
 
 typedef struct item {
@@ -26,6 +27,7 @@ typedef struct game {
     level_t *level;
     npc_t *player;
     sfClock *clock;
+    skills_t *skills;
     list_t *enemies;
     int is_flashing;
     int nb_flash;

@@ -92,6 +92,7 @@ SRC = \
 	src/particles/create_splash.c                      \
 	src/particles/particle.c                           \
 	src/particles/splash.c                             \
+	src/skills/init_skills.c                           \
 
 OBJ = $(SRC:.c=.o)
 
