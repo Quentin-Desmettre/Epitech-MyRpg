@@ -401,6 +401,10 @@ void rotate_vector(sfVector2f *vec, float degree);
 
 static const sfInt64 max_dur_splash = 500000;
 
+typedef struct {
+    list_t *particles;
+} splash_particles_t;
+
 particle_t *create_splash_particle(sfInt64 max_dur,
 sfVector2f max_size, int is_left, sfVector2f pos);
 void check_for_new_splash(list_t **particles, sfInt64 dur, sfVector2f max);
@@ -410,9 +414,6 @@ void draw_splash_particles(splash_particles_t *particles, sfRenderWindow *win,
 sfVector2f particle_size);
 void destroy_splash_particles(splash_particles_t *s);
 
-typedef struct {
-    list_t *particles;
-} splash_particles_t;
 
     #define NB_PARTICLES 24
 
@@ -425,6 +426,5 @@ typedef struct {
 void free_particle(void *p);
 circular_splash_t *create_circular_splash(sfVector2f pos, sfVector2f max_size);
 int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win);
-
 
 #endif

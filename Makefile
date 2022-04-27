@@ -89,8 +89,9 @@ SRC = \
 	src/game/draw_xp.c                                 \
 	src/game/quest.c                                   \
 	src/main.c                                         \
+	src/particles/create_splash.c                      \
 	src/particles/particle.c                           \
-	src/particles/splash.c
+	src/particles/splash.c                             \
 
 OBJ = $(SRC:.c=.o)
 
