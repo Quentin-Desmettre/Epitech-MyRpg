@@ -82,12 +82,13 @@ void create_enemy(game_t *game, ray_c *data)
     };
 
     en->enemy = npc_create("tnicgv", "./assets/party.png", test, pl_rects
-    , (sfVector2f){1.2, 1.2}, ENEMY_GRP, 2);
+    , (sfVector2f){1.2, 1.2}, ENEMY_GRP, -6);
     sfSprite_setOrigin(en->enemy->sprite, (sfVector2f){32, 32});
     sfSprite_setPosition(en->enemy->sprite, rnd_point(game, data, en->enemy));
     en->enemy->dir = IDLE;
     en->decide_clock = sfClock_create();
     en->mov_vector = rand_dir();
+    update_vector(&en->mov_vector, en->enemy, (sfVector2f){0, data->cell * 15});
     en->rnd_mve = my_rand(3000000, 5000000);
     en->rnd_wait = my_rand(1000000, 3000000);
     en->is_in_rush = 0;

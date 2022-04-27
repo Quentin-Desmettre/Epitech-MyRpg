@@ -11,11 +11,11 @@
 sfVector2f rotate_dir(sfVector2f base)
 {
     if (base.y) {
+        base.x = rand() % 2 ? -base.y : base.y;
         base.y = 0;
-        base.x = rand() % 2 ? -1 : 1;
     } else {
+        base.y = rand() % 2 ? -base.x : base.x;
         base.x = 0;
-        base.y = rand() % 2 ? -1 : 1;
     }
     return base;
 }

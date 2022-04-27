@@ -25,7 +25,7 @@ void cancel_rush_of(enemy_t *e, ray_c *data, level_t *l)
     };
 
     e->is_in_rush = 0;
-    e->enemy->speed /= SPEED_ACC;
+    e->enemy->speed -= SPEED_ACC;
     if (!is_pnj_colliding(data, e->enemy, l))
         return;
     for (int i = 0; i < 4; i++) {

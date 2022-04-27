@@ -65,8 +65,8 @@ void update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size)
 
     vector->x *= (pl_speed * 0.4 + 4);
     vector->y *= (pl_speed * 0.4 + 4);
-    vector->x = vector->x / 1920.0 * win_size.x;
-    vector->y = vector->y / 1080.0 * win_size.y;
+    vector->x *= win_size.y / 1080.0;
+    vector->y *= win_size.y / 1080.0;
 }
 
 void move_pl(window_t *win)
