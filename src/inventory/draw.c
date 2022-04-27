@@ -36,22 +36,19 @@ void draw_to_game(game_t *game, window_t *win)
     sfSprite_destroy(sprite);
 }
 
-void draw_buttons(game_t *game, window_t *win)
+void draw_buttons(game_t *game, window_t *win, sfVector2f size)
 {
-    sfVector2f size = win_size(win);
-    sfText *text = init_text("", 1080 / 30);
+    sfText *text = init_text("Use", 1080 / 40);
     float indent = 114 * (SCALE(size)) * 2;
 
-    sfSprite_setScale(game->inventory->buttons[0], (sfVector2f){(SCALE(size)), (SCALE(size))});
-    sfSprite_setScale(game->inventory->buttons[1], (sfVector2f){(SCALE(size)), (SCALE(size))});
-    sfSprite_setPosition(game->inventory->buttons[0], (sfVector2f)
-    {POS_X(size, 0, 0), POS_Y(size, indent, 2)});
-    sfSprite_setPosition(game->inventory->buttons[1], (sfVector2f)
-    {POS_X(size, indent, 1), POS_Y(size, indent, 2)});
-    sfRenderTexture_drawSprite(game->rtex, game->inventory->buttons[0], NULL);
-    sfRenderTexture_drawSprite(game->rtex, game->inventory->buttons[1], NULL);
-    sfText_setCharacterSize(text, 1080 / 40);
-    sfText_setString(text, "Use");
+    for (int i = 0; i < 2; i++) {
+        sfSprite_setScale(game->inventory->buttons[i],
+        (sfVector2f){(SCALE(size)), (SCALE(size))});
+        sfSprite_setPosition(game->inventory->buttons[i], (sfVector2f)
+        {POS_X(size, i * indent, i), POS_Y(size, indent, 2)});
+        sfRenderTexture_drawSprite(game->rtex, game->inventory->buttons[i],
+        NULL);
+    }
     center_text(text);
     sfText_setPosition(text, (sfVector2f){848 + 114 * 0, 313 + 114 * 4});
     sfRenderTexture_drawText(game->inventory->rtex, text, NULL);
@@ -83,14 +80,13 @@ void draw_stats(game_t *game, window_t *win)
     }
     if (game->inventory->item_selected != -1)
         draw_item_info(game, game->inventory->item_selected, size);
-    draw_buttons(game, win);
+    draw_buttons(game, win, win_size(win));
 }
 
 void draw_inventory(game_t *game, window_t *win)
 {
     sfRectangleShape *rect = sfRectangleShape_create();
     sfSprite *sprite = sfSprite_copy(game->player->sprite);
-
     if (!game->inventory->draw)
         return sfRectangleShape_destroy(rect);
     center_inventory(game, win);
