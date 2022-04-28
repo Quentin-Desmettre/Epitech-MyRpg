@@ -387,6 +387,10 @@ void scale_draw(game_t *game, sfVector2f scale);
 void next_level(ray_c *data);
 void sprint_event(game_t *game);
 void draw_sprint(game_t *game, sfVector2f size);
+void draw_cry(game_t *game, sfVector2f size);
+void cry_event(game_t *game);
+void draw_find_exit(game_t *game, sfVector2f size);
+void find_exit_event(game_t *game);
 
 // fight
 const sfTexture *draw_fight(window_t *win);

@@ -29,6 +29,8 @@
 // macro for skills
     #define S_POS_X(size, i) ((size).x / 2 - (452 / 1080.0 * (size).y)) + (i)
     #define S_TIME(game) get_elapsed_time((game)->skills->clocks[SPRINT])
+    #define C_TIME(game) get_elapsed_time((game)->skills->clocks[CRY])
+    #define F_TIME(game) get_elapsed_time((game)->skills->clocks[FIND_EXIT])
     #define SEC * 1000000
 
 // descriptions of the diffetents skills

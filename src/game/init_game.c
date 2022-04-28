@@ -90,6 +90,10 @@ void game_ev(window_t *win, sfEvent ev)
             next_level(win->menus[LIGHT]);
         if (ev.key.code == sfKeyLShift)
             sprint_event(game);
+        if (ev.key.code == sfKeyC)
+            cry_event(game);
+        if (ev.key.code == sfKeyF)
+            find_exit_event(game);
     }
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft) {
