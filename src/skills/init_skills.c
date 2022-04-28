@@ -9,100 +9,48 @@
 #include "skills.h"
 #include "skills_static.h"
 
-void skills_events(game_t *game, sfEvent ev, window_t *win)
-{
-    sfVector2f size = win_size(win);
-    float indent = 244 * (SCALE(size));
-    sfFloatRect mouse = {ev.mouseButton.x, ev.mouseButton.y, 1, 1};
-    sfFloatRect button = {S_POS_X(size, 0), 333 * size.y / 1080.0,
-    118 * (SCALE(size)), 118 * (SCALE(size))};
-
-    for (int i = 0; i < NB_SKILLS; i++) {
-        if (sfFloatRect_intersects(&mouse, &button, 0)) {
-            game->skills->skill_selected = i;
-            return;
-        }
-        button.left += indent;
-    }
-}
-
 void scale_draw(game_t *game, sfVector2f scale)
 {
     sfSprite_setScale(game->skills->sprite, scale);
     sfSprite_setScale(game->skills->button, scale);
-    for (int i = 0; i < NB_SKILLS; i++)
-        sfSprite_setScale(game->skills->sk_sprites[i], scale);
+    for (int i = 0; i < NB_SKILLS; i++) {
+        sfSprite_setScale(game->skills->sk_sprites[i][0], scale);
+        sfSprite_setScale(game->skills->sk_sprites[i][1], scale);
+    }
 }
 
-void create_skill_desc(sfText *text, int item, sfVector2f size)
+void skills_events(game_t *game, sfEvent ev, sfVector2f size)
 {
-    char *str;
-    const char *tmp;
-    sfFloatRect pos = sfText_getGlobalBounds(text);
-    char **words = my_str_to_word_array(SKILLS_TXT(item), " ");
+    int selected = game->skills->skill_selected;
+    sfFloatRect mouse = {ev.mouseButton.x, ev.mouseButton.y, 1, 1};
+    sfFloatRect button = {S_POS_X(size, 0), 333 * size.y / 1080.0,
+    118 * (SCALE(size)), 118 * (SCALE(size))};
 
-    sfText_setString(text, "");
-    for (int i = 0; words[i]; i++) {
-        tmp = sfText_getString(text);
-        str = str_concat(3, tmp, words[i], " ");
-        sfText_setString(text, str);
-        free(str);
-        pos = sfText_getGlobalBounds(text);
-        if (pos.left + pos.width > 1715 / 1080.0 * size.y) {
-            str = str_concat(2, tmp, "\n");
-            sfText_setString(text, str);
-            free(str);
-            i--;
+    for (int i = 0; i < NB_SKILLS; i++, button.left += 244 * (SCALE(size))) {
+        if (sfFloatRect_intersects(&mouse, &button, 0)) {
+            game->skills->skill_selected = i;
+            return;
         }
     }
-    my_free("P", words);
-}
-
-void draw_skill_desc(game_t *game, sfVector2f size, int skill)
-{
-    sfText *text = init_text(SKILLS_TITLE(skill), size.y / 40);
-    sfSprite *sprite = game->skills->sk_sprites[skill];
-
-    sfSprite_setScale(sprite, (sfVector2f)
-    {2.5 * SCALE(size), 2.5 * SCALE(size)});
-    sfSprite_setPosition(sprite, (sfVector2f)
-    {size.x / 2 - 620 / 1080.0 * size.y, 583 * SCALE(size)});
-    sfText_setPosition(text, (sfVector2f)
-    {size.x / 2 + 0 / 1080.0 * size.y, 640 * SCALE(size)});
-    center_text(text);
-    sfRenderTexture_drawText(game->rtex, text, NULL);
-    create_skill_desc(text, skill, size);
-    sfText_setCharacterSize(text, size.y / 45);
-    sfText_setPosition(text, (sfVector2f)
-    {size.x / 2 + 0 / 1080.0 * size.y, 690 * SCALE(size)});
-    center_text(text);
-    sfRenderTexture_drawText(game->rtex, text, NULL);
-    sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
-    sfText_destroy(text);
-}
-
-void draw_skills(game_t *game, window_t *win)
-{
-    sfVector2f size = win_size(win);
-    float indent = 244 * (SCALE(size));
-
-    if (!game->skills->draw)
-        return;
-    scale_draw(game, (sfVector2f){SCALE(size), SCALE(size)});
-    sfSprite_setPosition(game->skills->sprite,
-    (sfVector2f){size.x * 0.5, size.y * 0.5});
-    sfRenderTexture_drawSprite(game->rtex, game->skills->sprite, NULL);
-    sfSprite_setPosition(game->skills->button,
-    (sfVector2f){size.x / 2 + 292 / 1080.0 * size.y, size.y * 0.475});
-    sfRenderTexture_drawSprite(game->rtex, game->skills->button, NULL);
-    for (int i = 0; i < NB_SKILLS; i++) {
-        sfSprite_setPosition(game->skills->sk_sprites[i],
-        (sfVector2f){S_POS_X(size, indent * i), 333 * size.y / 1080.0});
-        sfRenderTexture_drawSprite(game->rtex, game->skills->sk_sprites[i],
-        NULL);
+    button = sfSprite_getGlobalBounds(game->skills->button);
+    if (selected >= 0 && sfFloatRect_intersects(&mouse, &button, 0) &&
+    game->skills->data->pc > 1 && game->skills->data->tab[selected] < 2) {
+        if (selected != 0 && game->skills->data->tab[selected - 1] == 0)
+            return;
+        game->skills->data->pc -= 2;
+        game->skills->data->tab[selected]++;
     }
-    if (game->skills->skill_selected != -1)
-        draw_skill_desc(game, size, game->skills->skill_selected);
+}
+
+void skills_create2(skills_t *skills)
+{
+    sfTexture *texture = sfTexture_createFromFile(S_BUTTON_PATH, NULL);
+
+    skills->skill_selected = -1;
+    skills->button = sfSprite_create();
+    sfSprite_setTexture(skills->button, texture, sfTrue);
+    skills->rect = sfRectangleShape_create();
+    sfRectangleShape_setFillColor(skills->rect, (sfColor){128, 128, 128, 128});
 }
 
 skills_t *skills_create(void)
@@ -119,13 +67,13 @@ skills_t *skills_create(void)
     sfSprite_setOrigin(skills->sprite, (sfVector2f){sfTexture_getSize
     (skills->texture).x / 2, sfTexture_getSize(skills->texture).y / 2});
     for (int i = 0; i < NB_SKILLS; i++) {
-        skills->sk_sprites[i] = sfSprite_create();
+        skills->sk_sprites[i][0] = sfSprite_create();
+        skills->sk_sprites[i][1] = sfSprite_create();
+        texture = sfTexture_createFromFile(sk_white_paths[i], NULL);
+        sfSprite_setTexture(skills->sk_sprites[i][0], texture, sfTrue);
         texture = sfTexture_createFromFile(sk_paths[i], NULL);
-        sfSprite_setTexture(skills->sk_sprites[i], texture, sfTrue);
+        sfSprite_setTexture(skills->sk_sprites[i][1], texture, sfTrue);
     }
-    texture = sfTexture_createFromFile(S_BUTTON_PATH, NULL);
-    skills->button = sfSprite_create();
-    sfSprite_setTexture(skills->button, texture, sfTrue);
-    skills->skill_selected = -1;
+    skills_create2(skills);
     return skills;
 }

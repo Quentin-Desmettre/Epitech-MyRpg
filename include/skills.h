@@ -31,8 +31,9 @@
 // descriptions of the diffetents skills
     #define SKILLS_DESC "You are able to sprint for 5 seconds.\n\
 Use this skill with the shift key."
-    #define CRY_DESC "You can create a puddle by crying to afraid monsters.\n\
-Be carefull you lose hydratation while crying. Use with the C key"
+    #define CRY_DESC "You can create a puddle by crying \n\
+to afraid monsters. Be carefull you lose\n\
+hydratation while crying. Use with the C key"
     #define FIND_EXIT_DESC "You can know if the exit is in this room\n\
 Use this skill with the F key"
 
@@ -51,7 +52,8 @@ typedef struct skills_data {
 // skills structure
 typedef struct skills {
     skills_data_t *data;
-    sfSprite *sk_sprites[NB_SKILLS];
+    sfSprite *sk_sprites[NB_SKILLS][2];
+    sfRectangleShape *rect;
     sfTexture *texture;
     sfSprite *sprite;
     sfSprite *button;

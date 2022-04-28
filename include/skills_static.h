@@ -11,6 +11,12 @@
     #include <string.h>
 
 // list of skills paths
+static const char *sk_white_paths[] = {
+    "assets/skills/sprint_white.png",
+    "assets/skills/cry_white.png",
+    "assets/skills/find_exit_white.png"
+};
+
 static const char *sk_paths[] = {
     "assets/skills/sprint.png",
     "assets/skills/cry.png",

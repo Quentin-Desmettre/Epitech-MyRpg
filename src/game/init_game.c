@@ -57,7 +57,7 @@ void game_ev(window_t *win, sfEvent ev)
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft) {
         game->inventory->draw ? inventory_events(game, ev, win) : 0;
-        game->skills->draw ? skills_events(game, ev, win) : 0;
+        game->skills->draw ? skills_events(game, ev, win_size(win)) : 0;
     }
     ev_quest(game, ev, win->win);
 }
