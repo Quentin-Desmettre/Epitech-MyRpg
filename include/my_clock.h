@@ -51,4 +51,9 @@ void resume_clock(p_clock_t *clock);
 ///////////////////////////////////////////////////////////////////////////////
 void restart_clock(p_clock_t *clock);
 
+void resume_clocks(void);
+void pause_clocks(void);
+p_clock_t *create_clock(void);
+void destroy_clock(p_clock_t *p);
+
 #endif
