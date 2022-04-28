@@ -64,7 +64,7 @@ circular_splash_t *create_circular_splash(sfVector2f pos, sfVector2f max_size)
     return c;
 }
 
-int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win)
+int draw_circular_splash(circular_splash_t **circu, sfRenderTexture *rtex)
 {
     circular_splash_t *c = *circu;
     particle_t *tmp = c->particles[0];
@@ -76,7 +76,7 @@ int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win)
     }
     for (int i = 0; i < NB_PARTICLES; i++) {
         anim_circular_particle(c->particles[i]);
-        sfRenderWindow_drawRectangleShape(win, c->particles[i]->sprite, NULL);
+        sfRenderTexture_drawRectangleShape(rtex, c->particles[i]->sprite, NULL);
     }
     return 1;
 }

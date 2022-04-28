@@ -19,6 +19,7 @@
     #include "fight.h"
     #include "npc.h"
     #include "quest.h"
+    #include "particles.h"
 
     #ifdef DEBUG
 
@@ -52,7 +53,7 @@ float sound_vol(int change, float new);
 
     #define VISION_ANGLE 90.0
     #define NB_RAY 90
-    #define SPEED_ACC 16
+    #define SPEED_ACC 18
     #define ABS(x) ((x) < 0 ? -(x) : (x))
 
     #define MAX_DISTANCE 15
@@ -144,7 +145,6 @@ typedef struct {
     sfText *name;
 } gui_player_t;
 
-
 typedef struct {
     sfRenderTexture *rtex;
     sfRectangleShape *background;
@@ -153,7 +153,6 @@ typedef struct {
     int has_underscore;
     int max_char;
 } line_edit_t;
-
 
 typedef struct {
     button_t *color_buttons[6];
@@ -200,6 +199,7 @@ typedef struct {
     sfVector2u size;
     sfVector2f goal;
     sfClock *move_clock;
+    splash_particles_t *splash;
 } enemy_t;
 
 sfFloatRect get_npc_hitbox(npc_t *player);
@@ -365,7 +365,8 @@ static inline sfVector2f *alloc_v2f(float x, float y)
     return v;
 }
 
-sfVector2f vector_to_objective(enemy_t *e, level_t *l, ray_c *data, sfVector2f win_s);
+sfVector2f vector_to_objective(enemy_t *e,
+level_t *l, ray_c *data, sfVector2f win_s);
 void update_path(enemy_t *e, level_t *l, ray_c *data);
 void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
@@ -376,57 +377,7 @@ int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
 void draw_quest(game_t *game, sfRenderWindow *win);
 void quest_init(game_t *game);
 void ev_quest(game_t *game, sfEvent ev, sfRenderWindow *win);
-
-    #include "my_clock.h"
-
-typedef enum {rectangle, circle} particle_type_t;
-
-typedef struct {
-    p_clock_t *duration;
-    sfClock *delta_t;
-    sfRectangleShape *sprite;
-    sfVector2f max_size;
-    sfInt64 max_dur;
-    sfVector2f vector;
-    int has_child;
-    int has_parent;
-} particle_t;
-
-    #define DX p->max_size.y * 0.01
-
-void update_particle(particle_t *p);
-void draw_particle(particle_t *p, sfRenderWindow *rtex);
-particle_t *build_particle(sfInt64 max_dur, particle_type_t type,
-sfVector2f max_size, float angle);
 void rotate_vector(sfVector2f *vec, float degree);
-
-static const sfInt64 max_dur_splash = 500000;
-
-typedef struct {
-    list_t *particles;
-} splash_particles_t;
-
-particle_t *create_splash_particle(sfInt64 max_dur,
-sfVector2f max_size, int is_left, sfVector2f pos);
-void check_for_new_splash(list_t **particles, sfInt64 dur, sfVector2f max);
-splash_particles_t *create_splash_particles(sfVector2f pos,
-sfVector2f max, sfInt64 dur);
-void draw_splash_particles(splash_particles_t *particles, sfRenderWindow *win,
-sfVector2f particle_size);
-void destroy_splash_particles(splash_particles_t *s);
-
-
-    #define NB_PARTICLES 24
-
-static const sfInt64 max_dur_circ = 1000000;
-
-typedef struct {
-    particle_t *particles[NB_PARTICLES];
-} circular_splash_t;
-
-void free_particle(void *p);
-circular_splash_t *create_circular_splash(sfVector2f pos, sfVector2f max_size);
-int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win);
 
 void draw_skills(game_t *game, window_t *win);
 void skills_events(game_t *game, sfEvent ev, sfVector2f size);

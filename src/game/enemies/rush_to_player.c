@@ -41,6 +41,7 @@ void cancel_rush_of(enemy_t *e, ray_c *data, level_t *l)
 void check_null_vector(enemy_t *e, sfSprite *player, window_t *win, level_t *l)
 {
     ray_c *data = win->menus[LIGHT];
+
     sfClock_restart(e->decide_clock);
     if (dist_between(e->enemy->sprite, player) < data->cell / 2.0)
         launch_combat();
@@ -60,6 +61,7 @@ sfVector2u graph_max, float cell, sfVector2u old)
 
     for (int i = 0; i < 10; i++) {
         sfSprite_move(enemy->enemy->sprite, (sfVector2f){x_inc, y_inc});
+        move_splash_particles(enemy->splash, (sfVector2f){x_inc, y_inc});
         new = get_logic_pos(enemy, graph_max, cell);
         if (new.x != old.x || new.y != old.y) {
             enemy->map[old.x][old.y] = 0;

@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2021
+** B-MUL-200-LIL-2-1-myrpg-quentin.desmettre
+** File description:
+** fight.h
+*/
+
 #ifndef FIGHT_H
     #define FIGHT_H
     #include <unistd.h>

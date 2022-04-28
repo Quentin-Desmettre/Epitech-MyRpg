@@ -55,7 +55,8 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g, window_t *win)
             sfSprite_move(en->enemy->sprite,
             (sfVector2f){-en->mov_vector.x, -en->mov_vector.y});
             en->mov_vector = rotate_dir(en->mov_vector);
-        }
+        } else
+            move_splash_particles(en->splash, en->mov_vector);
         en->enemy->dir = dir_from_v2f(en->mov_vector);
     }
 }
@@ -88,8 +89,8 @@ void draw_enemies(game_t *game, ray_c *data, window_t *win)
         e = list->data;
         if (!game->is_flashing)
             update_enemy(e, pl_size, data, win);
-        sfRenderTexture_drawSprite(data->tex_light,
-        e->enemy->sprite, NULL);
+        draw_splash_particles(e->splash, data->tex_light, e->is_in_rush);
+        sfRenderTexture_drawSprite(data->tex_light, e->enemy->sprite, NULL);
         if (win->state == HOME) {
             pos = sfSprite_getPosition(e->enemy->sprite);
             add_light(data, (sfVector2i){pos.x, pos.y}, 1.5, game->rtex);

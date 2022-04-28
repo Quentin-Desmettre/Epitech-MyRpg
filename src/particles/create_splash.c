@@ -6,6 +6,7 @@
 */
 
 #include "rpg.h"
+#include "particles.h"
 
 particle_t *create_splash_particle(sfInt64 max_dur,
 sfVector2f max_size, int is_left, sfVector2f pos)
@@ -22,7 +23,8 @@ sfVector2f max_size, int is_left, sfVector2f pos)
     (sfVector2f){max_size.x * 0.5, max_size.y * 0.5});
     sfRectangleShape_setFillColor(p->sprite, sfRed);
     p->vector = (sfVector2f){5, 0};
-    rotate_vector(&p->vector, is_left ? -120 : -60);
+    rotate_vector(&p->vector, is_left ?
+    my_rand(-130, -110) : my_rand(-70, -50));
     sfRectangleShape_setPosition(p->sprite, pos);
     p->has_child = 0;
     p->has_parent = 0;
@@ -34,6 +36,7 @@ list_t **particles, int is_left)
 {
     particle_t *new = create_splash_particle(p->max_dur,
     p->max_size, is_left, pos);
+
     new->vector.x /= 1.5;
     new->vector.y /= 1.7;
     new->has_parent = 1;
@@ -43,13 +46,17 @@ list_t **particles, int is_left)
 void anim_splash_particle(list_t **particles, particle_t *p)
 {
     sfVector2f pos;
+    float elapsed = get_elapsed_time(p->duration);
+    float percent = 1 - elapsed / p->max_dur;
+    sfVector2f new_size = {p->max_size.x * percent, p->max_size.y * percent};
+
     if (sfClock_getElapsedTime(p->delta_t).microseconds > 33333) {
         sfRectangleShape_move(p->sprite,
         (sfVector2f){p->vector.x, p->vector.y * 0.1});
         sfClock_restart(p->delta_t);
         p->vector.x /= 1.1;
         p->vector.y += 2;
-        sfRectangleShape_scale(p->sprite, (sfVector2f){0.95, 0.95});
+        sfRectangleShape_setSize(p->sprite, new_size);
     }
     if (get_elapsed_time(p->duration) > 200000 && !p->has_child
     && get_elapsed_time(p->duration) < p->max_dur && !p->has_parent) {
@@ -60,24 +67,25 @@ void anim_splash_particle(list_t **particles, particle_t *p)
     }
 }
 
-void check_for_new_splash(list_t **particles, sfInt64 dur, sfVector2f max)
+void check_for_new_splash(splash_particles_t *particles,
+sfInt64 dur, int is_in_rush)
 {
-    static sfClock *anim_dur = 0;
     particle_t *new;
 
-    if (!anim_dur)
-        anim_dur = sfClock_create();
-    if (sfClock_getElapsedTime(anim_dur).microseconds > 100000) {
-        sfClock_restart(anim_dur);
-        new = create_splash_particle(dur, max, 0, (sfVector2f){400, 300});
+    if (sfClock_getElapsedTime(particles->anim_dur).microseconds
+    > my_rand(100000, 500000) * (1 - is_in_rush * 0.6)) {
+        sfClock_restart(particles->anim_dur);
+        new = create_splash_particle(dur, particles->max_size,
+        0, particles->creation_pos);
         new->vector.x /= 1.5;
         new->vector.y /= 1.2;
-        append_node(particles, new);
+        append_node(&(particles->particles), new);
 
-        new = create_splash_particle(dur, max, 1, (sfVector2f){400, 300});
+        new = create_splash_particle(dur, particles->max_size,
+        1, particles->creation_pos);
         new->vector.x /= 1.5;
         new->vector.y /= 1.2;
-        append_node(particles, new);
+        append_node(&(particles->particles), new);
     }
 }
 

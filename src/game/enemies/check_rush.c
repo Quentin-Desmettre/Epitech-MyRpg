@@ -7,6 +7,41 @@
 
 #include "rpg.h"
 
+static sfVector2f obj_to_v2f(int dir)
+{
+    sfVector2f dirs[4] = {
+        {0, -1}, {0, 1},
+        {-1, 0}, {1, 0}
+    };
+
+    if (dir < 0 || dir > 3)
+        return (sfVector2f){0, 0};
+    return dirs[dir];
+}
+
+sfVector2f vector_to_objective(enemy_t *e, level_t *l,
+ray_c *data, sfVector2f win_s)
+{
+    sfVector2u graph_max = get_graphic_size(l, data);
+    sfVector2u pos = get_logic_pos(e, graph_max, data->cell);
+    sfVector2u positions[4] = {
+        {pos.x - 1, pos.y}, {pos.x + 1, pos.y},
+        {pos.x, pos.y - 1}, {pos.x, pos.y + 1}
+    };
+    int dir = -1;
+    sfVector2f tmp;
+
+    for (int i = 0; i < 4; i++) {
+        if (positions[i].x < graph_max.y && positions[i].y < graph_max.x &&
+        e->map[positions[i].x][positions[i].y] == -2) {
+            dir = i;
+        }
+    }
+    tmp = obj_to_v2f(dir);
+    update_vector(&tmp, e->enemy, win_s);
+    return tmp;
+}
+
 static int other_are_rushing(list_t *enemies, enemy_t *exclude)
 {
     list_t *begin = enemies;
@@ -25,7 +60,7 @@ static int other_are_rushing(list_t *enemies, enemy_t *exclude)
 
 void launch_combat(void)
 {
-    print("HEHEHEHA\n");
+    write(1, "HEHEHEHA\n", 9);
     sfSleep((sfTime){500000});
     exit(0);
 }

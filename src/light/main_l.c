@@ -68,7 +68,7 @@ void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win)
     data->cell};
     for (int j = 0; j < 5; j++) {
         data->light->vertex.position = (coo_t){(p_pos.x) * data->cell
-         + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
+        + data->off_view.x, (p_pos.y) * data->cell + data->off_view.y};
         data->light->vertex.texCoords = (coo_t){(p_pos.x) * data->cell,
         (p_pos.y) * data->cell};
         data->light->vertex.color = sfColor_fromRGBA(255, 255, 255, 255 /
