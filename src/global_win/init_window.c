@@ -77,5 +77,6 @@ window_t *window_create(void)
     apply_settings(win->menus[SETTINGS], win);
     center_inventory(win->menus[GAME], win);
     win->menus[FIGHT] = init_fight();
+    GET_GAME(win)->pause = create_pause(win);
     return win;
 }

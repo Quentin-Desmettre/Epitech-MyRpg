@@ -204,6 +204,7 @@ typedef struct {
     splash_particles_t *splash;
 } enemy_t;
 
+int check_pause(sfEvent ev, game_t *game);
 sfFloatRect get_npc_hitbox(npc_t *player);
 void draw_enemies(game_t *game, ray_c *data, window_t *win);
 void create_enemy(game_t *game, ray_c *data);

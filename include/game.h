@@ -14,6 +14,7 @@
     #include "lobby.h"
     #include "skills.h"
     #include "inventory.h"
+    #include "pause.h"
 
 typedef struct item {
     int type;
@@ -33,8 +34,8 @@ typedef struct game {
     int nb_flash;
     quest_data_t *quest;
     p_clock_t *flash_clock;
-    sfRectangleShape *pause_ui;
     int is_paused;
+    pause_t *pause;
 } game_t;
 
 // item room
