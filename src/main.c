@@ -15,6 +15,7 @@ static void win_destroy(window_t *win)
     destroy_settings(win->menus[SETTINGS]);
     destroy_main_menu(win->menus[HOME]);
     dest_light(win->menus[LIGHT]);
+    destroy_fight(win->menus[FIGHT]);
     destroy_game(win->menus[GAME]);
     sfClock_destroy(win->lum_clock);
     free_choose_save(win->menus[SELECT_SAVE]);

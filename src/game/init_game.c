@@ -51,6 +51,8 @@ void game_ev(window_t *win, sfEvent ev)
             remove_xp(game, 1);
         if (ev.key.code == sfKeyN)
             add_xp(game, 1);
+        if (ev.key.code == sfKeyAdd)
+            next_level(win->menus[LIGHT]);
     }
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft) {

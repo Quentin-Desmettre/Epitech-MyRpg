@@ -92,7 +92,13 @@ SRC = \
 	src/particles/create_splash.c                      \
 	src/particles/particle.c                           \
 	src/particles/splash.c                             \
+	src/game/next_level.c							   \
 	src/skills/init_skills.c                           \
+	src/fight/fight.c                                  \
+	src/fight/movement_fight.c                         \
+	src/fight/random.c                                 \
+	src/fight/set_fight.c                              \
+	src/fight/patern.c                                 \
 
 OBJ = $(SRC:.c=.o)
 

@@ -40,3 +40,19 @@ void wall_light(ray_c *data)
         data->light->index++;
     }
 }
+
+void set_wall(ray_c *data)
+{
+    data->wall_tex[0] =  sfTexture_createFromFile(
+    "./assets/floor_wall/wall_lvl.png", 0);
+    data->floor_tex[0] = sfTexture_createFromFile(
+    "./assets/floor_wall/floor_lvl1.png", 0);
+    data->wall_tex[1] =  sfTexture_createFromFile(
+    "./assets/floor_wall/concrete_wall.png", 0);
+    data->floor_tex[1] = sfTexture_createFromFile(
+    "./assets/floor_wall/concrete_floor.png", 0);
+    data->wall_tex[2] =  sfTexture_createFromFile(
+    "./assets/floor_wall/wall_office.png", 0);
+    data->floor_tex[2] = sfTexture_createFromFile(
+    "./assets/floor_wall/floor_office.png", 0);
+}

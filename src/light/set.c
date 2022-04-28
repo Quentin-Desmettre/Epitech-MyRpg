@@ -32,45 +32,42 @@ void set_light(ray_c *data)
 
 void set_room_map(ray_c *data)
 {
+    data->lvl = 0;
     data->tex_light = sfRenderTexture_create(1920 * 2, 1080 * 2, 0);
-    data->wall_tex =  sfTexture_createFromFile(
-    "./assets/floor_wall/wall_lvl.png", 0);
-    data->floor_tex = sfTexture_createFromFile(
-    "./assets/floor_wall/floor_lvl1.png", 0);
     data->floor = sfSprite_create();
     data->wall = sfSprite_create();
+    set_wall(data);
     sfSprite_setScale(data->wall, (sfVector2f){1, 0.5});
     data->noise_sp = sfSprite_create();
     data->noise = sfTexture_createFromFile("./assets/noise.png", 0);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);
     sfSprite_setScale(data->noise_sp, (sfVector2f){2.75, 2.75});
-    sfSprite_setColor(data->noise_sp, (sfColor){255, 255, 255, 20});
-    sfSprite_setTexture(data->floor, data->floor_tex, 0);
-    sfSprite_setTexture(data->wall, data->wall_tex, 0);
+    sfSprite_setColor(data->noise_sp, (sfColor){255, 255, 255, 30});
+    sfSprite_setTexture(data->floor, data->floor_tex[0], 0);
+    sfSprite_setTexture(data->wall, data->wall_tex[0], 0);
     data->off_view = (coo_t){0, 0};
     data->time = sfClock_create();
 }
 
 char choose_item(int i, int j, char c, game_t *game)
 {
-    int random = rand() % 200;
+    int random = rand() % 2000;
     item_t *tmp = 0;
 
     if (c == 'X')
         return '1';
-    if (random == 0) {
+    if (random < 10) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 0;
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
-    }
-    if (random == 1) {
+    } else if (random < 20) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 1;
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
     }
-    return '0';
+    return random == 21 ? '2' : '0';
 }
 
 int set_game_light(ray_c *new, game_t *map)
@@ -103,10 +100,12 @@ void dest_light(ray_c *data)
     sfCircleShape_destroy(data->light->circle);
     sfSprite_destroy(data->floor);
     sfSprite_destroy(data->wall);
-    sfTexture_destroy(data->floor_tex);
+    for (int i = 0; i < 3; i++) {
+        sfTexture_destroy(data->wall_tex[i]);
+        sfTexture_destroy(data->floor_tex[i]);
+    }
     sfTexture_destroy(data->noise);
     sfSprite_destroy(data->noise_sp);
-    sfTexture_destroy(data->wall_tex);
     for (int i = 0; data->map[i] != 0; i++)
         free(data->map[i]);
     free(data->map);

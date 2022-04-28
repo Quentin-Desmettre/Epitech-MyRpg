@@ -16,6 +16,7 @@
     #include "room.h"
     #include "game.h"
     #include "light.h"
+    #include "fight.h"
     #include "npc.h"
     #include "quest.h"
 
@@ -82,7 +83,7 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE
+    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE, FIGHT
 } state_t;
 
 static const sfIntRect back_rect = {
@@ -429,5 +430,9 @@ int draw_circular_splash(circular_splash_t **circu, sfRenderWindow *win);
 
 void draw_skills(game_t *game, window_t *win);
 void skills_events(game_t *game, sfEvent ev, window_t *win);
+void next_level(ray_c *data);
+
+// fight
+const sfTexture *draw_fight(window_t *win);
 
 #endif

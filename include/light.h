@@ -64,15 +64,16 @@ typedef struct ray_c {
     sfRenderWindow *win;
     sfRenderTexture *tex_light;
     sfImage *img_rpg;
-    sfTexture *wall_tex;
+    sfTexture *wall_tex[3];
     sfTexture *noise;
-    sfTexture *floor_tex;
+    sfTexture *floor_tex[3];
     sfSprite *noise_sp;
     sfSprite *wall;
     sfSprite *floor;
     char **map;
     sfRenderStates state;
     sfClock *time;
+    int lvl;
 } ray_c;
 
 int set_game_light(ray_c *new, game_t *map);
@@ -102,5 +103,6 @@ void find_angle_n(int i, int j, int l, ray_c *data);
 void find_angles(int i, int j, ray_c *data);
 void wall_light(ray_c *data);
 float loop_find_wall(ray_c *data, float intens, coo_t steps[3], coo_t mapcheck);
+void set_wall(ray_c *data);
 
 #endif

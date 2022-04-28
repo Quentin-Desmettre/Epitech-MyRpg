@@ -76,5 +76,6 @@ window_t *window_create(void)
     set_game_light(win->menus[LIGHT], win->menus[GAME]);
     apply_settings(win->menus[SETTINGS], win);
     center_inventory(win->menus[GAME], win);
+    win->menus[FIGHT] = init_fight();
     return win;
 }
