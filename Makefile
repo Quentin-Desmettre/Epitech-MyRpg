@@ -102,7 +102,6 @@ SRC = \
 	src/fight/patern.c                                 \
 	src/fight/random.c                                 \
 	src/fight/set_fight.c                              \
-	src/fight/patern.c                                 \
 	src/skills/find_exit.c                             \
 	src/skills/sprint.c                                \
 	src/skills/cry.c                                   \
