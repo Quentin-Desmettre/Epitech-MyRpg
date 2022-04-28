@@ -9,6 +9,7 @@
     #define SKILLS_H_
 
     #include "rpg.h"
+    #include "my_clock.h"
 
 // list of differents skills paths
     #define SKILLS_PATH "assets/skills/skills.png"
@@ -25,12 +26,16 @@
     #define CRY 1
     #define FIND_EXIT 2
 
-// macro to set the skill x position
+// macro for skills
     #define S_POS_X(size, i) ((size).x / 2 - (452 / 1080.0 * (size).y)) + (i)
+    #define S_TIME(game) get_elapsed_time((game)->skills->clocks[SPRINT])
+    #define C_TIME(game) get_elapsed_time((game)->skills->clocks[CRY])
+    #define F_TIME(game) get_elapsed_time((game)->skills->clocks[FIND_EXIT])
+    #define SEC * 1000000
 
 // descriptions of the diffetents skills
     #define SKILLS_DESC "You are able to sprint for 5 seconds.\n\
-Use this skill with the shift key."
+Use this skill with the L-Shift key."
     #define CRY_DESC "You can create a puddle by crying \n\
 to afraid monsters. Be carefull you lose\n\
 hydratation while crying. Use with the C key"
@@ -58,7 +63,9 @@ typedef struct skills {
     sfSprite *sprite;
     sfSprite *button;
     sfVector2f pos;
+    p_clock_t *clocks[NB_SKILLS];
     int skill_selected;
+    int sprint;
     int draw;
 } skills_t;
 

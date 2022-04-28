@@ -66,6 +66,12 @@ void game_ev(window_t *win, sfEvent ev)
             return;
         if (ev.key.code == sfKeyE)
             take_item(win, win->menus[GAME], win->menus[LIGHT]);
+        if (ev.key.code == sfKeyLShift)
+            sprint_event(game);
+        if (ev.key.code == sfKeyC)
+            cry_event(game);
+        if (ev.key.code == sfKeyF)
+            find_exit_event(game);
         show_menus_ev(ev, game);
         debug_ev(ev, win, game);
     }
