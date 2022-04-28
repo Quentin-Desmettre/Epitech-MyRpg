@@ -85,18 +85,15 @@ void draw_stats(game_t *game, window_t *win)
 
 void draw_inventory(game_t *game, window_t *win)
 {
-    sfRectangleShape *rect = sfRectangleShape_create();
     sfSprite *sprite = sfSprite_copy(game->player->sprite);
+
     if (!game->inventory->draw)
-        return sfRectangleShape_destroy(rect);
+        return;
     center_inventory(game, win);
     sfRenderTexture_clear(game->inventory->rtex, sfTransparent);
     sfSprite_setTextureRect(sprite, game->player->rects[4][0]);
     sfSprite_setScale(sprite, (sfVector2f){6, 6});
     sfSprite_setPosition(sprite, (sfVector2f){565, 535});
-    sfRectangleShape_setFillColor(rect, (sfColor){50, 50, 50, 128});
-    sfRectangleShape_setSize(rect, (sfVector2f){1920, 1080});
-    sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     sfRenderTexture_drawSprite(game->inventory->rtex, sprite, NULL);
     for (int i = 0; i < 12; i++) {
@@ -104,5 +101,4 @@ void draw_inventory(game_t *game, window_t *win)
             draw_item(game, game->inventory->data->items[i], i, win_size(win));
     }
     draw_stats(game, win);
-    sfRectangleShape_destroy(rect);
 }
