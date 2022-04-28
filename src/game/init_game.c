@@ -88,6 +88,8 @@ void game_ev(window_t *win, sfEvent ev)
             add_xp(game, 1);
         if (ev.key.code == sfKeyAdd)
             next_level(win->menus[LIGHT]);
+        if (ev.key.code == sfKeyLShift)
+            sprint_event(game);
     }
     if (ev.type == sfEvtMouseButtonReleased &&
     ev.mouseButton.button == sfMouseLeft) {

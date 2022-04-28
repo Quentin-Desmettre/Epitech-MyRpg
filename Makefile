@@ -101,6 +101,7 @@ SRC = \
 	src/fight/random.c                                 \
 	src/fight/set_fight.c                              \
 	src/fight/patern.c                                 \
+	src/skills/sprint.c                                \
 
 OBJ = $(SRC:.c=.o)
 

@@ -385,6 +385,8 @@ void draw_skills(game_t *game, window_t *win);
 void skills_events(game_t *game, sfEvent ev, sfVector2f size);
 void scale_draw(game_t *game, sfVector2f scale);
 void next_level(ray_c *data);
+void sprint_event(game_t *game);
+void draw_sprint(game_t *game, sfVector2f size);
 
 // fight
 const sfTexture *draw_fight(window_t *win);

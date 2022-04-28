@@ -47,4 +47,5 @@ void draw_xp(game_t *game, window_t *win)
     (sfVector2f){infos.m_health_percent, 1});
     pos.y -= size.y + w_size.y / 60;
     draw_game_bar(game->rtex, pos, size, (sfVector2f){infos.health_percent, 0});
+    game->skills->data->tab[SPRINT] > 0 ? draw_sprint(game, w_size) : 0;
 }
