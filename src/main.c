@@ -17,7 +17,7 @@ static void win_destroy(window_t *win)
     dest_light(win->menus[LIGHT]);
     destroy_fight(win->menus[FIGHT]);
     destroy_game(win->menus[GAME]);
-    sfClock_destroy(win->lum_clock);
+    destroy_clock(win->lum_clock);
     free_choose_save(win->menus[SELECT_SAVE]);
     if (win->music)
         destroy_music(win->music);
@@ -36,7 +36,8 @@ static void draw(window_t *win)
     if (win->is_transition)
         update_transition(win, s);
     sfRenderWindow_drawSprite(win->win, s, NULL);
-    if (win->state == GAME && !((game_t *)win->menus[GAME])->is_flashing)
+    if (win->state == GAME &&
+    !GET_GAME(win)->is_flashing && !GET_GAME(win)->is_paused)
         move_pl(win);
     sfRenderWindow_display(win->win);
     sfTexture_destroy(cpy);
@@ -57,7 +58,7 @@ static void poll_events(window_t *win)
     sfEvent ev;
 
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
-        if (ev.type == sfEvtClosed || sfKeyboard_isKeyPressed(sfKeyEscape))
+        if (ev.type == sfEvtClosed)
             set_next_win_state(win, EXIT);
         if (win->event[win->state])
             win->event[win->state](win, ev);

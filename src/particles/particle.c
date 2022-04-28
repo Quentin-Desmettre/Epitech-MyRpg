@@ -13,11 +13,11 @@ sfVector2f max_size, float angle, sfVector2f pos)
 {
     particle_t *p = malloc(sizeof(particle_t));
 
-    p->duration = p_clock_create();
+    p->duration = create_clock();
     p->sprite = sfRectangleShape_create();
     p->max_size = max_size;
     p->max_dur = max_dur;
-    p->delta_t = sfClock_create();
+    p->delta_t = create_clock();
     sfRectangleShape_setSize(p->sprite, max_size);
     sfRectangleShape_setOrigin(p->sprite,
     (sfVector2f){max_size.x * 0.5, max_size.y * 0.5});
@@ -33,12 +33,12 @@ sfVector2f max_size, float angle, sfVector2f pos)
 static void anim_circular_particle(particle_t *p)
 {
     float elapsed = get_elapsed_time(p->duration);
-    sfInt64 dx = sfClock_getElapsedTime(p->delta_t).microseconds;
+    sfInt64 dx = get_elapsed_time(p->delta_t);
     float percent = 1 - elapsed / p->max_dur;
     sfVector2f new_size = {p->max_size.x * percent, p->max_size.y * percent};
 
     if (dx > 33333) {
-        sfClock_restart(p->delta_t);
+        restart_clock(p->delta_t);
         sfRectangleShape_setSize(p->sprite, new_size);
         sfRectangleShape_move(p->sprite, p->vector);
     }

@@ -12,7 +12,7 @@ static void check_press(create_save_t *c, float x, float y)
     check_button_press(c->color_buttons, 6, x, y);
     for (int i = 0; i < 6; i++)
         if (c->color_buttons[i]->is_press)
-            sfClock_restart(c->repeat);
+            restart_clock(c->repeat);
     check_button_press(c->stats_buttons, 8, x, y);
     check_button_press(c->actions, 2, x, y);
 }
@@ -61,7 +61,7 @@ static void check_release(create_save_t *c, float x, float y, window_t *win)
         button = button_at(to_check[type], sizes[type], x, y);
     type--;
     is_pressed = button >= 0 ? to_check[type][button]->is_press : 0;
-    sfClock_restart(c->repeat);
+    restart_clock(c->repeat);
     for (int i = 0; i < 3; i++)
         check_button_press(to_check[i], sizes[i], -100, -100);
     if (!is_pressed || !to_check[type][button]->can_trigger)

@@ -7,6 +7,7 @@
 
 #ifndef SETTINGS_H
     #define SETTINGS_H
+    #include "my_clock.h"
     #include "button.h"
     #define SETTINGS_FILE ".conf"
     #include "sprite.h"
@@ -45,7 +46,7 @@ typedef struct {
 
     sfRenderTexture *rtex;
 
-    sfClock *repeat_clock;
+    p_clock_t *repeat_clock;
 
     int sfx_vol;
     int music_vol;

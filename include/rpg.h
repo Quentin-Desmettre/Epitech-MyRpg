@@ -10,6 +10,7 @@
     #include <string.h>
     #include <SFML/Window.h>
     #include <SFML/Graphics.h>
+    #include "my_clock.h"
     #include "settings.h"
     #include "sprite.h"
     #include "level.h"
@@ -55,6 +56,7 @@ float sound_vol(int change, float new);
     #define NB_RAY 90
     #define SPEED_ACC 18
     #define ABS(x) ((x) < 0 ? -(x) : (x))
+    #define GET_GAME(win) ((game_t *)(win)->menus[GAME])
 
     #define MAX_DISTANCE 15
 
@@ -69,7 +71,7 @@ typedef struct win {
     sfRenderWindow *win;
     int state;
     void *menus[12];
-    sfClock *lum_clock;
+    p_clock_t *lum_clock;
 
     int is_transition;
     int next_state;
@@ -148,7 +150,7 @@ typedef struct {
 typedef struct {
     sfRenderTexture *rtex;
     sfRectangleShape *background;
-    sfClock *underscore;
+    p_clock_t *underscore;
     sfText *text;
     int has_underscore;
     int max_char;
@@ -174,7 +176,7 @@ typedef struct {
     sfSprite *background;
     sfText *prompt;
 
-    sfClock *repeat;
+    p_clock_t *repeat;
     int f_no;
 } create_save_t;
 
@@ -190,7 +192,7 @@ typedef struct {
 
 typedef struct {
     npc_t *enemy;
-    sfClock *decide_clock;
+    p_clock_t *decide_clock;
     sfInt64 rnd_mve;
     sfInt64 rnd_wait;
     sfVector2f mov_vector;
@@ -198,7 +200,7 @@ typedef struct {
     int **map;
     sfVector2u size;
     sfVector2f goal;
-    sfClock *move_clock;
+    p_clock_t *move_clock;
     splash_particles_t *splash;
 } enemy_t;
 

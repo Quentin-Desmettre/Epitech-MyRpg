@@ -73,6 +73,7 @@ void line_edit_event(line_edit_t *le, sfEvent ev)
 {
     char const *base = sfText_getString(le->text);
     char const *end;
+
     if (ev.type != sfEvtKeyPressed)
         return;
     if (le->has_underscore) {
@@ -85,5 +86,5 @@ void line_edit_event(line_edit_t *le, sfEvent ev)
         check_keys(ev, le->text, le);
     end = sfText_getString(le->text);
     if (my_strcmp(base, end))
-        sfClock_restart(le->underscore);
+        restart_clock(le->underscore);
 }

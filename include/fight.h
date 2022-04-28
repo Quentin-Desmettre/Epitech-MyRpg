@@ -41,9 +41,9 @@ typedef struct fight_t
     int phase;
     int rand_time[DMG];
 
-    sfClock *time[DMG];
-    sfClock *clock_zigzag;
-    sfClock *clock_square;
+    p_clock_t *time[DMG];
+    p_clock_t *clock_zigzag;
+    p_clock_t *clock_square;
     int *zz;
     int *square;
 } fight_t;
@@ -59,7 +59,7 @@ void change_axe(fight_t *fight, int number);
 void move_by(fight_t *fight, sfRenderWindow *win);
 void fill_ran_double(int size, sfVector2f *dir);
 void set_dmg_pos(fight_t *fight, sfRenderWindow *win);
-void move_blocs(fight_t *fight, sfClock *clock_dmg, sfRenderWindow *win);
+void move_blocs(fight_t *fight, p_clock_t *clock_dmg, sfRenderWindow *win);
 void fall(sfFloatRect *rect, fight_t *fight);
 void side_move(sfFloatRect *rect, fight_t *fight, int left);
 void jump(sfFloatRect *rect, fight_t *fight);

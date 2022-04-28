@@ -27,7 +27,7 @@ void destroy_settings(settings_t *se)
     sfText_destroy(se->sfx_text);
     sfText_destroy(se->sfx_vol_text);
     sfText_destroy(se->music_vol_text);
-    sfClock_destroy(se->repeat_clock);
+    destroy_clock(se->repeat_clock);
 
     destroy_buttons(se);
     destroy_check_box(se->full_screen);

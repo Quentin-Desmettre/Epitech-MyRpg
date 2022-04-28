@@ -62,6 +62,6 @@ settings_t *init_settings(window_t *win)
     init_all_settings_button(se);
     rescale_settings(se, win);
     update_all_texts(se);
-    se->repeat_clock = sfClock_create();
+    se->repeat_clock = create_clock();
     return se;
 }

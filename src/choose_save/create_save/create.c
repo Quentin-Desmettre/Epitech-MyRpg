@@ -103,7 +103,7 @@ create_save_t *create_create_save(sfVector2f size, int f_no)
         button_rect, BUTTON_PRESS, BUTTON_RELEASE);
     create_colors_buttons(c, size, p_pos, p_size);
     create_stats_buttons(c, size);
-    c->repeat = sfClock_create();
+    c->repeat = create_clock();
     set_button_enabled(c->actions[1], 0);
     c->f_no = f_no;
     return c;

@@ -42,7 +42,7 @@ void check_null_vector(enemy_t *e, sfSprite *player, window_t *win, level_t *l)
 {
     ray_c *data = win->menus[LIGHT];
 
-    sfClock_restart(e->decide_clock);
+    restart_clock(e->decide_clock);
     if (dist_between(e->enemy->sprite, player) < data->cell / 2.0)
         launch_combat();
     e->goal = sfSprite_getPosition(player);
@@ -78,10 +78,10 @@ void rush_to_player(enemy_t *e, level_t *l, window_t *win, sfSprite *player)
 
     e->mov_vector = vector_to_objective(e, l, data, win_size(win));
     if ((e->mov_vector.x == 0 && e->mov_vector.y == 0) ||
-    sfClock_getElapsedTime(e->decide_clock).microseconds > 500000)
+    get_elapsed_time(e->decide_clock) > 500000)
         check_null_vector(e, player, win, l);
-    if (sfClock_getElapsedTime(e->enemy->move_clock).microseconds > 33333) {
-        sfClock_restart(e->enemy->move_clock);
+    if (get_elapsed_time(e->enemy->move_clock) > 33333) {
+        restart_clock(e->enemy->move_clock);
         e->enemy->dir = dir_from_v2f(e->mov_vector);
         move_enemy_along(e, graph_max, data->cell, old);
     }

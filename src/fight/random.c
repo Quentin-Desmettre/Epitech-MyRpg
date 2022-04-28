@@ -64,21 +64,21 @@ void set_dmg_pos(fight_t *fight, sfRenderWindow *win)
     }
 }
 
-void move_blocs(fight_t *fight, sfClock *clock_dmg, sfRenderWindow *win)
+void move_blocs(fight_t *fight, p_clock_t *clock_dmg, sfRenderWindow *win)
 {
-    sfTime time_dmg = sfClock_getElapsedTime(clock_dmg);
-    float seconds = time_dmg.microseconds;
+    sfInt64 time_dmg = get_elapsed_time(clock_dmg);
+    float seconds = time_dmg;
 
     for (int i = 0; i < DMG; i++) {
-        if (sfClock_getElapsedTime(fight->time[i]).microseconds / 1000000.0 >
+        if (get_elapsed_time(fight->time[i]) / 1000000.0 >
         fight->rand_time[i]) {
-            sfClock_restart(fight->time[i]);
+            restart_clock(fight->time[i]);
             fill_ran_double(i, fight->dir);
             fight->rand_time[i] = (rand() % 3) + 1;
         }
     }
     if (seconds > 5000) {
         move_by(fight, win);
-        sfClock_restart(clock_dmg);
+        restart_clock(clock_dmg);
     }
 }

@@ -34,8 +34,8 @@ typedef struct npc {
     int xp_limit;
     sfVector2f pos;
     sfVector2f scale;
-    sfClock *move_clock;
-    sfClock *anim_clock;
+    p_clock_t *move_clock;
+    p_clock_t *anim_clock;
 } npc_t;
 
 ////////////////////////////////////////////////////////////

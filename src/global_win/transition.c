@@ -41,15 +41,14 @@ void update_transition(window_t *win, sfSprite *s)
     int fac = dir * 24;
     static sfColor lum = {255, 255, 255, 255};
 
-    if (win->is_transition &&
-    sfClock_getElapsedTime(win->lum_clock).microseconds > 33333) {
+    if (win->is_transition && get_elapsed_time(win->lum_clock) > 33333) {
         if (lum.a == 39)
             switch_color_dir(win, &dir);
         update_lum(&lum, &fac);
         sfSprite_setColor(s, lum);
         if (dir == -1 && lum.a == 255)
             reset_lum(win, &dir, &lum);
-        sfClock_restart(win->lum_clock);
+        restart_clock(win->lum_clock);
     }
     sfSprite_setColor(s, lum);
 }

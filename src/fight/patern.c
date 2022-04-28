@@ -43,14 +43,14 @@ int *create_square_pattern(void)
 // void pattern_square(fight_t *fight, int start)
 // {
 //     // int square[13] = {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0};
-//     sfTime time_square = sfClock_getElapsedTime(fight->clock_square);
+//     sfTime time_square = get_elapsed_time(fight->clock_square);
 //     float seconds = time_square.microseconds / 1000000.0;
 //     static int count = 0;
 //     for (int i = start; i < 20; i++) {
 //         int save_x = fight->x[i];
 //         int save_y = fight->y[i];
 //         if (seconds > 0.5) {
-//             sfClock_restart(fight->clock_square);
+//             restart_clock(fight->clock_square);
 //             int move = fight->square[count % 13];
 //             if (move == 1) {
 //                 fight->y[i] = -save_x;
@@ -78,14 +78,14 @@ int *create_zigzag_pattern(void)
 // void pattern_zigzag(fight_t *fight, int start)
 // {
 //     // int zz[8] = {0, 1, 0, 2, 0, 2, 0, 1};
-//     sfTime time_zigzag = sfClock_getElapsedTime(fight->clock_zigzag);
+//     sfTime time_zigzag = get_elapsed_time(fight->clock_zigzag);
 //     float seconds = time_zigzag.microseconds / 1000000.0;
 //     static int count;
 //     for (int i = start; i < 20; i++) {
 //         int save_x = fight->x[i];
 //         int save_y = fight->y[i];
 //         if (seconds > 0.3) {
-//             sfClock_restart(fight->clock_zigzag);
+//             restart_clock(fight->clock_zigzag);
 //             int move = fight->zz[count % 8];
 //             if (move == 1) {
 //                 fight->y[i] = -save_x;

@@ -13,11 +13,11 @@ sfVector2f max_size, int is_left, sfVector2f pos)
 {
     particle_t *p = malloc(sizeof(particle_t));
 
-    p->duration = p_clock_create();
+    p->duration = create_clock();
     p->sprite = sfRectangleShape_create();
     p->max_size = max_size;
     p->max_dur = max_dur;
-    p->delta_t = sfClock_create();
+    p->delta_t = create_clock();
     sfRectangleShape_setSize(p->sprite, max_size);
     sfRectangleShape_setOrigin(p->sprite,
     (sfVector2f){max_size.x * 0.5, max_size.y * 0.5});
@@ -50,10 +50,10 @@ void anim_splash_particle(list_t **particles, particle_t *p)
     float percent = 1 - elapsed / p->max_dur;
     sfVector2f new_size = {p->max_size.x * percent, p->max_size.y * percent};
 
-    if (sfClock_getElapsedTime(p->delta_t).microseconds > 33333) {
+    if (get_elapsed_time(p->delta_t) > 33333) {
         sfRectangleShape_move(p->sprite,
         (sfVector2f){p->vector.x, p->vector.y * 0.1});
-        sfClock_restart(p->delta_t);
+        restart_clock(p->delta_t);
         p->vector.x /= 1.1;
         p->vector.y += 2;
         sfRectangleShape_setSize(p->sprite, new_size);
@@ -72,9 +72,10 @@ sfInt64 dur, int is_in_rush)
 {
     particle_t *new;
 
-    if (sfClock_getElapsedTime(particles->anim_dur).microseconds
-    > my_rand(100000, 500000) * (1 - is_in_rush * 0.6)) {
-        sfClock_restart(particles->anim_dur);
+    if (get_elapsed_time(particles->anim_dur) >
+    my_rand(100000, 500000) * (1 - is_in_rush * 0.6) &&
+    !clock_is_paused(particles->anim_dur)) {
+        restart_clock(particles->anim_dur);
         new = create_splash_particle(dur, particles->max_size,
         0, particles->creation_pos);
         new->vector.x /= 1.5;
@@ -93,8 +94,8 @@ void free_particle(void *p)
 {
     particle_t *pa = p;
 
-    sfClock_destroy(pa->delta_t);
-    clock_destroy(pa->duration);
+    destroy_clock(pa->delta_t);
+    destroy_clock(pa->duration);
     sfRectangleShape_destroy(pa->sprite);
     free(pa);
 }

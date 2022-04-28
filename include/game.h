@@ -26,13 +26,15 @@ typedef struct game {
     inventory_t *inventory;
     level_t *level;
     npc_t *player;
-    sfClock *clock;
+    p_clock_t *clock;
     skills_t *skills;
     list_t *enemies;
     int is_flashing;
     int nb_flash;
     quest_data_t *quest;
-    sfClock *flash_clock;
+    p_clock_t *flash_clock;
+    sfRectangleShape *pause_ui;
+    int is_paused;
 } game_t;
 
 // item room

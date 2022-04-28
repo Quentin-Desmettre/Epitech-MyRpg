@@ -17,13 +17,13 @@ sfVector2f max, sfInt64 dur)
     append_node(list, create_splash_particle(dur, max, 0, pos));
     append_node(list, create_splash_particle(dur, max, 1, pos));
     s->creation_pos = pos;
-    s->anim_dur = sfClock_create();
+    s->anim_dur = create_clock();
     s->max_size = max;
     return s;
 }
 
 void draw_splash_particles(splash_particles_t *particles,
-sfRenderTexture *rtex, int is_in_rush)
+sfRenderTexture *rtex, int is_in_rush, int update)
 {
     list_t *cur = particles->particles;
     particle_t *tmp;
@@ -32,8 +32,9 @@ sfRenderTexture *rtex, int is_in_rush)
         if (!cur)
             break;
         tmp = cur->data;
-        anim_splash_particle(&(particles->particles), tmp);
-        if (get_elapsed_time(tmp->duration) < tmp->max_dur)
+        if (update)
+            anim_splash_particle(&(particles->particles), tmp);
+        if (get_elapsed_time(tmp->duration) < tmp->max_dur || !update)
             sfRenderTexture_drawRectangleShape(rtex, tmp->sprite, NULL);
         else {
             remove_node(&cur, 0, free_particle);
@@ -41,7 +42,8 @@ sfRenderTexture *rtex, int is_in_rush)
         }
         cur = cur ? cur->next : NULL;
     } while (cur != particles->particles);
-    check_for_new_splash(particles, max_dur_splash, is_in_rush);
+    if (update)
+        check_for_new_splash(particles, max_dur_splash, is_in_rush);
 }
 
 void move_splash_particles(splash_particles_t *s, sfVector2f offset)

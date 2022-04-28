@@ -34,7 +34,7 @@ void destroy_create_save(void **cr)
     c->prompt, c->pts_left, c->stats_prompt, c->stats_val[0],
     c->stats_val[1], c->stats_val[2], c->stats_val[3]);
     destroy_line_edit(c->name);
-    sfClock_destroy(c->repeat);
+    destroy_clock(c->repeat);
     sfRenderTexture_destroy(c->rtex);
     sfSprite_destroy(c->skin);
     sfRectangleShape_destroy(c->skin_back);

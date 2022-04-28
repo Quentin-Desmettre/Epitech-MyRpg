@@ -11,9 +11,8 @@
 void check_sound_repeat(window_t *win, sfEvent *ev)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft) && win->state == SETTINGS &&
-    sfClock_getElapsedTime(win->lum_clock).microseconds > 1000000 / 25.0 &&
-    sfClock_getElapsedTime(
-    ((settings_t *)win->menus[SETTINGS])->repeat_clock).microseconds
+    get_elapsed_time(win->lum_clock) > 1000000 / 25.0 &&
+    get_elapsed_time(((settings_t *)win->menus[SETTINGS])->repeat_clock)
     > REPEAT_DELAY) {
         ev->mouseButton.x = sfMouse_getPositionRenderWindow(win->win).x;
         ev->mouseButton.y = sfMouse_getPositionRenderWindow(win->win).y;
@@ -22,7 +21,7 @@ void check_sound_repeat(window_t *win, sfEvent *ev)
             return;
         manage_settings_press(ev, win);
         update_all_texts(win->menus[SETTINGS]);
-        sfClock_restart(win->lum_clock);
+        restart_clock(win->lum_clock);
     }
 }
 
@@ -85,7 +84,7 @@ void manage_settings_press(sfEvent *ev, window_t *win)
         actions[tmp](se);
     press_button(buttons[tmp], 1);
     if (ev->type != sfEvtResized || tmp <= 4)
-        sfClock_restart(se->repeat_clock);
+        restart_clock(se->repeat_clock);
 }
 
 void manage_settings_release(sfEvent *ev, window_t *win)

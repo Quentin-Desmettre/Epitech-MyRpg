@@ -72,7 +72,7 @@ typedef struct ray_c {
     sfSprite *floor;
     char **map;
     sfRenderStates state;
-    sfClock *time;
+    p_clock_t *time;
     int lvl;
 } ray_c;
 

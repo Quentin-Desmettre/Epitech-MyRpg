@@ -46,7 +46,7 @@ void set_room_map(ray_c *data)
     sfSprite_setTexture(data->floor, data->floor_tex[0], 0);
     sfSprite_setTexture(data->wall, data->wall_tex[0], 0);
     data->off_view = (coo_t){0, 0};
-    data->time = sfClock_create();
+    data->time = create_clock();
 }
 
 char choose_item(int i, int j, char c, game_t *game)

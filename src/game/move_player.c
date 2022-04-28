@@ -74,8 +74,8 @@ void move_pl(window_t *win)
     game_t *game = win->menus[GAME];
     sfVector2f movement = get_vector();
 
-    if (sfClock_getElapsedTime(game->player->move_clock).microseconds > 33333) {
-        sfClock_restart(game->player->move_clock);
+    if (get_elapsed_time(game->player->move_clock) > 33333) {
+        restart_clock(game->player->move_clock);
         update_vector(&movement, game->player, win_size(win));
         move_along_vector(game, movement, win);
         game->player->dir = dir_from_v2f(movement);

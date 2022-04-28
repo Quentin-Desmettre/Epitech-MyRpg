@@ -37,6 +37,7 @@ SRC = \
 	src/global_win/transition.c                        \
 	src/clock/time.c                                   \
 	src/clock/my_clock.c                               \
+	src/clock/clock_list.c                             \
 	src/builders/level.c                               \
 	src/builders/npc.c                                 \
 	src/builders/npc_setters.c                         \

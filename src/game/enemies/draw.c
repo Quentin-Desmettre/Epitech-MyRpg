@@ -22,18 +22,18 @@ sfVector2f rotate_dir(sfVector2f base)
 
 void check_vector_change(enemy_t *en, sfVector2f win_s)
 {
-    if (sfClock_getElapsedTime(en->decide_clock).microseconds > en->rnd_wait &&
+    if (get_elapsed_time(en->decide_clock) > en->rnd_wait &&
     en->mov_vector.x == 0 && en->mov_vector.y == 0) {
-        sfClock_restart(en->decide_clock);
+        restart_clock(en->decide_clock);
         en->mov_vector = rand_dir();
         update_vector(&en->mov_vector, en->enemy, win_s);
         en->rnd_mve = my_rand(3000000, 5000000);
         en->rnd_wait = my_rand(1000000, 3000000);
     }
-    if (sfClock_getElapsedTime(en->decide_clock).microseconds > en->rnd_mve) {
+    if (get_elapsed_time(en->decide_clock) > en->rnd_mve) {
         en->mov_vector.x = 0;
         en->mov_vector.y = 0;
-        sfClock_restart(en->decide_clock);
+        restart_clock(en->decide_clock);
     }
 }
 
@@ -47,10 +47,10 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g, window_t *win)
     if (check_rush(en, data, g, win))
         return;
     check_vector_change(en, win_size(win));
-    if (sfClock_getElapsedTime(en->enemy->move_clock).microseconds > 33333 &&
+    if (get_elapsed_time(en->enemy->move_clock) > 33333 &&
     (en->mov_vector.x || en->mov_vector.y)) {
         sfSprite_move(en->enemy->sprite, en->mov_vector);
-        sfClock_restart(en->enemy->move_clock);
+        restart_clock(en->enemy->move_clock);
         if (is_pnj_colliding(data, en->enemy, l)) {
             sfSprite_move(en->enemy->sprite,
             (sfVector2f){-en->mov_vector.x, -en->mov_vector.y});
@@ -78,7 +78,6 @@ void update_enemy(enemy_t *en, sfVector2f pl_size, ray_c *data, window_t *win)
 void draw_enemies(game_t *game, ray_c *data, window_t *win)
 {
     list_t *list = game->enemies;
-    list_t const * const begin = game->enemies;
     sfVector2f pl_size = get_sprite_size(game->player->sprite);
     enemy_t *e;
     sfVector2f pos;
@@ -87,14 +86,15 @@ void draw_enemies(game_t *game, ray_c *data, window_t *win)
         return;
     do {
         e = list->data;
-        if (!game->is_flashing)
+        if (!game->is_flashing && !game->is_paused)
             update_enemy(e, pl_size, data, win);
-        draw_splash_particles(e->splash, data->tex_light, e->is_in_rush);
+        draw_splash_particles(e->splash,
+        data->tex_light, e->is_in_rush, !game->is_paused);
         sfRenderTexture_drawSprite(data->tex_light, e->enemy->sprite, NULL);
         if (win->state == HOME) {
             pos = sfSprite_getPosition(e->enemy->sprite);
             add_light(data, (sfVector2i){pos.x, pos.y}, 1.5, game->rtex);
         }
         list = list->next;
-    } while (list != begin);
+    } while (list != game->enemies);
 }

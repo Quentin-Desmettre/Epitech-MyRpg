@@ -22,15 +22,15 @@ static npc_t *init_npc(void)
     npc->level = 1;
     npc->xp_limit = 5;
     npc->pos = (sfVector2f){0, 0};
-    npc->move_clock = sfClock_create();
-    npc->anim_clock = sfClock_create();
+    npc->move_clock = create_clock();
+    npc->anim_clock = create_clock();
     return npc;
 }
 
 void anim_npc(npc_t *npc)
 {
-    sfTime time = sfClock_getElapsedTime(npc->anim_clock);
-    float seconds = time.microseconds / 1000000.0;
+    sfInt64 time = get_elapsed_time(npc->anim_clock);
+    float seconds = time / 1000000.0;
 
     if (seconds > 0.1) {
         npc->frame++;
@@ -38,7 +38,7 @@ void anim_npc(npc_t *npc)
             npc->frame = 0;
         sfSprite_setTextureRect(npc->sprite,
         npc->rects[npc->dir][npc->frame]);
-        sfClock_restart(npc->anim_clock);
+        restart_clock(npc->anim_clock);
     }
 }
 

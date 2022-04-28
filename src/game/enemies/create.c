@@ -42,7 +42,7 @@ static sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
 static void init_enemy_movement(enemy_t *en, game_t *game, ray_c *data)
 {
     en->enemy->dir = IDLE;
-    en->decide_clock = sfClock_create();
+    en->decide_clock = create_clock();
     en->mov_vector = rand_dir();
     update_vector(&en->mov_vector, en->enemy, (sfVector2f){0, data->cell * 15});
     en->rnd_mve = my_rand(3000000, 5000000);

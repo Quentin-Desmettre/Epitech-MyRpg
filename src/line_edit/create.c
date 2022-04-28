@@ -13,16 +13,16 @@ void destroy_line_edit(line_edit_t *le)
     sfRectangleShape_destroy(le->background);
     sfText_destroy(le->text);
     sfRenderTexture_destroy(le->rtex);
-    sfClock_destroy(le->underscore);
+    destroy_clock(le->underscore);
     free(le);
 }
 
 void update_underscore(line_edit_t *le)
 {
-    if (sfClock_getElapsedTime(le->underscore).microseconds <
+    if (get_elapsed_time(le->underscore) <
     LINEEDIT_TIME * (le->has_underscore ? 1.2 : 1))
         return;
-    sfClock_restart(le->underscore);
+    restart_clock(le->underscore);
     if (le->has_underscore)
         remove_last_text(le->text);
     else
@@ -68,7 +68,7 @@ line_edit_t *create_line_edit(sfVector2f size, char const *def, int max_char)
     le->rtex = sfRenderTexture_create(size.x, size.y, 0);
     le->text = init_text(def, size.y / (float)maxi * 5);
     sfText_setLetterSpacing(le->text, 1.1);
-    le->underscore = sfClock_create();
+    le->underscore = create_clock();
     le->has_underscore = 0;
     le->max_char = maxi;
     return le;

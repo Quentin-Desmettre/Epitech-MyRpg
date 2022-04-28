@@ -17,7 +17,7 @@ static void check_button_repeat(create_save_t *c, window_t *win)
     button = button_at(c->color_buttons, 6, mouse_pos.x, mouse_pos.y);
     if (button < 0 || !c->color_buttons[button]->is_press)
         return;
-    if (sfClock_getElapsedTime(c->repeat).microseconds > REPEAT_DELAY)
+    if (get_elapsed_time(c->repeat) > REPEAT_DELAY)
         change_color(c, button);
 }
 
