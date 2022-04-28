@@ -12,9 +12,9 @@
 
 // list of skills paths
 static const char *sk_paths[] = {
-    "assets/skills/water.png",
-    "assets/skills/water.png",
-    "assets/skills/water.png"
+    "assets/skills/sprint.png",
+    "assets/skills/cry.png",
+    "assets/skills/find_exit.png"
 };
 
 #endif
