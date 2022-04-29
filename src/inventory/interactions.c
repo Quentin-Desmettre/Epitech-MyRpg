@@ -8,7 +8,46 @@
 #include "rpg.h"
 #include "inventory.h"
 
-void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size)
+void add_stat(window_t *win, int type)
+{
+    game_t *game = win->menus[GAME];
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *infos = &c->saves[c->primary]->infos;
+
+    if (type == 0) {
+        infos->strength += 1;
+        game->player->attack += 1;
+    }
+    if (type == 1) {
+        infos->speed += 1;
+        game->player->speed += 1;
+    }
+    if (type == 2) {
+        infos->stamina += 1;
+        game->player->defense += 1;
+    }
+    if (type == 3)
+        infos->mental_stability += 1;
+}
+
+void inventory_stats(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
+{
+    sfFloatRect button;
+    sfFloatRect mouse = {ev.mouseButton.x, ev.mouseButton.y, 1, 1};
+
+    for (int i = 0; i < 4; i++) {
+        button = sfSprite_getGlobalBounds
+        (game->inventory->stat_btns[i]->sprite);
+        if (sfFloatRect_intersects(&mouse, &button, NULL)
+        && game->skills->data->xp > 0) {
+            add_stat(win, i);
+            game->skills->data->xp--;
+            return;
+        }
+    }
+}
+
+void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
 {
     item_t *item;
     float indent = 114 * (SCALE(size)) * 2;
@@ -29,6 +68,7 @@ void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size)
         append_node(&game->items, item);
         remove_item(game->inventory, game->inventory->item_selected, 1);
     }
+    inventory_stats(game, ev, size, win);
 }
 
 void inventory_events(game_t *game, sfEvent ev, window_t *win)
@@ -41,5 +81,5 @@ void inventory_events(game_t *game, sfEvent ev, window_t *win)
             return;
         }
     }
-    inventory_buttons(game, ev, win_size(win));
+    inventory_buttons(game, ev, win_size(win), win);
 }

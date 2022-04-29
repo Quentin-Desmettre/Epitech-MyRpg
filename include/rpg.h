@@ -315,6 +315,7 @@ void draw_room(ray_c *data, game_t *game, window_t *win);
 void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp
 , ray_c *data);
 void draw_inventory(game_t *game, window_t *win);
+void draw_stats_pts(game_t *game, window_t *win);
 void center_inventory(game_t *game, window_t *win);
 void inventory_events(game_t *game, sfEvent ev, window_t *win);
 void draw_item(game_t *game, int item, int box, sfVector2f size);

@@ -35,5 +35,6 @@ void add_xp(game_t *game, int xp)
         game->player->level++;
         game->player->xp_limit += 5;
         game->skills->data->pc += 2;
+        game->skills->data->xp += 2;
     }
 }

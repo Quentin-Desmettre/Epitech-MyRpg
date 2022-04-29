@@ -58,7 +58,7 @@ void add_item(inventory_t *inventory, int item, int nb)
     }
 }
 
-void items_create(inventory_t *inventory)
+void items_create(inventory_t *inventory, sfVector2f size)
 {
     sfTexture *texture;
 
@@ -73,6 +73,12 @@ void items_create(inventory_t *inventory)
     inventory->buttons[1] = sfSprite_create();
     sfSprite_setTexture(inventory->buttons[0], texture, sfTrue);
     sfSprite_setTexture(inventory->buttons[1], texture, sfTrue);
+    for (int i = 0; i < 4; i++) {
+        inventory->stat_btns[i] = build_button("sf,pf,base_size,texture,rect,"
+        "p_sf,r_sf", (sfVector2f){0.04, 0.04}, (sfVector2f)
+        {0.222 + 0.05 * i, 0.71}, size, global_texture(), settings_rects[1],
+        BUTTON_PRESS, BUTTON_RELEASE);
+    }
 }
 
 inventory_t *inventory_create(void)
@@ -94,6 +100,6 @@ inventory_t *inventory_create(void)
     inventory->rect.width = size.x;
     inventory->rect.height = size.y;
     inventory->item_selected = -1;
-    items_create(inventory);
+    items_create(inventory, (sfVector2f){1920, 1080});
     return inventory;
 }

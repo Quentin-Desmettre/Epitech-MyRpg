@@ -8,6 +8,25 @@
 #include "rpg.h"
 #include "inventory.h"
 
+void draw_stats_pts(game_t *game, window_t *win)
+{
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    char *name = c->saves[c->primary]->infos.player_name;
+    sfText *text = init_text(name, 1080 / 20);
+
+    center_text(text);
+    sfText_setPosition(text, (sfVector2f){558, 265});
+    sfRenderTexture_drawText(game->rtex, text, NULL);
+    name = str_concat(2, "xp left : ", nbr_to_str(game->skills->data->xp));
+    sfText_setString(text, name);
+    center_text(text);
+    sfText_setCharacterSize(text, 1080 / 30);
+    sfText_setPosition(text, (sfVector2f){485, 845});
+    sfRenderTexture_drawText(game->rtex, text, NULL);
+    sfText_destroy(text);
+    free(name);
+}
+
 void draw_item(game_t *game, int item, int box, sfVector2f size)
 {
     int col = box % 3;

@@ -59,6 +59,14 @@ void center_inventory(game_t *game, window_t *win)
     sfSprite_setOrigin(game->inventory->sprite,
     (sfVector2f){center.x / 2, center.y / 2});
     sfSprite_setPosition(game->inventory->sprite, game->inventory->pos);
+    for (int i = 0; i < 4; i++) {
+        game->inventory->stat_btns[i]->container_size = size;
+        update_button(game->inventory->stat_btns[i]);
+        game->inventory->stat_btns[i]->size.x =
+        game->inventory->stat_btns[i]->size.y;
+        set_sprite_size(game->inventory->stat_btns[i]->sprite,
+        game->inventory->stat_btns[i]->size);
+    }
 }
 
 window_t *window_create(void)

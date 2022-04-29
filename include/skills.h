@@ -52,6 +52,7 @@ Use this skill with the F key"
 typedef struct skills_data {
     int tab[NB_SKILLS];
     int pc;
+    int xp;
 } skills_data_t;
 
 // skills structure

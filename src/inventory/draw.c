@@ -12,7 +12,7 @@ int get_stat(window_t *win, int i)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
     player_info_t infos = c->saves[c->primary]->infos;
-    int nb_stats[4] = {infos.strength, infos.stamina, infos.speed,
+    int nb_stats[4] = {infos.strength, infos.speed, infos.stamina,
     infos.mental_stability};
 
     return nb_stats[i];
@@ -67,8 +67,8 @@ void draw_stats(game_t *game, window_t *win)
 
     sfSprite_setTexture(stats, global_texture(), 0);
     set_sprite_size(stats, (sfVector2f){size.y * 0.066, size.y * 0.066});
-    sfText_setPosition(text, (sfVector2f){size.x * 0.217, size.y * 0.74});
-    sfSprite_setPosition(stats, (sfVector2f){size.x * 0.21, size.y * 0.69});
+    sfText_setPosition(text, (sfVector2f){size.x * 0.217, size.y * 0.635});
+    sfSprite_setPosition(stats, (sfVector2f){size.x * 0.21, size.y * 0.59});
     for (int i = 0; i < 4; i++) {
         sfText_setString(text, nbr_to_str(get_stat(win, i)));
         sfSprite_setTextureRect(stats, stats_rects[i]);
@@ -92,13 +92,16 @@ void draw_inventory(game_t *game, window_t *win)
     center_inventory(game, win);
     sfRenderTexture_clear(game->inventory->rtex, sfTransparent);
     sfSprite_setTextureRect(sprite, game->player->rects[4][0]);
-    sfSprite_setScale(sprite, (sfVector2f){6, 6});
-    sfSprite_setPosition(sprite, (sfVector2f){565, 535});
+    sfSprite_setScale(sprite, (sfVector2f){5.5, 5.5});
+    sfSprite_setPosition(sprite, (sfVector2f){558, 430});
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     sfRenderTexture_drawSprite(game->inventory->rtex, sprite, NULL);
     for (int i = 0; i < 12; i++) {
         if (game->inventory->data->items[i] != -1)
             draw_item(game, game->inventory->data->items[i], i, win_size(win));
     }
+    for (int i = 0; i < 4; i++)
+        draw_button_to_rtex(game->inventory->stat_btns[i], game->rtex);
     draw_stats(game, win);
+    draw_stats_pts(game, win);
 }
