@@ -14,7 +14,6 @@
 
 typedef struct {
     sfRectangleShape *hider;
-    sfSprite *background;
     button_t *buttons[3];
 } pause_t;
 

@@ -15,7 +15,8 @@ static void switch_color_dir(window_t *win, int *dir)
     *dir = -1;
     if (win->state == EXIT) {
         while (win->close_sfx &&
-        sfSound_getStatus(win->close_sfx) != sfStopped);
+        sfSound_getStatus(win->close_sfx) != sfStopped)
+            sfSleep((sfTime){100000});
         sfRenderWindow_close(win->win);
     }
 }

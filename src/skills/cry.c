@@ -25,6 +25,7 @@ void draw_cry_sec(game_t *game, sfVector2f size)
     sfText_setPosition(text, (sfVector2f)
     {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 242.0 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
+    sfText_destroy(text);
     my_free("pp", concat, str);
 }
 

@@ -7,6 +7,20 @@
 
 #include "rpg.h"
 
+void destroy_npc(npc_t *n)
+{
+    sfSprite_destroy(n->sprite);
+    destroy_clock(n->move_clock);
+    destroy_clock(n->anim_clock);
+    if (n->texture)
+        sfTexture_destroy(n->texture);
+    free(n->nb_frames);
+    for (int i = 0; i < n->nb_rects; i++)
+        free(n->rects[i]);
+    free(n->rects);
+    free(n);
+}
+
 static npc_t *init_npc(void)
 {
     npc_t *npc = malloc(sizeof(npc_t));

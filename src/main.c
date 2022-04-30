@@ -58,12 +58,14 @@ static void poll_events(window_t *win)
     sfEvent ev;
 
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
+        if (win->is_transition)
+            continue;
         if (ev.type == sfEvtClosed)
             set_next_win_state(win, EXIT);
         if (win->event[win->state])
             win->event[win->state](win, ev);
     }
-    if (win->state == SETTINGS)
+    if (win->state == SETTINGS && !win->is_transition)
         check_sound_repeat(win, &ev);
 }
 
@@ -85,5 +87,6 @@ int main(void)
     sfTexture_destroy(global_texture());
     sfTexture_destroy(player_texture());
     sfTexture_destroy(bars_texture());
+    destroy_clocks();
     return 0;
 }

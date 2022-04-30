@@ -62,5 +62,6 @@ typedef struct inventory {
 inventory_t *inventory_create(void);
 void add_item(inventory_t *inventory, int item, int nb);
 void remove_item(inventory_t *inventory, int item, int nb);
+void destroy_inventory(inventory_t *inventory);
 
 #endif

@@ -56,21 +56,20 @@ void draw_buttons(game_t *game, window_t *win, sfVector2f size)
     center_text(text);
     sfText_setPosition(text, (sfVector2f){848 + 114 * 2, 313 + 114 * 4});
     sfRenderTexture_drawText(game->inventory->rtex, text, NULL);
+    sfText_destroy(text);
     draw_to_game(game, win);
 }
 
 void draw_stats(game_t *game, window_t *win)
 {
-    sfSprite *stats = sfSprite_create();
+    sfSprite *stats = init_sprite_from_texture(global_texture());
     sfVector2u size = sfRenderTexture_getSize(game->rtex);
     sfText *text = init_text("", size.y / 30);
 
-    sfSprite_setTexture(stats, global_texture(), 0);
-    set_sprite_size(stats, (sfVector2f){size.y * 0.066, size.y * 0.066});
     sfText_setPosition(text, (sfVector2f){size.x * 0.217, size.y * 0.635});
     sfSprite_setPosition(stats, (sfVector2f){size.x * 0.21, size.y * 0.59});
     for (int i = 0; i < 4; i++) {
-        sfText_setString(text, nbr_to_str(get_stat(win, i)));
+        sftext_set_string_malloc(text, nbr_to_str(get_stat(win, i)));
         sfSprite_setTextureRect(stats, stats_rects[i]);
         sfSprite_setScale(stats, (sfVector2f){0.3, 0.3});
         sfRenderTexture_drawSprite(game->inventory->rtex, stats, NULL);
@@ -78,6 +77,8 @@ void draw_stats(game_t *game, window_t *win)
         sfSprite_move(stats, (sfVector2f){size.x * 0.05, 0});
         sfText_move(text, (sfVector2f){size.x * 0.05, 0});
     }
+    sfText_destroy(text);
+    sfSprite_destroy(stats);
     if (game->inventory->item_selected != -1)
         draw_item_info(game, game->inventory->item_selected, size);
     draw_buttons(game, win, win_size(win));
@@ -85,7 +86,8 @@ void draw_stats(game_t *game, window_t *win)
 
 void draw_inventory(game_t *game, window_t *win)
 {
-    sfSprite *sprite = sfSprite_copy(game->player->sprite);
+    sfSprite *sprite = game->inventory->draw ?
+    sfSprite_copy(game->player->sprite) : NULL;
 
     if (!game->inventory->draw)
         return;
@@ -96,10 +98,10 @@ void draw_inventory(game_t *game, window_t *win)
     sfSprite_setPosition(sprite, (sfVector2f){558, 430});
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     sfRenderTexture_drawSprite(game->inventory->rtex, sprite, NULL);
-    for (int i = 0; i < 12; i++) {
+    sfSprite_destroy(sprite);
+    for (int i = 0; i < 12; i++)
         if (game->inventory->data->items[i] != -1)
             draw_item(game, game->inventory->data->items[i], i, win_size(win));
-    }
     for (int i = 0; i < 4; i++)
         draw_button_to_rtex(game->inventory->stat_btns[i], game->rtex);
     draw_stats(game, win);

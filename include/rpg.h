@@ -200,10 +200,12 @@ typedef struct {
     int **map;
     sfVector2u size;
     sfVector2f goal;
-    p_clock_t *move_clock;
     splash_particles_t *splash;
 } enemy_t;
 
+void switch_clocks(void);
+void destroy_enemy(void *enemy);
+void quest_destroy(quest_data_t *q);
 int check_pause(sfEvent ev, game_t *game);
 sfFloatRect get_npc_hitbox(npc_t *player);
 void draw_enemies(game_t *game, ray_c *data, window_t *win);
@@ -211,7 +213,7 @@ void create_enemy(game_t *game, ray_c *data);
 void anim_npc(npc_t *npc);
 int is_pnj_colliding(ray_c *data, npc_t *player, level_t *level);
 void change_room(game_t *game, ray_c *data, sfVector2f pos);
-
+void destroy_skills(skills_t *s);
 void move_pl(window_t *win);
 void free_save(gui_player_t *g);
 void destroy_create_save(void **cr);
@@ -368,6 +370,11 @@ static inline sfVector2f *alloc_v2f(float x, float y)
     v->y = y;
     return v;
 }
+static inline void sftext_set_string_malloc(sfText *t, char *str)
+{
+    sfText_setString(t, str);
+    free(str);
+}
 
 sfVector2f vector_to_objective(enemy_t *e,
 level_t *l, ray_c *data, sfVector2f win_s);
@@ -396,5 +403,8 @@ void find_exit_event(game_t *game);
 
 // fight
 const sfTexture *draw_fight(window_t *win);
+void destroy_npc(npc_t *n);
+void destroy_pause(pause_t *p);
+void destroy_level(level_t *l);
 
 #endif

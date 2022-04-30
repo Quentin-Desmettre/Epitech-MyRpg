@@ -26,6 +26,7 @@ void draw_find_exit_sec(game_t *game, sfVector2f size)
     {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 192.0 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     my_free("pp", concat, str);
+    sfText_destroy(text);
 }
 
 void draw_find_exit(game_t *game, sfVector2f size)

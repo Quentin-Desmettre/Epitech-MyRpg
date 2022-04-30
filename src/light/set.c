@@ -98,6 +98,7 @@ void dest_light(ray_c *data)
 {
     sfVertexArray_destroy(data->light->array);
     sfCircleShape_destroy(data->light->circle);
+    free(data->light);
     sfSprite_destroy(data->floor);
     sfSprite_destroy(data->wall);
     for (int i = 0; i < 3; i++) {
@@ -111,6 +112,7 @@ void dest_light(ray_c *data)
     free(data->map);
     free(data->angles);
     free(data->buffer);
-    free(data->light);
+    destroy_clock(data->time);
+    sfRenderTexture_destroy(data->tex_light);
     free(data);
 }

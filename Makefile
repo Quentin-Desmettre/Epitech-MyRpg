@@ -60,6 +60,7 @@ SRC = \
 	src/game/next_level.c                              \
 	src/game/game_ev.c                                 \
 	src/game/pause.c                                   \
+	src/game/pause_ev.c                                \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \

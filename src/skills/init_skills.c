@@ -47,6 +47,11 @@ void skills_create2(skills_t *skills)
 {
     sfTexture *texture = sfTexture_createFromFile(S_BUTTON_PATH, NULL);
 
+    skills->sprite = sfSprite_create();
+    skills->texture = sfTexture_createFromFile(SKILLS_PATH, NULL);
+    sfSprite_setTexture(skills->sprite, skills->texture, sfTrue);
+    sfSprite_setOrigin(skills->sprite, (sfVector2f){sfTexture_getSize
+    (skills->texture).x / 2, sfTexture_getSize(skills->texture).y / 2});
     skills->skill_selected = -1;
     skills->button = sfSprite_create();
     sfSprite_setTexture(skills->button, texture, sfTrue);
@@ -54,6 +59,27 @@ void skills_create2(skills_t *skills)
     sfRectangleShape_setFillColor(skills->rect, (sfColor){128, 128, 128, 128});
     for (int i = 0; i < NB_SKILLS; i++)
         skills->clocks[i] = create_clock();
+}
+
+void destroy_skills(skills_t *s)
+{
+    sfTexture_destroy((sfTexture *)sfSprite_getTexture(s->button));
+    sfSprite_destroy(s->button);
+    for (int i = 0; i < NB_SKILLS; i++)
+        destroy_clock(s->clocks[i]);
+    free(s->data);
+    sfRectangleShape_destroy(s->rect);
+    for (int i = 0; i < NB_SKILLS; i++) {
+        sfTexture_destroy((sfTexture *)
+        sfSprite_getTexture(s->sk_sprites[i][0]));
+        sfSprite_destroy(s->sk_sprites[i][0]);
+        sfTexture_destroy((sfTexture *)
+        sfSprite_getTexture(s->sk_sprites[i][1]));
+        sfSprite_destroy(s->sk_sprites[i][1]);
+    }
+    sfSprite_destroy(s->sprite);
+    sfTexture_destroy(s->texture);
+    free(s);
 }
 
 skills_t *skills_create(void)
@@ -64,11 +90,6 @@ skills_t *skills_create(void)
     memset(skills, 0, sizeof(skills_t));
     skills->data = malloc(sizeof(skills_data_t));
     memset(skills->data, 0, sizeof(skills_data_t));
-    skills->sprite = sfSprite_create();
-    skills->texture = sfTexture_createFromFile(SKILLS_PATH, NULL);
-    sfSprite_setTexture(skills->sprite, skills->texture, sfTrue);
-    sfSprite_setOrigin(skills->sprite, (sfVector2f){sfTexture_getSize
-    (skills->texture).x / 2, sfTexture_getSize(skills->texture).y / 2});
     for (int i = 0; i < NB_SKILLS; i++) {
         skills->sk_sprites[i][0] = sfSprite_create();
         skills->sk_sprites[i][1] = sfSprite_create();

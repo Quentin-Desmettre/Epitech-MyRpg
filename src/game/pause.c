@@ -8,41 +8,12 @@
 #include "rpg.h"
 #include "pause.h"
 
-static void switch_clocks(void)
+void destroy_pause(pause_t *p)
 {
-    static uint64_t nb_call = 0;
-
-    nb_call++;
-    if (nb_call % 2)
-        pause_clocks();
-    else
-        resume_clocks();
-}
-
-void pause_events(game_t *g, window_t *win, sfEvent ev)
-{
-    if (ev.type == sfEvtMouseMoved)
-        check_button_move(g->pause->buttons, 3, ev.mouseMove.x, ev.mouseMove.y);
-    if (ev.type == sfEvtMouseButtonPressed)
-        check_button_press(g->pause->buttons, 3,
-        ev.mouseButton.x, ev.mouseButton.y);
-    if (ev.type == sfEvtMouseButtonReleased)
-        check_button_release(g->pause->buttons, 3,
-        (sfVector2f){ev.mouseButton.x, ev.mouseButton.y}, win);
-    if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
-        switch_clocks();
-        g->is_paused = !g->is_paused;
-    }
-}
-
-int check_pause(sfEvent ev, game_t *game)
-{
-    if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
-        switch_clocks();
-        game->is_paused = !game->is_paused;
-        return 1;
-    }
-    return 0;
+    sfRectangleShape_destroy(p->hider);
+    for (int i = 0; i < 3; i++)
+        destroy_button(p->buttons[i]);
+    free(p);
 }
 
 void pause_resume(void *win)
@@ -61,13 +32,6 @@ void pause_exit(void *win)
     GET_GAME(w)->is_paused = 0;
     lazy_room(win);
     set_next_win_state(win, HOME);
-}
-
-void draw_pause(pause_t *p, sfRenderTexture *rtex)
-{
-    sfRenderTexture_drawRectangleShape(rtex, p->hider, NULL);
-    for (int i = 0; i < 3; i++)
-        draw_button_to_rtex(p->buttons[i], rtex);
 }
 
 void create_resume_exit(pause_t *p, sfVector2f size)

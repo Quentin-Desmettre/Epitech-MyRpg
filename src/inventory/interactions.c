@@ -8,6 +8,26 @@
 #include "rpg.h"
 #include "inventory.h"
 
+void destroy_inventory(inventory_t *inventory)
+{
+    sfSprite_destroy(inventory->sprite);
+    free(inventory->data);
+    for (int i = 0; i < NB_ITEMS; i++) {
+        sfTexture_destroy((sfTexture *)
+        sfSprite_getTexture(inventory->items_sprite[i]));
+        sfSprite_destroy(inventory->items_sprite[i]);
+
+    }
+    sfRenderTexture_destroy(inventory->rtex);
+    for (int i = 0; i < 4; i++)
+        destroy_button(inventory->stat_btns[i]);
+    sfTexture_destroy((sfTexture *)sfSprite_getTexture(inventory->buttons[0]));
+    for (int j = 0; j < 2; j++)
+        sfSprite_destroy(inventory->buttons[j]);
+    sfTexture_destroy(inventory->texture);
+    free(inventory);
+}
+
 void add_stat(window_t *win, int type)
 {
     game_t *game = win->menus[GAME];
@@ -30,7 +50,7 @@ void add_stat(window_t *win, int type)
         infos->mental_stability += 1;
 }
 
-void inventory_stats(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
+void inventory_stats(game_t *game, sfEvent ev, window_t *win)
 {
     sfFloatRect button;
     sfFloatRect mouse = {ev.mouseButton.x, ev.mouseButton.y, 1, 1};
@@ -68,7 +88,7 @@ void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
         append_node(&game->items, item);
         remove_item(game->inventory, game->inventory->item_selected, 1);
     }
-    inventory_stats(game, ev, size, win);
+    inventory_stats(game, ev, win);
 }
 
 void inventory_events(game_t *game, sfEvent ev, window_t *win)

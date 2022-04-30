@@ -8,6 +8,7 @@
 #ifndef MY_CLOCK_H
     #define MY_CLOCK_H
     #include <SFML/System.h>
+    #include "libmy.h"
 
 typedef struct {
     sfClock *clock;
@@ -34,7 +35,7 @@ sfBool clock_is_paused(p_clock_t *clock);
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Destroy a clock.
 ///////////////////////////////////////////////////////////////////////////////
-void clock_destroy(p_clock_t *clock);
+void clock_destroy(void *clock);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Pause a clock. If it is already paused, does nothing.
@@ -55,5 +56,7 @@ void resume_clocks(void);
 void pause_clocks(void);
 p_clock_t *create_clock(void);
 void destroy_clock(p_clock_t *p);
+void destroy_clocks(void);
+list_t **clocks(void);
 
 #endif

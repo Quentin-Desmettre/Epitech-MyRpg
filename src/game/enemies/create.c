@@ -8,6 +8,18 @@
 #include "rpg.h"
 #include "player.h"
 
+void destroy_enemy(void *enemy)
+{
+    enemy_t *e = enemy;
+    destroy_clock(e->decide_clock);
+    destroy_npc(e->enemy);
+    for (unsigned i = 0; i < e->size.y; i++)
+        free(e->map[i]);
+    free(e->map);
+    destroy_splash_particles(e->splash);
+    free(e);
+}
+
 static int **wa_to_ia(game_t *game, sfVector2u rs)
 {
     int **ia = malloc(sizeof(int *) * rs.y);

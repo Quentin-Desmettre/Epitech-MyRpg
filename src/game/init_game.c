@@ -12,23 +12,17 @@ void destroy_game(game_t *game)
 {
     sfRenderTexture_destroy(game->rtex);
     destroy_clock(game->clock);
-    sfSprite_destroy(game->level->sprite);
-    sfTexture_destroy(game->level->texture);
-    sfSprite_destroy(game->player->sprite);
-    sfTexture_destroy(game->player->texture);
-    for (int i = 0; i < game->level->size.x + 3; i++)
-        free(game->level->room[i]);
-    for (int i = 0; i < game->player->nb_rects; i++)
-        free(game->player->rects[i]);
-    free(game->player->nb_frames);
-    free(game->player->rects);
-    free(game->level->room);
-    free(game->player);
-    free(game->level);
-    sfSprite_destroy(game->inventory->sprite);
-    sfTexture_destroy(game->inventory->texture);
-    free(game->inventory->data);
-    free(game->inventory);
+    destroy_npc(game->player);
+    destroy_level(game->level);
+    destroy_inventory(game->inventory);
+    while (game->enemies)
+        remove_node(&game->enemies, 0, destroy_enemy);
+    destroy_clock(game->flash_clock);
+    while (game->items)
+        remove_node(&game->items, 0, free);
+    destroy_pause(game->pause);
+    destroy_skills(game->skills);
+    quest_destroy(game->quest);
     free(game);
 }
 
@@ -46,6 +40,17 @@ void check_flash(game_t *game, sfRectangleShape *rect)
     }
 }
 
+void draw_menus(game_t *game, window_t *win)
+{
+    draw_room(win->menus[LIGHT], win->menus[GAME], win);
+    draw_enemies(game, win->menus[LIGHT], win);
+    draw_map(win->menus[LIGHT], win->menus[GAME], win);
+    draw_xp(win->menus[GAME], win);
+    draw_inventory(win->menus[GAME], win);
+    draw_quest(win->menus[GAME], win->win);
+    draw_skills(win->menus[GAME], win);
+}
+
 const sfTexture *draw_game(window_t *win)
 {
     game_t *game = win->menus[GAME];
@@ -56,13 +61,7 @@ const sfTexture *draw_game(window_t *win)
     else if (!game->is_paused)
         check_flash(game, rect);
     sfRenderTexture_clear(game->rtex, sfBlack);
-    draw_room(win->menus[LIGHT], win->menus[GAME], win);
-    draw_enemies(game, win->menus[LIGHT], win);
-    draw_map(win->menus[LIGHT], win->menus[GAME], win);
-    draw_xp(win->menus[GAME], win);
-    draw_inventory(win->menus[GAME], win);
-    draw_quest(win->menus[GAME], win->win);
-    draw_skills(win->menus[GAME], win);
+    draw_menus(game, win);
     sfRenderTexture_drawRectangleShape(game->rtex, rect, NULL);
     sfRectangleShape_destroy(rect);
     if (game->is_paused)

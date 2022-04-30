@@ -12,12 +12,15 @@ void draw_stats_pts(game_t *game, window_t *win)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
     char *name = c->saves[c->primary]->infos.player_name;
+    char *tmp;
     sfText *text = init_text(name, 1080 / 20);
 
     center_text(text);
     sfText_setPosition(text, (sfVector2f){558, 265});
     sfRenderTexture_drawText(game->rtex, text, NULL);
-    name = str_concat(2, "xp left : ", nbr_to_str(game->skills->data->xp));
+    tmp = nbr_to_str(game->skills->data->xp);
+    name = str_concat(2, "xp left : ", tmp);
+    free(tmp);
     sfText_setString(text, name);
     center_text(text);
     sfText_setCharacterSize(text, 1080 / 30);
@@ -33,9 +36,10 @@ void draw_item(game_t *game, int item, int box, sfVector2f size)
     int line = box / 3;
     float indent = 114 * (SCALE(size));
     sfSprite *sprite = game->inventory->items_sprite[item];
-    sfText *text = init_text(nbr_to_str(game->inventory->data->nb_items[box]),
-    1080 / 40);
+    char *tmp = nbr_to_str(game->inventory->data->nb_items[box]);
+    sfText *text = init_text(tmp, 1080.0 / 40);
 
+    free(tmp);
     game->inventory->items_pos[box] = (sfFloatRect){POS_X(size, indent, col),
     POS_Y(size, indent, line), 100 * (SCALE(size)), 100 * (SCALE(size))};
     sfText_setPosition(text, (sfVector2f){877 + 114 * col, 363 + 114 * line});

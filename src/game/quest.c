@@ -33,7 +33,7 @@ static const char *desc_qst[6] = {
     "                  =)"
 };
 
-void secev_quest(game_t *game, sfEvent ev, sfRenderWindow *win)
+void secev_quest(game_t *game, sfRenderWindow *win)
 {
     sfVector2i pos = sfMouse_getPositionRenderWindow(win);
     sfVector2u size = sfRenderWindow_getSize(win);
@@ -54,7 +54,7 @@ void ev_quest(game_t *game, sfEvent ev, sfRenderWindow *win)
     if (ev.mouseButton.button == sfMouseLeft) {
         if (pos.x > size.x / 2 - (440 / 1080.0 * size.y) && pos.x < size.x / 2 -
         (195 / 1080.0 * size.y)) {
-            secev_quest(game, ev, win);
+            secev_quest(game, win);
         }
     }
 }
@@ -106,6 +106,16 @@ void draw_quest(game_t *game, sfRenderWindow *win)
         desc_draw(game, win, i);
         sfText_setColor(game->quest->name, sfWhite);
     }
+}
+
+void quest_destroy(quest_data_t *q)
+{
+    sfTexture_destroy(q->textr);
+    sfSprite_destroy(q->back);
+    sfText_destroy(q->name);
+    sfText_destroy(q->desc);
+    sfRectangleShape_destroy(q->selec);
+    free(q);
 }
 
 void quest_init(game_t *game)

@@ -7,7 +7,7 @@
 
 #include "rpg.h"
 
-static list_t **clocks(void)
+list_t **clocks(void)
 {
     static list_t *list = NULL;
 

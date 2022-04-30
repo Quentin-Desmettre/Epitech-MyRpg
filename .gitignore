@@ -4,7 +4,7 @@
 my_rpg
 
 *.o
-
+saves/
 .conf
 
 .vscode/

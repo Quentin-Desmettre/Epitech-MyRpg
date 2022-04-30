@@ -55,26 +55,24 @@ void draw_skill_desc(game_t *game, sfVector2f size, int skill)
 void draw_points(game_t *game, sfVector2f size, int indent)
 {
     char *str;
-    char *concat;
     sfText *text = init_text("", size.y / 30);
 
     for (int i = 0; i < NB_SKILLS; i++) {
         str = nbr_to_str(game->skills->data->tab[i]);
-        concat = str_concat(2, "level ", str);
-        sfText_setString(text, concat);
+        sftext_set_string_malloc(text, str_concat(2, "level ", str));
+        free(str);
         sfText_setPosition(text, (sfVector2f)
         {S_POS_X(size, indent * i), 452 * SCALE(size)});
         sfRenderTexture_drawText(game->rtex, text, NULL);
-        my_free("pp", concat, str);
     }
     str = nbr_to_str(game->skills->data->pc);
-    concat = str_concat(2, "Points\nleft : ", str);
     sfText_setCharacterSize(text, size.y / 20);
-    sfText_setString(text, concat);
+    sftext_set_string_malloc(text, str_concat(2, "Points\nleft : ", str));
+    free(str);
     sfText_setPosition(text, (sfVector2f)
     {S_POS_X(size, indent * 3.3), 292 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
-    my_free("pp", concat, str);
+    sfText_destroy(text);
 }
 
 void draw_skills2(game_t *game, sfVector2f size, int indent)
@@ -96,6 +94,7 @@ void draw_skills2(game_t *game, sfVector2f size, int indent)
     sfText_setPosition(text, (sfVector2f)
     {size.x / 2 + 325 / 1080.0 * size.y, 530 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
+    sfText_destroy(text);
     if (game->skills->skill_selected != -1)
         draw_skill_desc(game, size, game->skills->skill_selected);
 }

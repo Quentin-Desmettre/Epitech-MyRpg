@@ -7,6 +7,16 @@
 
 #include "rpg.h"
 
+void destroy_level(level_t *l)
+{
+    sfSprite_destroy(l->sprite);
+    sfTexture_destroy(l->texture);
+    for (int i = 0; i < l->size.x + 3; i++)
+        free(l->room[i]);
+    free(l->room);
+    free(l);
+}
+
 static level_t *init_level(void)
 {
     level_t *level = malloc(sizeof(level_t));

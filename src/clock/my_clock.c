@@ -7,6 +7,15 @@
 
 #include "my_clock.h"
 #include <stdlib.h>
+#include "libmy.h"
+
+void destroy_clocks(void)
+{
+    list_t **cl = clocks();
+
+    while (*cl)
+        remove_node(cl, 0, clock_destroy);
+}
 
 p_clock_t *p_clock_create(void)
 {
@@ -32,8 +41,9 @@ sfBool clock_is_paused(p_clock_t *clock)
     return clock->is_paused;
 }
 
-void clock_destroy(p_clock_t *clock)
+void clock_destroy(void *clock)
 {
-    sfClock_destroy(clock->clock);
+    p_clock_t *c = clock;
+    sfClock_destroy(c->clock);
     free(clock);
 }
