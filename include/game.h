@@ -15,6 +15,7 @@
     #include "skills.h"
     #include "inventory.h"
     #include "pause.h"
+    #define RUSH_MUSIC "./assets/audio/chase.ogg"
 
 typedef struct item {
     int type;
@@ -36,6 +37,7 @@ typedef struct game {
     p_clock_t *flash_clock;
     int is_paused;
     pause_t *pause;
+    sfMusic *rush_music;
 } game_t;
 
 // item room

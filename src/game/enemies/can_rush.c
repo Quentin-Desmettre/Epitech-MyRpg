@@ -52,17 +52,6 @@ sfVector2f vector, npc_t *player)
     return NULL;
 }
 
-void rotate_vector(sfVector2f *vec, float degree)
-{
-    sfVector2f new;
-
-    degree = deg_to_rad(degree);
-    new.x = cos(degree) * vec->x - sin(degree) * vec->y;
-    new.y = sin(degree) * vec->x + cos(degree) * vec->y;
-    vec->x = new.x;
-    vec->y = new.y;
-}
-
 static sfVector2f get_vision_vector(float const vis_dist, int const dir)
 {
     sfVector2f vision = {0, 0};
@@ -79,6 +68,19 @@ static sfVector2f get_vision_vector(float const vis_dist, int const dir)
     return vision;
 }
 
+static int has_path_to_player(enemy_t *e, game_t *game,
+ray_c *data, window_t *win)
+{
+    sfVector2f vector;
+
+    if (win->state != GAME)
+        return 0;
+    e->goal = sfSprite_getPosition(game->player->sprite);
+    update_path(e, game->level, data);
+    vector = vector_to_objective(e, game->level, data, win_size(win));
+    return vector.x || vector.y;
+}
+
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win)
 {
     float const vision_distance = data->cell * 2.5;
@@ -90,7 +92,7 @@ int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win)
     for (int i = 0; i < NB_RAY; i++) {
         if ((inter = can_reach_player(e_pos, vector, player))) {
             free(inter);
-            return win->state == GAME;
+            return has_path_to_player(e, win->menus[GAME], data, win);
         }
         rotate_vector(&vector, increment);
     }

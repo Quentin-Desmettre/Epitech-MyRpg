@@ -23,6 +23,8 @@ static void win_destroy(window_t *win)
         destroy_music(win->music);
     if (win->close_sfx)
         destroy_sound(win->close_sfx);
+    destroy_musics();
+    destroy_sounds();
     free(win);
 }
 

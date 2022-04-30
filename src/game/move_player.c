@@ -35,13 +35,17 @@ sfVector2f get_vector(void)
         movement.x = -1;
     if (sfKeyboard_isKeyPressed(sfKeyD) && !sfKeyboard_isKeyPressed(sfKeyQ))
         movement.x = 1;
+    if (movement.x && movement.y) {
+        movement.x /= SQRT_2;
+        movement.y /= SQRT_2;
+    }
     return movement;
 }
 
 void move_along_vector(game_t *game, sfVector2f movement, window_t *win)
 {
-    float x_step = movement.x / 10.0;
-    float y_step = movement.y / 10.0;
+    float x_step = movement.x;
+    float y_step = movement.y;
 
     for (float x = 0, max = fabs(movement.x); fabs(x) < max; x += x_step) {
         sfSprite_move(game->player->sprite, (sfVector2f){x_step, 0});

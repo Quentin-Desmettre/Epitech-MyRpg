@@ -24,10 +24,11 @@ ray_c *data, sfVector2f win_s)
 {
     sfVector2u graph_max = get_graphic_size(l, data);
     sfVector2u pos = get_logic_pos(e, graph_max, data->cell);
-    sfVector2u positions[4] = {
-        {pos.x - 1, pos.y}, {pos.x + 1, pos.y},
-        {pos.x, pos.y - 1}, {pos.x, pos.y + 1}
-    };
+    sfVector2u g_pos = graphic_pos_to_map(e->goal,
+    graph_max, e->size, data->cell);
+    sfVector2u positions[4] = {{pos.x - 1, pos.y},
+    {pos.x + 1, pos.y}, {pos.x, pos.y - 1}, {pos.x, pos.y + 1}};
+    sfVector2f gr_pos = sfSprite_getPosition(e->enemy->sprite);
     int dir = -1;
     sfVector2f tmp;
 
@@ -37,7 +38,8 @@ ray_c *data, sfVector2f win_s)
             dir = i;
         }
     }
-    tmp = obj_to_v2f(dir);
+    tmp = !(g_pos.x == pos.x && g_pos.y == pos.y) ? obj_to_v2f(dir) :
+    (sfVector2f){e->goal.x - gr_pos.x ? 1 : 0, e->goal.y - gr_pos.y ? 1 : 0};
     update_vector(&tmp, e->enemy, win_s);
     return tmp;
 }
@@ -71,6 +73,7 @@ int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win)
         en->is_in_rush = can_rush(en, data, g->player, win);
         en->enemy->speed += en->is_in_rush ? SPEED_ACC : 0;
         if (en->is_in_rush && !other_are_rushing(g->enemies, en)) {
+            g->rush_music ? sfMusic_play(g->rush_music) : 0;
             g->is_flashing = 1;
             restart_clock(g->flash_clock);
             g->inventory->draw = 0;

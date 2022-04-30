@@ -91,6 +91,6 @@ game_t *game_create(void)
     game->skills = skills_create();
     game->clock = create_clock();
     game->flash_clock = create_clock();
-    game->is_paused = 0;
+    game->rush_music = create_music(RUSH_MUSIC);
     return game;
 }

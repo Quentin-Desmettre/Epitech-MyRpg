@@ -59,6 +59,7 @@ float sound_vol(int change, float new);
     #define GET_GAME(win) ((game_t *)(win)->menus[GAME])
 
     #define MAX_DISTANCE 15
+    #define SQRT_2 1.41421356237
 
 typedef struct {
     button_t *buttons[5];

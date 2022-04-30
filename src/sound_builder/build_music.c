@@ -50,10 +50,8 @@ sfMusic *create_music(char const *source)
 {
     sfMusic *m = sfMusic_createFromFile(source);
 
-    if (!m) {
-        dprint(2, "Error: Cannot load file '%s'.\n", source);
+    if (!m)
         return NULL;
-    }
     sfMusic_setVolume(m, get_music_vol());
     append_node(music_list(), m);
     return m;

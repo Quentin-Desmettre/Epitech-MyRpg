@@ -14,6 +14,7 @@ SRC = \
 	src/button/setters_next.c                          \
 	src/sprite/init_sprite.c                           \
 	src/sprite/sprite_modif.c                          \
+	src/sprite/rotate_vector.c                         \
 	src/globals/fonts.c                                \
 	src/globals/texture.c                              \
 	src/globals/sounds.c                               \
