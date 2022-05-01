@@ -198,12 +198,13 @@ typedef struct {
     sfInt64 rnd_wait;
     sfVector2f mov_vector;
     int is_in_rush;
-    int **map;
-    sfVector2u size;
-    sfVector2f goal;
     splash_particles_t *splash;
 } enemy_t;
 
+void destroy_path(path_t *p);
+void update_path(path_t *p, level_t *l, ray_c *data, sfVector2f graphic_goal);
+sfVector2f vector_to_objective(enemy_t *e,
+game_t *game, ray_c *data, sfVector2f win_s);
 void switch_clocks(void);
 void destroy_enemy(void *enemy);
 void quest_destroy(quest_data_t *q);
@@ -353,12 +354,6 @@ sfVector2u graphic_size, sfVector2u logic_size, float cell)
         (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x
     };
 }
-static inline sfVector2u get_logic_pos(enemy_t *e,
-sfVector2u graph_max, float cell)
-{
-    return graphic_pos_to_map(sfSprite_getPosition(e->enemy->sprite),
-    graph_max, e->size, cell);
-}
 static inline float deg_to_rad(float degree)
 {
     return degree * PI / 180.0;
@@ -377,10 +372,6 @@ static inline void sftext_set_string_malloc(sfText *t, char *str)
     free(str);
 }
 
-sfVector2f vector_to_objective(enemy_t *e,
-level_t *l, ray_c *data, sfVector2f win_s);
-void update_path(enemy_t *e, level_t *l, ray_c *data);
-void draw_mmapp(enemy_t *e, sfRenderWindow *win, ray_c *data);
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
 void launch_combat(void);
@@ -407,5 +398,6 @@ const sfTexture *draw_fight(window_t *win);
 void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);
+int other_are_rushing(list_t *enemies, enemy_t *exclude);
 
 #endif

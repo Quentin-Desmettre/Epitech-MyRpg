@@ -7,44 +7,7 @@
 
 #include "rpg.h"
 
-static sfVector2f obj_to_v2f(int dir)
-{
-    sfVector2f dirs[4] = {
-        {0, -1}, {0, 1},
-        {-1, 0}, {1, 0}
-    };
-
-    if (dir < 0 || dir > 3)
-        return (sfVector2f){0, 0};
-    return dirs[dir];
-}
-
-sfVector2f vector_to_objective(enemy_t *e, level_t *l,
-ray_c *data, sfVector2f win_s)
-{
-    sfVector2u graph_max = get_graphic_size(l, data);
-    sfVector2u pos = get_logic_pos(e, graph_max, data->cell);
-    sfVector2u g_pos = graphic_pos_to_map(e->goal,
-    graph_max, e->size, data->cell);
-    sfVector2u positions[4] = {{pos.x - 1, pos.y},
-    {pos.x + 1, pos.y}, {pos.x, pos.y - 1}, {pos.x, pos.y + 1}};
-    sfVector2f gr_pos = sfSprite_getPosition(e->enemy->sprite);
-    int dir = -1;
-    sfVector2f tmp;
-
-    for (int i = 0; i < 4; i++) {
-        if (positions[i].x < graph_max.y && positions[i].y < graph_max.x &&
-        e->map[positions[i].x][positions[i].y] == -2) {
-            dir = i;
-        }
-    }
-    tmp = !(g_pos.x == pos.x && g_pos.y == pos.y) ? obj_to_v2f(dir) :
-    (sfVector2f){e->goal.x - gr_pos.x ? 1 : 0, e->goal.y - gr_pos.y ? 1 : 0};
-    update_vector(&tmp, e->enemy, win_s);
-    return tmp;
-}
-
-static int other_are_rushing(list_t *enemies, enemy_t *exclude)
+int other_are_rushing(list_t *enemies, enemy_t *exclude)
 {
     list_t *begin = enemies;
     enemy_t *tmp;

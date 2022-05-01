@@ -53,6 +53,7 @@ SRC = \
 	src/game/enemies/pathfinding.c                     \
 	src/game/enemies/check_rush.c                      \
 	src/game/enemies/can_rush.c                        \
+	src/game/enemies/path.c                            \
 	src/game/npc_collisions.c                          \
 	src/game/draw_xp.c                                 \
 	src/game/quest.c                                   \

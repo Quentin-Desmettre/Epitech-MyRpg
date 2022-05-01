@@ -13,25 +13,8 @@ void destroy_enemy(void *enemy)
     enemy_t *e = enemy;
     destroy_clock(e->decide_clock);
     destroy_npc(e->enemy);
-    for (unsigned i = 0; i < e->size.y; i++)
-        free(e->map[i]);
-    free(e->map);
     destroy_splash_particles(e->splash);
     free(e);
-}
-
-static int **wa_to_ia(game_t *game, sfVector2u rs)
-{
-    int **ia = malloc(sizeof(int *) * rs.y);
-
-    for (unsigned line = 0; line < rs.y; line++) {
-        ia[line] = malloc(sizeof(int) * rs.x);
-        for (unsigned col = 0; col < rs.x; col++) {
-            ia[line][col] = ((game->level->room[line / 2][col / 2] == 'X') ||
-            (game->level->room[(line - 1) / 2][col / 2] == 'X')) ? -1 : 0;
-        }
-    }
-    return ia;
 }
 
 static sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
@@ -51,7 +34,7 @@ static sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
     return map_pos;
 }
 
-static void init_enemy_movement(enemy_t *en, game_t *game, ray_c *data)
+static void init_enemy_movement(enemy_t *en, ray_c *data)
 {
     en->enemy->dir = IDLE;
     en->decide_clock = create_clock();
@@ -60,9 +43,6 @@ static void init_enemy_movement(enemy_t *en, game_t *game, ray_c *data)
     en->rnd_mve = my_rand(3000000, 5000000);
     en->rnd_wait = my_rand(1000000, 3000000);
     en->is_in_rush = 0;
-    en->size = (sfVector2u){(game->level->size.y + 2) * 2,
-    (game->level->size.x + 2) * 2};
-    en->map = wa_to_ia(game, en->size);
 }
 
 void create_enemy(game_t *game, ray_c *data)
@@ -83,6 +63,6 @@ void create_enemy(game_t *game, ray_c *data)
     en->splash = create_splash_particles((sfVector2f){pos.x,
     pos.y + data->cell * 0.45}, (sfVector2f){rect.height * 0.1,
     rect.height * 0.1}, max_dur_splash);
-    init_enemy_movement(en, game, data);
+    init_enemy_movement(en, data);
     append_node(&game->enemies, en);
 }

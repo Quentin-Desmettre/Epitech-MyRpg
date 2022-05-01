@@ -22,6 +22,11 @@ typedef struct item {
     sfVector2f pos;
 } item_t;
 
+typedef struct {
+    int **map;
+    sfVector2u size;
+} path_t;
+
 typedef struct game {
     list_t *items;
     sfRenderTexture *rtex;
@@ -38,6 +43,7 @@ typedef struct game {
     int is_paused;
     pause_t *pause;
     sfMusic *rush_music;
+    path_t *path;
 } game_t;
 
 // item room

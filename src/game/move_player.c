@@ -79,6 +79,8 @@ void move_pl(window_t *win)
     sfVector2f movement = get_vector();
 
     if (get_elapsed_time(game->player->move_clock) > 33333) {
+        update_path(game->path, game->level,
+        win->menus[LIGHT], sfSprite_getPosition(game->player->sprite));
         restart_clock(game->player->move_clock);
         update_vector(&movement, game->player, win_size(win));
         move_along_vector(game, movement, win);

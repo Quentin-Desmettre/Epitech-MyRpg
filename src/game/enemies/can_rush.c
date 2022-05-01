@@ -7,7 +7,7 @@
 
 #include "rpg.h"
 
-sfVector2f *is_intersect(sfVector2f p0, sfVector2f p1,
+static sfVector2f *is_intersect(sfVector2f p0, sfVector2f p1,
 sfVector2f p2, sfVector2f p3)
 {
     float s1_x = p1.x - p0.x;
@@ -75,9 +75,7 @@ ray_c *data, window_t *win)
 
     if (win->state != GAME)
         return 0;
-    e->goal = sfSprite_getPosition(game->player->sprite);
-    update_path(e, game->level, data);
-    vector = vector_to_objective(e, game->level, data, win_size(win));
+    vector = vector_to_objective(e, game, data, win_size(win));
     return vector.x || vector.y;
 }
 
