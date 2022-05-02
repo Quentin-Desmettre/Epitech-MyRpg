@@ -33,7 +33,7 @@ sfVector2f size, sfVector2f types)
     sfSprite *frame = init_sprite(bars_texture(), bars_frames[0], size);
     sfSprite *filled = init_sprite(bars_texture(), filled_rect,
     (sfVector2f){size.x * percent, size.y});
-    sfSprite *logo = init_sprite(bars_texture(), bars_frames[3 + type],
+    sfSprite *logo = init_sprite(bars_texture(), bars_frames[4 + type],
     (sfVector2f){size.y, size.y});
 
     sfSprite_setPosition(frame, pos);
