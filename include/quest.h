@@ -19,13 +19,16 @@ typedef struct quest_t {
 } quest_t;
 
 typedef struct quest_data_t {
-    quest_t quests[6];
-    int draw;
+    quest_t quests[4];
     sfText *name;
     sfText *desc;
     sfTexture *textr;
     sfRectangleShape *selec;
     sfSprite *back;
+    char const *name_qst[4];
+    char const *desc_qst[4];
+    int is_quest_used[4];
+    int draw;
 } quest_data_t;
 
 #endif

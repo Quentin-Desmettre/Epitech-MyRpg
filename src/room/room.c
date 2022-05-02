@@ -7,8 +7,6 @@
 
 #include "rpg.h"
 
-path_t *create_path(char **map, sfVector2u map_size);
-
 maze_t *create_maze(level_t *level)
 {
     maze_t *maze = malloc(sizeof(maze_t));
@@ -98,4 +96,5 @@ void new_room(game_t *game, ray_c *light)
         remove_node(&game->enemies, 0, destroy_enemy);
     for (int i = 0; i < 10; i++)
         create_enemy(game, light);
+    game->npc = create_pnj(game, light);
 }

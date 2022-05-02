@@ -16,6 +16,7 @@
     #include "inventory.h"
     #include "pause.h"
     #define RUSH_MUSIC "./assets/audio/chase.ogg"
+    #include "inter_npc.h"
 
 typedef struct item {
     int type;
@@ -26,6 +27,8 @@ typedef struct {
     int **map;
     sfVector2u size;
 } path_t;
+
+typedef struct inter_c interactive_npc_t;
 
 typedef struct game {
     list_t *items;
@@ -44,6 +47,8 @@ typedef struct game {
     pause_t *pause;
     sfMusic *rush_music;
     path_t *path;
+    interactive_npc_t *npc;
+    int is_talking;
 } game_t;
 
 // item room

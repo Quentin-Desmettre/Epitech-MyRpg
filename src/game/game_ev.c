@@ -72,6 +72,7 @@ void game_ev(window_t *win, sfEvent ev)
             cry_event(game);
         if (ev.key.code == sfKeyF)
             find_exit_event(game);
+        npc_ev(game, ev);
         show_menus_ev(ev, game);
         debug_ev(ev, win, game);
     }

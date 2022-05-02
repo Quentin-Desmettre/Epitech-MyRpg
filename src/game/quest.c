@@ -8,39 +8,14 @@
 #include "rpg.h"
 #include "player.h"
 
-static const char *name_qst[6] = {
-    "Welcome",
-    "Stay =)",
-    "Good bye",
-    "Beat em up",
-    "Drink",
-    "Pills !!!"
-};
-
-static const char *desc_qst[6] = {
-    "Hey welcome in the backrooms.\n The backrooms are safe. Be quiet\n"
-    "Try to exit\n Good luck !\n\n Have fun =)",
-    "Congraluration !\n"
-    "You success to exit the level 0.\n"
-    "Try to exit this level\nor you can stay here with me\nand my friends =)",
-    "You are in the level 2 it's the last one\n"
-    "I hope\n""Try to exit\nbut don't try to go to the next level !\n"
-    "Search the level fun =)",
-    "Kill 10 entity !\n It's fun and healthy !\n   =)",
-    "Do you like almond water?\n I could drink dozens"
-    "\n Try to drink 10 bottles !",
-    "Apparently overdoses are bad.\n Try anyway take 10 pills !\n\n"
-    "                  =)"
-};
-
 void secev_quest(game_t *game, sfRenderWindow *win)
 {
     sfVector2i pos = sfMouse_getPositionRenderWindow(win);
     sfVector2u size = sfRenderWindow_getSize(win);
     float tmp = pos.y - size.y / 5;
     tmp /= (116.0 / 1080.0 * size.y);
-    if ((int)tmp < 6 && (int)tmp >= 0) {
-        for (int i = 0; i < 6; i++)
+    if ((int)tmp < 4 && (int)tmp >= 0) {
+        for (int i = 0; i < 4; i++)
             game->quest->quests[i].check = 0;
         game->quest->quests[(int)tmp].check = 1;
     }
@@ -70,10 +45,10 @@ void desc_draw(game_t *game, sfRenderWindow *win, int nb)
     sfText_setPosition(game->quest->desc, (sfVector2f){size.x / 2 -
     (120 / 1080.0 * size.y), size.y / 3});
 
-    sfRectangleShape_setPosition(game->quest->selec, (sfVector2f){size.x / 2 - (
-    455 / 1080.0 * size.y),
-        size.y / 5 + nb * (116 / 1080.0 * size.y) - (10 / 1080.0 * size.y)});
-    sfText_setString(game->quest->desc, desc_qst[nb]);
+    sfRectangleShape_setPosition(game->quest->selec, (sfVector2f){size.x / 2 -
+    (455 / 1080.0 * size.y), size.y / 5 + nb * (116 / 1080.0 * size.y) -
+    (10 / 1080.0 * size.y)});
+    sfText_setString(game->quest->desc, game->quest->desc_qst[nb]);
     sfRenderTexture_drawRectangleShape(game->rtex, game->quest->selec, NULL);
     sfRenderTexture_drawText(game->rtex, game->quest->name, NULL);
     sfRenderTexture_drawText(game->rtex, game->quest->desc, NULL);
@@ -94,8 +69,10 @@ void draw_quest(game_t *game, sfRenderWindow *win)
     sfSprite_setScale(game->quest->back, (sfVector2f){size.y / 1080.0, size.y /
     1080.0});
     sfRenderTexture_drawSprite(game->rtex, game->quest->back, NULL);
-    for (int i = 0; i < 6; i++) {
-        sfText_setString(game->quest->name, name_qst[i]);
+    for (int i = 0; i < 4; i++) {
+        sfText_setScale(game->quest->desc, (sfVector2f){size.y / 1080.0,
+        size.y / 1080.0});
+        sfText_setString(game->quest->name, game->quest->name_qst[i]);
         sfText_setPosition(game->quest->name, (sfVector2f){size.x / 2 - (430 /
         1080.0 * size.y),
         size.y / 5 + i * (116 / 1080.0 * size.y)});
@@ -118,21 +95,69 @@ void quest_destroy(quest_data_t *q)
     free(q);
 }
 
+int nb_used(quest_data_t *q)
+{
+    int nb = 0;
+
+    for (int i = 0; i < 4; i++)
+        if (q->is_quest_used[i])
+            nb++;
+    return nb;
+}
+
+void give_quest(quest_data_t *q, int d)
+{
+    int nb = nb_used(q);
+
+    q->is_quest_used[d] = 1;
+    q->desc_qst[nb] = desc_qst[d];
+    q->name_qst[nb] = name_qst[d];
+}
+
+int rnd_quest(quest_data_t *current_quests)
+{
+    int *used = current_quests->is_quest_used;
+    int quest = 0;
+
+    if (current_quests->name_qst[3][0])
+        return -1;
+    while (used[quest])
+        quest = rand() % 4;
+    return quest;
+}
+
+void init_quests(quest_data_t *quest)
+{
+    for (int i = 0; i < 4; i++) {
+        quest->is_quest_used[i] = 0;
+        quest->name_qst[i] = "";
+        quest->desc_qst[i] = "";
+    }
+
+    quest->name_qst[0] = name_qst[0];
+    quest->desc_qst[0] = desc_qst[0];
+    quest->is_quest_used[0] = 1;
+}
+
 void quest_init(game_t *game)
 {
-    game->quest = malloc(sizeof(quest_data_t));
-    game->quest->draw = 0;
-    game->quest->selec = create_rectangle((sfVector2f){0, 0}, sfWhite
-    , 0, sfBlack);
-    game->quest->name = init_text(0, 50);
-    game->quest->desc = init_text(0, 30);
-    for (int i = 0; i < 6; i++) {
-        game->quest->quests[i].check = 0;
-        game->quest->quests[i].finish = 0;
+    quest_data_t *quest = malloc(sizeof(quest_data_t));
+
+    quest = malloc(sizeof(quest_data_t));
+    quest->draw = 0;
+    quest->selec = create_rectangle((sfVector2f){0, 0},
+    sfWhite, 0, sfBlack);
+    init_quests(quest);
+    quest->name = init_text(0, 45);
+    quest->desc = init_text(0, 30);
+    for (int i = 0; i < 4; i++) {
+        quest->quests[i].check = 0;
+        quest->quests[i].finish = 0;
     }
-    game->quest->quests[0].check = 1;
-    game->quest->textr = sfTexture_createFromFile("assets/quest.png", NULL);
-    game->quest->back = sfSprite_create();
-    sfSprite_setTexture(game->quest->back, game->quest->textr, sfTrue);
-    sfSprite_setOrigin(game->quest->back, (sfVector2f){942 / 2, 720 / 2});
+    quest->quests[0].check = 1;
+    quest->textr = sfTexture_createFromFile("assets/quest.png", NULL);
+    quest->back = sfSprite_create();
+    sfSprite_setTexture(quest->back, quest->textr, sfTrue);
+    sfSprite_setOrigin(quest->back, (sfVector2f){942 / 2, 720 / 2});
+    game->quest = quest;
 }

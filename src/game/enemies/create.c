@@ -17,7 +17,7 @@ void destroy_enemy(void *enemy)
     free(e);
 }
 
-static sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
+sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
 {
     sfVector2f size = g->level->size;
     sfVector2u max = {(size.y + 1) * data->cell,

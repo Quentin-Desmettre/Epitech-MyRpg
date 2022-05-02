@@ -21,6 +21,7 @@
     #include "npc.h"
     #include "quest.h"
     #include "particles.h"
+    #include "inter_npc.h"
 
     #ifdef DEBUG
 
@@ -201,6 +202,42 @@ typedef struct {
     splash_particles_t *splash;
 } enemy_t;
 
+__attribute__((unused)) static const char *name_qst[4] = {
+    "Backrooms",
+    "Beat em up",
+    "Drink",
+    "Pills !!!"
+};
+
+__attribute__((unused)) static const char *desc_qst[6] = {
+    "Hey welcome in the backrooms.\n"
+    "The backrooms are safe, but be quiet.\n"
+    "Try to exit level 0.\n"
+    "Good luck !\n\n"
+    " Have fun =)",
+
+    "Kill 10 entity !\n It's fun and healthy !\n   =)",
+
+    "Do you like almond water?\n I could drink dozens"
+    "\n Try to drink 10 bottles !",
+
+    "Apparently overdoses are bad.\n Anyway, try it and take 10 pills !\n\n"
+    "                  =)",
+
+    "Congratulations !\n"
+    "You successfully exited level 0.\n"
+    "Now, try to exit level 1.\n"
+    "Or, you can stay here with me\n"
+    "and my friends =)",
+
+    "Oh no, you're already in the last level :(\n"
+    "Or are you ?\n"
+    "Anyway, try to exit =)\n"
+    "Good luck ;)"
+};
+
+
+window_t *window(window_t *ptr);
 void destroy_path(path_t *p);
 void update_path(path_t *p, level_t *l, ray_c *data, sfVector2f graphic_goal);
 sfVector2f vector_to_objective(enemy_t *e,
@@ -371,6 +408,11 @@ static inline void sftext_set_string_malloc(sfText *t, char *str)
     sfText_setString(t, str);
     free(str);
 }
+static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
+{
+    return !(rand() % 3) ? create_quest_npc(rnd_quest(game->quest), game,
+    light) : create_talk_npc(game, light);
+}
 
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
@@ -399,5 +441,8 @@ void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);
 int other_are_rushing(list_t *enemies, enemy_t *exclude);
+void give_quest(quest_data_t *q, int d);
+path_t *create_path(char **map, sfVector2u map_size);
+int rnd_quest(quest_data_t *current_quests);
 
 #endif

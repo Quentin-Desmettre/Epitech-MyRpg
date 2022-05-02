@@ -18,6 +18,8 @@ SRC = \
 	src/globals/fonts.c                                \
 	src/globals/texture.c                              \
 	src/globals/sounds.c                               \
+	src/globals/window.c                               \
+	src/globals/pnj.c                                  \
 	src/settings/apply.c                               \
 	src/settings/checkbox.c                            \
 	src/settings/destroy.c                             \
@@ -54,6 +56,9 @@ SRC = \
 	src/game/enemies/check_rush.c                      \
 	src/game/enemies/can_rush.c                        \
 	src/game/enemies/path.c                            \
+	src/game/npc/create_npc.c                          \
+	src/game/npc/npc_ev.c                              \
+	src/game/npc/npc_text.c                            \
 	src/game/npc_collisions.c                          \
 	src/game/draw_xp.c                                 \
 	src/game/quest.c                                   \

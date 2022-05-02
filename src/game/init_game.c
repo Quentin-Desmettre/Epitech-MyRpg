@@ -49,6 +49,7 @@ void draw_menus(game_t *game, window_t *win)
     draw_inventory(win->menus[GAME], win);
     draw_quest(win->menus[GAME], win->win);
     draw_skills(win->menus[GAME], win);
+    draw_npc(game, win->menus[LIGHT]);
 }
 
 const sfTexture *draw_game(window_t *win)
