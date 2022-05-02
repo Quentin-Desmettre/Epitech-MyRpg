@@ -43,8 +43,6 @@ typedef struct inter_c {
 
 sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc);
 
-interactive_npc_t *create_quest_npc(int dialog, game_t *g, ray_c *r);
-interactive_npc_t *create_talk_npc(game_t *g, ray_c *r);
 void go_to_next_str(interactive_npc_t *npc, game_t *g);
 void draw_npc(game_t *g, ray_c *r);
 void npc_ev(game_t *g, sfEvent ev);

@@ -410,11 +410,6 @@ static inline void sftext_set_string_malloc(sfText *t, char *str)
     sfText_setString(t, str);
     free(str);
 }
-static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
-{
-    return !(rand() % 3) ? create_quest_npc(rnd_quest(game->quest), game,
-    light) : create_talk_npc(game, light);
-}
 
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
@@ -454,7 +449,14 @@ int other_are_rushing(list_t *enemies, enemy_t *exclude);
 void give_quest(quest_data_t *q, int d);
 path_t *create_path(char **map, sfVector2u map_size);
 int rnd_quest(quest_data_t *current_quests);
-
 void unblock_pl(ray_c *data, npc_t *player, level_t *level);
+interactive_npc_t *create_quest_npc(int dialog, game_t *g, ray_c *r);
+interactive_npc_t *create_talk_npc(game_t *g, ray_c *r);
+
+static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
+{
+    return !(rand() % 3) ? create_quest_npc(rnd_quest(game->quest), game,
+    light) : create_talk_npc(game, light);
+}
 
 #endif
