@@ -397,6 +397,14 @@ void find_exit_event(game_t *game);
 
 // fight
 const sfTexture *draw_fight(window_t *win);
+void fight_ev(window_t *win, sfEvent ev);
+void move_pl_fight(fight_t *fight, window_t *win);
+void move_blocs(fight_t *fight, window_t *win);
+void change_to_prop(sfRenderTexture *tex , sfRectangleShape *rec
+, window_t *win);
+void change_to_prop_c(sfRenderTexture *tex , sfCircleShape *crl, window_t *win);
+void change_to_prop_s(sfRenderTexture *tex , sfSprite *ply, window_t *win);
+
 void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);

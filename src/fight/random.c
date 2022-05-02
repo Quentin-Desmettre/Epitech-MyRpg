@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../include/fight.h"
+#include "../include/rpg.h"
 
 void change_axe(fight_t *fight, int number)
 {
@@ -15,22 +15,23 @@ void change_axe(fight_t *fight, int number)
 
 void move_by(fight_t *fight, sfRenderWindow *win)
 {
-    sfVector2u size_win = sfRenderWindow_getSize(win);
-    for (int i = 0; i < DMG; i++) {
-        sfVector2f pos_dmg = sfRectangleShape_getPosition(fight->dmg[i]);
-        sfVector2f size_dmg = sfRectangleShape_getSize(fight->dmg[i]);
-        sfFloatRect tmp = sfRectangleShape_getGlobalBounds(fight->dmg[i]);
-        tmp.top += fight->dir[i].y;
-        tmp.left += fight->dir[i].x;
+    sfVector2f pos;
+    sfFloatRect tmp;
+    float time;
 
-        if (tmp.left <= 0 || tmp.left >= (size_win.x - size_dmg.x)
-            || tmp.top <= 0 || tmp.top >= (size_win.y - size_dmg.y) ||
-            touch_solid(tmp, fight)) {
+    time = get_elapsed_time(fight->speed) / 10000.0;
+    restart_clock(fight->speed);
+    for (int i = 0; i < DMG; i++) {
+        pos = sfRectangleShape_getPosition(fight->dmg[i]);
+        tmp = sfRectangleShape_getGlobalBounds(fight->dmg[i]);
+        tmp.top += fight->dir[i].y * time * 0.7;
+        tmp.left += fight->dir[i].x * time * 0.7;
+        if (tmp.left <= 0 || tmp.left >= 1390 || tmp.top <= 0 || tmp.top >= 1030
+        || touch_solid(tmp, fight)) {
             change_axe(fight, i);
         } else
-            sfRectangleShape_setPosition(fight->dmg[i],
-            (sfVector2f){pos_dmg.x + fight->dir[i].x, pos_dmg.y + fight->dir[i]
-            .y});
+            sfRectangleShape_setPosition(fight->dmg[i], (sfVector2f)
+            {tmp.left, tmp.top});
     }
 }
 
@@ -64,11 +65,8 @@ void set_dmg_pos(fight_t *fight, sfRenderWindow *win)
     }
 }
 
-void move_blocs(fight_t *fight, p_clock_t *clock_dmg, sfRenderWindow *win)
+void move_blocs(fight_t *fight, window_t *win)
 {
-    sfInt64 time_dmg = get_elapsed_time(clock_dmg);
-    float seconds = time_dmg;
-
     for (int i = 0; i < DMG; i++) {
         if (get_elapsed_time(fight->time[i]) / 1000000.0 >
         fight->rand_time[i]) {
@@ -77,8 +75,6 @@ void move_blocs(fight_t *fight, p_clock_t *clock_dmg, sfRenderWindow *win)
             fight->rand_time[i] = (rand() % 3) + 1;
         }
     }
-    if (seconds > 5000) {
-        move_by(fight, win);
-        restart_clock(clock_dmg);
-    }
+    move_pl_fight(fight, win);
+    move_by(fight, win->win);
 }

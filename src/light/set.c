@@ -67,7 +67,7 @@ char choose_item(int i, int j, char c, game_t *game)
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
     }
-    return random == 21 ? '2' : '0';
+    return (random == 21) ? '2' : '0';
 }
 
 int set_game_light(ray_c *new, game_t *map)

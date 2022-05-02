@@ -36,6 +36,7 @@
     #define MAP_W 40
     #define MAP_H 30
     #define _UNDER(x, max) x >= 0 && x < max
+    #define ADD_RAND ((data->map[i][j] == '2') ? 10 - (rand() % 20) : 0)
 
 typedef struct back {
 } back;
