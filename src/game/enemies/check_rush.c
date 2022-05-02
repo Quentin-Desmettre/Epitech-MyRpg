@@ -23,11 +23,22 @@ int other_are_rushing(list_t *enemies, enemy_t *exclude)
     return 0;
 }
 
-void launch_combat(void)
+void recreate_enemy(game_t *game, ray_c *light)
 {
-    write(1, "HEHEHEHA\n", 9);
-    sfSleep((sfTime){500000});
-    exit(0);
+    while (game->enemies)
+        remove_node(&game->enemies, 0, destroy_enemy);
+    for (int i = 0; i < 10; i++)
+        create_enemy(game, light);
+}
+
+void launch_combat(window_t *win)
+{
+    fight_t *fight = win->menus[FIGHT];
+
+    change_pos(fight);
+    recreate_enemy(win->menus[GAME], win->menus[LIGHT]);
+    set_next_win_state(win, FIGHT);
+    fight->nme = 100;
 }
 
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win)

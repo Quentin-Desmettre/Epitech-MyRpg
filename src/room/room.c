@@ -98,4 +98,5 @@ void new_room(game_t *game, ray_c *light)
         remove_node(&game->enemies, 0, destroy_enemy);
     for (int i = 0; i < 10; i++)
         create_enemy(game, light);
+    unblock_pl(light, game->player, game->level);
 }

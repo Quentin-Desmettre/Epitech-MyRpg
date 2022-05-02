@@ -28,6 +28,7 @@ void change_pos(fight_t *fight)
     + 20});
     sfRectangleShape_setSize(fight->solid[1], (sfVector2f){1440, 100});
     sfRectangleShape_setPosition(fight->solid[1], (sfVector2f){0, 100 * 10});
+    sfRectangleShape_setPosition(fight->player, (sfVector2f){900, 500});
 }
 
 void set_blocks(fight_t *fight)
@@ -64,7 +65,6 @@ fight_t *init_fight(void)
     fight->player = sfRectangleShape_create();
     sfRectangleShape_setSize(fight->player, (sfVector2f){100, 100});
     sfRectangleShape_setFillColor(fight->player, sfGreen);
-    sfRectangleShape_setPosition(fight->player, (sfVector2f){900, 500});
     set_blocks(fight);
     fight->nme = 100;
     for (int i = 0; i == 0 || touch_solid(rect, fight); i++) {

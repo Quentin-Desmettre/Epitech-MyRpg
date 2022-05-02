@@ -45,7 +45,7 @@ void check_null_vector(enemy_t *e, sfSprite *player, window_t *win, level_t *l)
 
     restart_clock(e->decide_clock);
     if (dist_between(e->enemy->sprite, player) < data->cell / 2.0)
-        launch_combat();
+        launch_combat(win);
     e->mov_vector = vector_to_objective(e, g, data, win_size(win));
     if (!(e->mov_vector.x || e->mov_vector.y)) {
         if (!other_are_rushing(g->enemies, e) && g->rush_music)

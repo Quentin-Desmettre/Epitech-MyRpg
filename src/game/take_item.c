@@ -7,6 +7,17 @@
 
 #include "rpg.h"
 
+void unblock_pl(ray_c *data, npc_t *player, level_t *level)
+{
+    coo_t size = level->size;
+
+    for (int i = 0; i < size.y + 2; i++) {
+        for (int j = 0; j < size.x + 2; j++)
+            data->map[i][j] = pnj_colliding2(player, i, j, data) == 1 ? '0' :
+            data->map[i][j];
+    }
+}
+
 int scale_inventory(game_t *game, ray_c *data, window_t *win)
 {
     sfVector2u size_win = sfRenderWindow_getSize(win->win);

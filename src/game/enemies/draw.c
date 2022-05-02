@@ -41,9 +41,6 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g, window_t *win)
 {
     level_t *l = g->level;
 
-    if (dist_between(en->enemy->sprite, g->player->sprite) < data->cell / 2.0 &&
-    win->state == GAME)
-        launch_combat();
     if (check_rush(en, data, g, win))
         return;
     check_vector_change(en, win_size(win));
@@ -78,23 +75,23 @@ void update_enemy(enemy_t *en, sfVector2f pl_size, ray_c *data, window_t *win)
 void draw_enemies(game_t *game, ray_c *data, window_t *win)
 {
     list_t *list = game->enemies;
-    sfVector2f pl_size = get_sprite_size(game->player->sprite);
     enemy_t *e;
-    sfVector2f pos;
 
     if (!list)
         return;
-    do {
+    for (int i = 0; i == 0 || list != game->enemies; i++, list = list->next) {
         e = list->data;
         if (!game->is_flashing && !game->is_paused)
-            update_enemy(e, pl_size, data, win);
+            update_enemy(e, get_sprite_size(game->player->sprite), data, win);
         draw_splash_particles(e->splash,
         data->tex_light, e->is_in_rush, !game->is_paused);
         sfRenderTexture_drawSprite(data->tex_light, e->enemy->sprite, NULL);
-        if (win->state == HOME) {
-            pos = sfSprite_getPosition(e->enemy->sprite);
-            add_light(data, (sfVector2i){pos.x, pos.y}, 1.5, game->rtex);
-        }
-        list = list->next;
-    } while (list != game->enemies);
+        if (dist_between(e->enemy->sprite, game->player->sprite) < data->cell /
+        2.0 && win->state == GAME) {
+            launch_combat(win);
+            break;
+        } else if (win->state == HOME)
+            add_light(data, (sfVector2i){sfSprite_getPosition(e->enemy->sprite)
+            .x, sfSprite_getPosition(e->enemy->sprite).y}, 1.5, game->rtex);
+    }
 }

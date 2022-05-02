@@ -376,7 +376,7 @@ static inline void sftext_set_string_malloc(sfText *t, char *str)
 
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
-void launch_combat(void);
+void launch_combat(window_t *win);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
 
 void draw_quest(game_t *game, sfRenderWindow *win);
@@ -409,5 +409,7 @@ void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);
 int other_are_rushing(list_t *enemies, enemy_t *exclude);
+
+void unblock_pl(ray_c *data, npc_t *player, level_t *level);
 
 #endif

@@ -66,8 +66,6 @@ static void poll_events(window_t *win)
             set_next_win_state(win, EXIT);
         if (win->event[win->state])
             win->event[win->state](win, ev);
-        if (sfKeyboard_isKeyPressed(sfKeyF))
-            set_next_win_state(win, FIGHT);
     }
     if (win->state == SETTINGS && !win->is_transition)
         check_sound_repeat(win, &ev);

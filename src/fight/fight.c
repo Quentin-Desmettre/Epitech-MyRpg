@@ -23,7 +23,11 @@ const sfTexture *draw_fight(window_t *win)
         change_to_prop(fight->tex, fight->solid[i], win);
     sfRenderTexture_display(fight->tex);
     move_blocs(fight, win);
-    draw_game_bar(fight->tex, 
+    if (fight->nme <= 0) {
+        add_xp(win->menus[GAME], 2);
+        set_next_win_state(win, GAME);
+    }
+    draw_game_bar(fight->tex,
     (sfVector2f){w_size.x / 50, w_size.y / 20}, (sfVector2f){w_size.x / 6
     , w_size.y / 25}, (sfVector2f){info.health_percent, 0});
     dis_circle(fight, win);
