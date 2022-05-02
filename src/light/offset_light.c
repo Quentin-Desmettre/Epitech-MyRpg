@@ -61,25 +61,33 @@ void change_form(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
     move_cam(game, size_win, tmp, data);
 }
 
+void change_room_y(game_t *game, ray_c *data, sfVector2f pos)
+{
+    if (pos.y < 0) {
+        pos.y = (game->level->size.x + 2) * data->cell - data->cell * 1.5;
+        data->off_view.y = -pos.y;
+        sfSprite_setPosition(game->player->sprite, pos);
+        new_room(game, data);
+    } else if ((game->level->size.y + 2) * data->cell < pos.x) {
+        pos.x = data->cell * 1.5;
+        data->off_view.x = -pos.x + 500;
+        sfSprite_setPosition(game->player->sprite, pos);
+        new_room(game, data);
+    }
+}
+
 void change_room(game_t *game, ray_c *data, sfVector2f pos)
 {
     if (pos.x < 0) {
-        new_room(game, data);
-        pos.x = (game->level->size.y + 1) * data->cell - data->cell / 2;
+        pos.x = (game->level->size.y + 2) * data->cell - data->cell * 1.5;
         data->off_view.x = -pos.x;
-    } else if ((game->level->size.x + 2) * data->cell < pos.y) {
+        sfSprite_setPosition(game->player->sprite, pos);
         new_room(game, data);
+    } else if ((game->level->size.x + 2) * data->cell < pos.y) {
         pos.y = data->cell * 1.5;
         data->off_view.y = -pos.y + 500;
-    }
-    if (pos.y < 0) {
+        sfSprite_setPosition(game->player->sprite, pos);
         new_room(game, data);
-        pos.y = (game->level->size.x + 1) * data->cell - data->cell / 2;
-        data->off_view.y = -pos.y;
-    } else if ((game->level->size.y + 2) * data->cell < pos.x) {
-        new_room(game, data);
-        pos.x = data->cell * 1.5;
-        data->off_view.x = -pos.x + 500;
     }
-    sfSprite_setPosition(game->player->sprite, pos);
+    change_room_y(game, data, pos);
 }

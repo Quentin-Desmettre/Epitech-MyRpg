@@ -15,10 +15,10 @@ sfVector2f size, sfVector2f types)
     sfIntRect const f_rect = bars_frames[1 + type];
     sfIntRect filled_rect = {f_rect.left, f_rect.top,
     f_rect.width * percent, f_rect.height};
-    sfSprite *frame = init_sprite(bars_texture(), bars_frames[5], size);
+    sfSprite *frame = init_sprite(bars_texture(), bars_frames[7], size);
     sfSprite *filled = init_sprite(bars_texture(), filled_rect,
     (sfVector2f){size.x * percent, size.y});
-    sfSprite *logo = init_sprite(bars_texture(), bars_frames[3 + type],
+    sfSprite *logo = init_sprite(bars_texture(), bars_frames[4 + type],
     (sfVector2f){size.y, size.y});
 
     sfSprite_setPosition(frame, pos);
@@ -41,7 +41,7 @@ void draw_xp(game_t *game, window_t *win)
     sfVector2f size = {w_size.x / 8, w_size.y / 25};
     float percent = get_xp_percent(game->player);
 
-    draw_game_bar(game->rtex, pos, size, (sfVector2f){percent, 1});
+    draw_game_bar(game->rtex, pos, size, (sfVector2f){percent, 2});
     pos.y -= size.y + w_size.y / 60;
     draw_game_bar(game->rtex, pos, size,
     (sfVector2f){infos.m_health_percent, 1});

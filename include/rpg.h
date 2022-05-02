@@ -110,8 +110,10 @@ static const sfIntRect bars_frames[] = {
     {131, 0, 380, 100},
     {131, 101, 380, 100},
     {131, 202, 380, 100},
+    {131, 404, 380, 100},
     {0, 0, 130, 120},
     {0, 142, 126, 120},
+    {0, 284, 126, 120},
     {131, 303, 380, 100}
 };
 
@@ -416,7 +418,7 @@ static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
 
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
-void launch_combat(void);
+void launch_combat(window_t *win);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
 
 void draw_quest(game_t *game, sfRenderWindow *win);
@@ -437,6 +439,14 @@ void find_exit_event(game_t *game);
 
 // fight
 const sfTexture *draw_fight(window_t *win);
+void fight_ev(window_t *win, sfEvent ev);
+void move_pl_fight(fight_t *fight, window_t *win);
+void move_blocs(fight_t *fight, window_t *win);
+void change_to_prop(sfRenderTexture *tex , sfRectangleShape *rec
+, window_t *win);
+void change_to_prop_c(sfRenderTexture *tex , sfCircleShape *crl, window_t *win);
+void change_to_prop_s(sfRenderTexture *tex , sfSprite *ply, window_t *win);
+
 void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);
@@ -444,5 +454,7 @@ int other_are_rushing(list_t *enemies, enemy_t *exclude);
 void give_quest(quest_data_t *q, int d);
 path_t *create_path(char **map, sfVector2u map_size);
 int rnd_quest(quest_data_t *current_quests);
+
+void unblock_pl(ray_c *data, npc_t *player, level_t *level);
 
 #endif

@@ -24,12 +24,14 @@ sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
     (size.x + 1) * data->cell + data->cell / 2};
     sfVector2f map_pos;
     sfVector2f base_pos = sfSprite_getPosition(npc->sprite);
+    sfVector2f pl_pos = sfSprite_getPosition(g->player->sprite);
 
     do {
         map_pos.x = my_rand(data->cell, max.x);
         map_pos.y = my_rand(data->cell, max.y);
         sfSprite_setPosition(npc->sprite, map_pos);
-    } while (is_pnj_colliding(data, npc, g->level));
+    } while (is_pnj_colliding(data, npc, g->level) ||
+    dist_between(g->player->sprite, npc->sprite) < 4 * data->cell);
     sfSprite_setPosition(npc->sprite, base_pos);
     return map_pos;
 }

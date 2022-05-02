@@ -12,8 +12,8 @@ void draw_wall(ray_c *data, int i, int j, game_t *game)
     coo_t size = game->level->size;
 
     if (data->map[i][j] != '1') {
-        sfSprite_setPosition(data->floor, (coo_t){i * data->cell, j * data->
-        cell + data->cell / 2});
+        sfSprite_setPosition(data->floor, (coo_t){i * data->cell + ADD_RAND
+        , j * data->cell + data->cell / 2 + ADD_RAND});
         return sfRenderTexture_drawSprite(data->tex_light, data->floor, 0);
     }
     if (size.x + 2 > j + 1 && data->map[i][j + 1] != '1') {
@@ -25,8 +25,8 @@ void draw_wall(ray_c *data, int i, int j, game_t *game)
         if (size.y + 2 > i + 1 && data->map[i + 1][j] != '1' && 0 < i - 1 &&
         data->map[i - 1][j] != '1')
             sfSprite_setTextureRect(data->wall, (sfIntRect){192, 0, 64, 64});
-        sfSprite_setPosition(data->wall, (coo_t){i * data->cell, (j + 1) * data
-        ->cell});
+        sfSprite_setPosition(data->wall, (coo_t){i * data->cell, (j + 1) *
+        data->cell});
         sfRenderTexture_drawSprite(data->tex_light, data->wall, 0);
     }
 }

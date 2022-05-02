@@ -107,8 +107,9 @@ SRC = \
 	src/skills/init_skills.c                           \
 	src/fight/fight.c                                  \
 	src/fight/movement_fight.c                         \
-	src/fight/patern.c                                 \
 	src/fight/random.c                                 \
+	src/fight/contact.c                                \
+	src/fight/draw_fight.c                             \
 	src/fight/set_fight.c                              \
 	src/skills/find_exit.c                             \
 	src/skills/sprint.c                                \
