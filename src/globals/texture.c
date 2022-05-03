@@ -15,21 +15,3 @@ sfTexture *global_texture(void)
         t = sfTexture_createFromFile(GLOBAL_TEXTURE, NULL);
     return t;
 }
-
-sfTexture *player_texture(void)
-{
-    static sfTexture *t = 0;
-
-    if (!t)
-        t = sfTexture_createFromFile("assets/player.png", NULL);
-    return t;
-}
-
-sfTexture *bars_texture(void)
-{
-    static sfTexture *t = 0;
-
-    if (!t)
-        t = sfTexture_createFromFile("assets/bars.png", NULL);
-    return t;
-}

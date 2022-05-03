@@ -24,6 +24,7 @@ void free_choose_save(choose_save_t *c)
         destroy_button(c->buttons[i]);
     if (c->create_save)
         destroy_create_save((void **)(&c->create_save));
+    sfTexture_destroy((sfTexture *)sfSprite_getTexture(c->hider));
     sfSprite_destroy(c->hider);
     sfRenderTexture_destroy(c->rtex);
     for (int i = 0; i < 3; i++)

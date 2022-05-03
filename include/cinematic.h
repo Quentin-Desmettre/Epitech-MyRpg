@@ -25,4 +25,7 @@ typedef struct cinematic {
     p_clock_t *run_clock;
 } cinematic_t;
 
+void cinematic_ev(window_t *win, sfEvent ev);
+void destroy_cinematic(cinematic_t *cin);
+
 #endif

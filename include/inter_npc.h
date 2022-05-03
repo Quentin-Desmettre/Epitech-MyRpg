@@ -50,7 +50,7 @@ sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc);
 
 void go_to_next_str(interactive_npc_t *npc, game_t *g);
 void draw_npc(game_t *g, ray_c *r);
-void npc_ev(game_t *g, sfEvent ev);
+void npc_ev(game_t *g, sfEvent ev, int tmp);
 void set_current_string(sfText *text, char **words, int index);
 void set_string(interactive_npc_t *i, char const *dialog);
 

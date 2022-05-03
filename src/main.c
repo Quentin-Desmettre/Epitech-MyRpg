@@ -25,6 +25,7 @@ static void win_destroy(window_t *win)
         destroy_sound(win->close_sfx);
     destroy_musics();
     destroy_sounds();
+    destroy_cinematic(win->menus[CINE]);
     free(win);
 }
 

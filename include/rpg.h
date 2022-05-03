@@ -422,7 +422,7 @@ sfVector2f size, sfVector2f types);
 const sfTexture *draw_cinematic(window_t *win);
 void anim_cine(cinematic_t *cine, window_t *win, float size);
 void cine_flash(cinematic_t *cine);
-cinematic_t *create_cinematic(void);
+cinematic_t *create_cinematic(sfColor pl);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

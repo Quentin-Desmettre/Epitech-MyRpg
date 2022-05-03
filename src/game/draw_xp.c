@@ -10,15 +10,15 @@
 void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
 sfVector2f size, sfVector2f types)
 {
-    int type = types.y;
-    float percent = types.x / 100.0;
-    sfIntRect const f_rect = bars_frames[1 + type];
+    sfIntRect const f_rect = bars_frames[1 + (int)types.y];
     sfIntRect filled_rect = {f_rect.left, f_rect.top,
-    f_rect.width * percent, f_rect.height};
-    sfSprite *frame = init_sprite(bars_texture(), bars_frames[7], size);
-    sfSprite *filled = init_sprite(bars_texture(), filled_rect,
-    (sfVector2f){size.x * percent, size.y});
-    sfSprite *logo = init_sprite(bars_texture(), bars_frames[4 + type],
+    f_rect.width * (types.x / 100.0), f_rect.height};
+    sfSprite *frame = init_sprite(get_texture_by_name("assets/bars.png"),
+    bars_frames[7], size);
+    sfSprite *filled = init_sprite(get_texture_by_name("assets/bars.png"),
+    filled_rect, (sfVector2f){size.x * (types.x / 100.0), size.y});
+    sfSprite *logo = init_sprite(get_texture_by_name("assets/bars.png"),
+    bars_frames[4 + (int)types.y],
     (sfVector2f){size.y, size.y});
 
     sfSprite_setPosition(frame, pos);

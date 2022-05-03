@@ -66,5 +66,6 @@ void rush_to_player(enemy_t *e, level_t *l, window_t *win, sfSprite *player)
         restart_clock(e->enemy->move_clock);
         e->enemy->dir = dir_from_v2f(e->mov_vector);
         sfSprite_move(e->enemy->sprite, e->mov_vector);
+        move_splash_particles(e->splash, e->mov_vector);
     }
 }

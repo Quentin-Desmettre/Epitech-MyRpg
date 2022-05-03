@@ -39,7 +39,7 @@ static void create_pointers(window_t *win)
     };
     void (*ev[])(window_t *, sfEvent) = {
         settings_ev, main_menu_ev, NULL, game_ev, NULL, file_select_events,
-        create_save_events, fight_ev, NULL
+        create_save_events, fight_ev, cinematic_ev
     };
     for (int i = 0; i < 9; i++) {
         win->draw[i] = dr[i];
@@ -80,7 +80,7 @@ window_t *window_create(void)
     win->menus[HOME] = create_main_menu(win_size(win));
     win->menus[GAME] = game_create();
     win->menus[LIGHT] = malloc(sizeof(ray_c));
-    win->menus[CINE] = create_cinematic();
+    win->menus[CINE] = create_cinematic(sfWhite);
     win->menus[SELECT_SAVE] = create_choose_save(win_size(win));
     set_game_light(win->menus[LIGHT], win->menus[GAME]);
     apply_settings(win->menus[SETTINGS], win);

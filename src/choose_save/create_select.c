@@ -51,6 +51,8 @@ void launch_file(void *win)
     g->player->defense = infos.stamina;
     g->player->health = infos.health_percent;
     set_next_win_state(win, CINE);
+    sfSprite_setColor(((cinematic_t *)w->menus[CINE])->npc[0]->sprite,
+    infos.skin_comb);
     restart_clock(cine->clock);
     lazy_room(win);
 }

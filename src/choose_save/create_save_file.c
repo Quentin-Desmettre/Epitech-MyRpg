@@ -91,7 +91,7 @@ gui_player_t *create_gui_player(char const *file, sfVector2f win_size)
     sfTexture_setRepeated(tex, 1);
     g->border = init_sprite(tex, (sfIntRect){0, 0, size.x, size.y}, size);
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
-    g->skin = init_sprite(player_texture(),
+    g->skin = init_sprite(get_texture_by_name("assets/player.png"),
     pl_rect_idle[0], (sfVector2f){1, 1});
     g->stats_img = sfSprite_create();
     sfSprite_setTexture(g->stats_img, global_texture(), 0);

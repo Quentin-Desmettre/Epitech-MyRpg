@@ -7,8 +7,26 @@
 
 #include "rpg.h"
 
+void scale_pause(pause_t *p)
+{
+    sfVector2f win_s = win_size(window(NULL));
+    float but_size;
+
+    sfRectangleShape_setSize(p->hider, win_s);
+    for (int i = 0; i < 3; i++) {
+        p->buttons[i]->container_size = win_s;
+        update_button(p->buttons[i]);
+    }
+    but_size = p->buttons[2]->size.x;
+    p->buttons[2]->size.y = but_size;
+    set_sprite_size(p->buttons[2]->sprite, p->buttons[2]->size);
+    p->buttons[2]->pos.y = p->buttons[2]->pos.x;
+    sfSprite_setPosition(p->buttons[2]->sprite, p->buttons[2]->pos);
+}
+
 void draw_pause(pause_t *p, sfRenderTexture *rtex)
 {
+    scale_pause(p);
     sfRenderTexture_drawRectangleShape(rtex, p->hider, NULL);
     for (int i = 0; i < 3; i++)
         draw_button_to_rtex(p->buttons[i], rtex);

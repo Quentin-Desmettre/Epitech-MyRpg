@@ -31,6 +31,9 @@ void pause_exit(void *win)
     switch_clocks();
     GET_GAME(w)->is_paused = 0;
     lazy_room(win);
+    sfSprite_setPosition(GET_GAME(w)->player->sprite, (sfVector2f){128, 128});
+    destroy_cinematic(w->menus[CINE]);
+    w->menus[CINE] = create_cinematic(sfWhite);
     set_next_win_state(win, HOME);
 }
 

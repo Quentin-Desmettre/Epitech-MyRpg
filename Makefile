@@ -118,6 +118,7 @@ SRC = \
 	src/cinematic/create.c                             \
 	src/cinematic/anim.c                               \
 	src/cinematic/draw.c                               \
+	src/cinematic/cine_ev.c                            \
 	src/main.c                                         \
 	src/free.c
 

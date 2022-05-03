@@ -78,21 +78,26 @@ interactive_npc_t *create_quest_npc(int dialog, game_t *g, ray_c *r)
     for (int j = 0; j < 2; j++) {
         i->option_dialogs[j] = init_text(j ? "No" : "Yes", win_s.x * 0.04);
         sfText_setPosition(i->option_dialogs[j],
-        (sfVector2f){win_s.x * 0.84, win_s.y * (0.68 + j * 0.07)});
+        (sfVector2f){win_s.x * 0.84, win_s.y * 0.68 + win_s.x * 0.05 * j});
         i->second_dialogs[j] = (j ? quest_canceled : quest_accepted);
     }
     i->quest_to_give = dialog;
     i->type = QUEST;
+    sfSprite_setScale(i->npc->sprite, (sfVector2f){1.2 / 1080 * win_s.y
+    , 1.2 / 1080 * win_s.y});
     return i;
 }
 
 interactive_npc_t *create_talk_npc(game_t *g, ray_c *r)
 {
     interactive_npc_t *i = malloc(sizeof(interactive_npc_t));
+    sfVector2f size_win = win_size(window(NULL));
 
     memset(i, 0, sizeof(interactive_npc_t));
     i->base_dialog = npc_texts[rand() % NB_TEXTS];
     setup_base(i, g, r);
+    sfSprite_setScale(i->npc->sprite, (sfVector2f){1.2 / 1080 * size_win.y
+    , 1.2 / 1080 * size_win.y});
     i->type = TALK;
     return i;
 }

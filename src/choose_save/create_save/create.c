@@ -78,7 +78,8 @@ sfVector2f p_size, sfVector2f size)
     c->rtex = sfRenderTexture_create(size.x, size.y, 0);
     c->stats = init_sprite_from_texture(global_texture());
     c->background = init_sprite_from_texture(global_texture());
-    c->skin = init_sprite(player_texture(), pl_rect_idle[0], p_size);
+    c->skin = init_sprite(get_texture_by_name("assets/player.png"),
+    pl_rect_idle[0], p_size);
     center_sprite(c->skin);
     sfSprite_setPosition(c->skin, p_pos);
     c->skin_back = create_rectangle(p_size, sfBlack,

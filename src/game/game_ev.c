@@ -28,6 +28,7 @@ static void show_menus_ev(sfEvent ev, game_t *game)
         game->quest->draw = !game->quest->draw;
     if (ev.key.code == sfKeyJ)
         game->skills->draw = !game->skills->draw;
+    npc_ev(game, ev, 0);
 }
 
 static void debug_ev(sfEvent ev, window_t *win, game_t *game)
@@ -73,7 +74,6 @@ void game_ev(window_t *win, sfEvent ev)
             cry_event(game);
         if (ev.key.code == sfKeyF)
             find_exit_event(game);
-        npc_ev(game, ev);
         show_menus_ev(ev, game);
         debug_ev(ev, win, game);
     }

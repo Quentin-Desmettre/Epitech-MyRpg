@@ -44,9 +44,10 @@ void go_to_next_str(interactive_npc_t *npc, game_t *g)
     if (!n->dialog[n->cur_diag_i + 1] ||
     !n->dialog[n->cur_diag_i + 2] || !n->dialog[n->cur_diag_i + 3]) {
         if (!n->has_query ||
-        !my_strncmp(sfText_getString(n->current_dialog), quest_canceled, 10))
+        !my_strncmp(sfText_getString(n->current_dialog), quest_canceled, 10)) {
             g->is_talking = 0;
-        else {
+            switch_clocks();
+        } else {
             set_string(n, n->query_dialog);
             n->is_querying = 1;
             move_arrow(n, 0);
@@ -76,13 +77,13 @@ void draw_npc(game_t *g, ray_c *r)
     }
 }
 
-void npc_ev(game_t *g, sfEvent ev)
+void npc_ev(game_t *g, sfEvent ev, int tmp)
 {
     interactive_npc_t *npc = g->npc;
-    int tmp;
 
-    if (ev.key.code == sfKeyEnter && !g->is_talking &&
-    dist_between(npc->npc->sprite, g->player->sprite) < 30) {
+    if (ev.key.code == sfKeyEnter && !g->is_talking && !other_are_rushing(g->
+    enemies, NULL) && dist_between(npc->npc->sprite, g->player->sprite) < 30) {
+        switch_clocks();
         if (npc->type == QUEST && npc->quest_to_give < 0) {
             tmp = rnd_quest(g->quest);
             npc->base_dialog = (tmp > 0) ? quests_texts[tmp - 1] : no_quests;
