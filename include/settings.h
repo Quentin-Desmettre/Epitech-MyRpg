@@ -16,6 +16,8 @@
     #include <SFML/Audio.h>
     #define ALL_FLAGS S_IROTH | S_IRGRP | S_IRUSR | S_IWUSR | S_IWGRP | S_IWOTH
     #define BOUNDS(s) (sfSprite_getGlobalBounds(s))
+    #define set_music_vol(x) music_vol(1, x)
+    #define set_sound_vol(x) sound_vol(1, x)
 
 typedef struct {
     sfSprite *box;
@@ -95,5 +97,24 @@ void music_minus(settings_t *se);
 void music_plus(settings_t *se);
 void update_all_texts(settings_t *se);
 void reset_set_buttons(settings_t *se);
+list_t **sound_list(void);
+list_t **music_list(void);
+float music_vol(int change, float new);
+float sound_vol(int change, float new);
+
+static inline void sftext_set_string_malloc(sfText *t, char *str)
+{
+    sfText_setString(t, str);
+    free(str);
+}
+
+static inline float get_music_vol(void)
+{
+    return music_vol(0, 0);
+}
+static inline float get_sound_vol(void)
+{
+    return sound_vol(0, 0);
+}
 
 #endif

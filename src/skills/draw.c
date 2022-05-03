@@ -103,6 +103,7 @@ void draw_skills(game_t *game, window_t *win)
 {
     sfVector2f size = win_size(win);
     float indent = 244 * (SCALE(size));
+    float s = 118 * SCALE(size);
 
     if (!game->skills->draw)
         return;
@@ -113,8 +114,7 @@ void draw_skills(game_t *game, window_t *win)
     sfSprite_setPosition(game->skills->button,
     (sfVector2f){size.x / 2 + 292 / 1080.0 * size.y, size.y * 0.475});
     sfRenderTexture_drawSprite(game->rtex, game->skills->button, NULL);
-    sfRectangleShape_setSize(game->skills->rect,
-    (sfVector2f){118 * SCALE(size), 118 * SCALE(size)});
+    sfRectangleShape_setSize(game->skills->rect, (sfVector2f){s, s});
     draw_skills2(game, size, indent);
     draw_points(game, size, indent);
 }

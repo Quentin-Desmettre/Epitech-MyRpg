@@ -9,13 +9,19 @@
     #define NPC_TEXTS_H_
     #include "player.h"
 
+__attribute__((unused)) static const sfIntRect *pl_rects[5] = {
+    pl_rect_top, pl_rect_down, pl_rect_left, pl_rect_right, pl_rect_idle
+};
+
 __attribute__((unused)) static const char *quest_canceled = "That's okay, no "
 "problem. I guess I'll just wait for some PartyGoers to end my life.";
 
 __attribute__((unused)) static const char *quest_accepted = "Thank you so much"
 " for accepting my quest.";
+
 __attribute__((unused)) static const char *quest_query = "Will you accept my "
 "request ?";
+
 __attribute__((unused)) static const char *quests_texts[3] = {
     "Here, down in the backrooms, there are a lot of ennemies. Partygoers "
     "especially freaks me out, I can't sleep at night because of them. "
@@ -37,6 +43,7 @@ __attribute__((unused)) static const char *quests_texts[3] = {
     "corpore sano =)) Please take 10 of this pills, so you can escape "
     "from this place safely."
 };
+
 __attribute__((unused)) static const char *no_quests = "Hi, you =) I was "
 "about to give you a quest, "
 "but it looks like you can't carry anymore of them. Before coming back to me, "

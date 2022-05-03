@@ -29,8 +29,6 @@ static void setup_base(interactive_npc_t *i, game_t *g, ray_c *r)
     sfVector2f win_s = win_size(window(NULL));
     sfFloatRect bounds;
     int test[6] = {9, 9, 9, 9, 2, 0};
-    sfIntRect const *pl_rects[5] = {pl_rect_top, pl_rect_down, pl_rect_left,
-    pl_rect_right, pl_rect_idle};
 
     i->current_dialog = init_text("", 10);
     i->npc = npc_create("tnicd", "assets/player.png", test, pl_rects
@@ -47,7 +45,6 @@ static void setup_base(interactive_npc_t *i, game_t *g, ray_c *r)
     sfText_setPosition(i->current_dialog, (sfVector2f){bounds.left +
     bounds.width * 0.06, bounds.top + bounds.height * 0.13});
     set_string(i, i->base_dialog);
-    i->is_querying = 0;
 }
 
 static void quest_npc_create(interactive_npc_t *i, int dialog, sfVector2f win_s)

@@ -38,9 +38,6 @@
     #define _UNDER(x, max) x >= 0 && x < max
     #define ADD_RAND ((data->map[i][j] == '2') ? 10 - (rand() % 20) : 0)
 
-typedef struct back {
-} back;
-
 typedef struct light_t {
     sfVertex vertex;
     sfVertexArray *array;
@@ -55,6 +52,8 @@ typedef struct dir_t {
 } dir_t;
 
 typedef sfVector2f coo_t;
+
+typedef struct win window_t;
 
 typedef struct ray_c {
     coo_t off_view;
@@ -78,22 +77,13 @@ typedef struct ray_c {
 } ray_c;
 
 int set_game_light(ray_c *new, game_t *map);
-
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
-
 void add_light(ray_c *data, sfVector2i pos, float intens, sfRenderTexture *win);
-
 void my_memcpy(void *dest, const void *src, size_t n);
-
 int my_memcmp(void *aa, void *bb, size_t size);
-
 coo_t rotate(coo_t center, coo_t rt, float angle);
-
-typedef struct win window_t;
-
 void draw_map(ray_c *data, game_t *game, window_t *win);
-
 coo_t norm(coo_t vector);
 coo_t rotate(coo_t center, coo_t rt, float angle);
 void lunch_lines(ray_c *data, coo_t p_pos, float intens);

@@ -24,6 +24,7 @@ void cine_flash(cinematic_t *cine)
 void update_cine_sprites(window_t *win, float size)
 {
     cinematic_t *cine = win->menus[CINE];
+    float t = sfSprite_getGlobalBounds(cine->npc[0]->sprite).top;
 
     sfRenderTexture_clear(cine->rtex, sfBlack);
     sfSprite_setTextureRect(cine->npc[0]->sprite,
@@ -38,8 +39,7 @@ void update_cine_sprites(window_t *win, float size)
         sfSprite_setPosition(cine->npc[1]->sprite,
         (sfVector2f){100 * size, 500 * size});
     if (cine->player_state == 0)
-        sfSprite_setPosition(cine->npc[0]->sprite, (sfVector2f){250 * size,
-        sfSprite_getGlobalBounds(cine->npc[0]->sprite).top});
+        sfSprite_setPosition(cine->npc[0]->sprite, (sfVector2f){250 * size, t});
     sfSprite_setScale(cine->wall, (sfVector2f){size, 0.5 * size});
 }
 

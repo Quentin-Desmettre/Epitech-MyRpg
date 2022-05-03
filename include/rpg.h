@@ -33,10 +33,6 @@
     sfMusic *music_func(char *s);
 
     #endif
-    #define get_music_vol() music_vol(0, 0)
-    #define set_music_vol(x) music_vol(1, x)
-    #define get_sound_vol() sound_vol(0, 0)
-    #define set_sound_vol(x) sound_vol(1, x)
 
 list_t **sound_list(void);
 list_t **music_list(void);
@@ -69,6 +65,7 @@ float sound_vol(int change, float new);
     #define MAX_DISTANCE 15
     #define SQRT_2 1.41421356237
     #define XOR(a, b) (((a) || (b)) && (!((a)) || (!(b))))
+    #define PROP (size.y / 1080.0)
 
 typedef struct {
     button_t *buttons[5];
@@ -284,17 +281,13 @@ void rescale_choose_save(choose_save_t *c, sfVector2f size);
 const sfTexture *draw_choose_save(window_t *win);
 void update_buttons_colors(choose_save_t *c);
 void rescale_gui_player(gui_player_t *g, sfVector2f win_size);
-
 void load_saves(choose_save_t *c);
 void create_file(create_save_t *c, window_t *win);
 void update_player_color(create_save_t *c);
 void change_color(create_save_t *c, int button);
-
 void create_save_events(window_t *win, sfEvent ev);
-
 sfTexture *player_texture(void);
 float size_of_char(char what, sfFont *font);
-
 void destroy_line_edit(line_edit_t *le);
 void update_underscore(line_edit_t *le);
 sfSprite *draw_line_edit(line_edit_t *le, sfVector2f pos);
@@ -305,10 +298,8 @@ void append_to_text(sfText *t, char c);
 void remove_last_text(sfText *t);
 void append_ev(sfEvent ev, sfText *base);
 void line_edit_event(line_edit_t *le, sfEvent ev);
-
 sfRectangleShape *create_rectangle(sfVector2f size,
 sfColor fcol, float thick, sfColor ocol);
-
 const sfTexture *draw_choose_save(window_t *win);
 choose_save_t *create_choose_save(sfVector2f win_size);
 void rescale_choose_save(choose_save_t *c, sfVector2f size);
@@ -379,56 +370,20 @@ void draw_xp(game_t *game, window_t *win);
 float get_xp_percent(npc_t *player);
 void remove_xp(game_t *game, int xp);
 void add_xp(game_t *game, int xp);
-
 sfVector2f win_size(window_t *win);
 int dir_from_v2f(sfVector2f vf);
 sfVector2f rand_dir(void);
 sfInt32 my_rand(sfInt32 min, sfInt32 max);
 void rush_to_player(enemy_t *e, level_t *l, window_t *win, sfSprite *);
-
 void update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size);
-
-static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
-{
-    return (sfVector2u){(l->size.y + 1) * data->cell,
-    (l->size.x + 1) * data->cell + data->cell / 2};
-}
-static inline sfVector2u graphic_pos_to_map(sfVector2f graphic_pos,
-sfVector2u graphic_size, sfVector2u logic_size, float cell)
-{
-    return (sfVector2u){
-        graphic_pos.y * logic_size.y / graphic_size.y,
-        (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x
-    };
-}
-static inline float deg_to_rad(float degree)
-{
-    return degree * PI / 180.0;
-}
-static inline sfVector2f *alloc_v2f(float x, float y)
-{
-    sfVector2f *v = malloc(sizeof(sfVector2f));
-
-    v->x = x;
-    v->y = y;
-    return v;
-}
-static inline void sftext_set_string_malloc(sfText *t, char *str)
-{
-    sfText_setString(t, str);
-    free(str);
-}
-
 int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
 void launch_combat(window_t *win);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
-
 void draw_quest(game_t *game, sfRenderWindow *win);
 void quest_init(game_t *game);
 void ev_quest(game_t *game, sfEvent ev, sfRenderWindow *win);
 void rotate_vector(sfVector2f *vec, float degree);
-
 void draw_skills(game_t *game, window_t *win);
 void skills_events(game_t *game, sfEvent ev, sfVector2f size);
 void scale_draw(game_t *game, sfVector2f scale);
@@ -449,7 +404,6 @@ void change_to_prop(sfRenderTexture *tex , sfRectangleShape *rec
 , window_t *win);
 void change_to_prop_c(sfRenderTexture *tex , sfCircleShape *crl, window_t *win);
 void change_to_prop_s(sfRenderTexture *tex , sfSprite *ply, window_t *win);
-
 void destroy_npc(npc_t *n);
 void destroy_pause(pause_t *p);
 void destroy_level(level_t *l);
@@ -461,6 +415,43 @@ void unblock_pl(ray_c *data, npc_t *player, level_t *level);
 interactive_npc_t *create_quest_npc(int dialog, game_t *g, ray_c *r);
 interactive_npc_t *create_talk_npc(game_t *g, ray_c *r);
 void destroy_interactive_npc(interactive_npc_t *i);
+int pnj_colliding2(npc_t *player, int i, int j, ray_c *data);
+void change_pos(fight_t *fight);
+void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
+sfVector2f size, sfVector2f types);
+cinematic_t *create_cinematic(window_t *win);
+const sfTexture *draw_cinematic(window_t *win);
+void anim_cine(cinematic_t *cine, window_t *win, float size);
+void cine_flash(cinematic_t *cine);
+
+static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
+{
+    return (sfVector2u){(l->size.y + 1) * data->cell,
+    (l->size.x + 1) * data->cell + data->cell / 2};
+}
+
+static inline sfVector2u graphic_pos_to_map(sfVector2f graphic_pos,
+sfVector2u graphic_size, sfVector2u logic_size, float cell)
+{
+    return (sfVector2u){
+        graphic_pos.y * logic_size.y / graphic_size.y,
+        (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x
+    };
+}
+
+static inline float deg_to_rad(float degree)
+{
+    return degree * PI / 180.0;
+}
+
+static inline sfVector2f *alloc_v2f(float x, float y)
+{
+    sfVector2f *v = malloc(sizeof(sfVector2f));
+
+    v->x = x;
+    v->y = y;
+    return v;
+}
 
 static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
 {
@@ -468,15 +459,5 @@ static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
     return (!(rand() % 3) || 1) ? create_quest_npc(rnd_quest(game->quest), game,
     light) : create_talk_npc(game, light);
 }
-
-int pnj_colliding2(npc_t *player, int i, int j, ray_c *data);
-void change_pos(fight_t *fight);
-void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
-sfVector2f size, sfVector2f types);
-
-cinematic_t *create_cinematic(window_t *win);
-const sfTexture *draw_cinematic(window_t *win);
-void anim_cine(cinematic_t *cine, window_t *win, float size);
-void cine_flash(cinematic_t *cine);
 
 #endif

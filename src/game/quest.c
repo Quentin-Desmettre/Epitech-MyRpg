@@ -7,7 +7,6 @@
 
 #include "rpg.h"
 #include "player.h"
-#define PROP (size.y / 1080.0)
 
 void secev_quest(game_t *game, sfRenderWindow *win)
 {
