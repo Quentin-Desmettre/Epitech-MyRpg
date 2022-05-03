@@ -65,6 +65,10 @@ void set_dmg_pos(fight_t *fight)
 
 void move_blocs(fight_t *fight, window_t *win)
 {
+    if (fight->nme <= 0) {
+        add_xp(win->menus[GAME], 2);
+        set_next_win_state(win, GAME);
+    }
     for (int i = 0; i < DMG; i++) {
         if (get_elapsed_time(fight->time[i]) / 1000000.0 >
         fight->rand_time[i]) {

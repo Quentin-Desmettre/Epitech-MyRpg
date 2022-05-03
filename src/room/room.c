@@ -94,8 +94,7 @@ void new_room(game_t *game, ray_c *light)
     (sfVector2u){(game->level->size.y + 2) * 2, (game->level->size.x + 2) * 2});
     while (game->enemies)
         remove_node(&game->enemies, 0, destroy_enemy);
-    for (int i = 0; i < 10; i++)
-        create_enemy(game, light);
+    for (int i = 0; i < 10; i++, create_enemy(game, light));
     game->npc = create_pnj(game, light);
     unblock_pl(light, game->player, game->level);
 }

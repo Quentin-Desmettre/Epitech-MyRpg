@@ -42,7 +42,6 @@ void move_cam(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
         if (tmp.y < -data->off_view.y + (int)size_win.y / 2)
             data->off_view.y = -tmp.y + (int)size_win.y / 2;
     }
-
     if (data->off_view.y > 0)
         data->off_view.y = 0;
     if (-data->off_view.y > size_win.y)
