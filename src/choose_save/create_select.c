@@ -40,6 +40,7 @@ void launch_file(void *win)
 {
     window_t *w = win;
     choose_save_t *c = w->menus[SELECT_SAVE];
+    cinematic_t *cine = w->menus[CINE];
     game_t *g = w->menus[GAME];
     player_info_t infos = c->saves[c->primary]->infos;
 
@@ -49,7 +50,8 @@ void launch_file(void *win)
     g->player->attack = infos.strength;
     g->player->defense = infos.stamina;
     g->player->health = infos.health_percent;
-    set_next_win_state(win, GAME);
+    set_next_win_state(win, CINE);
+    restart_clock(cine->clock);
     lazy_room(win);
 }
 

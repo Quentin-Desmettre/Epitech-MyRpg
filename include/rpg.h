@@ -22,6 +22,7 @@
     #include "quest.h"
     #include "particles.h"
     #include "inter_npc.h"
+    #include "cinematic.h"
 
     #ifdef DEBUG
 
@@ -95,7 +96,7 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE, FIGHT
+    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE, FIGHT, CINE
 } state_t;
 
 static const sfIntRect back_rect = {
@@ -472,5 +473,10 @@ int pnj_colliding2(npc_t *player, int i, int j, ray_c *data);
 void change_pos(fight_t *fight);
 void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
 sfVector2f size, sfVector2f types);
+
+cinematic_t *create_cinematic(window_t *win);
+const sfTexture *draw_cinematic(window_t *win);
+void anim_cine(cinematic_t *cine, window_t *win, float size);
+void cine_flash(cinematic_t *cine);
 
 #endif

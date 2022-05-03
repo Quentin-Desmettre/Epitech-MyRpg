@@ -115,6 +115,9 @@ SRC = \
 	src/skills/find_exit.c                             \
 	src/skills/sprint.c                                \
 	src/skills/cry.c                                   \
+	src/cinematic/create.c                             \
+	src/cinematic/anim.c                               \
+	src/cinematic/draw.c                               \
 	src/main.c                                         \
 	src/free.c
 
