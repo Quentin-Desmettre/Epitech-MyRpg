@@ -20,8 +20,7 @@
 
     #define DMG 12
 
-typedef struct fight_t
-{
+typedef struct fight_t {
     sfRectangleShape *solid[20];
     sfRectangleShape *dmg[DMG];
     sfRectangleShape *player;
