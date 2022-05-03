@@ -12,19 +12,13 @@ void destroy_inventory(inventory_t *inventory)
 {
     sfSprite_destroy(inventory->sprite);
     free(inventory->data);
-    for (int i = 0; i < NB_ITEMS; i++) {
-        sfTexture_destroy((sfTexture *)
-        sfSprite_getTexture(inventory->items_sprite[i]));
+    for (int i = 0; i < NB_ITEMS; i++)
         sfSprite_destroy(inventory->items_sprite[i]);
-
-    }
     sfRenderTexture_destroy(inventory->rtex);
     for (int i = 0; i < 4; i++)
         destroy_button(inventory->stat_btns[i]);
-    sfTexture_destroy((sfTexture *)sfSprite_getTexture(inventory->buttons[0]));
     for (int j = 0; j < 2; j++)
         sfSprite_destroy(inventory->buttons[j]);
-    sfTexture_destroy(inventory->texture);
     free(inventory);
 }
 

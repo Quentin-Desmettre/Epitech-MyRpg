@@ -86,8 +86,7 @@ gui_player_t *create_gui_player(char const *file, sfVector2f win_size)
 {
     gui_player_t *g = malloc(sizeof(gui_player_t));
     sfVector2f size = {win_size.x * ((1 - SPACING * 4) / 3), win_size.y * 0.65};
-    sfTexture *tex = sfTexture_createFromFile("assets/floor_wall/"
-    "floor_office.png", NULL);
+    sfTexture *tex = get_texture_by_name(FLOOR_OFFICE);
 
     sfTexture_setRepeated(tex, 1);
     g->border = init_sprite(tex, (sfIntRect){0, 0, size.x, size.y}, size);

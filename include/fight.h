@@ -44,12 +44,14 @@ void inverse_pattern(int *pattern, int size);
 
 int touch_solid(sfFloatRect rect, fight_t *fight);
 void change_axe(fight_t *fight, int number);
-void move_by(fight_t *fight, sfRenderWindow *win);
+void move_by(fight_t *fight);
 void fill_ran_double(int size, sfVector2f *dir);
-void set_dmg_pos(fight_t *fight, sfRenderWindow *win);
+void set_dmg_pos(fight_t *fight);
 fight_t *init_fight(void);
 void destroy_fight(fight_t *fight);
 float side_solid(sfFloatRect rect, fight_t *fight, int left);
 float up_solid(sfFloatRect rect, fight_t *fight, int top);
+void dis_circle(fight_t *fight, window_t *win);
+int touch_dmg(sfFloatRect rect, fight_t *fight);
 
 #endif

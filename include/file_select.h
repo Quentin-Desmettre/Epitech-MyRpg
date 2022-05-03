@@ -25,9 +25,9 @@ void (*functions[4])(void *) = {
 };
 
 char *files[3] = {
-    "./saves/save1",
-    "./saves/save2",
-    "./saves/save3"
+    "saves/save1",
+    "saves/save2",
+    "saves/save3"
 };
 
 #endif

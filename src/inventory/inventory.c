@@ -64,11 +64,11 @@ void items_create(inventory_t *inventory, sfVector2f size)
 
     for (int i = 0; i < NB_ITEMS; i++) {
         inventory->items_sprite[i] = sfSprite_create();
-        texture = sfTexture_createFromFile(items_paths[i], NULL);
+        texture = get_texture_by_name(items_paths[i]);
         sfSprite_setTexture(inventory->items_sprite[i], texture, sfTrue);
     }
     inventory->rtex = sfRenderTexture_create(1920, 1080, 0);
-    texture = sfTexture_createFromFile(I_BUTTON_PATH, NULL);
+    texture = get_texture_by_name(I_BUTTON_PATH);
     inventory->buttons[0] = sfSprite_create();
     inventory->buttons[1] = sfSprite_create();
     sfSprite_setTexture(inventory->buttons[0], texture, sfTrue);
@@ -92,7 +92,7 @@ inventory_t *inventory_create(void)
     memset(inventory->data->items, -1, sizeof(int) * INVENTORY_SIZE);
     memset(inventory->data->nb_items, 0, sizeof(int) * INVENTORY_SIZE);
     inventory->sprite = sfSprite_create();
-    inventory->texture = sfTexture_createFromFile(INVENTORY_PATH, NULL);
+    inventory->texture = get_texture_by_name(INVENTORY_PATH);
     sfSprite_setTexture(inventory->sprite, inventory->texture, sfTrue);
     size = sfTexture_getSize(inventory->texture);
     inventory->rect.left = inventory->pos.x;

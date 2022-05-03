@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
+#include "rpg.h"
 
 void change_axe(fight_t *fight, int number)
 {
@@ -13,16 +13,14 @@ void change_axe(fight_t *fight, int number)
     fight->dir[number].y = -fight->dir[number].y;
 }
 
-void move_by(fight_t *fight, sfRenderWindow *win)
+void move_by(fight_t *fight)
 {
-    sfVector2f pos;
     sfFloatRect tmp;
     float time;
 
     time = get_elapsed_time(fight->speed) / 10000.0;
     restart_clock(fight->speed);
     for (int i = 0; i < DMG; i++) {
-        pos = sfRectangleShape_getPosition(fight->dmg[i]);
         tmp = sfRectangleShape_getGlobalBounds(fight->dmg[i]);
         tmp.top += fight->dir[i].y * time * 0.7;
         tmp.left += fight->dir[i].x * time * 0.7;
@@ -53,7 +51,7 @@ void fill_ran_double(int size, sfVector2f *dir)
     }
 }
 
-void set_dmg_pos(fight_t *fight, sfRenderWindow *win)
+void set_dmg_pos(fight_t *fight)
 {
     for (int i = 0; i < DMG; i++) {
         do {
@@ -76,5 +74,5 @@ void move_blocs(fight_t *fight, window_t *win)
         }
     }
     move_pl_fight(fight, win);
-    move_by(fight, win->win);
+    move_by(fight);
 }

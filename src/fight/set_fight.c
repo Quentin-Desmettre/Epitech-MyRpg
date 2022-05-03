@@ -5,16 +5,13 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
+#include "rpg.h"
 
 void change_pos(fight_t *fight)
 {
-    int randy = 0;
-
     for (int i = 0; i < 20; i++) {
-        randy = 6 + rand() % 6;
         sfRectangleShape_setPosition(fight->solid[i], (sfVector2f){100 * (1 +
-        rand() % 12) + 20, 100 * (randy == 6 ? 6 + rand() % 6 : randy)});
+        rand() % 12) + 20, 100 * (7 + rand() % 5)});
     }
     for (int i = 0; i < DMG; i++) {
         do {
@@ -33,10 +30,7 @@ void change_pos(fight_t *fight)
 
 void set_blocks(fight_t *fight)
 {
-    int randy = 0;
-
     for (int i = 0; i < 20; i++) {
-        randy = 6 + rand() % 6;
         fight->solid[i] = sfRectangleShape_create();
         sfRectangleShape_setSize(fight->solid[i], (sfVector2f){200, 100});
         sfRectangleShape_setFillColor(fight->solid[i], sfWhite);

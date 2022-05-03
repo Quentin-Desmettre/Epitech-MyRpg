@@ -45,10 +45,10 @@ void skills_events(game_t *game, sfEvent ev, sfVector2f size)
 
 void skills_create2(skills_t *skills)
 {
-    sfTexture *texture = sfTexture_createFromFile(S_BUTTON_PATH, NULL);
+    sfTexture *texture = get_texture_by_name(S_BUTTON_PATH);
 
     skills->sprite = sfSprite_create();
-    skills->texture = sfTexture_createFromFile(SKILLS_PATH, NULL);
+    skills->texture = get_texture_by_name(SKILLS_PATH);
     sfSprite_setTexture(skills->sprite, skills->texture, sfTrue);
     sfSprite_setOrigin(skills->sprite, (sfVector2f){sfTexture_getSize
     (skills->texture).x / 2, sfTexture_getSize(skills->texture).y / 2});
@@ -63,22 +63,16 @@ void skills_create2(skills_t *skills)
 
 void destroy_skills(skills_t *s)
 {
-    sfTexture_destroy((sfTexture *)sfSprite_getTexture(s->button));
     sfSprite_destroy(s->button);
     for (int i = 0; i < NB_SKILLS; i++)
         destroy_clock(s->clocks[i]);
     free(s->data);
     sfRectangleShape_destroy(s->rect);
     for (int i = 0; i < NB_SKILLS; i++) {
-        sfTexture_destroy((sfTexture *)
-        sfSprite_getTexture(s->sk_sprites[i][0]));
         sfSprite_destroy(s->sk_sprites[i][0]);
-        sfTexture_destroy((sfTexture *)
-        sfSprite_getTexture(s->sk_sprites[i][1]));
         sfSprite_destroy(s->sk_sprites[i][1]);
     }
     sfSprite_destroy(s->sprite);
-    sfTexture_destroy(s->texture);
     free(s);
 }
 
@@ -93,9 +87,9 @@ skills_t *skills_create(void)
     for (int i = 0; i < NB_SKILLS; i++) {
         skills->sk_sprites[i][0] = sfSprite_create();
         skills->sk_sprites[i][1] = sfSprite_create();
-        texture = sfTexture_createFromFile(sk_white_paths[i], NULL);
+        texture = get_texture_by_name(sk_white_paths[i]);
         sfSprite_setTexture(skills->sk_sprites[i][0], texture, sfTrue);
-        texture = sfTexture_createFromFile(sk_paths[i], NULL);
+        texture = get_texture_by_name(sk_paths[i]);
         sfSprite_setTexture(skills->sk_sprites[i][1], texture, sfTrue);
     }
     skills_create2(skills);

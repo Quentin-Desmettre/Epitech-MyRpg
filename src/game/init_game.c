@@ -23,6 +23,8 @@ void destroy_game(game_t *game)
     destroy_pause(game->pause);
     destroy_skills(game->skills);
     quest_destroy(game->quest);
+    destroy_path(game->path);
+    destroy_interactive_npc(game->npc);
     free(game);
 }
 
@@ -84,7 +86,7 @@ game_t *game_create(void)
     memset(game, 0, sizeof(game_t));
     quest_init(game);
     game->rtex = sfRenderTexture_create(1920, 1080, 0);
-    game->player = npc_create("tnicp", "./assets/player.png", test, pl_rects
+    game->player = npc_create("tnicp", "assets/player.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, (sfVector2f){128, 128});
     sfSprite_setOrigin(game->player->sprite, (sfVector2f){32, 32});
     game->level = level_create("dnts", 0, LOBBY_NAME, LOBBY_TEXT, BIG);
@@ -93,5 +95,6 @@ game_t *game_create(void)
     game->clock = create_clock();
     game->flash_clock = create_clock();
     game->rush_music = create_music(RUSH_MUSIC);
+    game->npc = NULL;
     return game;
 }

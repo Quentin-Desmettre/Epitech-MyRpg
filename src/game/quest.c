@@ -87,7 +87,6 @@ void draw_quest(game_t *game, sfRenderWindow *win)
 
 void quest_destroy(quest_data_t *q)
 {
-    sfTexture_destroy(q->textr);
     sfSprite_destroy(q->back);
     sfText_destroy(q->name);
     sfText_destroy(q->desc);
@@ -143,7 +142,6 @@ void quest_init(game_t *game)
 {
     quest_data_t *quest = malloc(sizeof(quest_data_t));
 
-    quest = malloc(sizeof(quest_data_t));
     quest->draw = 0;
     quest->selec = create_rectangle((sfVector2f){0, 0},
     sfWhite, 0, sfBlack);
@@ -155,7 +153,7 @@ void quest_init(game_t *game)
         quest->quests[i].finish = 0;
     }
     quest->quests[0].check = 1;
-    quest->textr = sfTexture_createFromFile("assets/quest.png", NULL);
+    quest->textr = get_texture_by_name(QUEST_PNG);
     quest->back = sfSprite_create();
     sfSprite_setTexture(quest->back, quest->textr, sfTrue);
     sfSprite_setOrigin(quest->back, (sfVector2f){942 / 2, 720 / 2});

@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
+#include "rpg.h"
 
 const sfTexture *draw_fight(window_t *win)
 {
@@ -36,8 +36,6 @@ const sfTexture *draw_fight(window_t *win)
 
 void fight_ev(window_t *win, sfEvent ev)
 {
-    fight_t *fight = win->menus[FIGHT];
-
     if (ev.type == sfEvtClosed)
         set_next_win_state(win, EXIT);
 }

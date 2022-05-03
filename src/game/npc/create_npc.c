@@ -8,6 +8,22 @@
 #include "rpg.h"
 #include "npc_texts.h"
 
+void destroy_interactive_npc(interactive_npc_t *i)
+{
+    if (!i)
+        return;
+    if (i->dialog)
+        my_free("P", i->dialog);
+    sfText_destroy(i->current_dialog);
+    sfSprite_destroy(i->dialog_arrow);
+    sfSprite_destroy(i->dialog_box);
+    sfSprite_destroy(i->dialog_choose_box);
+    destroy_npc(i->npc);
+    sfText_destroy(i->option_dialogs[0]);
+    sfText_destroy(i->option_dialogs[1]);
+    free(i);
+}
+
 static void setup_base(interactive_npc_t *i, game_t *g, ray_c *r)
 {
     sfVector2f win_s = win_size(window(NULL));
@@ -17,11 +33,11 @@ static void setup_base(interactive_npc_t *i, game_t *g, ray_c *r)
     pl_rect_right, pl_rect_idle};
 
     i->current_dialog = init_text("", 10);
-    i->npc = npc_create("tnicd", "./assets/player.png", test, pl_rects
+    i->npc = npc_create("tnicd", "assets/player.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, IDLE);
     sfSprite_setOrigin(i->npc->sprite, (sfVector2f){32, 32});
     sfSprite_setPosition(i->npc->sprite, rnd_point(g, r, i->npc));
-    i->dialog_box = init_sprite_from_texture(dialog_box());
+    i->dialog_box = init_sprite_from_texture(get_texture_by_name(PNJ_TALK_BOX));
     set_sprite_size(i->dialog_box, (sfVector2f){win_s.x * 0.7, win_s.y * 0.2});
     center_sprite(i->dialog_box);
     sfSprite_setPosition(i->dialog_box,
@@ -39,13 +55,14 @@ static void quest_npc_create(interactive_npc_t *i, int dialog, sfVector2f win_s)
     i->has_query = (dialog > 0) ? 1 : 0;
     i->query_dialog = quest_query;
     i->dialog_choose_box = sfSprite_create();
-    sfSprite_setTexture(i->dialog_choose_box, opt_diag_box(), 0);
+    sfSprite_setTexture(i->dialog_choose_box,
+    get_texture_by_name(OPT_DIALOG), 0);
     set_sprite_size(i->dialog_choose_box,
     (sfVector2f){win_s.x * 0.2,win_s.x * 0.15});
     sfSprite_setPosition(i->dialog_choose_box,
     (sfVector2f){win_s.x * 0.75, win_s.y * 0.65});
     i->dialog_arrow = sfSprite_create();
-    sfSprite_setTexture(i->dialog_arrow, arrow_tex(), 0);
+    sfSprite_setTexture(i->dialog_arrow, get_texture_by_name(ARROW_PNG), 0);
     set_sprite_size(i->dialog_arrow,
     (sfVector2f){win_s.x * 0.06, win_s.x * (0.06 * 453 / 796.0)});
     sfSprite_setPosition(i->dialog_arrow,

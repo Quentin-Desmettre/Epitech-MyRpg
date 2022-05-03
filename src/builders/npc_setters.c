@@ -9,7 +9,7 @@
 
 void set_npc_txt(npc_t *npc, va_list va)
 {
-    npc->texture = sfTexture_createFromFile(va_arg(va, char *), NULL);
+    npc->texture = get_texture_by_name(va_arg(va, char *));
     sfSprite_setTexture(npc->sprite, npc->texture, 0);
 }
 

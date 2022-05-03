@@ -5,8 +5,7 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
-#define XOR(a, b) (((a) || (b)) && (!((a)) || (!(b))))
+#include "rpg.h"
 
 void fall(sfFloatRect *rect, fight_t *fight, float time)
 {
@@ -39,9 +38,10 @@ void side_move(sfFloatRect *rect, fight_t *fight, int left)
     }
 }
 
-void jump(sfFloatRect *rect, fight_t *fight, float time)
+void jump(sfFloatRect *rect, fight_t *fight)
 {
-    if (sfKeyboard_isKeyPressed(sfKeySpace) || sfKeyboard_isKeyPressed(sfKeyZ)) {
+    if (sfKeyboard_isKeyPressed(sfKeySpace) ||
+    sfKeyboard_isKeyPressed(sfKeyZ)) {
         rect->top += 1;
         if (touch_solid(*rect, fight) == 1)
             fight->fall = -25;
@@ -73,7 +73,7 @@ void move_pl_fight(fight_t *fight, window_t *win)
     time = sfClock_getElapsedTime(clock).microseconds / 10000.0;
     rect.top += (fight->fall * 0.7 + 1) * time;
     fall(&rect, fight, time);
-    jump(&rect, fight, time);
+    jump(&rect, fight);
     sfClock_restart(clock);
     dmg_pl(fight, win, rect, time);
     if (XOR(sfKeyboard_isKeyPressed(sfKeyQ), sfKeyboard_isKeyPressed(sfKeyD))) {

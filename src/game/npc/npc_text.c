@@ -65,8 +65,10 @@ void set_string(interactive_npc_t *i, char const *dialog)
     char *split = get_split_string(i->current_dialog, dialog, max);
     char **words = my_str_to_word_array(split, "\n");
 
+    free(split);
+    if (i->dialog)
+        free_str_array(i->dialog, 1);
     i->dialog = words;
     i->cur_diag_i = 0;
     set_current_string(i->current_dialog, words, 0);
-    free(split);
 }

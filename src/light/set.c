@@ -39,7 +39,7 @@ void set_room_map(ray_c *data)
     set_wall(data);
     sfSprite_setScale(data->wall, (sfVector2f){1, 0.5});
     data->noise_sp = sfSprite_create();
-    data->noise = sfTexture_createFromFile("./assets/noise.png", 0);
+    data->noise = get_texture_by_name(NOISE_PNG);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);
     sfSprite_setScale(data->noise_sp, (sfVector2f){2.75, 2.75});
     sfSprite_setColor(data->noise_sp, (sfColor){255, 255, 255, 30});
@@ -101,11 +101,6 @@ void dest_light(ray_c *data)
     free(data->light);
     sfSprite_destroy(data->floor);
     sfSprite_destroy(data->wall);
-    for (int i = 0; i < 3; i++) {
-        sfTexture_destroy(data->wall_tex[i]);
-        sfTexture_destroy(data->floor_tex[i]);
-    }
-    sfTexture_destroy(data->noise);
     sfSprite_destroy(data->noise_sp);
     for (int i = 0; data->map[i] != 0; i++)
         free(data->map[i]);

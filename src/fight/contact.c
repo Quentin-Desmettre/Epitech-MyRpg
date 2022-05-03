@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
+#include "rpg.h"
 
 float side_solid(sfFloatRect rect, fight_t *fight, int left)
 {

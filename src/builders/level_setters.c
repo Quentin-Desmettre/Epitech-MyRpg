@@ -19,8 +19,7 @@ void set_level_name(level_t *level, va_list va)
 
 void set_level_txt(level_t *level, va_list va)
 {
-    sfTexture_destroy(level->texture);
-    level->texture = sfTexture_createFromFile(va_arg(va, char *), NULL);
+    level->texture = get_texture_by_name(va_arg(va, char *));
     sfSprite_setTexture(level->sprite, level->texture, 0);
 }
 

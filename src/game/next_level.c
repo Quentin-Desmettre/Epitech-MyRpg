@@ -13,8 +13,7 @@ void next_level(ray_c *data)
     if (data->lvl >= 2)
         return;
     data->lvl++;
-    sfTexture_destroy(data->noise);
-    data->noise = sfTexture_createFromFile("assets/noise_b.png", 0);
+    data->noise = get_texture_by_name(BLUE_NOISE);
     sfSprite_setTexture(data->floor, data->floor_tex[data->lvl], 0);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);
     sfSprite_setTexture(data->wall, data->wall_tex[data->lvl], 0);

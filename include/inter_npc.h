@@ -41,6 +41,11 @@ typedef struct inter_c {
     int quest_to_give;
 } interactive_npc_t;
 
+typedef struct {
+    sfTexture *tex;
+    char *name;
+} texture_t;
+
 sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc);
 
 void go_to_next_str(interactive_npc_t *npc, game_t *g);
@@ -49,9 +54,8 @@ void npc_ev(game_t *g, sfEvent ev);
 void set_current_string(sfText *text, char **words, int index);
 void set_string(interactive_npc_t *i, char const *dialog);
 
-
-sfTexture *dialog_box(void);
-sfTexture *arrow_tex(void);
-sfTexture *opt_diag_box(void);
+sfTexture *get_texture_by_name(char const *name);
+list_t **textures_list(void);
+void destroy_texture(void *tex);
 
 #endif /* !INTER_NPC_H_ */

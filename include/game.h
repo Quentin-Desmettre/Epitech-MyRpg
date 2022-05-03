@@ -15,7 +15,7 @@
     #include "skills.h"
     #include "inventory.h"
     #include "pause.h"
-    #define RUSH_MUSIC "./assets/audio/chase.ogg"
+    #define RUSH_MUSIC "assets/audio/chase.ogg"
     #include "inter_npc.h"
 
 typedef struct item {

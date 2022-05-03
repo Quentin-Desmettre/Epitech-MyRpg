@@ -18,7 +18,7 @@ void delete_selected(void *win)
 {
     window_t *w = win;
     choose_save_t *s = w->menus[SELECT_SAVE];
-    char const *files[3] = {"./saves/save1", "./saves/save2", "./saves/save3"};
+    char const *files[3] = {"saves/save1", "saves/save2", "saves/save3"};
     int fd = open(files[s->primary], O_WRONLY | O_TRUNC);
 
     close(fd);

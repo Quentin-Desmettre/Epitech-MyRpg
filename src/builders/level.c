@@ -10,7 +10,6 @@
 void destroy_level(level_t *l)
 {
     sfSprite_destroy(l->sprite);
-    sfTexture_destroy(l->texture);
     for (int i = 0; i < l->size.x + 3; i++)
         free(l->room[i]);
     free(l->room);
@@ -23,7 +22,7 @@ static level_t *init_level(void)
 
     memset(level, 0, sizeof(level_t));
     level->sprite = sfSprite_create();
-    level->texture = sfTexture_createFromFile(DEFAULT_TEXT, NULL);
+    level->texture = global_texture();
     sfSprite_setTexture(level->sprite, level->texture, 0);
     level->size = BIG;
     return level;

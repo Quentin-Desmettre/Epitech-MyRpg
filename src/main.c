@@ -87,9 +87,7 @@ int main(void)
     }
     win_destroy(win);
     sfFont_destroy(global_font());
-    sfTexture_destroy(global_texture());
-    sfTexture_destroy(player_texture());
-    sfTexture_destroy(bars_texture());
+    free_textures();
     destroy_clocks();
     return 0;
 }

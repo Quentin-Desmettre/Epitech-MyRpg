@@ -47,10 +47,16 @@ float sound_vol(int change, float new);
     #define ABS(x) ((x) < 0 ? -(x) : (x))
     #define REPEAT_DELAY 500000
     #define SPACING 0.06
-    #define BUTTON_PRESS "./assets/audio/button_press.ogg"
-    #define BUTTON_RELEASE "./assets/audio/button_release.ogg"
-    #define LOBBY_MUSIC "./assets/audio/lobby.ogg"
-    #define WIN_CLOSE "./assets/audio/win_close.ogg"
+    #define BUTTON_PRESS "assets/audio/button_press.ogg"
+    #define BUTTON_RELEASE "assets/audio/button_release.ogg"
+    #define LOBBY_MUSIC "assets/audio/lobby.ogg"
+    #define WIN_CLOSE "assets/audio/win_close.ogg"
+
+    #define FLOOR_OFFICE "assets/floor_wall/floor_office.png"
+    #define BLUE_NOISE "assets/noise_b.png"
+    #define QUEST_PNG "assets/quest.png"
+    #define NOISE_PNG "assets/noise.png"
+
     #define ITM_TYPE(x) ((item_t *)((x)->data))->type
 
     #define VISION_ANGLE 90.0
@@ -61,6 +67,7 @@ float sound_vol(int change, float new);
 
     #define MAX_DISTANCE 15
     #define SQRT_2 1.41421356237
+    #define XOR(a, b) (((a) || (b)) && (!((a)) || (!(b))))
 
 typedef struct {
     button_t *buttons[5];
@@ -238,7 +245,7 @@ __attribute__((unused)) static const char *desc_qst[6] = {
     "Good luck ;)"
 };
 
-
+void free_textures(void);
 window_t *window(window_t *ptr);
 void destroy_path(path_t *p);
 void update_path(path_t *p, level_t *l, ray_c *data, sfVector2f graphic_goal);
@@ -452,11 +459,18 @@ int rnd_quest(quest_data_t *current_quests);
 void unblock_pl(ray_c *data, npc_t *player, level_t *level);
 interactive_npc_t *create_quest_npc(int dialog, game_t *g, ray_c *r);
 interactive_npc_t *create_talk_npc(game_t *g, ray_c *r);
+void destroy_interactive_npc(interactive_npc_t *i);
 
 static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
 {
-    return !(rand() % 3) ? create_quest_npc(rnd_quest(game->quest), game,
+    destroy_interactive_npc(game->npc);
+    return (!(rand() % 3) || 1) ? create_quest_npc(rnd_quest(game->quest), game,
     light) : create_talk_npc(game, light);
 }
+
+int pnj_colliding2(npc_t *player, int i, int j, ray_c *data);
+void change_pos(fight_t *fight);
+void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
+sfVector2f size, sfVector2f types);
 
 #endif

@@ -11,7 +11,7 @@ void load_saves(choose_save_t *c)
 {
     sfVector2u win = sfRenderTexture_getSize(c->rtex);
     sfVector2f win_size = {win.x, win.y};
-    char const *files[3] = {"./saves/save1", "./saves/save2", "./saves/save3"};
+    char const *files[3] = {"saves/save1", "saves/save2", "saves/save3"};
 
     for (int i = 0; i < 3; i++) {
         free_save(c->saves[i]);
@@ -37,7 +37,7 @@ void copy_data(player_info_t *infos, create_save_t *c)
 void create_file(create_save_t *c, window_t *win)
 {
     char *f_no = nbr_to_str(c->f_no + 1);
-    char *file_name = str_concat(2, "./saves/save", f_no);
+    char *file_name = str_concat(2, "saves/save", f_no);
     int fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     player_info_t infos;
 

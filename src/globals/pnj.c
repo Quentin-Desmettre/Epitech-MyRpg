@@ -7,29 +7,62 @@
 
 #include "inter_npc.h"
 
-sfTexture *dialog_box(void)
+void destroy_texture(void *tex)
 {
-    static sfTexture *tex = 0;
+    texture_t *t = tex;
 
-    if (!tex)
-        tex = sfTexture_createFromFile(PNJ_TALK_BOX, NULL);
-    return tex;
+    free(t->name);
+    sfTexture_destroy(t->tex);
+    free(t);
 }
 
-sfTexture *arrow_tex(void)
+texture_t *find_texture(char const *name, list_t *list)
 {
-    static sfTexture *tex = 0;
+    list_t *begin = list;
+    texture_t *tmp;
 
-    if (!tex)
-        tex = sfTexture_createFromFile(ARROW_PNG, NULL);
-    return tex;
+    if (!begin)
+        return NULL;
+    do {
+        tmp = list->data;
+        if (!my_strcmp(tmp->name, name))
+            return tmp;
+        list = list->next;
+    } while (list != begin);
+    return NULL;
 }
 
-sfTexture *opt_diag_box(void)
+texture_t *init_texture(char const *name)
 {
-    static sfTexture *tex = 0;
+    sfTexture *tex = sfTexture_createFromFile(name, NULL);
+    texture_t *t;
 
     if (!tex)
-        tex = sfTexture_createFromFile(OPT_DIALOG, NULL);
-    return tex;
+        return NULL;
+    t = malloc(sizeof(texture_t));
+    t->tex = tex;
+    t->name = my_strdup(name);
+    return t;
+}
+
+list_t **textures_list(void)
+{
+    static list_t *l = NULL;
+
+    return &l;
+}
+
+sfTexture *get_texture_by_name(char const *name)
+{
+    list_t **textures = textures_list();
+    texture_t *tmp;
+
+    tmp = find_texture(name, *textures);
+    if (tmp)
+        return tmp->tex;
+    tmp = init_texture(name);
+    if (!tmp)
+        return NULL;
+    append_node(textures, tmp);
+    return tmp->tex;
 }

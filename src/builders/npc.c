@@ -12,8 +12,6 @@ void destroy_npc(npc_t *n)
     sfSprite_destroy(n->sprite);
     destroy_clock(n->move_clock);
     destroy_clock(n->anim_clock);
-    if (n->texture)
-        sfTexture_destroy(n->texture);
     free(n->nb_frames);
     for (int i = 0; i < n->nb_rects; i++)
         free(n->rects[i]);

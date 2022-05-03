@@ -114,7 +114,8 @@ SRC = \
 	src/skills/find_exit.c                             \
 	src/skills/sprint.c                                \
 	src/skills/cry.c                                   \
-	src/main.c
+	src/main.c                                         \
+	src/free.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "../include/rpg.h"
+#include "rpg.h"
 
 void change_to_prop(sfRenderTexture *tex , sfRectangleShape *rec, window_t *win)
 {

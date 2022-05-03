@@ -24,7 +24,6 @@ sfVector2f rnd_point(game_t *g, ray_c *data, npc_t *npc)
     (size.x + 1) * data->cell + data->cell / 2};
     sfVector2f map_pos;
     sfVector2f base_pos = sfSprite_getPosition(npc->sprite);
-    sfVector2f pl_pos = sfSprite_getPosition(g->player->sprite);
 
     do {
         map_pos.x = my_rand(data->cell, max.x);
@@ -56,7 +55,7 @@ void create_enemy(game_t *game, ray_c *data)
     sfVector2f pos;
     sfFloatRect rect;
 
-    en->enemy = npc_create("tnicgv", "./assets/party.png", test, pl_rects
+    en->enemy = npc_create("tnicgv", "assets/party.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, ENEMY_GRP, -6);
     sfSprite_setOrigin(en->enemy->sprite, (sfVector2f){32, 32});
     pos = rnd_point(game, data, en->enemy);
