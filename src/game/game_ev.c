@@ -58,10 +58,11 @@ static void menus_ev(sfEvent ev, game_t *game, window_t *win)
 void game_ev(window_t *win, sfEvent ev)
 {
     game_t *game = win->menus[GAME];
+    int paused = game->is_paused;
 
     if (game->is_paused)
         pause_events(game, win, ev);
-    else if (ev.type == sfEvtKeyReleased && !game->is_flashing) {
+    if (!paused && ev.type == sfEvtKeyReleased && !game->is_flashing) {
         if (check_pause(ev, game))
             return;
         if (ev.key.code == sfKeyE)

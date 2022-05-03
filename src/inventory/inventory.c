@@ -31,10 +31,8 @@ void remove_item(inventory_t *inventory, int item, int nb)
             inventory->data->nb_items[i] < 0 ?
             inventory->data->nb_items[i] = 0 : 0;
             !inventory->data->nb_items[i] ? inventory->data->items[i] = -1 : 0;
-            if (!inventory->data->nb_items[i]) {
-                sort_inventory(inventory);
-                inventory->item_selected = -1;
-            }
+            !inventory->data->nb_items[i] ? sort_inventory(inventory),
+            inventory->item_selected = -1 : 0;
             return;
         }
     }

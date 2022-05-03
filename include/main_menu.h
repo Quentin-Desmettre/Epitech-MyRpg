@@ -27,7 +27,6 @@ static const sfIntRect mm_rects[] = {
     {0, 1, 630, 80},
     {211, 242, 80, 80},
     {80, 161, 80, 80}
-
 };
 
 #endif

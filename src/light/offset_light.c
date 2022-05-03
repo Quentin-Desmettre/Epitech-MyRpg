@@ -16,8 +16,8 @@ ray_c *data, sfVector2u size_win)
             data->off_view.x = -tmp.x + (int)size_win.x / 2;
     } else if (tmp.x > -data->off_view.x + (size_win.x / 2)) {
         data->off_view.x -= speed;
-        if (tmp.x < -data->off_view.x + (int)size_win.x / 2)
-            data->off_view.x = -tmp.x + (int)size_win.x / 2;
+        data->off_view.x = (tmp.x < -data->off_view.x + (int)size_win.x / 2) ?
+        -tmp.x + (int)size_win.x / 2 : data->off_view.x;
     }
 
     if (data->off_view.x > 0)
@@ -39,8 +39,8 @@ void move_cam(game_t *game, sfVector2u size_win, sfVector2i tmp, ray_c *data)
             data->off_view.y = -tmp.y + (int)size_win.y / 2;
     } else if (tmp.y > -data->off_view.y + (int)size_win.y / 2) {
         data->off_view.y -= speed;
-        if (tmp.y < -data->off_view.y + (int)size_win.y / 2)
-            data->off_view.y = -tmp.y + (int)size_win.y / 2;
+        data->off_view.y = (tmp.y < -data->off_view.y + (int)size_win.y / 2) ?
+        -tmp.y + (int)size_win.y / 2 : data->off_view.y;
     }
     if (data->off_view.y > 0)
         data->off_view.y = 0;
