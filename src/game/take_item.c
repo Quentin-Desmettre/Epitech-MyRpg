@@ -24,9 +24,9 @@ int scale_inventory(game_t *game, ray_c *data, window_t *win)
 
     data->cell = size_win.y / (15.0);
     sfSprite_setScale(game->inventory->items_sprite[0]
-    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
     sfSprite_setScale(game->inventory->items_sprite[1]
-    , (sfVector2f){0.5 / 1080 * size_win.y,  0.5 / 1080 * size_win.y});
+    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
     return 0;
 }
 

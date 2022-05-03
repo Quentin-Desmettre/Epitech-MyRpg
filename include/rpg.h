@@ -474,7 +474,7 @@ void change_pos(fight_t *fight);
 void draw_game_bar(sfRenderTexture *rtex, sfVector2f pos,
 sfVector2f size, sfVector2f types);
 
-cinematic_t *create_cinematic(window_t *win);
+cinematic_t *create_cinematic(void);
 const sfTexture *draw_cinematic(window_t *win);
 void anim_cine(cinematic_t *cine, window_t *win, float size);
 void cine_flash(cinematic_t *cine);

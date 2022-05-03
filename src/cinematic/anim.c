@@ -13,8 +13,7 @@ void anim_run(cinematic_t *cine, window_t *win, float size)
         cine->npc[0]->dir = 1;
         for (int i = 0; i < 2; i++) {
             cine->npc[i]->frame++;
-            cine->npc[i]->frame >= cine->npc[i]->nb_frames[cine->npc[i]->dir] ?
-            cine->npc[i]->frame = 0 : 0;
+            cine->npc[i]->frame %= cine->npc[i]->nb_frames[cine->npc[i]->dir];
         }
         restart_clock(cine->clock);
     }
@@ -43,7 +42,7 @@ void anim_jumpscare(cinematic_t *cine, window_t *win, float size)
         cine_flash(cine);
         if (cine->nb_flash == 0) {
             cine->player_state = 5;
-            cine->npc[0]->frame = rand() % 8 + 1;
+            cine->npc[0]->frame = 0;
         }
     }
     if (cine->player_state == 5)
