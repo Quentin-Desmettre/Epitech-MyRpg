@@ -68,7 +68,8 @@ float sound_vol(int change, float new);
     #define PROP (size.y / 1080.0)
 
 typedef struct {
-    button_t *buttons[5];
+    button_t *buttons[4];
+    sfText *main_txt;
     sfSprite *background;
     sfRenderTexture *rtex;
 } main_menu_t;
