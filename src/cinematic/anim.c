@@ -9,6 +9,9 @@
 
 void anim_run(cinematic_t *cine, window_t *win, float size)
 {
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *infos = &c->saves[c->primary]->infos;
+
     if (get_elapsed_time(cine->clock) > 0.05 SEC && cine->player_state == 5) {
         cine->npc[0]->dir = 1;
         for (int i = 0; i < 2; i++) {
@@ -23,6 +26,7 @@ void anim_run(cinematic_t *cine, window_t *win, float size)
         sfSprite_move(cine->npc[1]->sprite, (sfVector2f){8 * size, 0});
         if (sfSprite_getGlobalBounds(cine->npc[0]->sprite).left > 1600 * size)
             set_next_win_state(win, GAME);
+        infos->show_intro = 0;
         restart_clock(cine->run_clock);
     }
 }

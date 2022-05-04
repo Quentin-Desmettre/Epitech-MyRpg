@@ -32,6 +32,7 @@ void copy_data(player_info_t *infos, create_save_t *c)
     infos->strength = getnbr_sftext(c->stats_val[0]);
     infos->stamina = getnbr_sftext(c->stats_val[2]);
     infos->skin_comb = sfSprite_getColor(c->skin);
+    infos->show_intro = 1;
 }
 
 void create_file(create_save_t *c, window_t *win)

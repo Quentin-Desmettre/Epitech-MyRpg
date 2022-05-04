@@ -50,7 +50,7 @@ void launch_file(void *win)
     g->player->attack = infos.strength;
     g->player->defense = infos.stamina;
     g->player->health = infos.health_percent;
-    set_next_win_state(win, CINE);
+    set_next_win_state(win, infos.show_intro ? CINE : GAME);
     sfSprite_setColor(((cinematic_t *)w->menus[CINE])->npc[0]->sprite,
     infos.skin_comb);
     restart_clock(cine->clock);

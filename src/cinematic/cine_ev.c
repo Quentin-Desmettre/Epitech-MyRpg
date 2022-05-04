@@ -9,6 +9,11 @@
 
 void cinematic_ev(window_t *win, sfEvent ev)
 {
-    if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape)
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *infos = &c->saves[c->primary]->infos;
+
+    if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
         set_next_win_state(win, GAME);
+        infos->show_intro = 0;
+    }
 }

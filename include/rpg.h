@@ -135,6 +135,7 @@ typedef struct {
     unsigned speed;
     unsigned mental_stability;
     sfColor skin_comb;
+    int show_intro;
 } player_info_t;
 
 static const sfIntRect hider_rect = {
@@ -423,6 +424,7 @@ const sfTexture *draw_cinematic(window_t *win);
 void anim_cine(cinematic_t *cine, window_t *win, float size);
 void cine_flash(cinematic_t *cine);
 cinematic_t *create_cinematic(sfColor pl);
+void save_player(window_t *win);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {
