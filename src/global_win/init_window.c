@@ -51,6 +51,7 @@ void center_inventory(game_t *game, window_t *win)
 {
     sfVector2f size = win_size(win);
     sfVector2u center = sfTexture_getSize(game->inventory->texture);
+    button_t *button = game->inventory->stat_btns[0];
 
     sfSprite_setScale(game->inventory->sprite,
     (sfVector2f){size.y / 1080, size.y / 1080});
@@ -59,13 +60,13 @@ void center_inventory(game_t *game, window_t *win)
     sfSprite_setOrigin(game->inventory->sprite,
     (sfVector2f){center.x / 2, center.y / 2});
     sfSprite_setPosition(game->inventory->sprite, game->inventory->pos);
-    for (int i = 0; i < 4; i++) {
-        game->inventory->stat_btns[i]->container_size = size;
-        update_button(game->inventory->stat_btns[i]);
-        game->inventory->stat_btns[i]->size.x =
-        game->inventory->stat_btns[i]->size.y;
-        set_sprite_size(game->inventory->stat_btns[i]->sprite,
-        game->inventory->stat_btns[i]->size);
+    for (int i = 0; i < 4; i++, button = game->inventory->stat_btns[i]) {
+        button->container_size = size;
+        update_button(button);
+        button->size.x = button->size.y;
+        set_sprite_size(button->sprite, button->size);
+        sfSprite_setPosition(button->sprite, (sfVector2f){size.x / 2 - 0.495 *
+        size.y + (0.09 * size.y * i), 0.71 * size.y});
     }
 }
 

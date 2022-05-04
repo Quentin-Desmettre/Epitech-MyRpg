@@ -13,18 +13,20 @@ void draw_stats_pts(game_t *game, window_t *win)
     choose_save_t *c = win->menus[SELECT_SAVE];
     char *name = c->saves[c->primary]->infos.player_name;
     char *tmp;
-    sfText *text = init_text(name, 1080 / 20);
+    sfText *text = init_text(name, win_size(win).y / 20);
 
     center_text(text);
-    sfText_setPosition(text, (sfVector2f){558, 265});
+    sfText_setPosition(text, (sfVector2f){win_size(win).x / 2 - 402 *
+    SCALE(win_size(win)), 265 * SCALE(win_size(win))});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     tmp = nbr_to_str(game->skills->data->xp);
     name = str_concat(2, "xp left : ", tmp);
     free(tmp);
     sfText_setString(text, name);
     center_text(text);
-    sfText_setCharacterSize(text, 1080 / 30);
-    sfText_setPosition(text, (sfVector2f){485, 845});
+    sfText_setCharacterSize(text, win_size(win).y / 30);
+    sfText_setPosition(text, (sfVector2f){win_size(win).x / 2 - 475 *
+    SCALE(win_size(win)), 845 * SCALE(win_size(win))});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     sfText_destroy(text);
     free(name);

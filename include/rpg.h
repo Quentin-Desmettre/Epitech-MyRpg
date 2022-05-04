@@ -68,7 +68,8 @@ float sound_vol(int change, float new);
     #define PROP (size.y / 1080.0)
 
 typedef struct {
-    button_t *buttons[5];
+    button_t *buttons[4];
+    sfText *main_txt;
     sfSprite *background;
     sfRenderTexture *rtex;
 } main_menu_t;
@@ -135,6 +136,7 @@ typedef struct {
     unsigned speed;
     unsigned mental_stability;
     sfColor skin_comb;
+    int show_intro;
 } player_info_t;
 
 static const sfIntRect hider_rect = {
@@ -424,6 +426,8 @@ void anim_cine(cinematic_t *cine, window_t *win, float size);
 void cine_flash(cinematic_t *cine);
 cinematic_t *create_cinematic(sfColor pl);
 sfVector2i sprite_pos(sfSprite *s);
+void save_player(window_t *win);
+void recreate_enemy(game_t *game, ray_c *light);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

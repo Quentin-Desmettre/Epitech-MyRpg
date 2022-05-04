@@ -29,6 +29,7 @@ void pause_exit(void *win)
     window_t *w = win;
 
     switch_clocks();
+    save_player(win);
     GET_GAME(w)->is_paused = 0;
     lazy_room(win);
     sfSprite_setPosition(GET_GAME(w)->player->sprite, (sfVector2f){128, 128});

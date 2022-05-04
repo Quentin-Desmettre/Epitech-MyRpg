@@ -35,13 +35,13 @@ void launch_combat(window_t *win)
 {
     fight_t *fight = win->menus[FIGHT];
     game_t *g = GET_GAME(win);
-    sfVector2f win_s = win_size(win);
+    sfFloatRect hit = get_npc_hitbox(g->player);
 
     if (win->is_transition)
         return;
     change_pos(fight);
     g->splash = create_circular_splash(sfSprite_getPosition(g->player->sprite),
-    (sfVector2f){win_s.x * 0.01, win_s.x * 0.01});
+    (sfVector2f){hit.width * 0.3, hit.width * 0.3});
     fight->nme = 100;
 }
 

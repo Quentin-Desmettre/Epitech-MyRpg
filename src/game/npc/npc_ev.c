@@ -61,7 +61,6 @@ void go_to_next_str(interactive_npc_t *npc, game_t *g)
 void draw_npc(game_t *g, ray_c *r)
 {
     interactive_npc_t *npc = g->npc;
-    sfVector2f pos = sfSprite_getPosition(npc->npc->sprite);
 
     sfRenderTexture_drawSprite(r->tex_light, npc->npc->sprite, NULL);
     if (!g->is_talking)
