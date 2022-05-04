@@ -44,14 +44,18 @@ void check_flash(game_t *game, sfRectangleShape *rect)
 
 void draw_menus(game_t *game, window_t *win)
 {
-    draw_room(win->menus[LIGHT], win->menus[GAME], win);
-    draw_enemies(game, win->menus[LIGHT], win);
-    draw_map(win->menus[LIGHT], win->menus[GAME], win);
+    ray_c *r = win->menus[LIGHT];
+
+    draw_room(r, win->menus[GAME], win);
+    draw_enemies(game, r, win);
+    if (game->splash && !draw_circular_splash(&game->splash, r->tex_light))
+        set_next_win_state(win, FIGHT);
+    draw_map(r, win->menus[GAME], win);
     draw_xp(win->menus[GAME], win);
     draw_inventory(win->menus[GAME], win);
     draw_quest(win->menus[GAME], win->win);
     draw_skills(win->menus[GAME], win);
-    draw_npc(game, win->menus[LIGHT]);
+    draw_npc(game, r);
 }
 
 const sfTexture *draw_game(window_t *win)
@@ -95,6 +99,6 @@ game_t *game_create(void)
     game->clock = create_clock();
     game->flash_clock = create_clock();
     game->rush_music = create_music(RUSH_MUSIC);
-    game->npc = NULL;
+    sfMusic_setLoop(game->rush_music, 1);
     return game;
 }

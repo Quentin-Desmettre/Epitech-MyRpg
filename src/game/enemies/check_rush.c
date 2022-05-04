@@ -34,10 +34,14 @@ void recreate_enemy(game_t *game, ray_c *light)
 void launch_combat(window_t *win)
 {
     fight_t *fight = win->menus[FIGHT];
+    game_t *g = GET_GAME(win);
+    sfVector2f win_s = win_size(win);
 
+    if (win->is_transition)
+        return;
     change_pos(fight);
-    recreate_enemy(win->menus[GAME], win->menus[LIGHT]);
-    set_next_win_state(win, FIGHT);
+    g->splash = create_circular_splash(sfSprite_getPosition(g->player->sprite),
+    (sfVector2f){win_s.x * 0.01, win_s.x * 0.01});
     fight->nme = 100;
 }
 

@@ -17,6 +17,7 @@
     #include "pause.h"
     #define RUSH_MUSIC "assets/audio/chase.ogg"
     #include "inter_npc.h"
+    #include "particles.h"
 
 typedef struct item {
     int type;
@@ -49,6 +50,7 @@ typedef struct game {
     path_t *path;
     interactive_npc_t *npc;
     int is_talking;
+    circular_splash_t *splash;
 } game_t;
 
 // item room

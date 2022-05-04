@@ -64,7 +64,6 @@ void draw_npc(game_t *g, ray_c *r)
     sfVector2f pos = sfSprite_getPosition(npc->npc->sprite);
 
     sfRenderTexture_drawSprite(r->tex_light, npc->npc->sprite, NULL);
-    add_light(r, (sfVector2i){pos.x, pos.y}, 5, g->rtex);
     if (!g->is_talking)
         return;
     sfRenderTexture_drawSprite(g->rtex, npc->dialog_box, NULL);

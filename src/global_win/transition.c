@@ -19,6 +19,8 @@ static void switch_color_dir(window_t *win, int *dir)
             sfSleep((sfTime){100000});
         sfRenderWindow_close(win->win);
     }
+    if (win->state == FIGHT)
+        recreate_enemy(win->menus[GAME], win->menus[LIGHT]);
 }
 
 static void reset_lum(window_t *win, int *dir, sfColor *lum)

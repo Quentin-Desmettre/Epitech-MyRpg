@@ -63,7 +63,7 @@ void game_ev(window_t *win, sfEvent ev)
 
     if (game->is_paused)
         pause_events(game, win, ev);
-    if (!paused && ev.type == sfEvtKeyReleased && !game->is_flashing) {
+    if (!paused && ev.type == 6 && !game->is_flashing && !game->splash) {
         if (check_pause(ev, game))
             return;
         if (ev.key.code == sfKeyE)

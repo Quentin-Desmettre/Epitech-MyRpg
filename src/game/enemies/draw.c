@@ -76,22 +76,22 @@ void draw_enemies(game_t *game, ray_c *data, window_t *win)
 {
     list_t *list = game->enemies;
     enemy_t *e;
+    int can_update = !game->is_flashing && !game->is_paused &&
+    !game->splash && !game->is_talking && !win->is_transition;
 
     if (!list)
         return;
     for (int i = 0; i == 0 || list != game->enemies; i++, list = list->next) {
         e = list->data;
-        if (!game->is_flashing && !game->is_paused)
+        if (can_update)
             update_enemy(e, get_sprite_size(game->player->sprite), data, win);
         draw_splash_particles(e->splash,
         data->tex_light, e->is_in_rush, !game->is_paused);
         sfRenderTexture_drawSprite(data->tex_light, e->enemy->sprite, NULL);
         if (dist_between(e->enemy->sprite, game->player->sprite) < data->cell /
-        2.0 && win->state == GAME) {
-            launch_combat(win);
-            break;
-        } else if (win->state == HOME)
-            add_light(data, (sfVector2i){sfSprite_getPosition(e->enemy->sprite)
-            .x, sfSprite_getPosition(e->enemy->sprite).y}, 1.5, game->rtex);
+        2.0 && win->state == GAME && can_update)
+            return launch_combat(win);
+        if (win->state == HOME)
+            add_light(data, sprite_pos(e->enemy->sprite), 1.5, game->rtex);
     }
 }

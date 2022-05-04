@@ -18,3 +18,10 @@ void rotate_vector(sfVector2f *vec, float degree)
     vec->x = new.x;
     vec->y = new.y;
 }
+
+sfVector2i sprite_pos(sfSprite *s)
+{
+    sfVector2f pos = sfSprite_getPosition(s);
+
+    return (sfVector2i){pos.x, pos.y};
+}
