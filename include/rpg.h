@@ -428,6 +428,9 @@ cinematic_t *create_cinematic(sfColor pl);
 sfVector2i sprite_pos(sfSprite *s);
 void save_player(window_t *win);
 void recreate_enemy(game_t *game, ray_c *light);
+sfVector2u get_graphic_pos(sfVector2f pos, game_t *game, ray_c *r);
+void put_wall_around(path_t *p, sfVector2u pos);
+int is_on_water(npc_t *enemy, list_t *items, sfSprite *item);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

@@ -8,11 +8,47 @@
 #include "rpg.h"
 #include "skills.h"
 
+item_t *create_item(int type, sfVector2f pos)
+{
+    item_t *i = malloc(sizeof(item_t));
+
+    i->pos = pos;
+    i->type = type;
+    return i;
+}
+
+void put_wall_around(path_t *p, sfVector2u pos)
+{
+    sfVector2u poss[24] = {
+        {pos.x - 2, pos.y - 2}, {pos.x - 1, pos.y - 2}, {pos.x, pos.y - 2},
+        {pos.x + 1, pos.y - 2}, {pos.x + 2, pos.y - 2}, {pos.x - 2, pos.y - 1},
+        {pos.x - 1, pos.y - 1}, {pos.x, pos.y - 1}, {pos.x + 1, pos.y - 1},
+        {pos.x + 2, pos.y - 1}, {pos.x - 2, pos.y}, {pos.x - 1, pos.y},
+        {pos.x + 1, pos.y}, {pos.x + 2, pos.y}, {pos.x - 2, pos.y + 1},
+        {pos.x - 1, pos.y + 1}, {pos.x, pos.y + 1}, {pos.x + 1, pos.y + 1},
+        {pos.x + 2, pos.y + 1}, {pos.x - 2, pos.y + 2}, {pos.x - 1, pos.y + 2},
+        {pos.x, pos.y + 2}, {pos.x + 1, pos.y + 2}, {pos.x + 2, pos.y + 2}
+    };
+
+    for (int i = 0; i < 24; i++)
+        if (poss[i].x < p->size.y && poss[i].y < p->size.x)
+            p->map[poss[i].x][poss[i].y] = -1;
+}
+
 void cry_event(game_t *game)
 {
+    sfVector2f pos = sfSprite_getPosition(game->player->sprite);
+    window_t *win = window(NULL);
+    ray_c *r = win->menus[LIGHT];
+    sfVector2u po = graphic_pos_to_map(pos,
+    get_graphic_size(game->level, r), game->path->size, r->cell);
+    float height = get_npc_hitbox(game->player).height;
+
     if (game->skills->data->tab[CRY] > 0 && C_TIME(game) > 60 SEC) {
-        // cry action
         restart_clock(game->skills->clocks[CRY]);
+        append_node(&game->items, create_item(2,
+        (sfVector2f){pos.x, pos.y + height * 0.35}));
+        update_path(game->path, game->level, r, pos);
     }
 }
 

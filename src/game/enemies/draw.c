@@ -48,7 +48,8 @@ void move_enemy(enemy_t *en, ray_c *data, game_t *g, window_t *win)
     (en->mov_vector.x || en->mov_vector.y)) {
         sfSprite_move(en->enemy->sprite, en->mov_vector);
         restart_clock(en->enemy->move_clock);
-        if (is_pnj_colliding(data, en->enemy, l)) {
+        if (is_pnj_colliding(data, en->enemy, l) ||
+        is_on_water(en->enemy, g->items, g->inventory->items_sprite[2])) {
             sfSprite_move(en->enemy->sprite,
             (sfVector2f){-en->mov_vector.x, -en->mov_vector.y});
             en->mov_vector = rotate_dir(en->mov_vector);

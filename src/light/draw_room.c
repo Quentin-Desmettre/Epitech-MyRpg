@@ -31,23 +31,39 @@ void draw_wall(ray_c *data, int i, int j, game_t *game)
     }
 }
 
+void while_content(list_t *tmp, game_t *game, ray_c *data)
+{
+    item_t *it = tmp->data;
+    sfVector2u pos;
+
+    if (it->type != 2)
+        sfSprite_setPosition(game->inventory->items_sprite[it->type],
+        (coo_t){it->pos.x * data->cell + data->cell / 7.0,
+        it->pos.y * data->cell});
+    else {
+        sfSprite_setPosition(game->inventory->items_sprite[it->type], it->pos);
+        pos = get_graphic_pos(it->pos, game, data);
+        put_wall_around(game->path, pos);
+    }
+    sfRenderTexture_drawSprite(data->tex_light, game->inventory->
+    items_sprite[it->type], 0);
+}
+
 void draw_items(game_t *game, ray_c *data, sfVector2u size_win)
 {
     list_t *tmp = game->items;
+    sfVector2f size = get_sprite_size(game->inventory->items_sprite[1]);
 
-    sfSprite_setScale(game->inventory->items_sprite[0]
-    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
-    sfSprite_setScale(game->inventory->items_sprite[1]
-    , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
+    for (int i = 0; i < 2; i++)
+        sfSprite_setScale(game->inventory->items_sprite[i]
+        , (sfVector2f){0.5 / 1080 * size_win.y, 0.5 / 1080 * size_win.y});
+    set_sprite_size(game->inventory->items_sprite[2],
+    (sfVector2f){size.x * 1.2, size.y * 1.2});
+    center_sprite(game->inventory->items_sprite[2]);
     if (tmp == NULL)
         return;
     do {
-        sfSprite_setPosition(game->inventory->
-        items_sprite[((item_t *)(tmp->data))->type], (coo_t){((item_t *)
-        (tmp->data))->pos.x * data->cell + data->cell / 7.0,
-        ((item_t *)(tmp->data))->pos.y * data->cell});
-        sfRenderTexture_drawSprite(data->tex_light, game->inventory->
-        items_sprite[((item_t *)(tmp->data))->type], 0);
+        while_content(tmp, game, data);
         tmp = tmp->next;
     } while (tmp != game->items);
 }

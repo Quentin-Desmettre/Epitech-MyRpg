@@ -60,7 +60,7 @@ void items_create(inventory_t *inventory, sfVector2f size)
 {
     sfTexture *texture;
 
-    for (int i = 0; i < NB_ITEMS; i++) {
+    for (int i = 0; i < NB_ITEMS + 1; i++) {
         inventory->items_sprite[i] = sfSprite_create();
         texture = get_texture_by_name(items_paths[i]);
         sfSprite_setTexture(inventory->items_sprite[i], texture, sfTrue);
