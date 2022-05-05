@@ -432,6 +432,7 @@ sfVector2u get_graphic_pos(sfVector2f pos, game_t *game, ray_c *r);
 void put_wall_around(path_t *p, sfVector2u pos);
 int is_on_water(npc_t *enemy, list_t *items, sfSprite *item);
 void draw_level(game_t *game, sfVector2f size);
+void use_object(game_t *game, choose_save_t *c);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {
