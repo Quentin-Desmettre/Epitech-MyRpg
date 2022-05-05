@@ -68,6 +68,7 @@ void move_blocs(fight_t *fight, window_t *win)
     if (fight->nme <= 0) {
         add_xp(win->menus[GAME], 2);
         set_next_win_state(win, GAME);
+        fight->nme = 100;
     }
     for (int i = 0; i < DMG; i++) {
         if (get_elapsed_time(fight->time[i]) / 1000000.0 >

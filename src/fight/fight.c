@@ -34,6 +34,8 @@ void fight_ev(window_t *win, sfEvent ev)
 {
     if (ev.type == sfEvtClosed)
         set_next_win_state(win, EXIT);
+    if (ev.key.code == sfKeyR)
+        change_pos(win->menus[FIGHT]);
 }
 
 int touch_solid(sfFloatRect rect, fight_t *fight)

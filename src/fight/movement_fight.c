@@ -58,23 +58,21 @@ void dmg_pl(fight_t *fight, window_t *win, sfFloatRect rect, float time)
     ray_c *data = win->menus[LIGHT];
 
     if (touch_dmg(rect, fight) == 1) {
-        c->saves[c->primary]->infos.health_percent -= (0.20 + 0.20 * ((30.0 -
-        info.stamina) / 30.0) + 0.20 * (data->lvl / 3.0)) * time;
+        c->saves[c->primary]->infos.health_percent -= (0.15 + 0.15 * ((30.0 -
+        info.stamina) / 30.0) + 0.15 * (data->lvl / 3.0)) * time;
     }
 }
 
 void move_pl_fight(fight_t *fight, window_t *win)
 {
-    static sfClock *clock = 0;
     sfFloatRect rect = sfRectangleShape_getGlobalBounds(fight->player);
     float time;
 
-    (clock == 0) ? clock = sfClock_create() : 0;
-    time = sfClock_getElapsedTime(clock).microseconds / 10000.0;
+    time = sfClock_getElapsedTime(fight->player_clock).microseconds / 10000.0;
     rect.top += (fight->fall * 0.7 + 1) * time;
     fall(&rect, fight, time);
     jump(&rect, fight);
-    sfClock_restart(clock);
+    sfClock_restart(fight->player_clock);
     dmg_pl(fight, win, rect, time);
     if (XOR(sfKeyboard_isKeyPressed(sfKeyQ), sfKeyboard_isKeyPressed(sfKeyD))) {
         rect.left += 5 * time * (sfKeyboard_isKeyPressed(sfKeyQ) ? -1 : 1);

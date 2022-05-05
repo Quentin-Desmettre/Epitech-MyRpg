@@ -40,7 +40,7 @@ static void debug_ev(sfEvent ev, window_t *win, game_t *game)
     if (ev.key.code == sfKeyN)
         add_xp(game, 1);
     if (ev.key.code == sfKeyAdd)
-        next_level(win->menus[LIGHT]);
+        next_level(win);
 }
 
 static void menus_ev(sfEvent ev, game_t *game, window_t *win)

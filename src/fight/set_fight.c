@@ -26,6 +26,8 @@ void change_pos(fight_t *fight)
     sfRectangleShape_setSize(fight->solid[1], (sfVector2f){1440, 100});
     sfRectangleShape_setPosition(fight->solid[1], (sfVector2f){0, 100 * 10});
     sfRectangleShape_setPosition(fight->player, (sfVector2f){900, 500});
+    fight->fall = 0;
+    sfClock_restart(fight->player_clock);
 }
 
 void set_blocks(fight_t *fight)
@@ -57,8 +59,10 @@ fight_t *init_fight(void)
     fight->fall = 0;
     fight->tex = sfRenderTexture_create(1920, 1080, 0);
     fight->player = sfRectangleShape_create();
-    sfRectangleShape_setSize(fight->player, (sfVector2f){100, 100});
+    sfRectangleShape_setSize(fight->player, (sfVector2f){90, 90});
     sfRectangleShape_setFillColor(fight->player, sfGreen);
+    fight->speed = create_clock();
+    fight->player_clock = sfClock_create();
     set_blocks(fight);
     fight->nme = 100;
     for (int i = 0; i == 0 || touch_solid(rect, fight); i++) {
@@ -68,7 +72,6 @@ fight_t *init_fight(void)
         rect.height += 100;
         rect.top -= 100;
     }
-    fight->speed = create_clock();
     return (fight);
 }
 
@@ -80,6 +83,7 @@ void destroy_fight(fight_t *fight)
         sfRectangleShape_destroy(fight->dmg[i]);
     }
     sfRenderTexture_destroy(fight->tex);
+    sfClock_destroy(fight->player_clock);
     sfRectangleShape_destroy(fight->player);
     sfCircleShape_destroy(fight->circle);
     free(fight);

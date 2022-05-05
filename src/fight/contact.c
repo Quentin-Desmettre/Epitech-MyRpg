@@ -14,9 +14,9 @@ float side_solid(sfFloatRect rect, fight_t *fight, int left)
     for (int i = 0; i < 20; i++) {
         rect2 = sfRectangleShape_getGlobalBounds(fight->solid[i]);
         if (sfFloatRect_intersects(&rect, &rect2, NULL) && i != 0)
-            return (left == 1 ? rect2.left + 200 : rect2.left - 100);
+            return (left == 1 ? rect2.left + 200 : rect2.left - rect.width);
         if (sfFloatRect_intersects(&rect, &rect2, NULL) && i == 0)
-            return (left == 1 ? rect2.left + 500 : rect2.left - 100);
+            return (left == 1 ? rect2.left + 500 : rect2.left - rect.width);
     }
     return (-1);
 }
@@ -28,7 +28,7 @@ float up_solid(sfFloatRect rect, fight_t *fight, int top)
     for (int i = 0; i < 20; i++) {
         rect2 = sfRectangleShape_getGlobalBounds(fight->solid[i]);
         if (sfFloatRect_intersects(&rect, &rect2, NULL))
-            return (top == 1 ? rect2.top + 100 : rect2.top - 100);
+            return (top == 1 ? rect2.top + 100 : rect2.top - rect.height);
     }
     return (-1);
 }

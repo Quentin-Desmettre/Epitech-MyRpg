@@ -53,7 +53,7 @@ void draw_menus(game_t *game, window_t *win)
     draw_map(r, win->menus[GAME], win);
     draw_xp(win->menus[GAME], win);
     draw_inventory(win->menus[GAME], win);
-    draw_quest(win->menus[GAME], win->win);
+    draw_quest(win->menus[GAME], win);
     draw_skills(win->menus[GAME], win);
     draw_npc(game, r);
 }
