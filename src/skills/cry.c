@@ -61,7 +61,7 @@ void draw_cry_sec(game_t *game, sfVector2f size)
     sfText *text = init_text(concat, size.y / 40);
 
     sfText_setPosition(text, (sfVector2f)
-    {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 242.0 * SCALE(size)});
+    {size.x / 2 - 0.45 * size.x, size.y / 2 + 242.0 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     sfText_destroy(text);
     my_free("pp", concat, str);
@@ -75,9 +75,9 @@ void draw_cry(game_t *game, sfVector2f size)
 
     sfSprite_setScale(sprite, (sfVector2f){SCALE(size) / 2, SCALE(size) / 2});
     sfSprite_setPosition(sprite, (sfVector2f)
-    {size.x / 2 - 950.0 * SCALE(size), size.y / 2 + 230.0 * SCALE(size)});
+    {size.x / 2 - 0.495 * size.x, size.y / 2 + 230.0 * SCALE(size)});
     sfText_setPosition(text, (sfVector2f)
-    {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 242.0 * SCALE(size)});
+    {size.x / 2 - 0.45 * size.x, size.y / 2 + 242.0 * SCALE(size)});
     sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
     if (C_TIME(game) > 60 / game->skills->data->tab[CRY] SEC)
         sfRenderTexture_drawText(game->rtex, text, NULL);
