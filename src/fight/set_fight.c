@@ -48,6 +48,7 @@ void set_blocks(fight_t *fight)
     sfCircleShape_setRadius(fight->circle, 75);
     sfCircleShape_setOrigin(fight->circle, (sfVector2f){75, 75});
     sfCircleShape_setFillColor(fight->circle, sfColor_fromRGB(254, 159, 5));
+    sfRectangleShape_setTexture(fight->player, get_texture_by_name("./assets/heart.png"), sfTrue);
     change_pos(fight);
 }
 
@@ -60,7 +61,6 @@ fight_t *init_fight(void)
     fight->tex = sfRenderTexture_create(1920, 1080, 0);
     fight->player = sfRectangleShape_create();
     sfRectangleShape_setSize(fight->player, (sfVector2f){90, 90});
-    sfRectangleShape_setFillColor(fight->player, sfGreen);
     fight->speed = create_clock();
     fight->player_clock = sfClock_create();
     set_blocks(fight);

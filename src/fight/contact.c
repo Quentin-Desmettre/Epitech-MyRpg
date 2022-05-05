@@ -32,3 +32,15 @@ float up_solid(sfFloatRect rect, fight_t *fight, int top)
     }
     return (-1);
 }
+
+void dmg_pl(fight_t *fight, window_t *win, sfFloatRect rect, float time)
+{
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t info = c->saves[c->primary]->infos;
+    ray_c *data = win->menus[LIGHT];
+
+    if (touch_dmg(rect, fight) == 1) {
+        c->saves[c->primary]->infos.health_percent -= (0.15 + 0.15 * ((30.0 -
+        info.stamina) / 30.0) + 0.15 * (data->lvl / 3.0)) * time;
+    }
+}
