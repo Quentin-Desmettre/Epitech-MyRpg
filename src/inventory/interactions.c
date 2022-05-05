@@ -12,7 +12,7 @@ void destroy_inventory(inventory_t *inventory)
 {
     sfSprite_destroy(inventory->sprite);
     free(inventory->data);
-    for (int i = 0; i < NB_ITEMS; i++)
+    for (int i = 0; i < NB_ITEMS + 1; i++)
         sfSprite_destroy(inventory->items_sprite[i]);
     sfRenderTexture_destroy(inventory->rtex);
     for (int i = 0; i < 4; i++)

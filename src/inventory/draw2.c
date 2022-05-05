@@ -20,6 +20,7 @@ void draw_level(game_t *game, sfVector2f size)
     SCALE(size), 305 * SCALE(size)});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     my_free("pp", level, concat);
+    sfText_destroy(text);
 }
 
 void draw_stats_pts(game_t *game, window_t *win)
