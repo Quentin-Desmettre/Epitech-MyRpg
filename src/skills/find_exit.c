@@ -41,7 +41,7 @@ void draw_find_exit(game_t *game, sfVector2f size)
     sfText_setPosition(text, (sfVector2f)
     {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 192.0 * SCALE(size)});
     sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
-    if (!game->skills->sprint && F_TIME(game) > 60 SEC)
+    if (F_TIME(game) > 60 SEC)
         sfRenderTexture_drawText(game->rtex, text, NULL);
     else
         draw_find_exit_sec(game, size);

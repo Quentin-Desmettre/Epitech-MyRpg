@@ -44,7 +44,8 @@ void cry_event(game_t *game)
     get_graphic_size(game->level, r), game->path->size, r->cell);
     float height = get_npc_hitbox(game->player).height;
 
-    if (game->skills->data->tab[CRY] > 0 && C_TIME(game) > 60 SEC) {
+    if (game->skills->data->tab[CRY] > 0 && C_TIME(game) > 60 /
+    game->skills->data->tab[CRY] SEC) {
         restart_clock(game->skills->clocks[CRY]);
         append_node(&game->items, create_item(2,
         (sfVector2f){pos.x, pos.y + height * 0.35}));
@@ -54,7 +55,8 @@ void cry_event(game_t *game)
 
 void draw_cry_sec(game_t *game, sfVector2f size)
 {
-    char *str = nbr_to_str(60 - C_TIME(game) / 1000000);
+    char *str = nbr_to_str(60 / game->skills->data->tab[CRY] -
+    C_TIME(game) / 1000000);
     char *concat = str_concat(2, str, "  sec");
     sfText *text = init_text(concat, size.y / 40);
 
@@ -67,7 +69,8 @@ void draw_cry_sec(game_t *game, sfVector2f size)
 
 void draw_cry(game_t *game, sfVector2f size)
 {
-    sfSprite *sprite = game->skills->sk_sprites[CRY][C_TIME(game) > 60 SEC];
+    sfSprite *sprite = game->skills->sk_sprites[CRY][C_TIME(game) >
+    60 / game->skills->data->tab[CRY] SEC];
     sfText *text = init_text("Press C", size.y / 40);
 
     sfSprite_setScale(sprite, (sfVector2f){SCALE(size) / 2, SCALE(size) / 2});
@@ -76,7 +79,7 @@ void draw_cry(game_t *game, sfVector2f size)
     sfText_setPosition(text, (sfVector2f)
     {size.x / 2 - 880.0 * SCALE(size), size.y / 2 + 242.0 * SCALE(size)});
     sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
-    if (!game->skills->sprint && C_TIME(game) > 60 SEC)
+    if (C_TIME(game) > 60 / game->skills->data->tab[CRY] SEC)
         sfRenderTexture_drawText(game->rtex, text, NULL);
     else
         draw_cry_sec(game, size);
