@@ -159,6 +159,7 @@ typedef struct {
     int level;
     int xp;
     int xp_limit;
+    int room_level;
 } player_info_t;
 
 static const sfIntRect hider_rect = {

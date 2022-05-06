@@ -31,8 +31,10 @@ void next_level(window_t *win)
     ray_c *data = win->menus[LIGHT];
     game_t *game = win->menus[GAME];
 
-    if (data->lvl >= 2)
+    if (data->lvl >= 2) {
+        end_game(0);
         return;
+    }
     add_xp(win->menus[GAME], 10 + (data->lvl == 1 ? 5 : 0));
     data->lvl++;
     game->quest->desc_qst[0] = desc_qst[data->lvl + 3];

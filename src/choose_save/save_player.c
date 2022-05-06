@@ -20,6 +20,7 @@ void save_player(window_t *win)
     update_inventory();
     update_skills();
     update_xp();
+    infos->room_level = ((ray_c *)win->menus[LIGHT])->lvl;
     write(fd, infos, sizeof(player_info_t));
     close(fd);
 }

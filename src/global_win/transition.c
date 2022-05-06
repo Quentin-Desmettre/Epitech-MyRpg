@@ -22,6 +22,8 @@ static void switch_color_dir(window_t *win, int *dir)
         recreate_enemy(win->menus[GAME], win->menus[LIGHT]);
     if (win->state == SELECT_SAVE)
         load_saves(win->menus[SELECT_SAVE]);
+    if (win->state == HOME)
+        set_level(win, 0);
 }
 
 static void reset_lum(window_t *win, int *dir, sfColor *lum)
