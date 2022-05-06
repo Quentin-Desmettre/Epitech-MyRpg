@@ -51,7 +51,7 @@ void update_res(settings_t *se, window_t *win)
     sfRenderWindow_destroy(win->win);
     win->mode = available_modes[se->resolution];
     win->win = sfRenderWindow_create(win->mode,
-    "My world", sfClose, NULL);
+    "Backrooms", sfClose, NULL);
     sfRenderWindow_setFramerateLimit(win->win,
     available_framerates[se->framerate]);
     rescale_all(win);
