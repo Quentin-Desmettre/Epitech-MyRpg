@@ -31,7 +31,7 @@ static void setup_base(interactive_npc_t *i, game_t *g, ray_c *r)
     int test[6] = {9, 9, 9, 9, 2, 0};
 
     i->current_dialog = init_text("", 10);
-    i->npc = npc_create("tnicd", "assets/player.png", test, pl_rects
+    i->npc = npc_create("tnicd", "assets/npc.png", test, pl_rects
     , (sfVector2f){1.2, 1.2}, IDLE);
     sfSprite_setOrigin(i->npc->sprite, (sfVector2f){32, 32});
     sfSprite_setPosition(i->npc->sprite, rnd_point(g, r, i->npc));
