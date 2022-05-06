@@ -75,7 +75,7 @@ static void poll_events(window_t *win)
 
 int main(void)
 {
-    window_t *win = NULL;
+    window_t *win;
 
     my_srand();
     if (!global_texture() || !global_font())
