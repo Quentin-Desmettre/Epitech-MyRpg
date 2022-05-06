@@ -46,9 +46,6 @@ void set_blocks(fight_t *fight)
         fight->rand_time[i] = 0;
         fight->time[i] = create_clock();
     }
-    sfRectangleShape_setTextureRect(fight->solid[0], (sfIntRect){0, 0, 900, 100});
-    sfRectangleShape_setTextureRect(fight->solid[1], (sfIntRect){0, 0, 1440, 100});
-
     fight->circle = sfCircleShape_create();
     sfCircleShape_setRadius(fight->circle, 75);
     sfCircleShape_setOrigin(fight->circle, (sfVector2f){75, 75});

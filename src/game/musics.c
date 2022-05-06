@@ -18,4 +18,6 @@ void init_musics(game_t *game)
     game->sounds[0] = create_sound(LAUGH);
     game->sounds[1] = create_sound(LV_UP);
     game->sounds[2] = create_sound(UPGRADE);
+    game->yes = create_sound("assets/audio/yes.ogg");
+    game->no = create_sound("assets/audio/no.ogg");
 }

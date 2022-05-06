@@ -8,13 +8,31 @@
 #include "rpg.h"
 #include "skills.h"
 
+int find_exit_two(ray_c *data, game_t *game, int i)
+{
+    for (int j = 0; j < game->level->size.x + 2; j++) {
+        if (data->map[i][j] == '2') {
+            sfSound_play(game->yes);
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void find_exit_event(game_t *game)
 {
-    if (game->skills->data->tab[FIND_EXIT] > 0 && F_TIME(game) >
-    F_WAIT(game->skills->data->tab[FIND_EXIT]) SEC) {
-        // find_exit  action
-        restart_clock(game->skills->clocks[FIND_EXIT]);
+    ray_c *data = window(NULL)->menus[LIGHT];
+
+    if (!(game->skills->data->tab[FIND_EXIT] > 0 && F_TIME(game) >
+    F_WAIT(game->skills->data->tab[FIND_EXIT]) SEC))
+        return;
+    restart_clock(game->skills->clocks[FIND_EXIT]);
+    for (int i = 0; i < game->level->size.y + 2; i++) {
+        if (find_exit_two(data, game, i))
+            return;
     }
+    sfSound_play(game->no);
+
 }
 
 void draw_find_exit_sec(game_t *game, sfVector2f size)

@@ -7,6 +7,21 @@
 
 #include "rpg.h"
 
+void set_door(ray_c *light, game_t *game)
+{
+    int door = rand() % (int)(game->level->size.y + 1);
+    int door2 = (int)(rand() % 2 * (game->level->size.x + 1));
+
+    light->map[door][door2] = '0';
+    light->map[door][(int)(door2 == 0 ? 1 : game->level->size.x)] = '0';
+
+    door = (rand() % 2 * (game->level->size.y + 1));
+    door2 = rand() % (int)(game->level->size.x + 1);
+
+    light->map[door][door2] = '0';
+    light->map[(int)(door == 0 ? 1 : game->level->size.x)][door2] = '0';
+}
+
 unsigned char count(maze_t *maze, unsigned short col, unsigned short line)
 {
     unsigned char count[2] = {0, 0};

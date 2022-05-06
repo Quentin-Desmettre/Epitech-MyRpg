@@ -58,6 +58,8 @@ typedef struct game {
     interactive_npc_t *npc;
     int is_talking;
     circular_splash_t *splash;
+    sfSound *yes;
+    sfSound *no;
 } game_t;
 
 // item room

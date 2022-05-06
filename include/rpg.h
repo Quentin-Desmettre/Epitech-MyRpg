@@ -358,6 +358,7 @@ void lazy_room(window_t *win);
 game_t *game_create(void);
 void game_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_game(window_t *win);
+void set_door(ray_c *light, game_t *game);
 void destroy_game(game_t *game);
 void new_room(game_t *game, ray_c *light);
 void draw_room(ray_c *data, game_t *game, window_t *win);
