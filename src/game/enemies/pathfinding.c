@@ -97,6 +97,8 @@ void update_path(path_t *p, level_t *l, ray_c *data, sfVector2f graphic_goal)
     for (unsigned line = 0; line < p->size.y; line++)
         for (unsigned column = 0; column < p->size.x; column++)
             p->map[line][column] = (p->map[line][column] == -1) ? -1 : 0;
+    if (logic_pos.x >= p->size.y || logic_pos.y >= p->size.x)
+        return;
     p->map[logic_pos.x][logic_pos.y] = 1;
     update_path_pos(p->map, logic_pos, p->size);
 }
