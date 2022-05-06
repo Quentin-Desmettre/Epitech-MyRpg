@@ -75,9 +75,19 @@ static const sfIntRect pl_rect_down[9] = {
     {512, 512, 64, 64}
 };
 
-static const sfIntRect pl_rect_idle[5] = {
+static const sfIntRect pl_rect_idle[2] = {
     {0, 640, 64, 64},
     {64, 640, 64, 64}
+};
+
+static const sfIntRect pl_rect_dance[7] = {
+    {64, 896, 64, 64},
+    {128, 896, 64, 64},
+    {192, 896, 64, 64},
+    {256, 896, 64, 64},
+    {320, 896, 64, 64},
+    {256, 896, 64, 64},
+    {192, 896, 64, 64}
 };
 
 #endif
