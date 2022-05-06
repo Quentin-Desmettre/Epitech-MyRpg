@@ -16,7 +16,8 @@ void set_musics_volume(float volume)
     if (!begin)
         return;
     do {
-        sfMusic_setVolume(list->data, volume);
+        if (list->data)
+            sfMusic_setVolume(list->data, volume);
         list = list->next;
     } while (list != begin);
 }

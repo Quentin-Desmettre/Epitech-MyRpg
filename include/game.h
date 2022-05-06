@@ -16,6 +16,10 @@
     #include "inventory.h"
     #include "pause.h"
     #define RUSH_MUSIC "assets/audio/chase.ogg"
+    #define AMBIENT_MUSIC "assets/audio/ambient.ogg"
+    #define LAUGH "assets/audio/laugh.ogg"
+    #define LV_UP "assets/audio/level_up.ogg"
+    #define UPGRADE "assets/audio/upgrade.ogg"
     #include "inter_npc.h"
     #include "particles.h"
 
@@ -47,6 +51,8 @@ typedef struct game {
     int is_paused;
     pause_t *pause;
     sfMusic *rush_music;
+    sfMusic *ambient_music;
+    sfSound *sounds[3];
     path_t *path;
     interactive_npc_t *npc;
     int is_talking;
@@ -55,5 +61,6 @@ typedef struct game {
 
 // item room
 char choose_item(int i, int j, char c, game_t *game);
+void init_musics(game_t *game);
 
 #endif

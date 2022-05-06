@@ -51,10 +51,20 @@ static void draw(window_t *win)
 
 void set_next_win_state(window_t *win, int next)
 {
+    game_t *game = win->menus[GAME];
+
     win->next_state = next;
     win->is_transition = 1;
     if (next == EXIT && win->close_sfx)
         sfSound_play(win->close_sfx);
+    if (next == GAME && game->ambient_music)
+        sfMusic_play(game->ambient_music);
+    else if (game->ambient_music)
+        sfMusic_pause(game->ambient_music);
+    if (next == FIGHT && game->rush_music)
+        sfMusic_stop(game->rush_music);
+    if (next == HOME && win->music)
+        sfMusic_play(win->music);
 }
 
 static void poll_events(window_t *win)
