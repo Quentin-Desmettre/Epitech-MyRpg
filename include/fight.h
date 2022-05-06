@@ -25,7 +25,7 @@
     #include <string.h>
     #include "rpg.h"
 
-    #define DMG 12
+    #define DMG 10
 
 typedef struct fight_t {
     sfRectangleShape *solid[20];
@@ -40,6 +40,7 @@ typedef struct fight_t {
     p_clock_t *time[DMG];
     p_clock_t *speed;
     float nme;
+    sfClock *player_clock;
 } fight_t;
 
 void pattern_zigzag(fight_t *fight, int start);

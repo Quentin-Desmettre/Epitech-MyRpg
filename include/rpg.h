@@ -239,10 +239,10 @@ __attribute__((unused)) static const char *desc_qst[6] = {
     "Or, you can stay here with me\n"
     "and my friends =)",
 
-    "Oh no, you're already in the last level :(\n"
+    "Oh no, you're already in the last level =(\n"
     "Or are you ?\n"
     "Anyway, try to exit =)\n"
-    "Good luck ;)"
+    "Good luck =)"
 };
 
 void free_textures(void);
@@ -382,14 +382,14 @@ int can_rush(enemy_t *e, ray_c *data, npc_t *player, window_t *win);
 float dist_between(sfSprite *a, sfSprite *b);
 void launch_combat(window_t *win);
 int check_rush(enemy_t *en, ray_c *data, game_t *g, window_t *win);
-void draw_quest(game_t *game, sfRenderWindow *win);
+void draw_quest(game_t *game, window_t *win);
 void quest_init(game_t *game);
 void ev_quest(game_t *game, sfEvent ev, sfRenderWindow *win);
 void rotate_vector(sfVector2f *vec, float degree);
 void draw_skills(game_t *game, window_t *win);
 void skills_events(game_t *game, sfEvent ev, sfVector2f size);
 void scale_draw(game_t *game, sfVector2f scale);
-void next_level(ray_c *data);
+void next_level(window_t *win);
 void sprint_event(game_t *game);
 void draw_sprint(game_t *game, sfVector2f size);
 void draw_cry(game_t *game, sfVector2f size);
@@ -428,6 +428,11 @@ cinematic_t *create_cinematic(sfColor pl);
 sfVector2i sprite_pos(sfSprite *s);
 void save_player(window_t *win);
 void recreate_enemy(game_t *game, ray_c *light);
+sfVector2u get_graphic_pos(sfVector2f pos, game_t *game, ray_c *r);
+void put_wall_around(path_t *p, sfVector2u pos);
+int is_on_water(npc_t *enemy, list_t *items, sfSprite *item);
+void draw_level(game_t *game, sfVector2f size);
+void use_object(game_t *game, choose_save_t *c);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

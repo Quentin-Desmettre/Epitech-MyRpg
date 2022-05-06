@@ -92,7 +92,7 @@ void draw_map(ray_c *data, game_t *game, window_t *win)
     data->state.texture = sfRenderTexture_getTexture(data->tex_light);
     if (data->map[(int)(pos.x / data->cell)]
     [(int)(pos.y / data->cell)] == '2') {
-        next_level(data);
+        next_level(win);
         new_room(game, data);
     }
     if (win->state == GAME)

@@ -25,6 +25,7 @@ void draw_to_game(game_t *game, window_t *win)
     sfVector2f size = win_size(win);
     sfSprite *sprite = sfSprite_create();
 
+    draw_level(game, size);
     sfRenderTexture_display(game->inventory->rtex);
     tex = sfRenderTexture_getTexture(game->inventory->rtex);
     center = sfTexture_getSize(tex);
@@ -95,7 +96,7 @@ void draw_inventory(game_t *game, window_t *win)
     sfRenderTexture_clear(game->inventory->rtex, sfTransparent);
     sfSprite_setTextureRect(sprite, game->player->rects[4][0]);
     sfSprite_setScale(sprite, (sfVector2f){5.5, 5.5});
-    sfSprite_setPosition(sprite, (sfVector2f){558, 430});
+    sfSprite_setPosition(sprite, (sfVector2f){570, 440});
     sfRenderTexture_drawSprite(game->rtex, game->inventory->sprite, NULL);
     sfRenderTexture_drawSprite(game->inventory->rtex, sprite, NULL);
     sfSprite_destroy(sprite);

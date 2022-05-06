@@ -19,6 +19,7 @@ float dist_between(sfSprite *a, sfSprite *b)
 
 void cancel_rush_of(enemy_t *e, ray_c *data, level_t *l)
 {
+    game_t *g = window(NULL)->menus[GAME];
     sfVector2f vectors[4] = {
         {-data->cell / 2.0, 0}, {data->cell / 2.0, 0},
         {0, -data->cell / 2.0}, {0, data->cell / 2.0}
@@ -33,7 +34,8 @@ void cancel_rush_of(enemy_t *e, ray_c *data, level_t *l)
             sfSprite_move(e->enemy->sprite,
             (sfVector2f){-vectors[i - 1].x, -vectors[i - 1].y});
         sfSprite_move(e->enemy->sprite, vectors[i]);
-        if (!is_pnj_colliding(data, e->enemy, l))
+        if (!is_pnj_colliding(data, e->enemy, l) &&
+        is_on_water(e->enemy, g->items, g->inventory->items_sprite[2]))
             return;
     }
 }

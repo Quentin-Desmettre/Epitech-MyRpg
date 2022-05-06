@@ -8,6 +8,21 @@
 #include "rpg.h"
 #include "inventory.h"
 
+void draw_level(game_t *game, sfVector2f size)
+{
+    sfText *text = init_text("Level", size.y / 35);
+    char *level = nbr_to_str(game->player->level);
+    char *concat = str_concat(2, "Level ", level);
+
+    sfText_setString(text, concat);
+    center_text(text);
+    sfText_setPosition(text, (sfVector2f){size.x / 2 - 390 *
+    SCALE(size), 305 * SCALE(size)});
+    sfRenderTexture_drawText(game->rtex, text, NULL);
+    my_free("pp", level, concat);
+    sfText_destroy(text);
+}
+
 void draw_stats_pts(game_t *game, window_t *win)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
@@ -16,7 +31,7 @@ void draw_stats_pts(game_t *game, window_t *win)
     sfText *text = init_text(name, win_size(win).y / 20);
 
     center_text(text);
-    sfText_setPosition(text, (sfVector2f){win_size(win).x / 2 - 402 *
+    sfText_setPosition(text, (sfVector2f){win_size(win).x / 2 - 390 *
     SCALE(win_size(win)), 265 * SCALE(win_size(win))});
     sfRenderTexture_drawText(game->rtex, text, NULL);
     tmp = nbr_to_str(game->skills->data->xp);

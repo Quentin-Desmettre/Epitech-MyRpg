@@ -8,11 +8,16 @@
 #include "rpg.h"
 #include "player.h"
 
-void next_level(ray_c *data)
+void next_level(window_t *win)
 {
+    ray_c *data = win->menus[LIGHT];
+    game_t *game = win->menus[GAME];
+
     if (data->lvl >= 2)
         return;
+    add_xp(win->menus[GAME], 10 + (data->lvl == 1 ? 5 : 0));
     data->lvl++;
+    game->quest->desc_qst[0] = desc_qst[data->lvl + 3];
     data->noise = get_texture_by_name(BLUE_NOISE);
     sfSprite_setTexture(data->floor, data->floor_tex[data->lvl], 0);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);

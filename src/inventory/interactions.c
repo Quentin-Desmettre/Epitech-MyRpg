@@ -12,7 +12,7 @@ void destroy_inventory(inventory_t *inventory)
 {
     sfSprite_destroy(inventory->sprite);
     free(inventory->data);
-    for (int i = 0; i < NB_ITEMS; i++)
+    for (int i = 0; i < NB_ITEMS + 1; i++)
         sfSprite_destroy(inventory->items_sprite[i]);
     sfRenderTexture_destroy(inventory->rtex);
     for (int i = 0; i < 4; i++)
@@ -73,7 +73,7 @@ void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
 
     if (sfFloatRect_intersects(&mouse, &buttons[0], 0) &&
     game->inventory->item_selected != -1)
-        remove_item(game->inventory, game->inventory->item_selected, 1);
+        use_object(game, win->menus[SELECT_SAVE]);
     if (sfFloatRect_intersects(&mouse, &buttons[1], 0) &&
     game->inventory->item_selected != -1) {
         item = malloc(sizeof(item_t));

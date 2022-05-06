@@ -13,7 +13,8 @@
 // list of items paths
 static const char *items_paths[] = {
     "assets/inventory/water.png",
-    "assets/inventory/pills.png"
+    "assets/inventory/pills.png",
+    "assets/skills/puddle.png"
 };
 
 #endif

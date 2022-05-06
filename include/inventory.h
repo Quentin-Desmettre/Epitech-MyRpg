@@ -47,7 +47,7 @@ typedef struct inventory {
     inventory_data_t *data;
     sfRenderTexture *rtex;
     sfTexture *texture;
-    sfSprite *items_sprite[NB_ITEMS];
+    sfSprite *items_sprite[NB_ITEMS + 1];
     button_t *stat_btns[4];
     sfSprite *buttons[2];
     sfSprite *sprite;

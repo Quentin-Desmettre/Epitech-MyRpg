@@ -13,12 +13,14 @@ void save_player(window_t *win)
     if (c->primary == -1)
         return;
     player_info_t *infos = &c->saves[c->primary]->infos;
-    char *file_name = str_concat(2, "saves/save", nbr_to_str(c->primary + 1));
+    char *str = nbr_to_str(c->primary + 1);
+    char *file_name = str_concat(2, "saves/save", str);
     int fd = open(file_name, O_RDWR | O_CREAT, 0666);
 
     if (fd < 0)
-        return;
+        return free(str);
     write(fd, infos, sizeof(player_info_t));
     free(file_name);
     close(fd);
+    free(str);
 }

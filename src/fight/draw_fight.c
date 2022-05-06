@@ -55,26 +55,36 @@ void change_to_prop_s(sfRenderTexture *tex , sfSprite *ply, window_t *win)
     sfSprite_setPosition(ply, tmp2);
 }
 
+void dmg_to_nme(fight_t *fight, window_t *win)
+{
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t info = c->saves[c->primary]->infos;
+    int x = 120;
+    sfFloatRect rect;
+
+    if (sfCircleShape_getPosition(fight->circle).x == 120)
+        x = 1320;
+    for (int i = 0; i == 0 ||
+    touch_solid(rect, fight); i++) {
+        sfCircleShape_setPosition(fight->circle, (coo_t){x, 100 * (9 - i)});
+        rect = sfCircleShape_getGlobalBounds(fight->circle);
+        rect.top -= 100;
+        rect.height += 100;
+    }
+    fight->nme -= 15 + 15 * ((2.0 - ((ray_c *)win->menus[LIGHT])->lvl) / 2.0) +
+    15 * (info.strength / 30.0);
+}
+
 void dis_circle(fight_t *fight, window_t *win)
 {
     coo_t tmp = sfRectangleShape_getPosition(fight->player);
     coo_t tmp2 = sfCircleShape_getPosition(fight->circle);
-    choose_save_t *c = win->menus[SELECT_SAVE];
-    player_info_t info = c->saves[c->primary]->infos;
     coo_t w_size = win_size(win);
-    int x = 120;
 
     draw_game_bar(fight->tex, (coo_t){w_size.x / 50 * 49 - w_size.x / 6,
     w_size.y / 20}, (coo_t){w_size.x / 6, w_size.y / 25}, (coo_t)
     {fight->nme, 0});
-    if (sqrt(pow(tmp.x + 50 - tmp2.x, 2) + pow(tmp.y + 50 - tmp2.y, 2)) > 125)
+    if (sqrt(pow(tmp.x + 50 - tmp2.x, 2) + pow(tmp.y + 50 - tmp2.y, 2)) > 115)
         return;
-    if (sfCircleShape_getPosition(fight->circle).x == 120)
-        x = 1320;
-    for (int i = 0; i == 0 ||
-    touch_solid(sfCircleShape_getGlobalBounds(fight->circle), fight); i++) {
-        sfCircleShape_setPosition(fight->circle, (coo_t){x, 100 * (9 - i)});
-    }
-    fight->nme -= 15 + 15 * (((2.0 - ((ray_c *)win->menus[LIGHT])->lvl) / 2.0) +
-    15 * (info.strength / 30.0));
+    dmg_to_nme(fight, win);
 }

@@ -56,9 +56,9 @@ void desc_draw(game_t *game, sfRenderWindow *win, int nb)
     sfRenderTexture_drawText(game->rtex, game->quest->desc, NULL);
 }
 
-void draw_quest(game_t *game, sfRenderWindow *win)
+void draw_quest(game_t *game, window_t *win)
 {
-    sfVector2u size = sfRenderWindow_getSize(win);
+    sfVector2u size = sfRenderWindow_getSize(win->win);
 
     if (game->quest->draw == 0)
         return;
@@ -75,7 +75,7 @@ void draw_quest(game_t *game, sfRenderWindow *win)
         sfText_setPosition(game->quest->name, (coo_t){size.x / 2 - (430 /
         1080.0 * size.y),
         size.y / 5 + i * (116 / 1080.0 * size.y)});
-        desc_draw(game, win, i);
+        desc_draw(game, win->win, i);
         sfText_setColor(game->quest->name, sfWhite);
     }
 }

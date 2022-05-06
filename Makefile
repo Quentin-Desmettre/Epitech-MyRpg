@@ -94,6 +94,7 @@ SRC = \
 	src/line_edit/create.c                             \
 	src/line_edit/events.c                             \
 	src/inventory/draw2.c                              \
+	src/inventory/object_use.c                         \
 	src/inventory/interactions.c                       \
 	src/inventory/inventory.c                          \
 	src/inventory/draw.c                               \
