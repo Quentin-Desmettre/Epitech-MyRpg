@@ -441,6 +441,7 @@ void use_object(game_t *game, choose_save_t *c);
 void update_skills(void);
 void update_inventory(void);
 void update_xp(void);
+void set_level(window_t *win, int level);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {
