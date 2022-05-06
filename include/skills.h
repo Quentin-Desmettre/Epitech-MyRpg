@@ -31,6 +31,7 @@
     #define S_TIME(game) get_elapsed_time((game)->skills->clocks[SPRINT])
     #define C_TIME(game) get_elapsed_time((game)->skills->clocks[CRY])
     #define F_TIME(game) get_elapsed_time((game)->skills->clocks[FIND_EXIT])
+    #define F_WAIT(level) ((level) == 2 ? 60 : 90)
     #define SEC * 1000000
 
 // descriptions of the diffetents skills

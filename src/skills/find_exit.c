@@ -10,7 +10,8 @@
 
 void find_exit_event(game_t *game)
 {
-    if (game->skills->data->tab[FIND_EXIT] > 0 && F_TIME(game) > 60 SEC) {
+    if (game->skills->data->tab[FIND_EXIT] > 0 && F_TIME(game) >
+    F_WAIT(game->skills->data->tab[FIND_EXIT]) SEC) {
         // find_exit  action
         restart_clock(game->skills->clocks[FIND_EXIT]);
     }
@@ -18,7 +19,8 @@ void find_exit_event(game_t *game)
 
 void draw_find_exit_sec(game_t *game, sfVector2f size)
 {
-    char *str = nbr_to_str(60 - F_TIME(game) / 1000000);
+    char *str = nbr_to_str(F_WAIT(game->skills->data->tab[FIND_EXIT]) -
+    F_TIME(game) / 1000000);
     char *concat = str_concat(2, str, "  sec");
     sfText *text = init_text(concat, size.y / 40);
 
@@ -32,7 +34,7 @@ void draw_find_exit_sec(game_t *game, sfVector2f size)
 void draw_find_exit(game_t *game, sfVector2f size)
 {
     sfSprite *sprite = game->skills->sk_sprites
-    [FIND_EXIT][F_TIME(game) > 60 SEC];
+    [FIND_EXIT][F_TIME(game) > F_WAIT(game->skills->data->tab[FIND_EXIT]) SEC];
     sfText *text = init_text("Press F", size.y / 40);
 
     sfSprite_setScale(sprite, (sfVector2f){SCALE(size) / 2, SCALE(size) / 2});
@@ -41,7 +43,7 @@ void draw_find_exit(game_t *game, sfVector2f size)
     sfText_setPosition(text, (sfVector2f)
     {size.x / 2 - 0.45 * size.x, size.y / 2 + 192.0 * SCALE(size)});
     sfRenderTexture_drawSprite(game->rtex, sprite, NULL);
-    if (F_TIME(game) > 60 SEC)
+    if (F_TIME(game) > F_WAIT(game->skills->data->tab[FIND_EXIT]) SEC)
         sfRenderTexture_drawText(game->rtex, text, NULL);
     else
         draw_find_exit_sec(game, size);
