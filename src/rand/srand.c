@@ -10,6 +10,19 @@
 #include <unistd.h>
 #include "rpg.h"
 
+void end_events(window_t *win, sfEvent ev)
+{
+    end_t *d = win->menus[END];
+
+    if (ev.type == sfEvtMouseButtonPressed)
+        check_button_press(&d->quit, 1, ev.mouseButton.x, ev.mouseButton.y);
+    if (ev.type == sfEvtMouseButtonReleased)
+        check_button_release(&d->quit, 1,
+        (sfVector2f){ev.mouseButton.x, ev.mouseButton.y}, win);
+    if (ev.type == sfEvtMouseMoved)
+        check_button_move(&d->quit, 1, ev.mouseMove.x, ev.mouseMove.y);
+}
+
 sfVector2f win_size(window_t *win)
 {
     return (sfVector2f){win->mode.width,

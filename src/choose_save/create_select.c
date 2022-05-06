@@ -66,6 +66,8 @@ void launch_file(void *win)
     g->player->attack = infos.strength;
     g->player->defense = infos.defense;
     g->player->thirst = infos.thirst_res;
+    destroy_cinematic(w->menus[CINE]);
+    w->menus[CINE] = create_cinematic(sfWhite);
     set_next_win_state(win, infos.show_intro ? CINE : GAME);
     restart_clock(cine->clock);
     setup_attributes(g, infos, win);

@@ -53,6 +53,8 @@ float sound_vol(int change, float new);
     #define BLUE_NOISE "assets/noise_b.png"
     #define QUEST_PNG "assets/quest.png"
     #define NOISE_PNG "assets/noise.png"
+    #define DIED_MUSIC "assets/audio/you_died.ogg"
+    #define WON_MUSIC "assets/audio/you_win.ogg"
 
     #define ITM_TYPE(x) ((item_t *)((x)->data))->type
 
@@ -74,6 +76,20 @@ typedef struct {
     sfRenderTexture *rtex;
 } main_menu_t;
 
+typedef struct {
+    sfRenderTexture *rtex;
+    sfText *text;
+    button_t *quit;
+    sfSprite *player;
+    sfMusic *music;
+    sfIntRect *rects;
+    p_clock_t *clock;
+    int nb_rect;
+    int cur_rect;
+    int is_dying;
+    int anim;
+} end_t;
+
 typedef struct win {
     sfVideoMode mode;
     sfRenderWindow *win;
@@ -94,7 +110,8 @@ typedef struct win {
 } window_t;
 
 typedef enum {
-    SETTINGS, HOME, EXIT, GAME, LIGHT, SELECT_SAVE, CREATE_SAVE, FIGHT, CINE
+    SETTINGS, HOME, EXIT, GAME, LIGHT,
+    SELECT_SAVE, CREATE_SAVE, FIGHT, CINE, END
 } state_t;
 
 static const sfIntRect back_rect = {
@@ -310,6 +327,12 @@ sfColor fcol, float thick, sfColor ocol);
 const sfTexture *draw_choose_save(window_t *win);
 choose_save_t *create_choose_save(sfVector2f win_size);
 void rescale_choose_save(choose_save_t *c, sfVector2f size);
+void rescale_choose_save(choose_save_t *c, sfVector2f size);
+void end_game(int has_died);
+const sfTexture *draw_end(window_t *win);
+void end_events(window_t *win, sfEvent ev);
+end_t *create_died(window_t *win);
+void destroy_end(end_t *g);
 
 // settings
 void rescale_all(window_t *win);

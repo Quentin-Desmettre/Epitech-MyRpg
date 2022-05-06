@@ -7,6 +7,17 @@
 
 #include "rpg.h"
 
+void destroy_end(end_t *g)
+{
+    sfRenderTexture_destroy(g->rtex);
+    sfText_destroy(g->text);
+    sfSprite_destroy(g->player);
+    destroy_clock(g->clock);
+    destroy_music(g->music);
+    destroy_button(g->quit);
+    free(g);
+}
+
 void update_skills(void)
 {
     window_t *win = window(NULL);

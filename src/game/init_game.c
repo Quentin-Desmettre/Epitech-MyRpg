@@ -45,6 +45,8 @@ void check_flash(game_t *game, sfRectangleShape *rect)
 void draw_menus(game_t *game, window_t *win)
 {
     ray_c *r = win->menus[LIGHT];
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    int pr = c->primary;
 
     draw_room(r, win->menus[GAME], win);
     draw_enemies(game, r, win);
@@ -56,6 +58,8 @@ void draw_menus(game_t *game, window_t *win)
     draw_quest(win->menus[GAME], win);
     draw_skills(win->menus[GAME], win);
     draw_npc(game, r);
+    if (pr >= 0 && c->saves[c->primary]->infos.health_percent <= 0)
+        end_game(1);
 }
 
 const sfTexture *draw_game(window_t *win)

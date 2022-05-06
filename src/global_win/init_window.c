@@ -35,13 +35,14 @@ static void create_pointers(window_t *win)
 {
     const sfTexture* (*dr[])(window_t *) = {
         draw_settings, draw_main_menu, NULL, draw_game, NULL, draw_choose_save,
-        draw_create_save, draw_fight, draw_cinematic
+        draw_create_save, draw_fight, draw_cinematic, draw_end
     };
     void (*ev[])(window_t *, sfEvent) = {
         settings_ev, main_menu_ev, NULL, game_ev, NULL, file_select_events,
-        create_save_events, fight_ev, cinematic_ev
+        create_save_events, fight_ev, cinematic_ev, end_events
     };
-    for (int i = 0; i < 9; i++) {
+
+    for (int i = 0; i < 10; i++) {
         win->draw[i] = dr[i];
         win->event[i] = ev[i];
     }
@@ -88,5 +89,6 @@ window_t *window_create(void)
     center_inventory(win->menus[GAME], win);
     win->menus[FIGHT] = init_fight();
     GET_GAME(win)->pause = create_pause(win);
+    win->menus[END] = create_died(win);
     return win;
 }
