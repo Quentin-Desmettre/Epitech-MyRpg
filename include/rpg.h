@@ -436,14 +436,15 @@ void use_object(game_t *game, choose_save_t *c);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {
-    return (sfVector2u){(l->size.y + 1) * data->cell,
-    (l->size.x + 1) * data->cell + data->cell / 2};
+    return (sfVector2u) {(l->size.y + 1) * data->cell,
+        (l->size.x + 1) * data->cell + data->cell / 2
+    };
 }
 
 static inline sfVector2u graphic_pos_to_map(sfVector2f graphic_pos,
 sfVector2u graphic_size, sfVector2u logic_size, float cell)
 {
-    return (sfVector2u){
+    return (sfVector2u) {
         graphic_pos.y * logic_size.y / graphic_size.y,
         (graphic_pos.x - cell / 2.0) * logic_size.x / graphic_size.x
     };

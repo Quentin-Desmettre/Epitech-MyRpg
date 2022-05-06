@@ -12,7 +12,7 @@ void create_skill_desc(sfText *text, int item, sfVector2f size)
     char *str;
     const char *tmp;
     sfFloatRect pos = sfText_getGlobalBounds(text);
-    char **words = my_str_to_word_array(SKILLS_TXT(item), " ");
+    char **words = my_str_to_word_array(skills_txt(item), " ");
 
     sfText_setString(text, "");
     for (int i = 0; words[i]; i++) {
@@ -33,7 +33,7 @@ void create_skill_desc(sfText *text, int item, sfVector2f size)
 
 void draw_skill_desc(game_t *game, sfVector2f size, int skill)
 {
-    sfText *text = init_text(SKILLS_TITLE(skill), size.y / 40);
+    sfText *text = init_text(skills_title(skill), size.y / 40);
     sfSprite *sprite = game->skills->sk_sprites[skill][1];
 
     sfSprite_setScale(sprite, (sfVector2f)

@@ -13,8 +13,8 @@ void find_angle_n(int i, int j, int l, ray_c *data)
     for (int k = -1; k != 3; k += 2) {
         if (i + l < MAP_S && i + l >= 0 && j + k < MAP_H && j + k >= 0 &&
         data->map[i + l][j] == data->map[i][j + k]) {
-            data->angles[data->light->index].coo = (sfVector2f)
-            {(i + (l == 1)), (j + (k == 1))};
+            data->angles[data->light->index].coo = (sfVector2f){(i + (l == 1)),
+            (j + (k == 1))};
             data->angles[data->light->index].is_triple = 1;
             data->light->index++;
         }

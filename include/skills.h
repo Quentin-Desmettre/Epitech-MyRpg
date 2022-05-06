@@ -42,12 +42,6 @@ hydratation while crying. Use with the C key"
     #define FIND_EXIT_DESC "You can know if the exit is in this room\n\
 Use this skill with the F key"
 
-// getters of the skills descriptions
-    #define SKILLS_TITLE(skills) (skills) == SPRINT ? "Sprint" : \
-    (skills) == CRY ? "Cry" : "Find Exit"
-    #define SKILLS_TXT(skills) (skills) == SPRINT ? SKILLS_DESC : \
-    (skills) == CRY ? CRY_DESC : FIND_EXIT_DESC
-
 // skills_data structure
 typedef struct skills_data {
     int tab[NB_SKILLS];
@@ -72,5 +66,24 @@ typedef struct skills {
 
 // skills prototypes
 skills_t *skills_create(void);
+
+// getters of the skills descriptions
+static inline char const *skills_title(int skills)
+{
+    if (skills == SPRINT)
+        return "Sprint";
+    else if (skills == CRY)
+        return "Cry";
+    return "Find Exit";
+}
+
+static inline char const *skills_txt(int skills)
+{
+    if (skills == SPRINT)
+        return SKILLS_DESC;
+    else if (skills == CRY)
+        return CRY_DESC;
+    return FIND_EXIT_DESC;
+}
 
 #endif

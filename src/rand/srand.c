@@ -12,7 +12,8 @@
 
 sfVector2f win_size(window_t *win)
 {
-    return (sfVector2f){win->mode.width, win->mode.height};
+    return (sfVector2f){win->mode.width,
+    win->mode.height};
 }
 
 sfInt32 my_rand(sfInt32 min, sfInt32 max)
