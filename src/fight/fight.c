@@ -14,7 +14,7 @@ const sfTexture *draw_fight(window_t *win)
     choose_save_t *c = win->menus[SELECT_SAVE];
     player_info_t info = c->saves[c->primary]->infos;
 
-    sfRenderTexture_clear(fight->tex, sfBlack);
+    sfRenderTexture_clear(fight->tex, sfColor_fromRGB(20, 20, 20));
     change_to_prop_c(fight->tex, fight->circle, win);
     change_to_prop(fight->tex, fight->player, win);
     for (int i = 0; i < DMG; i++)

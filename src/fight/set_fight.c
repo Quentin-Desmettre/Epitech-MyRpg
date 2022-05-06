@@ -35,19 +35,24 @@ void set_blocks(fight_t *fight)
     for (int i = 0; i < 20; i++) {
         fight->solid[i] = sfRectangleShape_create();
         sfRectangleShape_setSize(fight->solid[i], (sfVector2f){200, 100});
-        sfRectangleShape_setFillColor(fight->solid[i], sfWhite);
+        sfRectangleShape_setFillColor(fight->solid[i], sfBlack);
     }
     for (int i = 0; i < DMG; i++) {
         fight->dmg[i] = sfRectangleShape_create();
         sfRectangleShape_setSize(fight->dmg[i], (sfVector2f){50, 50});
         sfRectangleShape_setFillColor(fight->dmg[i], sfRed);
+        sfRectangleShape_setTexture(fight->dmg[i],
+        get_texture_by_name("./assets/heart.png"), sfTrue);
         fight->rand_time[i] = 0;
         fight->time[i] = create_clock();
     }
+    sfRectangleShape_setTextureRect(fight->solid[0], (sfIntRect){0, 0, 900, 100});
+    sfRectangleShape_setTextureRect(fight->solid[1], (sfIntRect){0, 0, 1440, 100});
+
     fight->circle = sfCircleShape_create();
     sfCircleShape_setRadius(fight->circle, 75);
     sfCircleShape_setOrigin(fight->circle, (sfVector2f){75, 75});
-    sfCircleShape_setFillColor(fight->circle, sfColor_fromRGB(254, 159, 5));
+    sfCircleShape_setFillColor(fight->circle, sfBlue);
     sfRectangleShape_setTexture(fight->player,
     get_texture_by_name("./assets/heart.png"), sfTrue);
     change_pos(fight);
