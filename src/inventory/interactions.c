@@ -44,6 +44,8 @@ void add_stat(window_t *win, int type)
         infos->thirst_res += 1;
         game->player->thirst += 1;
     }
+    if (game->sounds[2])
+        sfSound_play(game->sounds[2]);
 }
 
 void inventory_stats(game_t *game, sfEvent ev, window_t *win)

@@ -63,6 +63,9 @@ const sfTexture *draw_game(window_t *win)
     game_t *game = win->menus[GAME];
     sfRectangleShape *rect = sfRectangleShape_create();
 
+    if ((rand() % 3000) == 3 && game->sounds[0] && !game->is_paused &&
+    sfSound_getStatus(game->sounds[0]) != sfPlaying)
+        sfSound_play(game->sounds[0]);
     if (!game->is_flashing && !game->is_paused)
         anim_npc(game->player);
     else if (!game->is_paused)
@@ -98,7 +101,6 @@ game_t *game_create(void)
     game->skills = skills_create();
     game->clock = create_clock();
     game->flash_clock = create_clock();
-    game->rush_music = create_music(RUSH_MUSIC);
-    sfMusic_setLoop(game->rush_music, 1);
+    init_musics(game);
     return game;
 }

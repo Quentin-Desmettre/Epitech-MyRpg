@@ -121,6 +121,7 @@ SRC = \
 	src/cinematic/draw.c                               \
 	src/cinematic/cine_ev.c                            \
 	src/choose_save/save_player.c                      \
+	src/game/musics.c                                  \
 	src/main.c                                         \
 	src/free.c
 

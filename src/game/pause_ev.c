@@ -57,6 +57,10 @@ void pause_events(game_t *g, window_t *win, sfEvent ev)
         switch_clocks();
         g->is_paused = !g->is_paused;
     }
+    if (g->is_paused && g->ambient_music)
+        sfMusic_stop(g->ambient_music);
+    if (!g->is_paused && g->ambient_music && win->next_state == GAME)
+        sfMusic_play(g->ambient_music);
 }
 
 int check_pause(sfEvent ev, game_t *game)
@@ -64,6 +68,10 @@ int check_pause(sfEvent ev, game_t *game)
     if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
         switch_clocks();
         game->is_paused = !game->is_paused;
+        if (game->is_paused && game->ambient_music)
+            sfMusic_stop(game->ambient_music);
+        if (!game->is_paused && game->ambient_music)
+            sfMusic_play(game->ambient_music);
         return 1;
     }
     return 0;

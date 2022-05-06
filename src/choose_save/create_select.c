@@ -60,7 +60,12 @@ void launch_file(void *win)
     player_info_t infos = c->saves[c->primary]->infos;
 
     sfSprite_setColor(g->player->sprite, infos.skin_comb);
-    sfMusic_stop(w->music);
+    if (w->music)
+        sfMusic_stop(w->music);
+    g->player->speed = infos.speed;
+    g->player->attack = infos.strength;
+    g->player->defense = infos.defense;
+    g->player->thirst = infos.thirst_res;
     set_next_win_state(win, infos.show_intro ? CINE : GAME);
     restart_clock(cine->clock);
     setup_attributes(g, infos, win);

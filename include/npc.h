@@ -27,8 +27,8 @@ typedef struct npc {
     int thirst;
     int attack;
     int defense;
-    int nb_rects;
     int speed;
+    int nb_rects;
     int level;
     int xp;
     int xp_limit;

@@ -46,6 +46,8 @@ void add_xp(game_t *game, int xp)
 {
     game->player->xp += xp;
     if (game->player->xp >= game->player->xp_limit) {
+        if (game->sounds[1])
+            sfSound_play(game->sounds[1]);
         game->player->xp = 0;
         game->player->level++;
         game->player->xp_limit += 5;

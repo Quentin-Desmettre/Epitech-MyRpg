@@ -27,14 +27,14 @@ void skills_events(game_t *game, sfEvent ev, sfVector2f size)
     118 * (SCALE(size)), 118 * (SCALE(size))};
 
     for (int i = 0; i < NB_SKILLS; i++, button.left += 244 * (SCALE(size)))
-        if (sfFloatRect_intersects(&mouse, &button, 0)) {
+        if (sfFloatRect_intersects(&mouse, &button, 0))
             game->skills->skill_selected = i;
-            return;
-        }
     button = sfSprite_getGlobalBounds(game->skills->button);
     if (selected >= 0 && sfFloatRect_intersects(&mouse, &button, 0) &&
     game->skills->data->pc > 1 && game->skills->data->tab[selected] < 2 &&
     !(selected != 0 && game->skills->data->tab[selected - 1] == 0)) {
+        if (game->sounds[2])
+            sfSound_play(game->sounds[2]);
         game->skills->data->pc -= 2;
         !game->skills->data->tab[selected] ?
         restart_clock(game->skills->clocks[selected]) : 0;
