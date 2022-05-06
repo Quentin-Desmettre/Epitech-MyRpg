@@ -48,7 +48,8 @@ void set_blocks(fight_t *fight)
     sfCircleShape_setRadius(fight->circle, 75);
     sfCircleShape_setOrigin(fight->circle, (sfVector2f){75, 75});
     sfCircleShape_setFillColor(fight->circle, sfColor_fromRGB(254, 159, 5));
-    sfRectangleShape_setTexture(fight->player, get_texture_by_name("./assets/heart.png"), sfTrue);
+    sfRectangleShape_setTexture(fight->player,
+    get_texture_by_name("./assets/heart.png"), sfTrue);
     change_pos(fight);
 }
 

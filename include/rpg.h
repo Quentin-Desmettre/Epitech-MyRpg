@@ -245,6 +245,7 @@ __attribute__((unused)) static const char *desc_qst[6] = {
     "Good luck =)"
 };
 
+void dmg_pl(fight_t *fight, window_t *win, sfFloatRect rect, float time);
 void free_textures(void);
 window_t *window(window_t *ptr);
 void destroy_path(path_t *p);

@@ -40,8 +40,6 @@ void cry_event(game_t *game)
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
     window_t *win = window(NULL);
     ray_c *r = win->menus[LIGHT];
-    sfVector2u po = graphic_pos_to_map(pos,
-    get_graphic_size(game->level, r), game->path->size, r->cell);
     float height = get_npc_hitbox(game->player).height;
 
     if (game->skills->data->tab[CRY] > 0 && C_TIME(game) > 60 /
