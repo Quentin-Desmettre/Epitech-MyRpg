@@ -48,6 +48,7 @@ typedef struct game {
     int nb_flash;
     quest_data_t *quest;
     p_clock_t *flash_clock;
+    p_clock_t *thirst_clock;
     int is_paused;
     pause_t *pause;
     sfMusic *rush_music;
