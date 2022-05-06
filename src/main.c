@@ -11,7 +11,6 @@
 static void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
-    save_player(win);
     save_settings(win->menus[SETTINGS]);
     destroy_settings(win->menus[SETTINGS]);
     destroy_main_menu(win->menus[HOME]);
