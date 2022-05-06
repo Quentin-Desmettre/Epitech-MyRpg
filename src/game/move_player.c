@@ -76,6 +76,8 @@ void update_vector(sfVector2f *vector, npc_t *npc, sfVector2f win_size)
 void move_pl(window_t *win)
 {
     game_t *game = win->menus[GAME];
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *infos = &c->saves[c->primary]->infos;
     sfVector2f movement = get_vector();
 
     if (get_elapsed_time(game->player->move_clock) > 33333) {
@@ -85,5 +87,12 @@ void move_pl(window_t *win)
         update_vector(&movement, game->player, win_size(win));
         move_along_vector(game, movement, win);
         game->player->dir = dir_from_v2f(movement);
+    }
+    if (get_elapsed_time(game->thirst_clock) > 2 SEC) {
+        infos->thirst_percent -= THIRST / (float)(1 + infos->thirst_res / 5);
+        restart_clock(game->thirst_clock);
+        infos->thirst_percent < 0 ? infos->thirst_percent = 0 : 0;
+        if (infos->thirst_percent == 0)
+            infos->health_percent -= 5;
     }
 }

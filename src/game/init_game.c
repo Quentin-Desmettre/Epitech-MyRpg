@@ -101,6 +101,7 @@ game_t *game_create(void)
     game->skills = skills_create();
     game->clock = create_clock();
     game->flash_clock = create_clock();
+    game->thirst_clock = create_clock();
     init_musics(game);
     return game;
 }

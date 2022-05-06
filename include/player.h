@@ -16,6 +16,7 @@
     #define P_ATK 15
     #define P_DEF 15
     #define P_SPD 15
+    #define THIRST 1
 
     #define PLAYER_GRP 0
     #define ENEMY_GRP 1
