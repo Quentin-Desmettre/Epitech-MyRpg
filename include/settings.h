@@ -112,6 +112,7 @@ static inline float get_music_vol(void)
 {
     return music_vol(0, 0);
 }
+
 static inline float get_sound_vol(void)
 {
     return sound_vol(0, 0);
