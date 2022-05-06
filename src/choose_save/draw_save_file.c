@@ -61,7 +61,7 @@ static sfSprite *get_gui_sprite(gui_player_t *p)
         (sfVector2f){p->infos.health_percent, 0});
         draw_bar(p->rtex, (sfVector2f){rtex_size.x * 0.2, rtex_size.y * 0.57},
         (sfVector2f){rtex_size.x * 0.7, rtex_size.y * 0.08},
-        (sfVector2f){p->infos.m_health_percent, 1});
+        (sfVector2f){p->infos.thirst_percent, 1});
         draw_stats_icons(p->rtex, p->stats_img);
     }
     sfRenderTexture_drawText(p->rtex, p->stats, NULL);

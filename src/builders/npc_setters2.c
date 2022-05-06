@@ -14,7 +14,7 @@ void set_npc_initframe(npc_t *npc, va_list va)
 
 void set_npc_health(npc_t *npc, va_list va)
 {
-    npc->health = va_arg(va, int);
+    npc->thirst = va_arg(va, int);
 }
 
 void set_npc_atk(npc_t *npc, va_list va)

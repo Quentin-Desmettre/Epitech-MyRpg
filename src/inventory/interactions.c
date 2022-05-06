@@ -37,11 +37,13 @@ void add_stat(window_t *win, int type)
         game->player->speed += 1;
     }
     if (type == 2) {
-        infos->stamina += 1;
+        infos->defense += 1;
         game->player->defense += 1;
     }
-    if (type == 3)
-        infos->mental_stability += 1;
+    if (type == 3) {
+        infos->thirst_res += 1;
+        game->player->thirst += 1;
+    }
 }
 
 void inventory_stats(game_t *game, sfEvent ev, window_t *win)
@@ -70,17 +72,17 @@ void inventory_buttons(game_t *game, sfEvent ev, sfVector2f size, window_t *win)
     103 * (SCALE(size)), 40 * (SCALE(size))}, {POS_X(size, indent, 1),
     POS_Y(size, indent, 2), 103 * (SCALE(size)), 40 * (SCALE(size))}};
     sfVector2f pos = sfSprite_getPosition(game->player->sprite);
+    int selected = game->inventory->item_selected;
 
-    if (sfFloatRect_intersects(&mouse, &buttons[0], 0) &&
-    game->inventory->item_selected != -1)
+    if (sfFloatRect_intersects(&mouse, &buttons[0], 0) && selected != -1)
         use_object(game, win->menus[SELECT_SAVE]);
-    if (sfFloatRect_intersects(&mouse, &buttons[1], 0) &&
-    game->inventory->item_selected != -1) {
+    if (sfFloatRect_intersects(&mouse, &buttons[1], 0) && selected != -1) {
         item = malloc(sizeof(item_t));
-        item->type = game->inventory->item_selected;
+        item->type = selected;
         item->pos = (coo_t){pos.x / (size.y / 15), pos.y / (size.y / 15)};
         append_node(&game->items, item);
-        remove_item(game->inventory, game->inventory->item_selected, 1);
+        update_inventory();
+        remove_item(game->inventory, selected, 1);
     }
     inventory_stats(game, ev, win);
 }

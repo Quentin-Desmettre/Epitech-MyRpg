@@ -108,8 +108,8 @@ static const sfColor grey = {
 static const sfIntRect stats_rects[] = {
     {648, 671, 125, 124}, // strength
     {775, 671, 128, 117}, // speed
-    {648, 799, 128, 128}, // stamina
-    {776, 799, 128, 128} // mental health
+    {648, 799, 128, 128}, // defense
+    {776, 799, 128, 128} // mental thirst
 };
 
 static const sfIntRect bars_frames[] = {
@@ -130,13 +130,18 @@ static const sfIntRect icon_rect = {
 typedef struct {
     char player_name[13];
     float health_percent;
-    float m_health_percent;
+    float thirst_percent;
     unsigned strength;
-    unsigned stamina;
+    unsigned defense;
     unsigned speed;
-    unsigned mental_stability;
+    unsigned thirst_res;
     sfColor skin_comb;
     int show_intro;
+    inventory_data_t inventory;
+    skills_data_t skills;
+    int level;
+    int xp;
+    int xp_limit;
 } player_info_t;
 
 static const sfIntRect hider_rect = {
@@ -274,7 +279,6 @@ const sfTexture *draw_create_save(window_t *c);
 create_save_t *create_create_save(sfVector2f size, int f_no);
 void file_select_events(window_t *win, sfEvent ev);
 gui_player_t *create_gui_player(char const *file, sfVector2f win_size);
-void go_back_to_main(void *win);
 void delete_selected(void *win);
 void launch_create_file(void *win);
 void launch_file(void *win);
@@ -434,6 +438,9 @@ void put_wall_around(path_t *p, sfVector2u pos);
 int is_on_water(npc_t *enemy, list_t *items, sfSprite *item);
 void draw_level(game_t *game, sfVector2f size);
 void use_object(game_t *game, choose_save_t *c);
+void update_skills(void);
+void update_inventory(void);
+void update_xp(void);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

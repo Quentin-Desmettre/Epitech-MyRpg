@@ -27,7 +27,7 @@ static npc_t *init_npc(void)
     npc->sprite = sfSprite_create();
     sfSprite_setPosition(npc->sprite, (sfVector2f){0, 0});
     npc->dir = RIGHT;
-    npc->health = 100;
+    npc->thirst = 100;
     npc->attack = 10;
     npc->defense = 10;
     npc->speed = 10;

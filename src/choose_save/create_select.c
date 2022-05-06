@@ -9,11 +9,6 @@
 #include <fcntl.h>
 #include "file_select.h"
 
-void go_back_to_main(void *win)
-{
-    set_next_win_state(win, HOME);
-}
-
 void delete_selected(void *win)
 {
     window_t *w = win;
@@ -36,6 +31,26 @@ void launch_create_file(void *win)
     w->menus[CREATE_SAVE] = create_create_save(win_size(w), c->primary);
 }
 
+void setup_attributes(game_t *g, player_info_t infos, window_t *w)
+{
+    *g->inventory->data = infos.inventory;
+    *g->skills->data = infos.skills;
+    g->player->level = infos.level;
+    g->player->xp = infos.xp;
+    g->player->xp_limit = infos.xp_limit;
+    g->inventory->item_selected = -1;
+    g->inventory->draw = 0;
+    g->skills->skill_selected = -1;
+    g->skills->draw = 0;
+    g->quest->draw = 0;
+    g->player->speed = infos.speed;
+    g->player->attack = infos.strength;
+    g->player->defense = infos.defense;
+    g->player->thirst = infos.health_percent;
+    sfSprite_setColor(((cinematic_t *)w->menus[CINE])->npc[0]->sprite,
+    infos.skin_comb);
+}
+
 void launch_file(void *win)
 {
     window_t *w = win;
@@ -46,14 +61,9 @@ void launch_file(void *win)
 
     sfSprite_setColor(g->player->sprite, infos.skin_comb);
     sfMusic_stop(w->music);
-    g->player->speed = infos.speed;
-    g->player->attack = infos.strength;
-    g->player->defense = infos.stamina;
-    g->player->health = infos.health_percent;
     set_next_win_state(win, infos.show_intro ? CINE : GAME);
-    sfSprite_setColor(((cinematic_t *)w->menus[CINE])->npc[0]->sprite,
-    infos.skin_comb);
     restart_clock(cine->clock);
+    setup_attributes(g, infos, win);
     lazy_room(win);
 }
 

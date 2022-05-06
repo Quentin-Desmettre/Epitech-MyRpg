@@ -24,7 +24,7 @@ typedef struct npc {
     int dir;
     int group;
     int frame;
-    int health;
+    int thirst;
     int attack;
     int defense;
     int nb_rects;
@@ -51,7 +51,7 @@ typedef struct npc {
 /// \param d      initial direction (optional, RIGHT by default).
 /// \param g      group of the npc (optional, 0 by default).
 /// \param s      starting frame (optional, 0 by default).
-/// \param h      health of the npc (optional, 100 by default)
+/// \param h      thirst of the npc (optional, 100 by default)
 /// \param a      attack of the npc (optional, 10 by default)
 /// \param f      defense of the npc (optional, 10 by default)
 /// \param v      speed of the npc (optional, 10 by default)

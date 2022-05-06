@@ -23,9 +23,9 @@
     #define PILLS 1
 // descriptions of the diffetents items
     #define WATER_DESC "Use this item to hydrate you.\n\
-Each use will restore 20% of your thirst."
-    #define PILLS_DESC "Use this item to heal your mental health.\n\
-Each use will restore 20% of your mental health."
+Each use will restore 40% of your thirst."
+    #define PILLS_DESC "Use this item to heal yourself.\n\
+Each use will restore 40% of your health."
 // getters of the items descriptions
     #define ITEM_TITLE(item) (item) ? "Pills" : "Water"
     #define ITEM_TXT(item) (item) ? PILLS_DESC : WATER_DESC

@@ -12,9 +12,9 @@ void use_object(game_t *game, choose_save_t *c)
     player_info_t *infos = &c->saves[c->primary]->infos;
 
     if (game->inventory->item_selected == WATER) {
-        infos->m_health_percent += 40;
-        if (infos->m_health_percent > 100)
-            infos->m_health_percent = 100;
+        infos->thirst_percent += 40;
+        if (infos->thirst_percent > 100)
+            infos->thirst_percent = 100;
     }
     if (game->inventory->item_selected == PILLS) {
         infos->health_percent += 40;

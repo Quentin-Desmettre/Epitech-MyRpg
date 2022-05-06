@@ -7,6 +7,18 @@
 
 #include "rpg.h"
 
+void update_skills(void)
+{
+    window_t *win = window(NULL);
+    game_t *g = win->menus[GAME];
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    int prim = c->primary;
+
+    if (prim < 0)
+        return;
+    c->saves[prim]->infos.skills = *g->skills->data;
+}
+
 int is_on_water(npc_t *enemy, list_t *items, sfSprite *item)
 {
     sfFloatRect bounds = get_npc_hitbox(enemy);

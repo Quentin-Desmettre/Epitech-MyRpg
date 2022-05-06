@@ -33,13 +33,13 @@ void skills_events(game_t *game, sfEvent ev, sfVector2f size)
         }
     button = sfSprite_getGlobalBounds(game->skills->button);
     if (selected >= 0 && sfFloatRect_intersects(&mouse, &button, 0) &&
-    game->skills->data->pc > 1 && game->skills->data->tab[selected] < 2) {
-        if (selected != 0 && game->skills->data->tab[selected - 1] == 0)
-            return;
+    game->skills->data->pc > 1 && game->skills->data->tab[selected] < 2 &&
+    !(selected != 0 && game->skills->data->tab[selected - 1] == 0)) {
         game->skills->data->pc -= 2;
         !game->skills->data->tab[selected] ?
         restart_clock(game->skills->clocks[selected]) : 0;
         game->skills->data->tab[selected]++;
+        update_skills();
     }
 }
 

@@ -25,14 +25,17 @@ void copy_data(player_info_t *infos, create_save_t *c)
 {
     memset(infos, 0, sizeof(player_info_t));
     infos->health_percent = 100;
-    infos->m_health_percent = 100;
+    infos->thirst_percent = 100;
     my_strcpy(infos->player_name, get_text(c->name));
-    infos->mental_stability = getnbr_sftext(c->stats_val[3]);
+    infos->thirst_res = getnbr_sftext(c->stats_val[3]);
     infos->speed = getnbr_sftext(c->stats_val[1]);
     infos->strength = getnbr_sftext(c->stats_val[0]);
-    infos->stamina = getnbr_sftext(c->stats_val[2]);
+    infos->defense = getnbr_sftext(c->stats_val[2]);
     infos->skin_comb = sfSprite_getColor(c->skin);
     infos->show_intro = 1;
+    infos->inventory.size = 0;
+    for (int i = 0; i < 12; i++)
+        infos->inventory.items[i] = -1;
 }
 
 void create_file(create_save_t *c, window_t *win)

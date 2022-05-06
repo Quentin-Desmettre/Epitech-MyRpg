@@ -46,8 +46,8 @@ static char *tooltip_str(player_info_t *infos)
     char *values[4] = {
         nbr_to_str(infos->strength),
         nbr_to_str(infos->speed),
-        nbr_to_str(infos->stamina),
-        nbr_to_str(infos->mental_stability)
+        nbr_to_str(infos->defense),
+        nbr_to_str(infos->thirst_res)
     };
     char *final = str_concat(7,
     values[0], "\n", values[1], "\n", values[2], "\n", values[3]);

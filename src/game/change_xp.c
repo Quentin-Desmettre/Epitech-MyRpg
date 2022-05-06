@@ -12,6 +12,20 @@ float get_xp_percent(npc_t *player)
     return ((float)player->xp / (float)player->xp_limit) * 100;
 }
 
+void update_xp(void)
+{
+    window_t *win = window(NULL);
+    game_t *g = win->menus[GAME];
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    int prim = c->primary;
+
+    if (prim < 0)
+        return;
+    c->saves[prim]->infos.xp = g->player->xp;
+    c->saves[prim]->infos.xp_limit = g->player->xp_limit;
+    c->saves[prim]->infos.level = g->player->level;
+}
+
 void remove_xp(game_t *game, int xp)
 {
     game->player->xp -= xp;
@@ -25,6 +39,7 @@ void remove_xp(game_t *game, int xp)
         game->player->xp = 0;
         game->player->xp_limit = 5;
     }
+    update_xp();
 }
 
 void add_xp(game_t *game, int xp)
@@ -37,4 +52,5 @@ void add_xp(game_t *game, int xp)
         game->skills->data->pc += 2;
         game->skills->data->xp += 2;
     }
+    update_xp();
 }

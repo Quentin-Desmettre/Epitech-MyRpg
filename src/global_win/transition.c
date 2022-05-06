@@ -14,13 +14,14 @@ static void switch_color_dir(window_t *win, int *dir)
     win->state = win->next_state;
     *dir = -1;
     if (win->state == EXIT) {
-        while (win->close_sfx &&
-        sfSound_getStatus(win->close_sfx) != sfStopped)
+        while (win->close_sfx && sfSound_getStatus(win->close_sfx) != sfStopped)
             sfSleep((sfTime){100000});
         sfRenderWindow_close(win->win);
     }
     if (win->state == FIGHT)
         recreate_enemy(win->menus[GAME], win->menus[LIGHT]);
+    if (win->state == SELECT_SAVE)
+        load_saves(win->menus[SELECT_SAVE]);
 }
 
 static void reset_lum(window_t *win, int *dir, sfColor *lum)

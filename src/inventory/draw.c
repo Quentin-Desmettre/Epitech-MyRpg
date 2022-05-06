@@ -12,8 +12,8 @@ int get_stat(window_t *win, int i)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
     player_info_t infos = c->saves[c->primary]->infos;
-    int nb_stats[4] = {infos.strength, infos.speed, infos.stamina,
-    infos.mental_stability};
+    int nb_stats[4] = {infos.strength, infos.speed, infos.defense,
+    infos.thirst_res};
 
     return nb_stats[i];
 }
