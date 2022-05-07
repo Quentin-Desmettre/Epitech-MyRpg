@@ -494,7 +494,8 @@ void update_xp(void);
 void set_level(window_t *win, int level);
 void setup_quests(game_t *g, player_info_t infos);
 void add_quest_prog(game_t *game, int quest, int nb);
-void draw_quest_prog(game_t *game, sfVector2u size, int nb);
+void draw_quest_prog(game_t *game, sfVector2u size);
+int is_to_draw(game_t *game);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

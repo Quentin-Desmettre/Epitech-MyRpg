@@ -7,10 +7,21 @@
 
 #include "rpg.h"
 
-void draw_quest_prog(game_t *game, sfVector2u size, int nb)
+int is_to_draw(game_t *game)
+{
+    const char *str = sfText_getString(game->quest->name);
+
+    for (int i = 1; i < 4; i++) {
+        if (!my_strcmp(str, name_qst[i]))
+            return i;
+    }
+    return 0;
+}
+
+void draw_quest_prog(game_t *game, sfVector2u size)
 {
     sfText *text = init_text("dtfyguhi", size.y / 40);
-    char *str = nbr_to_str(game->quest->progress[nb][0]);
+    char *str = nbr_to_str(game->quest->progress[is_to_draw(game)][0]);
     char *concat;
 
     concat = str_concat(3, "Progression :  ", str, " / 10");
@@ -25,11 +36,10 @@ void draw_quest_prog(game_t *game, sfVector2u size, int nb)
 
 void add_quest_prog(game_t *game, int quest, int nb)
 {
-    if (!game->quest->is_quest_used || game->quest->quests[quest].finish)
+    if (!game->quest->is_quest_used[quest] || game->quest->quests[quest].finish)
         return;
     game->quest->progress[quest][0] += nb;
     if (game->quest->progress[quest][0] >= game->quest->progress[quest][1]) {
-        game->quest->progress[quest][0] = 0;
         game->quest->quests[quest].finish = 1;
         add_xp(game, quest == 1 ? 15 : 5);
     }
