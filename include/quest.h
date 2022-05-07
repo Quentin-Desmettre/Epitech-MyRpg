@@ -11,6 +11,8 @@
     #include "rpg.h"
     #include "game.h"
 
+    #define QUEST_MAX 10
+
 typedef struct quest_t {
     int check;
     int finish;
@@ -28,6 +30,7 @@ typedef struct quest_data_t {
     char const *name_qst[4];
     char const *desc_qst[4];
     int is_quest_used[4];
+    int progress[4][2];
     int draw;
 } quest_data_t;
 

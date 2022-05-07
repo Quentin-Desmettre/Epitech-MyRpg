@@ -62,13 +62,14 @@ SRC = \
 	src/game/npc_collisions.c                          \
 	src/game/draw_xp.c                                 \
 	src/game/quest.c                                   \
-	src/game/quest2.c                                   \
+	src/game/quest2.c                                  \
 	src/game/change_xp.c                               \
 	src/game/init_game.c                               \
 	src/game/next_level.c                              \
 	src/game/game_ev.c                                 \
 	src/game/pause.c                                   \
 	src/game/pause_ev.c                                \
+	src/game/quest_progress.c                          \
 	src/choose_save/create_save_file.c                 \
 	src/choose_save/draw_save_file.c                   \
 	src/choose_save/create_select.c                    \

@@ -44,6 +44,8 @@ void init_quests(quest_data_t *quest)
         quest->is_quest_used[i] = 0;
         quest->name_qst[i] = "";
         quest->desc_qst[i] = "";
+        quest->progress[i][0] = 0;
+        quest->progress[i][1] = QUEST_MAX;
     }
 
     quest->name_qst[0] = name_qst[0];

@@ -54,6 +54,8 @@ void desc_draw(game_t *game, sfRenderWindow *win, int nb)
     sfRenderTexture_drawRectangleShape(game->rtex, game->quest->selec, NULL);
     sfRenderTexture_drawText(game->rtex, game->quest->name, NULL);
     sfRenderTexture_drawText(game->rtex, game->quest->desc, NULL);
+    if (game->quest->quests[nb].check == 1 && nb != 0)
+        draw_quest_prog(game, size, nb);
 }
 
 void draw_quest(game_t *game, window_t *win)

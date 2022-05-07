@@ -67,6 +67,7 @@ void move_blocs(fight_t *fight, window_t *win)
 {
     if (fight->nme <= 0) {
         add_xp(win->menus[GAME], 2);
+        add_quest_prog(win->menus[GAME], 1, 1);
         set_next_win_state(win, GAME);
         fight->nme = 100;
     }
