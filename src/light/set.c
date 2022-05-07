@@ -56,12 +56,12 @@ char choose_item(int i, int j, char c, game_t *game)
 
     if (c == 'X')
         return '1';
-    if (random < 20) {
+    if (random < 10) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 0;
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
-    } else if (random < 40) {
+    } else if (random < 20) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 1;
         tmp->pos = (coo_t){i, j};

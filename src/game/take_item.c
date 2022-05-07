@@ -69,5 +69,5 @@ void take_item(window_t *win, game_t *game, ray_c *data)
         }
         i++;
         tmp = tmp->next;
-    } while (tmp != game->items && tmp != 0);
+    } while (tmp != game->items && tmp != 0 && game->items != 0);
 }
