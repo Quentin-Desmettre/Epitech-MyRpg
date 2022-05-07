@@ -50,11 +50,11 @@ __attribute__((unused)) static const char *no_quests = "Hi, you =) I was "
 "pay your debts and complete some of the quests my friends gave you.";
 
 __attribute__((unused)) static const char *npc_texts[NB_TEXTS] = {
-    "Please go away. Leave me alone.",
-    "Wassup nigga",
-    "T'as push le francais ?",
-    "LMAO y'a Theo dans ton groupe",
-    "Quentin il est ou le verre du Square ?"
+    "Beware of party goers...",
+    "You should run away from here.",
+    "Don't stay too long in this place, or you will never come back =)",
+    "You should try to kiss a party goer ! It's fun =)",
+    "Why didn't you invite me to your party?"
 };
 
 #endif /* !NPC_TEXTS_H_ */

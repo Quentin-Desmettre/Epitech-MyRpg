@@ -47,6 +47,10 @@ void setup_attributes(game_t *g, player_info_t infos, window_t *w)
     g->player->attack = infos.strength;
     g->player->defense = infos.defense;
     g->player->thirst = infos.health_percent;
+    g->player->speed = infos.speed;
+    g->player->attack = infos.strength;
+    g->player->defense = infos.defense;
+    g->player->thirst = infos.thirst_res;
     sfSprite_setColor(((cinematic_t *)w->menus[CINE])->npc[0]->sprite,
     infos.skin_comb);
 }
@@ -62,12 +66,9 @@ void launch_file(void *win)
     sfSprite_setColor(g->player->sprite, infos.skin_comb);
     if (w->music)
         sfMusic_stop(w->music);
-    g->player->speed = infos.speed;
-    g->player->attack = infos.strength;
-    g->player->defense = infos.defense;
-    g->player->thirst = infos.thirst_res;
     destroy_cinematic(w->menus[CINE]);
     w->menus[CINE] = create_cinematic(sfWhite);
+    cine = w->menus[CINE];
     set_next_win_state(win, infos.show_intro ? CINE : GAME);
     restart_clock(cine->clock);
     setup_attributes(g, infos, win);

@@ -45,17 +45,21 @@ void switch_clocks(void)
 
 void pause_events(game_t *g, window_t *win, sfEvent ev)
 {
+    sfVector2f p = {ev.mouseButton.x, ev.mouseButton.y};
     if (ev.type == sfEvtMouseMoved)
         check_button_move(g->pause->buttons, 3, ev.mouseMove.x, ev.mouseMove.y);
     if (ev.type == sfEvtMouseButtonPressed)
-        check_button_press(g->pause->buttons, 3,
-        ev.mouseButton.x, ev.mouseButton.y);
+        check_button_press(g->pause->buttons, 3, p.x, p.y);
     if (ev.type == sfEvtMouseButtonReleased)
-        check_button_release(g->pause->buttons, 3,
-        (sfVector2f){ev.mouseButton.x, ev.mouseButton.y}, win);
+        check_button_release(g->pause->buttons, 3, p, win);
     if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
         switch_clocks();
         g->is_paused = !g->is_paused;
+        if (g->is_paused && g->rush_music)
+            sfMusic_pause(g->rush_music);
+        if (!g->is_paused && g->rush_music &&
+        sfMusic_getStatus(g->rush_music) == sfPaused)
+            sfMusic_play(g->rush_music);
     }
     if (g->is_paused && g->ambient_music)
         sfMusic_stop(g->ambient_music);
@@ -68,6 +72,11 @@ int check_pause(sfEvent ev, game_t *game)
     if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyEscape) {
         switch_clocks();
         game->is_paused = !game->is_paused;
+        if (game->is_paused && game->rush_music)
+            sfMusic_pause(game->rush_music);
+        if (!game->is_paused && game->rush_music &&
+        sfMusic_getStatus(game->rush_music) == sfPaused)
+            sfMusic_play(game->rush_music);
         if (game->is_paused && game->ambient_music)
             sfMusic_stop(game->ambient_music);
         if (!game->is_paused && game->ambient_music)

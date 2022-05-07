@@ -19,9 +19,12 @@ void destroy_pause(pause_t *p)
 void pause_resume(void *win)
 {
     window_t *w = win;
+    game_t *g = w->menus[GAME];
 
     switch_clocks();
-    GET_GAME(w)->is_paused = 0;
+    g->is_paused = 0;
+    if (g->rush_music && sfMusic_getStatus(g->rush_music) == sfPaused)
+        sfMusic_play(g->rush_music);
 }
 
 void pause_exit(void *win)
@@ -29,6 +32,8 @@ void pause_exit(void *win)
     window_t *w = win;
 
     switch_clocks();
+    if (GET_GAME(w)->rush_music)
+        sfMusic_stop(GET_GAME(w)->rush_music);
     save_player(win);
     GET_GAME(w)->is_paused = 0;
     lazy_room(win);

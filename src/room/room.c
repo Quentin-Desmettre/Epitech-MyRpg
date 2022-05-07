@@ -94,4 +94,6 @@ void new_room(game_t *game, ray_c *light)
     for (int i = 0; i < 10; i++, create_enemy(game, light));
     game->npc = create_pnj(game, light);
     unblock_pl(light, game->player, game->level);
+    if (game->rush_music)
+        sfMusic_stop(game->rush_music);
 }

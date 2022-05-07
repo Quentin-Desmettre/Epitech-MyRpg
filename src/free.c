@@ -41,8 +41,10 @@ int is_on_water(npc_t *enemy, list_t *items, sfSprite *item)
         return 0;
     do {
         it = items->data;
-        if (it->type != 2)
+        if (it->type != 2) {
             items = items->next;
+            continue;
+        }
         sfSprite_setPosition(item, it->pos);
         it_bounds = sfSprite_getGlobalBounds(item);
         if (sfFloatRect_intersects(&it_bounds, &bounds, NULL))

@@ -7,6 +7,12 @@
 
 #include "rpg.h"
 
+void move_enemy_v2f(enemy_t *e, sfVector2f vector)
+{
+    sfSprite_move(e->enemy->sprite, vector);
+    move_splash_particles(e->splash, vector);
+}
+
 float dist_between(sfSprite *a, sfSprite *b)
 {
     sfVector2f pa = sfSprite_getPosition(a);
@@ -31,11 +37,11 @@ void cancel_rush_of(enemy_t *e, ray_c *data, level_t *l)
         return;
     for (int i = 0; i < 4; i++) {
         if (i)
-            sfSprite_move(e->enemy->sprite,
+            move_enemy_v2f(e,
             (sfVector2f){-vectors[i - 1].x, -vectors[i - 1].y});
-        sfSprite_move(e->enemy->sprite, vectors[i]);
+        move_enemy_v2f(e, vectors[i]);
         if (!is_pnj_colliding(data, e->enemy, l) &&
-        is_on_water(e->enemy, g->items, g->inventory->items_sprite[2]))
+        !is_on_water(e->enemy, g->items, g->inventory->items_sprite[2]))
             return;
     }
 }
