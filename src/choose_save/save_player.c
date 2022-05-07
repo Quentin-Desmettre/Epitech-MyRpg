@@ -7,6 +7,18 @@
 
 #include "rpg.h"
 
+void update_quests(player_info_t *infos)
+{
+    game_t *g = GET_GAME(window(NULL));
+
+    for (int i = 0; i < 4; i++) {
+        infos->name_qst[i] =
+        index_str_in_array(name_qst, g->quest->name_qst[i]);
+        infos->desc_qst[i] =
+        index_str_in_array(desc_qst, g->quest->desc_qst[i]);
+    }
+}
+
 void save_player(window_t *win)
 {
     choose_save_t *c = win->menus[SELECT_SAVE];
@@ -20,6 +32,7 @@ void save_player(window_t *win)
     update_inventory();
     update_skills();
     update_xp();
+    update_quests(infos);
     infos->room_level = ((ray_c *)win->menus[LIGHT])->lvl;
     write(fd, infos, sizeof(player_info_t));
     close(fd);

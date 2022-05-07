@@ -41,13 +41,16 @@ void cry_event(game_t *game)
     window_t *win = window(NULL);
     ray_c *r = win->menus[LIGHT];
     float height = get_npc_hitbox(game->player).height;
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *infos = &c->saves[c->primary]->infos;
 
     if (game->skills->data->tab[CRY] > 0 && C_TIME(game) > 60 /
-    game->skills->data->tab[CRY] SEC) {
+    game->skills->data->tab[CRY] SEC && infos->thirst_percent > 40) {
         restart_clock(game->skills->clocks[CRY]);
         append_node(&game->items, create_item(2,
         (sfVector2f){pos.x, pos.y + height * 0.35}));
         update_path(game->path, game->level, r, pos);
+        infos->thirst_percent -= 40;
     }
 }
 

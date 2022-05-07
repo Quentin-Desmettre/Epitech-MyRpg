@@ -8,6 +8,16 @@
 #include "rpg.h"
 #include "player.h"
 
+void setup_quests(game_t *g, player_info_t infos)
+{
+    for (int i = 0; i < 4; i++) {
+        g->quest->desc_qst[i] =
+        infos.desc_qst[i] >= 0 ? desc_qst[infos.desc_qst[i]] : "";
+        g->quest->name_qst[i] =
+        infos.name_qst[i] >= 0 ? name_qst[infos.name_qst[i]] : "";
+    }
+}
+
 void set_level(window_t *win, int level)
 {
     ray_c *data = win->menus[LIGHT];
@@ -16,7 +26,7 @@ void set_level(window_t *win, int level)
     if (level >= 2)
         return;
     data->lvl = level;
-    game->quest->desc_qst[0] = desc_qst[data->lvl + 3];
+    game->quest->desc_qst[0] = desc_qst[data->lvl ? data->lvl + 3 : 0];
     if (level != 0)
         data->noise = get_texture_by_name(BLUE_NOISE);
     else
@@ -37,7 +47,7 @@ void next_level(window_t *win)
     }
     add_xp(win->menus[GAME], 10 + (data->lvl == 1 ? 5 : 0));
     data->lvl++;
-    game->quest->desc_qst[0] = desc_qst[data->lvl + 3];
+    game->quest->desc_qst[0] = desc_qst[data->lvl ? data->lvl + 3 : 0];
     data->noise = get_texture_by_name(BLUE_NOISE);
     sfSprite_setTexture(data->floor, data->floor_tex[data->lvl], 0);
     sfSprite_setTexture(data->noise_sp, data->noise, 0);

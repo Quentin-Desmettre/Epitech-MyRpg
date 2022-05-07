@@ -72,6 +72,7 @@ void launch_file(void *win)
     set_next_win_state(win, infos.show_intro ? CINE : GAME);
     restart_clock(cine->clock);
     setup_attributes(g, infos, win);
+    setup_quest();
     set_level(win, infos.room_level);
     lazy_room(win);
 }

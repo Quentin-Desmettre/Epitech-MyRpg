@@ -36,6 +36,10 @@ void copy_data(player_info_t *infos, create_save_t *c)
     infos->inventory.size = 0;
     for (int i = 0; i < 12; i++)
         infos->inventory.items[i] = -1;
+    for (int i = 1; i < 6; i++) {
+        infos->desc_qst[i] = -1;
+        infos->name_qst[i] = -1;
+    }
 }
 
 void create_file(create_save_t *c, window_t *win)
