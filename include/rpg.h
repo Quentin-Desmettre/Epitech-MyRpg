@@ -82,13 +82,29 @@ typedef struct {
     button_t *quit;
     sfSprite *player;
     sfMusic *music;
-    sfIntRect *rects;
+    sfIntRect const *rects;
     p_clock_t *clock;
     int nb_rect;
     int cur_rect;
     int is_dying;
     int anim;
 } end_t;
+
+typedef struct {
+    list_t *pages;
+    button_t *next;
+    button_t *prev;
+    button_t *quit;
+    sfRenderTexture *rtex;
+    int from;
+} how_to_play_t;
+
+__attribute__((unused)) static const sfIntRect exit_rect = {80, 161, 80, 80};
+__attribute__((unused)) static const char *pages[] = {
+    "assets/noise_b.png",
+    "assets/npc.png",
+    NULL
+};
 
 typedef struct win {
     sfVideoMode mode;
@@ -111,7 +127,7 @@ typedef struct win {
 
 typedef enum {
     SETTINGS, HOME, EXIT, GAME, LIGHT,
-    SELECT_SAVE, CREATE_SAVE, FIGHT, CINE, END
+    SELECT_SAVE, CREATE_SAVE, FIGHT, CINE, END, HTP
 } state_t;
 
 static const sfIntRect back_rect = {
@@ -126,7 +142,7 @@ static const sfIntRect stats_rects[] = {
     {648, 671, 125, 124}, // strength
     {775, 671, 128, 117}, // speed
     {648, 799, 128, 128}, // defense
-    {776, 799, 128, 128} // mental thirst
+    {776, 799, 128, 128} // thirst
 };
 
 static const sfIntRect bars_frames[] = {
@@ -268,6 +284,11 @@ __attribute__((unused)) static const char *desc_qst[6] = {
     "Good luck =)"
 };
 
+void destroy_htp(how_to_play_t *h);
+void set_htp(window_t *win, int scene_from);
+how_to_play_t *create_how_to_play(void);
+const sfTexture *draw_htp(window_t *win);
+void htp_event(window_t *win, sfEvent ev);
 void dmg_pl(fight_t *fight, window_t *win, sfFloatRect rect, float time);
 void free_textures(void);
 window_t *window(window_t *ptr);
@@ -374,8 +395,7 @@ void main_menu_ev(window_t *win, sfEvent ev);
 void quit_main_menu(void *win);
 void go_to_settings(void *win);
 void go_to_local_save(void *win);
-void go_to_map_editor(void *win);
-void go_to_online_level(void *win);
+void go_to_htp(void *win);
 void lazy_room(window_t *win);
 
 // game

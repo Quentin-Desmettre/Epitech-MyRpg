@@ -124,6 +124,8 @@ SRC = \
 	src/game/musics.c                                  \
 	src/die_screen/create.c                            \
 	src/main.c                                         \
+	src/how_to_play/create.c                           \
+	src/how_to_play/htp_ev.c                           \
 	src/free.c
 
 OBJ = $(SRC:.c=.o)

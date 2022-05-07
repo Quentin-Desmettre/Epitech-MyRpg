@@ -12,7 +12,7 @@ int find_exit_two(ray_c *data, game_t *game, int i)
 {
     for (int j = 0; j < game->level->size.x + 2; j++) {
         if (data->map[i][j] == '2') {
-            sfSound_play(game->yes);
+            game->yes ? sfSound_play(game->yes) : 0;
             return 1;
         }
     }
@@ -31,8 +31,8 @@ void find_exit_event(game_t *game)
         if (find_exit_two(data, game, i))
             return;
     }
-    sfSound_play(game->no);
-
+    if (game->no)
+        sfSound_play(game->no);
 }
 
 void draw_find_exit_sec(game_t *game, sfVector2f size)

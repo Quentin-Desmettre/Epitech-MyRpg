@@ -27,6 +27,7 @@ static void win_destroy(window_t *win)
     destroy_sounds();
     destroy_cinematic(win->menus[CINE]);
     destroy_end(win->menus[END]);
+    destroy_htp(win->menus[HTP]);
     free(win);
 }
 

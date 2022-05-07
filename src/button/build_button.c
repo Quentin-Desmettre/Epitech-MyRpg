@@ -26,6 +26,7 @@ void init_default(button_t *b)
     b->container_size = (sfVector2f){0, 0};
     b->action = NULL;
     b->text = init_text("", 0);
+    b->base_char_size = 0;
     b->sprite = init_sprite_from_texture(global_texture());
     b->font_factor = 0;
     b->is_hover = 0;
@@ -52,6 +53,7 @@ void update_button(button_t *b)
     sfSprite_setPosition(b->sprite, b->pos);
     sfText_setCharacterSize(b->text, b->size.y * b->font_factor);
     sfText_setPosition(b->text, b->pos);
+    b->base_char_size = b->size.y * b->font_factor;
 }
 
 button_t *build_button(char *format, ...)

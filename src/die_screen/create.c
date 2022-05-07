@@ -13,7 +13,8 @@ static void quit_ev(void *w)
     window_t *win = w;
     end_t *d = win->menus[END];
 
-    sfMusic_stop(d->music);
+    if (d->music)
+        sfMusic_stop(d->music);
     delete_selected(w);
     set_next_win_state(w, HOME);
 }

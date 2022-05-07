@@ -54,8 +54,9 @@ void create_resume_exit(pause_t *p, sfVector2f size)
         !i ? "Resume :)" : "Exit :(", global_texture(), button_rect,
         BUTTON_PRESS, BUTTON_RELEASE, !i ? pause_resume : pause_exit);
     p->buttons[2] = build_button("sf,pf,ff,base_size,text,texture,rect,p_sf"
-    ",r_sf", (sfVector2f){0.1, 0.07}, (sfVector2f){0.07, 0.07}, 1.0, size, "?",
-    global_texture(), button_rect, BUTTON_PRESS, BUTTON_RELEASE);
+    ",r_sf,release", (sfVector2f){0.1, 0.07}, (sfVector2f){0.07, 0.07}, 1.0,
+    size, "?",
+    global_texture(), button_rect, BUTTON_PRESS, BUTTON_RELEASE, go_to_htp);
     but_size = p->buttons[2]->size.x;
     p->buttons[2]->size.y = but_size;
     set_sprite_size(p->buttons[2]->sprite, p->buttons[2]->size);

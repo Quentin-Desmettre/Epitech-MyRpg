@@ -56,7 +56,7 @@ main_menu_t *create_main_menu(sfVector2f win_size)
 {
     main_menu_t *m = malloc(sizeof(main_menu_t));
     void (*actions[])(void *) = {go_to_local_save, go_to_settings,
-    NULL, quit_main_menu};
+    go_to_htp, quit_main_menu};
 
     m->main_txt = init_text("Backrooms", win_size.y / 6);
     center_text(m->main_txt);

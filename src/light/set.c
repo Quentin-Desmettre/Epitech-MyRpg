@@ -51,17 +51,17 @@ void set_room_map(ray_c *data)
 
 char choose_item(int i, int j, char c, game_t *game)
 {
-    int random = rand() % 2000;
+    int random = rand() % 4000;
     item_t *tmp = 0;
 
     if (c == 'X')
         return '1';
-    if (random < 10) {
+    if (random < 20) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 0;
         tmp->pos = (coo_t){i, j};
         append_node(&game->items, tmp);
-    } else if (random < 20) {
+    } else if (random < 40) {
         tmp = malloc(sizeof(item_t));
         tmp->type = 1;
         tmp->pos = (coo_t){i, j};

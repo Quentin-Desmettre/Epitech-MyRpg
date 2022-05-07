@@ -14,6 +14,7 @@ bool is_on_button(sfVector2f pos, button_t *b)
         b->pos.x - b->size.x / 2.0, b->pos.y - b->size.y / 2.0,
         b->size.x, b->size.y
     };
+
     if (sfFloatRect_contains(&bounds, pos.x, pos.y))
         return true;
     return false;
@@ -22,6 +23,7 @@ bool is_on_button(sfVector2f pos, button_t *b)
 void check_button_move(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};
+
     for (int i = 0; i < nb_button; i++)
         hover_button(buttons[i],
         buttons[i]->can_trigger ? is_on_button(pos, buttons[i]) : 0);
@@ -30,6 +32,7 @@ void check_button_move(button_t **buttons, int nb_button, float x, float y)
 void check_button_press(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};
+
     for (int i = 0; i < nb_button; i++)
         press_button(buttons[i],
         buttons[i]->can_trigger ? is_on_button(pos, buttons[i]) : 0);
@@ -57,6 +60,7 @@ sfVector2f pos, void *win)
 int button_at(button_t **buttons, int nb_button, float x, float y)
 {
     sfVector2f pos = {x, y};
+
     for (int i = 0; i < nb_button; i++)
         if (is_on_button(pos, buttons[i]))
             return i;

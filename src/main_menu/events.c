@@ -22,12 +22,8 @@ void go_to_local_save(void *win)
     set_next_win_state(win, SELECT_SAVE);
 }
 
-void go_to_map_editor(void *win)
+void go_to_htp(void *win)
 {
-    (void)win;
-}
-
-void go_to_online_level(void *win)
-{
-    (void)win;
+    window_t *w = win;
+    set_htp(win, w->state);
 }

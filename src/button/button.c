@@ -44,8 +44,7 @@ void hover_button(button_t *b, int is_on)
     } else {
         sfSprite_scale(b->sprite,
         (sfVector2f){1.0 / 1.05 , 1.0 / 1.05});
-        sfText_setCharacterSize(b->text,
-        sfText_getCharacterSize(b->text) * (1.0 / 1.05));
+        sfText_setCharacterSize(b->text, b->base_char_size);
     }
     b->is_hover = is_on;
 }

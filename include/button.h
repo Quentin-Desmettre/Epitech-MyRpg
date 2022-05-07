@@ -29,6 +29,7 @@ typedef struct {
     sfVector2f container_size;
     float font_factor;
     int can_trigger;
+    int base_char_size;
     sfSound *press;
     sfSound *release;
 } button_t;
