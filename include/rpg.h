@@ -101,8 +101,9 @@ typedef struct {
 
 __attribute__((unused)) static const sfIntRect exit_rect = {80, 161, 80, 80};
 __attribute__((unused)) static const char *pages[] = {
-    "assets/noise_b.png",
-    "assets/npc.png",
+    "assets/htp/commands.png",
+    "assets/htp/game.png",
+    "assets/htp/fight.png",
     NULL
 };
 
@@ -176,6 +177,8 @@ typedef struct {
     int xp;
     int xp_limit;
     int room_level;
+    int desc_qst[6];
+    int name_qst[6];
 } player_info_t;
 
 static const sfIntRect hider_rect = {
@@ -257,7 +260,7 @@ __attribute__((unused)) static const char *name_qst[4] = {
     "Pills !!!"
 };
 
-__attribute__((unused)) static const char *desc_qst[6] = {
+__attribute__((unused)) static const char *desc_qst[] = {
     "Hey welcome in the backrooms.\n"
     "The backrooms are safe, but be quiet.\n"
     "Try to exit level 0.\n"
@@ -281,7 +284,9 @@ __attribute__((unused)) static const char *desc_qst[6] = {
     "Oh no, you're already in the last level =(\n"
     "Or are you ?\n"
     "Anyway, try to exit =)\n"
-    "Good luck =)"
+    "Good luck =)",
+
+    NULL
 };
 
 void destroy_htp(how_to_play_t *h);
@@ -487,6 +492,7 @@ void update_skills(void);
 void update_inventory(void);
 void update_xp(void);
 void set_level(window_t *win, int level);
+void setup_quests(game_t *g, player_info_t infos);
 
 static inline sfVector2u get_graphic_size(level_t *l, ray_c *data)
 {

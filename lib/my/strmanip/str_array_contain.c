@@ -15,7 +15,7 @@ int str_array_contain(char **array, char *str)
     return 0;
 }
 
-int index_str_in_array(char **array, char *str)
+int index_str_in_array(char const **array, char const *str)
 {
     for (int i = 0; array[i]; i++)
         if (my_strcmp(array[i], str) == 0)

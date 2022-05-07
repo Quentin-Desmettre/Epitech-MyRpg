@@ -12,7 +12,7 @@ int str_is_alphanum(char const *str);
 char *str_concat(int nb_str, ...);
 void append_str_array(char ***array, char *val);
 int my_str_array_len(char **array);
-int index_str_in_array(char **array, char *str);
+int index_str_in_array(char const **array, char const *str);
 int str_array_contain(char **array, char *str);
 char *my_revstr(char *str);
 char *my_strcat(char *dest, char const *src);
