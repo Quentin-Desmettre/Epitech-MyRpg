@@ -31,16 +31,14 @@ void add_stat(window_t *win, int type)
     if (type == 0) {
         infos->strength += 1;
         game->player->attack += 1;
-    }
-    if (type == 1) {
+    } else if (type == 1) {
         infos->speed += 1;
         game->player->speed += 1;
     }
     if (type == 2) {
         infos->defense += 1;
         game->player->defense += 1;
-    }
-    if (type == 3) {
+    } else if (type == 3) {
         infos->thirst_res += 1;
         game->player->thirst += 1;
     }
