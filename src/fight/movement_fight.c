@@ -41,7 +41,7 @@ void exeption_side_move(sfFloatRect *rect, sfFloatRect *tmp1
     if (rect->left >= 1340)
         rect->left = 1340;
     if (touch_solid(*tmp1, fight) == 0 && touch_solid(*tmp2, fight) == 1) {
-        tmp = up_solid(*rect, fight, fight->fall < 0);
+        tmp = up_solid(*rect, fight, 0);
         rect->top = tmp == -1 ? rect->top : tmp;
         tmp2->top = rect->top;
         tmp1->top = tmp2->top;

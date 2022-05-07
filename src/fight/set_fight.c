@@ -41,8 +41,6 @@ void set_blocks(fight_t *fight)
         fight->dmg[i] = sfRectangleShape_create();
         sfRectangleShape_setSize(fight->dmg[i], (sfVector2f){50, 50});
         sfRectangleShape_setFillColor(fight->dmg[i], sfRed);
-        sfRectangleShape_setTexture(fight->dmg[i],
-        get_texture_by_name("./assets/heart.png"), sfTrue);
         fight->rand_time[i] = 0;
         fight->time[i] = create_clock();
     }
