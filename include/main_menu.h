@@ -10,7 +10,7 @@
     #include <SFML/Graphics.h>
 
 static const char *mm_texts[] = {
-    "Load save", "Settings", "?", ""
+    "Play", "Settings", "?", ""
 };
 static const sfVector2f mm_pf[4] = {
     {0.75, 0.75}, {0.25, 0.75}, {0.95, 0.05}, {0.05, 0.1}

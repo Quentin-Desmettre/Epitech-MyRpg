@@ -531,7 +531,7 @@ static inline sfVector2f *alloc_v2f(float x, float y)
 static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
 {
     destroy_interactive_npc(game->npc);
-    return ((rand() % 2) ? create_quest_npc(rnd_quest(game->quest), game,
+    return (!(rand() % 1) ? create_quest_npc(rnd_quest(game->quest), game,
     light) : create_talk_npc(game, light));
 }
 

@@ -28,7 +28,7 @@ typedef struct quest_data_t {
     sfRectangleShape *selec;
     sfSprite *back;
     char const *name_qst[4];
-    char const *desc_qst[4];
+    char const *desc_qst[5];
     int is_quest_used[4];
     int progress[4][2];
     int draw;

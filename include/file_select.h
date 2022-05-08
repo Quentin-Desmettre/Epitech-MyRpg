@@ -18,7 +18,7 @@ static inline void go_back_to_main(void *win)
 }
 
 char const *texts[] = {
-    "Cancel", "Delete", "Create", "Launch"
+    "Cancel", "Delete", "Create", "Play"
 };
 
 void (*functions[4])(void *) = {
