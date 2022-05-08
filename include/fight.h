@@ -60,5 +60,6 @@ float side_solid(sfFloatRect rect, fight_t *fight, int left);
 float up_solid(sfFloatRect rect, fight_t *fight, int top);
 void dis_circle(fight_t *fight, window_t *win);
 int touch_dmg(sfFloatRect rect, fight_t *fight);
+void place_circle(int x, fight_t *fight);
 
 #endif

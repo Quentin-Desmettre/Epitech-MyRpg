@@ -64,13 +64,7 @@ void dmg_to_nme(fight_t *fight, window_t *win)
 
     if (sfCircleShape_getPosition(fight->circle).x == 120)
         x = 1320;
-    for (int i = 0; i == 0 ||
-    touch_solid(rect, fight); i++) {
-        sfCircleShape_setPosition(fight->circle, (coo_t){x, 100 * (9 - i)});
-        rect = sfCircleShape_getGlobalBounds(fight->circle);
-        rect.top -= 100;
-        rect.height += 100;
-    }
+    place_circle(x, fight);
     fight->nme -= 15 + 15 * ((2.0 - ((ray_c *)win->menus[LIGHT])->lvl) / 2.0) +
     15 * (info.strength / 30.0);
 }

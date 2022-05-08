@@ -28,6 +28,7 @@ void change_pos(fight_t *fight)
     sfRectangleShape_setPosition(fight->player, (sfVector2f){900, 500});
     fight->fall = 0;
     sfClock_restart(fight->player_clock);
+    place_circle(120, fight);
 }
 
 void set_blocks(fight_t *fight)
@@ -53,10 +54,22 @@ void set_blocks(fight_t *fight)
     change_pos(fight);
 }
 
+void place_circle(int x, fight_t *fight)
+{
+    sfFloatRect rect;
+
+    for (int i = 0; i == 0 || touch_solid(rect, fight); i++) {
+        sfCircleShape_setPosition(fight->circle, (sfVector2f){x, 100 *
+        (9 - i)});
+        rect = sfCircleShape_getGlobalBounds(fight->circle);
+        rect.height += 100;
+        rect.top -= 100;
+    }
+}
+
 fight_t *init_fight(void)
 {
     fight_t *fight = malloc(sizeof(fight_t));
-    sfFloatRect rect;
 
     fight->fall = 0;
     fight->tex = sfRenderTexture_create(1920, 1080, 0);
@@ -66,13 +79,7 @@ fight_t *init_fight(void)
     fight->player_clock = sfClock_create();
     set_blocks(fight);
     fight->nme = 100;
-    for (int i = 0; i == 0 || touch_solid(rect, fight); i++) {
-        sfCircleShape_setPosition(fight->circle, (sfVector2f){120, 100 *
-        (9 - i)});
-        rect = sfCircleShape_getGlobalBounds(fight->circle);
-        rect.height += 100;
-        rect.top -= 100;
-    }
+    place_circle(120, fight);
     return (fight);
 }
 
