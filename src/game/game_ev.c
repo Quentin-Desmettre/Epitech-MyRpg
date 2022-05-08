@@ -75,7 +75,6 @@ void game_ev(window_t *win, sfEvent ev)
         if (ev.key.code == sfKeyF)
             find_exit_event(game);
         show_menus_ev(ev, game);
-        debug_ev(ev, win, game);
     }
     menus_ev(ev, game, win);
 }

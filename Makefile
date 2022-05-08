@@ -133,7 +133,7 @@ OBJ = $(SRC:.c=.o)
 
 NAME = my_rpg
 
-CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -g -DDEBUG
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -DDEBUG
 
 LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window -lcsfml-audio \
 			-lcsfml-system -lm
