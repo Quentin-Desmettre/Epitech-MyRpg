@@ -283,6 +283,45 @@ __attribute__((unused)) static const char *desc_qst[] = {
     NULL
 };
 
+__attribute__((unused)) static const char *all_assets[] = {
+    "assets/floor_wall/floor_lvl1.png",
+    "assets/floor_wall/floor_office.png",
+    "assets/floor_wall/wall_lvl.png",
+    "assets/floor_wall/wall_office.png",
+    "assets/floor_wall/window3.png",
+    "assets/floor_wall/concrete_floor.png",
+    "assets/floor_wall/concrete_wall.png",
+    "assets/noise.png",
+    "assets/player.png",
+    "assets/inventory/pills.png",
+    "assets/inventory/water.png",
+    "assets/inventory/button.png",
+    "assets/inventory/inventory.png",
+    "assets/skills/cry.png",
+    "assets/skills/skills.png",
+    "assets/skills/skills_button.png",
+    "assets/skills/cry_white.png",
+    "assets/skills/find_exit.png",
+    "assets/skills/find_exit_white.png",
+    "assets/skills/sprint.png",
+    "assets/skills/sprint_white.png",
+    "assets/skills/puddle.png",
+    "assets/noise_b.png",
+    "assets/party.png",
+    "assets/pause.png",
+    "assets/arrow.png",
+    "assets/bars.png",
+    "assets/pnj_box.png",
+    "assets/pnj_opt_box.png",
+    "assets/quest.png",
+    "assets/heart.png",
+    "assets/npc.png",
+    "assets/htp/commands.png",
+    "assets/htp/fight.png",
+    "assets/htp/game.png",
+    NULL
+};
+
 void destroy_htp(how_to_play_t *h);
 void set_htp(window_t *win, int scene_from);
 how_to_play_t *create_how_to_play(void);
@@ -310,6 +349,7 @@ void move_pl(window_t *win);
 void free_save(gui_player_t *g);
 void destroy_create_save(void **cr);
 void free_choose_save(choose_save_t *c);
+int are_all_textures_valid(void);
 void init_from_file(gui_player_t *g,
 char const *file, sfVector2f size);
 void change_color(create_save_t *c, int button);

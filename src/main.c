@@ -88,9 +88,9 @@ int main(void)
 {
     window_t *win;
 
-    my_srand();
-    if (!global_texture() || !global_font())
+    if (!are_all_textures_valid())
         return 84;
+    my_srand();
     win = window_create();
     window(win);
     lazy_room(win);

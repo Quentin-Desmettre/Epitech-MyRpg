@@ -21,6 +21,7 @@ static button_t *init_set_button(const sfIntRect rect)
 {
     button_t *b = malloc(sizeof(button_t));
 
+    memset(b, 0, sizeof(button_t));
     b->is_hover = 0;
     b->is_press = 0;
     b->text = init_text("", 0);
