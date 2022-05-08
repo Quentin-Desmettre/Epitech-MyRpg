@@ -61,7 +61,7 @@ void pause_events(game_t *g, window_t *win, sfEvent ev)
         sfMusic_getStatus(g->rush_music) == sfPaused)
             sfMusic_play(g->rush_music);
     }
-    (g->is_paused && g->ambient_music) ? sfMusic_stop(g->ambient_music) : 0;
+    (g->is_paused && g->ambient_music) ? sfMusic_pause(g->ambient_music) : 0;
     if (!g->is_paused && g->ambient_music && win->next_state == GAME)
         sfMusic_play(g->ambient_music);
 }
@@ -77,7 +77,7 @@ int check_pause(sfEvent ev, game_t *game)
         sfMusic_getStatus(game->rush_music) == sfPaused)
             sfMusic_play(game->rush_music);
         if (game->is_paused && game->ambient_music)
-            sfMusic_stop(game->ambient_music);
+            sfMusic_pause(game->ambient_music);
         if (!game->is_paused && game->ambient_music)
             sfMusic_play(game->ambient_music);
         return 1;
