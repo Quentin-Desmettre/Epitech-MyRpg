@@ -33,6 +33,11 @@ static void show_menus_ev(sfEvent ev, game_t *game)
 
 static void debug_ev(sfEvent ev, window_t *win, game_t *game)
 {
+    choose_save_t *c = win->menus[SELECT_SAVE];
+    player_info_t *i = c->primary >= 0 ? &c->saves[c->primary]->infos : NULL;
+
+    if (!i || index_str_in_array(debuggers, i->player_name) < 0)
+        return;
     if (ev.key.code == sfKeyR)
         new_room(win->menus[GAME], win->menus[LIGHT]);
     if (ev.key.code == sfKeyB)
@@ -75,6 +80,7 @@ void game_ev(window_t *win, sfEvent ev)
         if (ev.key.code == sfKeyF)
             find_exit_event(game);
         show_menus_ev(ev, game);
+        debug_ev(ev, win, game);
     }
     menus_ev(ev, game, win);
 }

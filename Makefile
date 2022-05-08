@@ -101,7 +101,6 @@ SRC = \
 	src/inventory/draw.c                               \
 	src/sound_builder/build_sfx.c                      \
 	src/sound_builder/build_music.c                    \
-	src/sound_builder/safe.c                           \
 	src/rand/srand.c                                   \
 	src/particles/particle.c                           \
 	src/particles/splash.c                             \
@@ -133,7 +132,7 @@ OBJ = $(SRC:.c=.o)
 
 NAME = my_rpg
 
-CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/ -DDEBUG
+CFLAGS = -Wall -Wextra -I ./include/ -I lib/my/include/
 
 LDFLAGS += -L lib/my/ -lmy -lcsfml-graphics -lcsfml-window -lcsfml-audio \
 			-lcsfml-system -lm

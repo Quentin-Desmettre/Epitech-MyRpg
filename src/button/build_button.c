@@ -68,7 +68,7 @@ button_t *build_button(char *format, ...)
     init_default(b);
     va_start(va, format);
     for (int i = 0, index = 0; p[i]; i++) {
-        index = index_str_in_array(params, p[i]);
+        index = index_str_in_array((const char **)params, p[i]);
         if (index >= 0 && index < 11)
             setters[index](b, va);
     }

@@ -23,22 +23,6 @@
     #include "particles.h"
     #include "inter_npc.h"
     #include "cinematic.h"
-
-    #ifdef DEBUG
-
-        #define sfMusic_createFromFile music_func
-        #define sfSound_create sound_func
-
-    sfSound *sound_func(void);
-    sfMusic *music_func(char *s);
-
-    #endif
-
-list_t **sound_list(void);
-list_t **music_list(void);
-float music_vol(int change, float new);
-float sound_vol(int change, float new);
-
     #include "audio_builder.h"
 
     #define ABS(x) ((x) < 0 ? -(x) : (x))
@@ -100,10 +84,19 @@ typedef struct {
 } how_to_play_t;
 
 __attribute__((unused)) static const sfIntRect exit_rect = {80, 161, 80, 80};
+
 __attribute__((unused)) static const char *pages[] = {
     "assets/htp/commands.png",
     "assets/htp/game.png",
     "assets/htp/fight.png",
+    NULL
+};
+
+__attribute__((unused)) static const char *debuggers[] = {
+    "quentin",
+    "paulin",
+    "edgar",
+    "valentin",
     NULL
 };
 
@@ -531,7 +524,7 @@ static inline sfVector2f *alloc_v2f(float x, float y)
 static inline interactive_npc_t *create_pnj(game_t *game, ray_c *light)
 {
     destroy_interactive_npc(game->npc);
-    return (!(rand() % 1) ? create_quest_npc(rnd_quest(game->quest), game,
+    return ((rand() % 2) ? create_quest_npc(rnd_quest(game->quest), game,
     light) : create_talk_npc(game, light));
 }
 

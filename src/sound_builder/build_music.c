@@ -6,7 +6,6 @@
 */
 
 #include "rpg.h"
-#include "audio_undef.h"
 
 void set_musics_volume(float volume)
 {

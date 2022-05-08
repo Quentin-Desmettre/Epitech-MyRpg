@@ -60,7 +60,6 @@ void dmg_to_nme(fight_t *fight, window_t *win)
     choose_save_t *c = win->menus[SELECT_SAVE];
     player_info_t info = c->saves[c->primary]->infos;
     int x = 120;
-    sfFloatRect rect;
 
     if (sfCircleShape_getPosition(fight->circle).x == 120)
         x = 1320;

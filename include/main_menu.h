@@ -13,7 +13,7 @@ static const char *mm_texts[] = {
     "Play", "Settings", "?", ""
 };
 static const sfVector2f mm_pf[4] = {
-    {0.75, 0.75}, {0.25, 0.75}, {0.95, 0.05}, {0.05, 0.1}
+    {0.75, 0.85}, {0.25, 0.85}, {0.95, 0.05}, {0.05, 0.1}
 };
 static const sfVector2f mm_sf[4] = {
     {0.4, 0.17}, {0.4, 0.17}, {0.08, 0}, {0.08, 0}

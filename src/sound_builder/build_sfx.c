@@ -6,7 +6,6 @@
 */
 
 #include "rpg.h"
-#include "audio_undef.h"
 
 void set_sounds_volume(float volume)
 {
@@ -55,7 +54,6 @@ sfSound *create_sound(char const *source)
 
     if (!buf) {
         sfSound_destroy(sound);
-        dprint(2, "Error: Cannot load file '%s'.\n", source);
         return NULL;
     }
     sfSound_setBuffer(sound, buf);

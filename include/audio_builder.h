@@ -20,7 +20,9 @@ void destroy_music(sfMusic *s);
 void destroy_musics(void);
 sfMusic *create_music(char const *source);
 
-sfSound *sound_func(void);
-sfMusic *music_func(char *s);
+list_t **sound_list(void);
+list_t **music_list(void);
+float music_vol(int change, float new);
+float sound_vol(int change, float new);
 
 #endif
