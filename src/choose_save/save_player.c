@@ -17,6 +17,7 @@ void update_quests(player_info_t *infos)
         infos->desc_qst[i] =
         index_str_in_array(desc_qst, g->quest->desc_qst[i]);
     }
+    my_memcpy(infos->progress, g->quest->progress, sizeof(int [4][2]));
 }
 
 void save_player(window_t *win)

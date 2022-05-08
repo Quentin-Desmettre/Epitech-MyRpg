@@ -179,6 +179,7 @@ typedef struct {
     int room_level;
     int desc_qst[6];
     int name_qst[6];
+    int progress[4][2];
 } player_info_t;
 
 static const sfIntRect hider_rect = {

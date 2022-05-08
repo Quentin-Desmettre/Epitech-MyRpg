@@ -15,6 +15,9 @@ void setup_quests(game_t *g, player_info_t infos)
         infos.desc_qst[i] >= 0 ? desc_qst[infos.desc_qst[i]] : "";
         g->quest->name_qst[i] =
         infos.name_qst[i] >= 0 ? name_qst[infos.name_qst[i]] : "";
+        if (infos.desc_qst[i] >= 0)
+            g->quest->is_quest_used[infos.desc_qst[i]] = 1;
+        my_memcpy(g->quest->progress, infos.progress, sizeof(int [4][2]));
     }
 }
 

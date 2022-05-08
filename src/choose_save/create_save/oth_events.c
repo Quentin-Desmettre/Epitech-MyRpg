@@ -40,6 +40,8 @@ void copy_data(player_info_t *infos, create_save_t *c)
         infos->desc_qst[i] = -1;
         infos->name_qst[i] = -1;
     }
+    for (int i = 0; i < 4; i++)
+        my_memcpy(infos->progress[i], (int [2]){0, 10}, sizeof(int [2]));
 }
 
 void create_file(create_save_t *c, window_t *win)

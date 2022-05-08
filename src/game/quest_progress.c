@@ -36,11 +36,24 @@ void draw_quest_prog(game_t *game, sfVector2u size)
 
 void add_quest_prog(game_t *game, int quest, int nb)
 {
-    if (!game->quest->is_quest_used[quest] || game->quest->quests[quest].finish)
+    int idx_qst = index_str_in_array(game->quest->desc_qst, desc_qst[quest]);
+
+    if (!game->quest->is_quest_used[quest] || game->quest->quests[idx_qst].finish)
         return;
     game->quest->progress[quest][0] += nb;
     if (game->quest->progress[quest][0] >= game->quest->progress[quest][1]) {
-        game->quest->quests[quest].finish = 1;
+        game->quest->quests[idx_qst].finish = 1;
+
+        game->quest->is_quest_used[quest] = 0;
+        for (int i = idx_qst; i < 3; i++) {
+            game->quest->name_qst[i] = game->quest->name_qst[i + 1];
+            game->quest->desc_qst[i] = game->quest->desc_qst[i + 1];
+        }
+        game->quest->name_qst[3] = "";
+        game->quest->desc_qst[3] = "";
+        game->quest->progress[quest][0] = 0;
+        game->quest->quests[idx_qst].finish = 0;
+
         add_xp(game, quest == 1 ? 15 : 5);
     }
 }
